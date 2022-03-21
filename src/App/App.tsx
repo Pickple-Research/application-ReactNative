@@ -1,6 +1,11 @@
-import React from 'react';
-import {Text} from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppBottomTabNavigator } from "../Navigator";
 
 export default function App() {
-  return <Text>Welcome to Pickple Research</Text>;
+  return (
+    <NavigationContainer>
+      <AppBottomTabNavigator />
+    </NavigationContainer>
+  );
 }
