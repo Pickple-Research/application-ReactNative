@@ -16,15 +16,15 @@ export function CommunityStackNavigator() {
   return (
     <CommunityStack.Navigator screenOptions={{ headerShown: false }}>
       <CommunityStack.Screen
-        name={CommunityScreen.name}
+        name={"CommunityScreen"}
         component={CommunityScreen}
       />
       <CommunityStack.Screen
-        name={CommunityInterestScreen.name}
+        name={"CommunityInterestScreen"}
         component={CommunityInterestScreen}
       />
       <CommunityStack.Screen
-        name={CommunityVoteScreen.name}
+        name={"CommunityVoteScreen"}
         component={CommunityVoteScreen}
       />
     </CommunityStack.Navigator>

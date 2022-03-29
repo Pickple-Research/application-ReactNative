@@ -12,6 +12,11 @@ export const customAxios = axios.create({
 });
 
 /**
+ * TODO: 요청 인터셉터 추가
+ */
+customAxios.interceptors.request.use();
+
+/**
  * 응답 인터셉터를 추가합니다.
  */
 customAxios.interceptors.response.use(
@@ -21,6 +26,7 @@ customAxios.interceptors.response.use(
     return response.data;
   },
 
+  //TODO: 에러 인터셉터별 토스트 메세지 지정
   //* 에러가 발생한 경우 처리합니다.
   error => {},
 );

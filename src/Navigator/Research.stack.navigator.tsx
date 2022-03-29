@@ -12,11 +12,11 @@ export function ResearchStackNavigator() {
   return (
     <ResearchStack.Navigator screenOptions={{ headerShown: false }}>
       <ResearchStack.Screen
-        name={ResearchScreen.name}
+        name={"ResearchScreen"}
         component={ResearchScreen}
       />
       <ResearchStack.Screen
-        name={ResearchDetailScreen.name}
+        name={"ResearchDetailScreen"}
         component={ResearchDetailScreen}
       />
     </ResearchStack.Navigator>

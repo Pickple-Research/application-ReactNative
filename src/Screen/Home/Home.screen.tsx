@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { FullView } from "../../Component/StyledComponents";
 
 export function HomeScreen() {
   return (
-    <View>
+    <FullView>
       <Text>메인 페이지</Text>
-    </View>
+    </FullView>
   );
 }
