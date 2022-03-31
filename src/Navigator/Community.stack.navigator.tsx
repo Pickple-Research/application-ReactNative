@@ -4,7 +4,7 @@ import {
   CommunityScreen,
   CommunityInterestScreen,
   CommunityVoteScreen,
-} from "../Screen/Community";
+} from "..//Screen/Community";
 
 const CommunityStack = createNativeStackNavigator();
 
@@ -42,6 +42,7 @@ type CommunityVoteScreenProp = undefined;
  * 이 type의 key에 해당하는 값은 CommunityStack.Screen의 name과 일치해야 합니다.
  * @author 현웅
  */
+
 export type CommunityStackScreenProp = {
   CommunityScreen: CommunityScreenProp;
   CommunityInterestScreen: CommunityInterestScreenProp;
