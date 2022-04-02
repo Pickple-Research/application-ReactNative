@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../../Screen/Home";
 import { BottomTabImage, BottomTabMainImage, BottomTabMainView, BottomTabTextActive, BottomTabTextInactive, BottomTabView } from "./style";
+import { BackHandler } from "react-native";
 
 
-export const AppBottomTab = createBottomTabNavigator<AppBottomTabProps>();
+export const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 
-export type AppBottomTabProps = {
+
+export type MainBottomTabProps = {
   "Client": any
   "Research": any
   "Home": any
@@ -56,10 +58,15 @@ const bottomTab = {
  * 다른 네비게이터가 이 네비게이터를 구성하는 스크린 컴포넌트로 들어옵니다.
  * @author 현웅
  */
-export function AppBottomTabNavigator() {
+export function MainBottomTabNavigator() {
+  BackHandler.addEventListener("hardwareBackPress", () => {
+    console.log("메인페이지에서 로그인 페이지로 back button을 통해 돌아가는 것을 불가능합니다.")
+    console.log("유저페이지에서 시도해주세요");
+    return true;
+  })
   return (
-    <AppBottomTab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
-      <AppBottomTab.Screen name={"Client"} component={HomeScreen} options={{
+    <MainBottomTab.Navigator screenOptions={{ headerTitle: "", tabBarShowLabel: false }}>
+      <MainBottomTab.Screen name={"Client"} component={HomeScreen} options={{
         tabBarIcon: ({ focused }) => (
           <BottomTabView>
             <BottomTabImage source={focused ? bottomTab.Client.image.active : bottomTab.Client.image.inactive} />
@@ -68,7 +75,7 @@ export function AppBottomTabNavigator() {
         ),
       }} />
 
-      <AppBottomTab.Screen
+      <MainBottomTab.Screen
         name={"Research"}
         component={HomeScreen}
         options={{
@@ -80,14 +87,14 @@ export function AppBottomTabNavigator() {
           ),
         }}
       />
-      <AppBottomTab.Screen name={"Home"} component={HomeScreen} options={{
+      <MainBottomTab.Screen name={"Home"} component={HomeScreen} options={{
         tabBarIcon: ({ focused }) => (
           <BottomTabMainView>
             <BottomTabMainImage source={focused ? bottomTab.Home.image.active : bottomTab.Home.image.inactive} />
           </BottomTabMainView>
         ),
       }} />
-      <AppBottomTab.Screen
+      <MainBottomTab.Screen
         name={"Community"}
         component={HomeScreen}
         options={{
@@ -99,7 +106,7 @@ export function AppBottomTabNavigator() {
           ),
         }}
       />
-      <AppBottomTab.Screen name="User" component={HomeScreen} options={{
+      <MainBottomTab.Screen name="User" component={HomeScreen} options={{
         tabBarIcon: ({ focused }) => (
           <BottomTabView>
             <BottomTabImage source={focused ? bottomTab.User.image.active : bottomTab.User.image.inactive} />
@@ -107,6 +114,6 @@ export function AppBottomTabNavigator() {
           </BottomTabView>
         ),
       }} />
-    </AppBottomTab.Navigator>
+    </MainBottomTab.Navigator>
   );
 }
