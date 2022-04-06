@@ -11,4 +11,4 @@ export * from "./Home.stack.navigator";
 export * from "./Community.stack.navigator";
 export * from "./Community.topTab.navigator";
 
-export * from "./Profile.stack.navigator"
+export * from "./Profile.stack.navigator";
