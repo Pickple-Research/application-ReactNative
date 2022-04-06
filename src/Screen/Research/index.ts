@@ -1,2 +1,3 @@
-export * from "./Research.screen";
-export * from "./ResearchDetail.screen";
+export * from "./MainResearch.screen"
+export * from "./ResearchDetail.screen"
+export * from "./ResearchUpload.screen"

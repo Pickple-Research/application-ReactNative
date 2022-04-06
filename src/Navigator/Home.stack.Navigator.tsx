@@ -1,6 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainHomeScreen, MainHomeScreenProps } from "@Screen/Main/MainHome";
+import { MainHomeScreen, MainHomeScreenProps } from "@Screen/Home";
 
 export const HomeStack = createNativeStackNavigator<HomeStackProps>()
 
@@ -18,5 +18,5 @@ export function HomeStackNavigator() {
 }
 
 export type HomeStackProps = {
-    "MainHomeScreen": MainHomeScreenProps
+    MainHomeScreen: MainHomeScreenProps
 }

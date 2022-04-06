@@ -1,6 +1,6 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { MainCommunityInterestScreen, MainCommunityInterestScreenProps, MainCommunityVoteScreen, MainCommunityVoteScreenProps } from '@Screen/Main/MainCommunity';
+import { MainCommunityInterestScreen, MainCommunityInterestScreenProps, MainCommunityVoteScreen, MainCommunityVoteScreenProps } from '@Screen/Community';
 
 const communityTopTab = createMaterialTopTabNavigator();
 

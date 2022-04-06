@@ -1,8 +1,8 @@
 // 최상단 navigator
-export * from "./AppBottomTabNavigator/App.bottomTab.navigator";
+export * from "./Main.bottomTab.navigator";
 
 // bottomTab Navigator의 하위 Navigator 5묶음
-export * from "./Community.stack.navigator";
+export * from "./Client.stack.navigator";
 
 export * from "./Research.stack.navigator";
 
