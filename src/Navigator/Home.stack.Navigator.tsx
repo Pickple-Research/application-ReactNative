@@ -18,5 +18,5 @@ export function HomeStackNavigator() {
 }
 
 export type HomeStackProps = {
-    MainHomeScreen: MainHomeScreenProps
+    MainHomeScreen: MainHomeScreenProps;
 }
