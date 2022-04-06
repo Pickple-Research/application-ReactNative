@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainClientScreen } from "@Screen/Main/MainClient";
-import { MainProfileScreenProps } from "@Screen/Main/MainProfile";
+import { MainProfileScreen, MainProfileScreenProps } from "@Screen/User";
+import { BackHandler } from 'react-native';
 
 export const ProfileStack = createNativeStackNavigator<ProfileStackProps>()
 
 
 export function ProfileStackNavigator() {
+    
     return (    
         <ProfileStack.Navigator screenOptions={{headerTitle: ""}}>
             <ProfileStack.Screen
                 name={"MainProfileScreen"}
-                component={MainClientScreen}
+                component={MainProfileScreen}
                 />
         </ProfileStack.Navigator>
     )
@@ -21,3 +22,4 @@ export function ProfileStackNavigator() {
 export type ProfileStackProps = {
     "MainProfileScreen": MainProfileScreenProps
 }
+

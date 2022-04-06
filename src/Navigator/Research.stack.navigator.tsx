@@ -1,7 +1,11 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ResearchScreen, ResearchDetailScreen } from "../Screen/Research";
-import { MainResearchScreenProps } from "@Screen/Main/MainResearch";
+import { 
+  MainResearchScreen, MainResearchScreenProps, 
+  ResearchDetailScreen, ResearchDetailScreenProps, 
+  ResearchUploadScreen, ResearchUploadScreenProps
+} from "@Screen/Research";
+import { BackHandler } from "react-native";
 
 const ResearchStack = createNativeStackNavigator<ResearchStackProps>();
 
@@ -9,12 +13,22 @@ const ResearchStack = createNativeStackNavigator<ResearchStackProps>();
  * 리서치 페이지가 쌓이는 스택 네비게이터입니다.
  * @author 현웅
  */
-export function ResearchStackNavigator() {
+export function ResearchStackNavigator( { navigation }: any) {
+  
   return (
     <ResearchStack.Navigator screenOptions={{headerTitle: ""}}>
       <ResearchStack.Screen
         name={"MainResearchScreen"}
-        component={ResearchScreen}
+        component={MainResearchScreen}
+      />
+      <ResearchStack.Screen
+        name={"ResearchDetailScreen"}
+        component={ResearchDetailScreen}
+
+      />
+      <ResearchStack.Screen
+        name={"ResearchUploadScreen"}
+        component={ResearchUploadScreen}
       />
     </ResearchStack.Navigator>
   );
@@ -28,4 +42,6 @@ export function ResearchStackNavigator() {
  */
 export type ResearchStackProps = {
   MainResearchScreen: MainResearchScreenProps;
+  ResearchDetailScreen: ResearchDetailScreenProps;
+  ResearchUploadScreen: ResearchUploadScreenProps;
 };

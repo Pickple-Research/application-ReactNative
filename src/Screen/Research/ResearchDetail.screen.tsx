@@ -1,10 +1,17 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React from 'react'
+import { BackHandler, Text, View } from "react-native";
+import { popBackHandler } from '@Util/backHandler.util';
 
-export function ResearchDetailScreen() {
+export function ResearchDetailScreen( { navigation }: any) {
+  popBackHandler(navigation)
   return (
     <View>
-      <Text>리서치 상세 페이지</Text>
+        <Text>ResearchDetailScreen</Text>
     </View>
   );
 }
+
+export type ResearchDetailScreenProps = {
+  
+}
+

@@ -1,34 +1,71 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styled from "styled-components/native";
-import { HomeScreen } from "../../Screen/Home";
-import { ClientStackNavigator, ClientStackScreenProps } from "@Navigator/Client.stack.navigator";
-import { CommunityStackNavigator, CommunityStackScreenProps, HomeStackNavigator, HomeStackSreenProps, ProfileStackNavigator, ProfileStackScreenProps, ResearchStackNavigator, ResearchStackScreenProps } from "..";
+import { 
+  ClientStackNavigator, ClientStackProps, 
+  ResearchStackNavigator, ResearchStackProps, 
+  HomeStackNavigator, HomeStackProps, 
+  CommunityStackNavigator, CommunityStackProps, 
+  ProfileStackNavigator, ProfileStackProps, 
+} from "@Navigator/index";
+import { getFocusedRouteNameFromRoute, Route, RouteProp } from "@react-navigation/native";
+import { BackHandler } from "react-native";
+
+const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
+
+/**
+ * @param route 
+ * @returns bottom tab의 display type
+ * 
+ * determineBottomTabVisibility는 route를 통해 bottomTab을 보여줄 지 말지 결정합니다.
+ * 이 함수를 Navigator에 바로 사용하면, 화면을 이동할 때마다 모든 자식 스택의 route를 추적합니다.
+ * 따라서 각 Screen에 함수를 따로따로 적용시켜주는 것이 안전합니다.
+ */
+function determineBottomTabVisibility(route: any) {
+
+  let screenName: undefined|string = undefined
+  screenName = getFocusedRouteNameFromRoute(route);
+
+  if (screenName !== undefined) {
+    console.log(screenName);
+    if (!(["ResearchDetailScreen"].includes(screenName))) {
+      return "flex"
+    } 
+    return "none"
+  }
+}
 
 
-const AppBottomTab = createBottomTabNavigator<AppBottomTabProps>();
-
-export type AppBottomTabProps = {
-  ClientStack: ClientStackScreenProps;
-  ResearchStack: ResearchStackScreenProps;
-  HomeStack: HomeStackSreenProps;
-  CommunityStack: CommunityStackScreenProps;
-  ProfileStack: ProfileStackScreenProps;
-};
 
 /**
  * 앱 메인 하단바 네비게이터입니다. 사실상 앱 그 자체입니다.
  * 다른 네비게이터가 이 네비게이터를 구성하는 스크린 컴포넌트로 들어옵니다.
  * @author 현웅
  */
-export function AppBottomTabNavigator() {
+export function MainBottomTabNavigator() {
+  BackHandler.addEventListener("hardwareBackPress", function() {
+    /**
+     * @Unsolved
+     * @Task backPress를 하였을 때 Modal을 띄우거나, 한 번더 누르면 종료합니다 등의 처리
+     */
+    console.log("MainBottomTab에서는 backPress가 유효하지 않습니다")
+    return true
+  })
   return (
-    <AppBottomTab.Navigator
-      screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
-      <AppBottomTab.Screen
+    <MainBottomTab.Navigator
+      initialRouteName="HomeStack"
+      screenOptions={({ route }) => ({ 
+        headerShown: false,
+        tabBarShowLabel: false,
+      }
+    )}>
+      <MainBottomTab.Screen
         name={"ClientStack"}
         component={ClientStackNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: determineBottomTabVisibility(route)
+          },
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
               <BottomTabIconImage
@@ -49,13 +86,16 @@ export function AppBottomTabNavigator() {
               )}
             </BottomTabIconView>
           ),
-        }}
+        })}
       />
 
-      <AppBottomTab.Screen
+      <MainBottomTab.Screen
         name={"ResearchStack"}
         component={ResearchStackNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: determineBottomTabVisibility(route)
+          },
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
               <BottomTabIconImage
@@ -70,18 +110,21 @@ export function AppBottomTabNavigator() {
                   {bottomTabResource.Research.label}
                 </BottomTabIconFocusedText>
               ) : (
-                <BottomTabIconUnfocusedText>
+                <BottomTabIconUnfocusedText>  
                   {bottomTabResource.Research.label}
                 </BottomTabIconUnfocusedText>
               )}
             </BottomTabIconView>
           ),
-        }}
+        })}
       />
-      <AppBottomTab.Screen
+      <MainBottomTab.Screen
         name={"HomeStack"}
         component={HomeStackNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: determineBottomTabVisibility(route)
+          },
           tabBarIcon: ({ focused }) => (
             <BottomTabMainIconView>
               <BottomTabMainIconImage
@@ -93,12 +136,15 @@ export function AppBottomTabNavigator() {
               />
             </BottomTabMainIconView>
           ),
-        }}
+        })}
       />
-      <AppBottomTab.Screen
+      <MainBottomTab.Screen
         name={"CommunityStack"}
         component={CommunityStackNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: determineBottomTabVisibility(route)
+          },
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
               <BottomTabIconImage
@@ -119,12 +165,15 @@ export function AppBottomTabNavigator() {
               )}
             </BottomTabIconView>
           ),
-        }}
+        })}
       />
-      <AppBottomTab.Screen
+      <MainBottomTab.Screen
         name={"ProfileStack"}
         component={ProfileStackNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: determineBottomTabVisibility(route)
+          },
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
               <BottomTabIconImage
@@ -145,11 +194,19 @@ export function AppBottomTabNavigator() {
               )}
             </BottomTabIconView>
           ),
-        }}
+        })}
       />
-    </AppBottomTab.Navigator>
+    </MainBottomTab.Navigator>
   );
 }
+
+export type MainBottomTabProps = {
+  ClientStack: ClientStackProps;
+  ResearchStack: ResearchStackProps;
+  HomeStack: HomeStackProps;
+  CommunityStack: CommunityStackProps;
+  ProfileStack: ProfileStackProps;
+};
 
 const bottomTabResource = {
   Client: {
@@ -188,6 +245,8 @@ const bottomTabResource = {
     },
   },
 };
+
+
 
 const BottomTabIconView = styled.View`
   align-items: center;

@@ -1,14 +1,14 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export function MainResearchScreen() {
+export function ClientDetailScreen() {
   return (
     <View>
-        <Text>MainResearch</Text>
+      <Text>ClientDetailScreen</Text>
     </View>
   );
 }
 
-export type MainResearchScreenProps = {
+export type ClientDetailScreenProps = {
   
 }
