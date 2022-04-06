@@ -1,12 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  CommunityScreen,
-  CommunityInterestScreen,
-  CommunityVoteScreen,
-} from "..//Screen/Community";
+import { communityTopProps, CommunityTopTabNavigator } from "./Community.topTab.navigator";
 
-const CommunityStack = createNativeStackNavigator();
+const CommunityStack = createNativeStackNavigator<CommunityStackProps>();
 
 /**
  * 커뮤니티 페이지가 쌓이는 스택 네비게이터입니다.
@@ -14,28 +10,14 @@ const CommunityStack = createNativeStackNavigator();
  */
 export function CommunityStackNavigator() {
   return (
-    <CommunityStack.Navigator screenOptions={{ headerShown: false }}>
+    <CommunityStack.Navigator screenOptions={{headerTitle: ""}}>
       <CommunityStack.Screen
-        name={"CommunityScreen"}
-        component={CommunityScreen}
-      />
-      <CommunityStack.Screen
-        name={"CommunityInterestScreen"}
-        component={CommunityInterestScreen}
-      />
-      <CommunityStack.Screen
-        name={"CommunityVoteScreen"}
-        component={CommunityVoteScreen}
+        name={"CommunityTopTabNavigator"}
+        component={CommunityTopTabNavigator}
       />
     </CommunityStack.Navigator>
   );
 }
-
-type CommunityScreenProp = undefined;
-
-type CommunityInterestScreenProp = undefined;
-
-type CommunityVoteScreenProp = undefined;
 
 /**
  * CommunityStackNavigator 스크린들에 사용되는 속성들을 정의합니다.
@@ -43,8 +25,6 @@ type CommunityVoteScreenProp = undefined;
  * @author 현웅
  */
 
-export type CommunityStackScreenProp = {
-  CommunityScreen: CommunityScreenProp;
-  CommunityInterestScreen: CommunityInterestScreenProp;
-  CommunityVoteScreen: CommunityVoteScreenProp;
+export type CommunityStackProps = {
+  CommunityTopTabNavigator: communityTopProps
 };

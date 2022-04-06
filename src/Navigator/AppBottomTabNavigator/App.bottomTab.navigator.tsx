@@ -2,15 +2,18 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styled from "styled-components/native";
 import { HomeScreen } from "../../Screen/Home";
+import { ClientStackNavigator, ClientStackScreenProps } from "@Navigator/Client.stack.navigator";
+import { CommunityStackNavigator, CommunityStackScreenProps, HomeStackNavigator, HomeStackSreenProps, ProfileStackNavigator, ProfileStackScreenProps, ResearchStackNavigator, ResearchStackScreenProps } from "..";
+
 
 const AppBottomTab = createBottomTabNavigator<AppBottomTabProps>();
 
 export type AppBottomTabProps = {
-  Client: any;
-  Research: any;
-  Home: any;
-  Community: any;
-  User: any;
+  ClientStack: ClientStackScreenProps;
+  ResearchStack: ResearchStackScreenProps;
+  HomeStack: HomeStackSreenProps;
+  CommunityStack: CommunityStackScreenProps;
+  ProfileStack: ProfileStackScreenProps;
 };
 
 /**
@@ -23,8 +26,8 @@ export function AppBottomTabNavigator() {
     <AppBottomTab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
       <AppBottomTab.Screen
-        name={"Client"}
-        component={HomeScreen}
+        name={"ClientStack"}
+        component={ClientStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
@@ -50,8 +53,8 @@ export function AppBottomTabNavigator() {
       />
 
       <AppBottomTab.Screen
-        name={"Research"}
-        component={HomeScreen}
+        name={"ResearchStack"}
+        component={ResearchStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
@@ -76,8 +79,8 @@ export function AppBottomTabNavigator() {
         }}
       />
       <AppBottomTab.Screen
-        name={"Home"}
-        component={HomeScreen}
+        name={"HomeStack"}
+        component={HomeStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <BottomTabMainIconView>
@@ -93,8 +96,8 @@ export function AppBottomTabNavigator() {
         }}
       />
       <AppBottomTab.Screen
-        name={"Community"}
-        component={HomeScreen}
+        name={"CommunityStack"}
+        component={CommunityStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
@@ -119,25 +122,25 @@ export function AppBottomTabNavigator() {
         }}
       />
       <AppBottomTab.Screen
-        name="User"
-        component={HomeScreen}
+        name={"ProfileStack"}
+        component={ProfileStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <BottomTabIconView>
               <BottomTabIconImage
                 source={
                   focused
-                    ? bottomTabResource.User.image.focused
-                    : bottomTabResource.User.image.unfocused
+                    ? bottomTabResource.Profile.image.focused
+                    : bottomTabResource.Profile.image.unfocused
                 }
               />
               {focused ? (
                 <BottomTabIconFocusedText>
-                  {bottomTabResource.User.label}
+                  {bottomTabResource.Profile.label}
                 </BottomTabIconFocusedText>
               ) : (
                 <BottomTabIconUnfocusedText>
-                  {bottomTabResource.User.label}
+                  {bottomTabResource.Profile.label}
                 </BottomTabIconUnfocusedText>
               )}
             </BottomTabIconView>
@@ -177,7 +180,7 @@ const bottomTabResource = {
       focused: require("@Resource/png/bottom_tab_community_active.png"),
     },
   },
-  User: {
+  Profile: {
     label: "마이페이지",
     image: {
       unfocused: require("@Resource/png/bottom_tab_profile_inactive.png"),
