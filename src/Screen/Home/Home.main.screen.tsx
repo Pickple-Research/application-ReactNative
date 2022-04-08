@@ -1,7 +1,7 @@
 import { color } from "@Theme/Value";
 import { LinearGradeintContainer } from "@Component/React/LinearGradeintContainer.component";
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 export function MainHomeScreen() {
   return (
