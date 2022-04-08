@@ -3,5 +3,7 @@
  * @author 현웅
  */
 export const color = {
+
+  // textColor
   mainTheme: "",
 };
