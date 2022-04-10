@@ -1,4 +1,5 @@
 import React from "react";
+import { View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styled from "styled-components/native";
 import {
@@ -14,12 +15,25 @@ import {
   ProfileStackProps,
 } from "@Navigator/index";
 import { getBottomTabVisibilityByRoute } from "@Util/index";
+import { StyleSheet } from "react-native";
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 
 /**
+ * MainBottomTab의 Props
+ * @author 원제
+ */
+export type MainBottomTabProps = {
+  ClientStack: ClientStackProps;
+  ResearchStack: ResearchStackProps;
+  HomeStack: HomeStackProps;
+  CommunityStack: CommunityStackProps;
+  ProfileStack: ProfileStackProps;
+};
+
+/**
  * 앱 메인 하단바 네비게이터입니다. 사실상 앱 그 자체입니다.
- * 다른 네비게이터가 이 네비게이터를 구성하는 스크린 컴포넌트로 들어옵니다.
+ * 다른 (스택) 네비게이터가 이 네비게이터를 구성하는 스크린 컴포넌트로 들어옵니다.
  * @author 현웅
  */
 export function MainBottomTabNavigator() {
@@ -32,6 +46,7 @@ export function MainBottomTabNavigator() {
         //? tabBarShowLabel: 기본 tabBarLabel을 표시하지 않습니다.
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarStyle: styles.navigator,
       })}>
       <MainBottomTab.Screen
         name={"ClientStack"}
@@ -41,24 +56,7 @@ export function MainBottomTabNavigator() {
             display: getBottomTabVisibilityByRoute(route),
           },
           tabBarIcon: ({ focused }) => (
-            <BottomTabIconView>
-              <BottomTabIconImage
-                source={
-                  focused
-                    ? bottomTabResource.Client.image.focused
-                    : bottomTabResource.Client.image.unfocused
-                }
-              />
-              {focused ? (
-                <BottomTabIconFocusedText>
-                  {bottomTabResource.Client.label}
-                </BottomTabIconFocusedText>
-              ) : (
-                <BottomTabIconUnfocusedText>
-                  {bottomTabResource.Client.label}
-                </BottomTabIconUnfocusedText>
-              )}
-            </BottomTabIconView>
+            <TabBarIcon label="파트너" focused={focused} />
           ),
         })}
       />
@@ -71,24 +69,7 @@ export function MainBottomTabNavigator() {
             display: getBottomTabVisibilityByRoute(route),
           },
           tabBarIcon: ({ focused }) => (
-            <BottomTabIconView>
-              <BottomTabIconImage
-                source={
-                  focused
-                    ? bottomTabResource.Research.image.focused
-                    : bottomTabResource.Research.image.unfocused
-                }
-              />
-              {focused ? (
-                <BottomTabIconFocusedText>
-                  {bottomTabResource.Research.label}
-                </BottomTabIconFocusedText>
-              ) : (
-                <BottomTabIconUnfocusedText>
-                  {bottomTabResource.Research.label}
-                </BottomTabIconUnfocusedText>
-              )}
-            </BottomTabIconView>
+            <TabBarIcon label="리서치" focused={focused} />
           ),
         })}
       />
@@ -99,17 +80,7 @@ export function MainBottomTabNavigator() {
           tabBarStyle: {
             display: getBottomTabVisibilityByRoute(route),
           },
-          tabBarIcon: ({ focused }) => (
-            <BottomTabMainIconView>
-              <BottomTabMainIconImage
-                source={
-                  focused
-                    ? bottomTabResource.Home.image.focused
-                    : bottomTabResource.Home.image.unfocused
-                }
-              />
-            </BottomTabMainIconView>
-          ),
+          tabBarIcon: ({ focused }) => <TabBarHomeIcon />,
         })}
       />
       <MainBottomTab.Screen
@@ -120,24 +91,7 @@ export function MainBottomTabNavigator() {
             display: getBottomTabVisibilityByRoute(route),
           },
           tabBarIcon: ({ focused }) => (
-            <BottomTabIconView>
-              <BottomTabIconImage
-                source={
-                  focused
-                    ? bottomTabResource.Community.image.focused
-                    : bottomTabResource.Community.image.unfocused
-                }
-              />
-              {focused ? (
-                <BottomTabIconFocusedText>
-                  {bottomTabResource.Community.label}
-                </BottomTabIconFocusedText>
-              ) : (
-                <BottomTabIconUnfocusedText>
-                  {bottomTabResource.Community.label}
-                </BottomTabIconUnfocusedText>
-              )}
-            </BottomTabIconView>
+            <TabBarIcon label="커뮤니티" focused={focused} />
           ),
         })}
       />
@@ -149,24 +103,7 @@ export function MainBottomTabNavigator() {
             display: getBottomTabVisibilityByRoute(route),
           },
           tabBarIcon: ({ focused }) => (
-            <BottomTabIconView>
-              <BottomTabIconImage
-                source={
-                  focused
-                    ? bottomTabResource.Profile.image.focused
-                    : bottomTabResource.Profile.image.unfocused
-                }
-              />
-              {focused ? (
-                <BottomTabIconFocusedText>
-                  {bottomTabResource.Profile.label}
-                </BottomTabIconFocusedText>
-              ) : (
-                <BottomTabIconUnfocusedText>
-                  {bottomTabResource.Profile.label}
-                </BottomTabIconUnfocusedText>
-              )}
-            </BottomTabIconView>
+            <TabBarIcon label="마이페이지" focused={focused} />
           ),
         })}
       />
@@ -174,79 +111,99 @@ export function MainBottomTabNavigator() {
   );
 }
 
-export type MainBottomTabProps = {
-  ClientStack: ClientStackProps;
-  ResearchStack: ResearchStackProps;
-  HomeStack: HomeStackProps;
-  CommunityStack: CommunityStackProps;
-  ProfileStack: ProfileStackProps;
+type BottomTabIconProps = {
+  label: "파트너" | "리서치" | "커뮤니티" | "마이페이지";
+  focused: boolean;
 };
 
-const bottomTabResource = {
-  Client: {
-    label: "스타트업",
-    image: {
-      unfocused: require("@Resource/png/bottom_tab_client_inactive.png"),
-      focused: require("@Resource/png/bottom_tab_client_active.png"),
+/**
+ * Home Icon을 제외한 BottomTab의 Icon 컴포넌트
+ * @author 현웅
+ */
+function TabBarIcon({ label, focused }: BottomTabIconProps) {
+  return (
+    <View style={styles.tabBarIconContainer}>
+      <Image
+        source={require("@Resource/png/bottom_tab_client_inactive.png")}
+        style={styles.tabBarIconImage}
+      />
+      <Text
+        style={
+          focused
+            ? styles.tabBarIconFocusedText
+            : styles.tabBarIconUnfocusedText
+        }>
+        {label}
+      </Text>
+    </View>
+  );
+}
+
+/**
+ * 홈 아이콘 컴포넌트
+ * @author 현웅
+ */
+function TabBarHomeIcon() {
+  return (
+    <View style={styles.tabBarHomeIconContainer}>
+      <Image
+        source={require("@Resource/png/bottom_tab_home_inactive.png")}
+        style={styles.tabBarHomeIconImage}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  //하단바 전체 스타일
+  //TODO: #SETTING 그림자 설정 Android, iOS 다르게 해야함
+  navigator: {
+    height: "fit-content",
+    backgroundColor: "#ffffff",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 200,
+      height: 100,
     },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 25,
   },
-  Research: {
-    label: "리서치",
-    image: {
-      unfocused: require("@Resource/png/bottom_tab_research_inactive.png"),
-      focused: require("@Resource/png/bottom_tab_research_active.png"),
-    },
+
+  // tab bar 아이콘 컨테이너
+  tabBarIconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
-  Home: {
-    label: "",
-    image: {
-      unfocused: require("@Resource/png/bottom_tab_home_inactive.png"),
-      focused: require("@Resource/png/bottom_tab_home_active.png"),
-    },
+
+  // tab bar 버튼 아이콘
+  tabBarIconImage: {
+    height: "40%",
+    aspectRatio: 1,
   },
-  Community: {
-    label: "커뮤니티",
-    image: {
-      unfocused: require("@Resource/png/bottom_tab_community_inactive.png"),
-      focused: require("@Resource/png/bottom_tab_community_active.png"),
-    },
+
+  // tab bar 홈 아이콘 컨테이너
+  tabBarHomeIconContainer: {
+    alignItems: "center",
+    marginBottom: 45,
   },
-  Profile: {
-    label: "마이페이지",
-    image: {
-      unfocused: require("@Resource/png/bottom_tab_profile_inactive.png"),
-      focused: require("@Resource/png/bottom_tab_profile_active.png"),
-    },
+
+  // tab bar
+  tabBarHomeIconImage: {
+    width: 80,
+    height: 80,
   },
-};
 
-const BottomTabIconView = styled.View`
-  align-items: center;
-  margin-top: 12px;
-  border: 2px solid blue;
-`;
+  // tab bar 버튼 텍스트 (선택시)
+  tabBarIconFocusedText: {
+    fontSize: 10,
+    color: "red",
+  },
 
-const BottomTabIconImage = styled.Image`
-  width: 24px;
-  height: 24px;
-`;
-
-const BottomTabIconUnfocusedText = styled.Text`
-  color: black;
-  font-size: 10px;
-`;
-
-const BottomTabIconFocusedText = styled(BottomTabIconUnfocusedText)`
-  color: red;
-`;
-
-const BottomTabMainIconView = styled.View`
-  align-items: center;
-  margin-bottom: 45px;
-  border: 2px solid black;
-`;
-
-const BottomTabMainIconImage = styled.Image`
-  width: 78px;
-  height: 78px;
-`;
+  // tab bar 버튼 텍스트 (비선택시)
+  tabBarIconUnfocusedText: {
+    fontSize: 10,
+    color: "black",
+  },
+});

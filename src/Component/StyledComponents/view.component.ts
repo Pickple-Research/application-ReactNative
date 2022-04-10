@@ -8,5 +8,5 @@ import { theme } from "../../Theme";
 export const FullView = styled.View`
   flex: 1;
   width: 100%;
-  background-color: none;
+  background-color: #ffffff;
 `;
