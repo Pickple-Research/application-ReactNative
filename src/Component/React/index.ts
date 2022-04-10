@@ -4,3 +4,4 @@
  */
 
 export * from "./Button.component";
+export * from "./Gradient.component";

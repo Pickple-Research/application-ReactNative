@@ -13,7 +13,7 @@ export const ClientStack = createNativeStackNavigator<ClientStackProps>();
 
 export function ClientStackNavigator() {
   return (
-    <ClientStack.Navigator screenOptions={{ headerTitle: "" }}>
+    <ClientStack.Navigator screenOptions={{ headerShown: false }}>
       <ClientStack.Screen
         name="ClientMainScreen"
         component={ClientMainScreen}

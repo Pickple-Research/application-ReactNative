@@ -13,7 +13,7 @@ import {
   ProfileStackNavigator,
   ProfileStackProps,
 } from "@Navigator/index";
-import { getBottomTabVisibilityByRoute } from "@Util/navigator.util";
+import { getBottomTabVisibilityByRoute } from "@Util/index";
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 
@@ -25,8 +25,11 @@ const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 export function MainBottomTabNavigator() {
   return (
     <MainBottomTab.Navigator
+      //? initialRouteName: 처음 보여주는 Screen을 순서를 무시하고 HomeStack으로 설정합니다.
       initialRouteName="HomeStack"
       screenOptions={({ route }) => ({
+        //? headerShown: bottomTabNavigator 상에서의 위치를 나타내는 헤더를 표시하지 않습니다.
+        //? tabBarShowLabel: 기본 tabBarLabel을 표시하지 않습니다.
         headerShown: false,
         tabBarShowLabel: false,
       })}>
@@ -220,6 +223,7 @@ const bottomTabResource = {
 const BottomTabIconView = styled.View`
   align-items: center;
   margin-top: 12px;
+  border: 2px solid blue;
 `;
 
 const BottomTabIconImage = styled.Image`
@@ -239,6 +243,7 @@ const BottomTabIconFocusedText = styled(BottomTabIconUnfocusedText)`
 const BottomTabMainIconView = styled.View`
   align-items: center;
   margin-bottom: 45px;
+  border: 2px solid black;
 `;
 
 const BottomTabMainIconImage = styled.Image`
