@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { AppStackNavigator } from "@Navigator/App.stack.navigator";
+import { SplashScreen } from "@Screen/index";
+import { MainBottomTabNavigator } from "@Navigator/index";
 
 export default function App() {
-  const [loadingEnds, setLoadingEnds] = useState<boolean>(false);
+  const [initialLoaded, setInitialLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    const loadInfo = () =>
-      setTimeout(() => {
-        setLoadingEnds(true);
-      }, 2000);
-    loadInfo();
+    setTimeout(() => {
+      setInitialLoaded(true);
+    }, 1500);
+
     return;
   }, []);
 
-  if (!loadingEnds) {
-    return <Text>로딩 중입니다.</Text>;
+  if (!initialLoaded) {
+    return <SplashScreen />;
   }
 
   return (
     <NavigationContainer>
-      <AppStackNavigator />
+      <MainBottomTabNavigator />
     </NavigationContainer>
   );
 }

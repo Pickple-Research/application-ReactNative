@@ -1,31 +1,36 @@
-import React from 'react'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { MainCommunityInterestScreen, MainCommunityInterestScreenProps, MainCommunityVoteScreen, MainCommunityVoteScreenProps } from '@Screen/Community';
+import React from "react";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import {
+  CommunityInterestMainScreen,
+  CommunityInterestMainScreenProps,
+  CommunityVoteMainScreen,
+  CommunityVoteMainScreenProps,
+} from "@Screen/Community";
 
-const communityTopTab = createMaterialTopTabNavigator();
+const CommunityTopTab = createMaterialTopTabNavigator();
 
 export function CommunityTopTabNavigator() {
-    return (
-        <communityTopTab.Navigator>
-            <communityTopTab.Screen
-                name="MainCommunityInterestScreen"
-                component={MainCommunityInterestScreen}
-                options={{
-                    title: "관심사"
-                }}
-            />
-            <communityTopTab.Screen
-                name="MainCommunityVoteScreen"
-                component={MainCommunityVoteScreen}
-                options={{
-                    title: "자유",
-                }}
-            />
-        </communityTopTab.Navigator>
-    )
+  return (
+    <CommunityTopTab.Navigator>
+      <CommunityTopTab.Screen
+        name="CommunityInterestMainScreen"
+        component={CommunityInterestMainScreen}
+        options={{
+          title: "관심사",
+        }}
+      />
+      <CommunityTopTab.Screen
+        name="CommunityVoteMainScreen"
+        component={CommunityVoteMainScreen}
+        options={{
+          title: "자유",
+        }}
+      />
+    </CommunityTopTab.Navigator>
+  );
 }
 
-export type communityTopProps = {
-    "MainCommunityInterestScreen": MainCommunityInterestScreenProps
-    "MainCommunityVoteScreen": MainCommunityVoteScreenProps
-}
+export type CommunityTopTabProps = {
+  CommunityInterestMainScreen: CommunityInterestMainScreenProps;
+  CommunityVoteMainScreen: CommunityVoteMainScreenProps;
+};

@@ -1,17 +1,12 @@
-import React from 'react'
-import { BackHandler, Text, View } from "react-native";
-import { popBackHandler } from '@Util/backHandler.util';
+import React from "react";
+import { Text, View } from "react-native";
 
-export function ResearchDetailScreen( { navigation }: any) {
-  popBackHandler(navigation)
+export function ResearchDetailScreen({ navigation }: any) {
   return (
     <View>
-        <Text>ResearchDetailScreen</Text>
+      <Text>Research Detail Screen</Text>
     </View>
   );
 }
 
-export type ResearchDetailScreenProps = {
-  
-}
-
+export type ResearchDetailScreenProps = {};

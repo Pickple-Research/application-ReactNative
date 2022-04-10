@@ -1,22 +1,17 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainHomeScreen, MainHomeScreenProps } from "@Screen/Home";
+import { HomeMainScreen, HomeMainScreenProps } from "@Screen/Home";
 
 export const HomeStack = createNativeStackNavigator<HomeStackProps>();
 
-
 export function HomeStackNavigator() {
-    return (
-        <HomeStack.Navigator screenOptions={{headerTitle: ""}}>
-            <HomeStack.Screen 
-                name={"MainHomeScreen"}
-                component={MainHomeScreen}
-            />
-        </HomeStack.Navigator>
-    )
-    
+  return (
+    <HomeStack.Navigator screenOptions={{ headerTitle: "" }}>
+      <HomeStack.Screen name={"HomeMainScreen"} component={HomeMainScreen} />
+    </HomeStack.Navigator>
+  );
 }
 
 export type HomeStackProps = {
-    MainHomeScreen: MainHomeScreenProps;
-}
+  HomeMainScreen: HomeMainScreenProps;
+};

@@ -1,6 +1,9 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { communityTopProps, CommunityTopTabNavigator } from "./Community.topTab.navigator";
+import {
+  CommunityTopTabProps,
+  CommunityTopTabNavigator,
+} from "./Community.topTab.navigator";
 
 const CommunityStack = createNativeStackNavigator<CommunityStackProps>();
 
@@ -10,7 +13,7 @@ const CommunityStack = createNativeStackNavigator<CommunityStackProps>();
  */
 export function CommunityStackNavigator() {
   return (
-    <CommunityStack.Navigator screenOptions={{headerTitle: ""}}>
+    <CommunityStack.Navigator screenOptions={{ headerTitle: "" }}>
       <CommunityStack.Screen
         name={"CommunityTopTabNavigator"}
         component={CommunityTopTabNavigator}
@@ -26,5 +29,5 @@ export function CommunityStackNavigator() {
  */
 
 export type CommunityStackProps = {
-  CommunityTopTabNavigator: communityTopProps
+  CommunityTopTabNavigator: CommunityTopTabProps;
 };
