@@ -1,14 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export function MainCommunityInterestScreen() {
+export function CommunityInterestMainScreen() {
   return (
     <View>
-        <Text>MainCommunityInterestScreen</Text>
+      <Text>Community Interest Main Screen</Text>
     </View>
   );
 }
 
-export type MainCommunityInterestScreenProps = {
-  
-}
+export type CommunityInterestMainScreenProps = {};

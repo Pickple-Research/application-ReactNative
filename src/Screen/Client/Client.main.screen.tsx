@@ -1,16 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { popBackHandler } from "@Util/backHandler.util";
 
-export function MainClientScreen({ navigation }: any) {
-  popBackHandler(navigation)
+export function ClientMainScreen({ navigation }: any) {
   return (
     <View>
-      <Text>안녕~!</Text>
+      <Text>Client Main Screen</Text>
     </View>
   );
 }
 
-export type MainClientScreenProps = {
-  
-}
+export type ClientMainScreenProps = {};
