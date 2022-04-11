@@ -4,11 +4,9 @@ import { Text, View } from "react-native";
 export function ClientDetailScreen() {
   return (
     <View>
-      <Text>ClientDetailScreen</Text>
+      <Text>Client Detail Screen</Text>
     </View>
   );
 }
 
-export type ClientDetailScreenProps = {
-  
-}
+export type ClientDetailScreenProps = {};

@@ -13,7 +13,7 @@ const CommunityStack = createNativeStackNavigator<CommunityStackProps>();
  */
 export function CommunityStackNavigator() {
   return (
-    <CommunityStack.Navigator screenOptions={{ headerTitle: "" }}>
+    <CommunityStack.Navigator screenOptions={{ headerShown: false }}>
       <CommunityStack.Screen
         name={"CommunityTopTabNavigator"}
         component={CommunityTopTabNavigator}

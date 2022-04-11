@@ -3,6 +3,7 @@ import {
   getFocusedRouteNameFromRoute,
   RouteProp,
 } from "@react-navigation/native";
+import { bottomTabBarHidingScreens } from "@Constant/index";
 
 /**
  * route를 인자로 받아 현재 보여지는 Screen에서 bottomTab을 보여줄 지 말지 결정합니다.
@@ -15,16 +16,14 @@ import {
  * @author 원제
  * @modify 현웅
  */
-export function getBottomTabVisibilityByRoute(route: RouteProp<any, any>) {
-  let screenName: undefined | string = undefined;
-  screenName = getFocusedRouteNameFromRoute(route);
+export function getBottomTabVisibilityFromRoute(route: RouteProp<any, any>) {
+  const screenName = getFocusedRouteNameFromRoute(route);
 
-  if (screenName !== undefined) {
-    if (!["ResearchDetailScreen"].includes(screenName)) {
-      return "flex";
-    }
+  if (screenName && bottomTabBarHidingScreens.includes(screenName)) {
     return "none";
   }
+
+  return "flex";
 }
 
 /**

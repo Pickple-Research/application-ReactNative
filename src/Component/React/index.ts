@@ -4,3 +4,5 @@
  */
 
 export * from "./Button.component";
+export * from "./Gradient.component";
+export * from "./Svg.component";

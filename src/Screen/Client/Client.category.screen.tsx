@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 export function ClientCategoryScreen({ navigation }: any) {
   return (
     <View>
-      <Text>ClientCategoryScreen</Text>
+      <Text>Client Category Screen</Text>
     </View>
   );
 }
