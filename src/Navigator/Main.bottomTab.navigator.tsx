@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-  ClientStackNavigator,
-  ClientStackProps,
+  PartnerStackNavigator,
+  PartnerStackProps,
   ResearchStackNavigator,
   ResearchStackProps,
   HomeStackNavigator,
@@ -31,7 +31,7 @@ const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
  * @author 원제
  */
 export type MainBottomTabProps = {
-  ClientStack: ClientStackProps;
+  PartnerStack: PartnerStackProps;
   ResearchStack: ResearchStackProps;
   HomeStack: HomeStackProps;
   CommunityStack: CommunityStackProps;
@@ -57,8 +57,8 @@ export function MainBottomTabNavigator() {
         // tabBarStyle: styles.bottomTabBar,
       })}>
       <MainBottomTab.Screen
-        name={"ClientStack"}
-        component={ClientStackNavigator}
+        name={"PartnerStack"}
+        component={PartnerStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
             display: getBottomTabVisibilityFromRoute(route),
