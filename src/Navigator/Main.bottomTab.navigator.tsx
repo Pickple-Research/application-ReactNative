@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import styled from "styled-components/native";
 import {
   ClientStackNavigator,
   ClientStackProps,
@@ -14,8 +13,16 @@ import {
   ProfileStackNavigator,
   ProfileStackProps,
 } from "@Navigator/index";
-import { getBottomTabVisibilityByRoute } from "@Util/index";
-import { StyleSheet } from "react-native";
+import { getBottomTabVisibilityFromRoute } from "@Util/index";
+import {
+  LinearGradeintContainer,
+  HomeSvgIcon,
+  PartnerSvgIcon,
+  ResearchSvgIcon,
+  CommunitySvgIcon,
+  MypageSvgIcon,
+} from "@Component/React";
+import { theme } from "@Theme/theme";
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 
@@ -46,14 +53,16 @@ export function MainBottomTabNavigator() {
         //? tabBarShowLabel: 기본 tabBarLabel을 표시하지 않습니다.
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.navigator,
+        //? 전역적으로 tabBarStyle을 적용하더라도 각 TabBar 옵션마다 새로 style이 적용되므로 쓸모가 없습니다.
+        // tabBarStyle: styles.bottomTabBar,
       })}>
       <MainBottomTab.Screen
         name={"ClientStack"}
         component={ClientStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
-            display: getBottomTabVisibilityByRoute(route),
+            display: getBottomTabVisibilityFromRoute(route),
+            ...styles.bottomTabBar,
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="파트너" focused={focused} />
@@ -66,7 +75,8 @@ export function MainBottomTabNavigator() {
         component={ResearchStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
-            display: getBottomTabVisibilityByRoute(route),
+            display: getBottomTabVisibilityFromRoute(route),
+            ...styles.bottomTabBar,
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="리서치" focused={focused} />
@@ -78,7 +88,8 @@ export function MainBottomTabNavigator() {
         component={HomeStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
-            display: getBottomTabVisibilityByRoute(route),
+            display: getBottomTabVisibilityFromRoute(route),
+            ...styles.bottomTabBar,
           },
           tabBarIcon: ({ focused }) => <TabBarHomeIcon />,
         })}
@@ -88,7 +99,8 @@ export function MainBottomTabNavigator() {
         component={CommunityStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
-            display: getBottomTabVisibilityByRoute(route),
+            display: getBottomTabVisibilityFromRoute(route),
+            ...styles.bottomTabBar,
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="커뮤니티" focused={focused} />
@@ -100,7 +112,8 @@ export function MainBottomTabNavigator() {
         component={ProfileStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
-            display: getBottomTabVisibilityByRoute(route),
+            display: getBottomTabVisibilityFromRoute(route),
+            ...styles.bottomTabBar,
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="마이페이지" focused={focused} />
@@ -111,22 +124,19 @@ export function MainBottomTabNavigator() {
   );
 }
 
-type BottomTabIconProps = {
+type TabBarIconProps = {
   label: "파트너" | "리서치" | "커뮤니티" | "마이페이지";
   focused: boolean;
 };
 
 /**
- * Home Icon을 제외한 BottomTab의 Icon 컴포넌트
+ * 홈 아이콘을 제외한 BottomTab의 Icon 컴포넌트
  * @author 현웅
  */
-function TabBarIcon({ label, focused }: BottomTabIconProps) {
+function TabBarIcon({ label, focused }: TabBarIconProps) {
   return (
     <View style={styles.tabBarIconContainer}>
-      <Image
-        source={require("@Resource/png/bottom_tab_client_inactive.png")}
-        style={styles.tabBarIconImage}
-      />
+      <TabBarSvgIcon label={label} focused={focused} />
       <Text
         style={
           focused
@@ -140,26 +150,41 @@ function TabBarIcon({ label, focused }: BottomTabIconProps) {
 }
 
 /**
+ * BottomTab의 Icon에 들어갈 Svg 이미지 컴포넌트
+ * @author 현웅
+ */
+function TabBarSvgIcon({ label, focused }: TabBarIconProps) {
+  switch (label) {
+    case "파트너":
+      return <PartnerSvgIcon focused={focused} />;
+    case "리서치":
+      return <ResearchSvgIcon focused={focused} />;
+    case "커뮤니티":
+      return <CommunitySvgIcon focused={focused} />;
+    case "마이페이지":
+      return <MypageSvgIcon focused={focused} />;
+  }
+}
+
+/**
  * 홈 아이콘 컴포넌트
  * @author 현웅
  */
 function TabBarHomeIcon() {
   return (
-    <View style={styles.tabBarHomeIconContainer}>
-      <Image
-        source={require("@Resource/png/bottom_tab_home_inactive.png")}
-        style={styles.tabBarHomeIconImage}
-      />
-    </View>
+    <LinearGradeintContainer style={styles.tabBarHomeIconContainer}>
+      <HomeSvgIcon />
+    </LinearGradeintContainer>
   );
 }
 
 const styles = StyleSheet.create({
   //하단바 전체 스타일
   //TODO: #SETTING 그림자 설정 Android, iOS 다르게 해야함
-  navigator: {
-    height: "fit-content",
+  bottomTabBar: {
+    height: 56,
     backgroundColor: "#ffffff",
+    // iOS 그림자 스타일
     shadowColor: "#000000",
     shadowOffset: {
       width: 200,
@@ -167,6 +192,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
+    // android 그림자 스타일
     elevation: 25,
   },
 
@@ -174,36 +200,30 @@ const styles = StyleSheet.create({
   tabBarIconContainer: {
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
-  },
-
-  // tab bar 버튼 아이콘
-  tabBarIconImage: {
-    height: "40%",
-    aspectRatio: 1,
+    padding: 10,
   },
 
   // tab bar 홈 아이콘 컨테이너
   tabBarHomeIconContainer: {
+    justifyContent: "center",
     alignItems: "center",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     marginBottom: 45,
-  },
-
-  // tab bar
-  tabBarHomeIconImage: {
-    width: 80,
-    height: 80,
   },
 
   // tab bar 버튼 텍스트 (선택시)
   tabBarIconFocusedText: {
-    fontSize: 10,
-    color: "red",
+    fontSize: 8,
+    color: theme.color.focusedGray,
+    marginTop: 3,
   },
 
   // tab bar 버튼 텍스트 (비선택시)
   tabBarIconUnfocusedText: {
-    fontSize: 10,
-    color: "black",
+    fontSize: 8,
+    color: theme.color.unfocusedGray,
+    marginTop: 3,
   },
 });

@@ -5,6 +5,10 @@
  * @author 현웅
  */
 export const color = {
+  // bottomTabBar에서 사용되는 선택/비선택 회색
+  focusedGray: "#848899",
+  unfocusedGray: "#D3D4D4",
+
   main_purple: "#BDB5EC",
   text_purple: "#8F84D0",
   inactive_button: "#D6D4E2",
