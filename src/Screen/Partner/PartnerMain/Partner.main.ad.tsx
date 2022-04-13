@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { partnerMainScreenStyles } from "./Partner.main.screen";
+import { screenStyles } from "./Partner.main.screen";
 
 export function PartnerMainAd() {
   return (
-    <View style={partnerMainScreenStyles.contentContainer}>
+    <View style={screenStyles.view}>
       <Text>{`광고 (UX Writing)`}</Text>
     </View>
   );
