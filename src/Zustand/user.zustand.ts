@@ -10,7 +10,7 @@ type UserInfo = {
  */
 export const useUserStore = create<{ userInfo: UserInfo }>(() => ({
   userInfo: {
-    email: "",
+    email: "tester@te.st",
   },
   someFunc: async (email: string) => {
     return email;
