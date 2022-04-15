@@ -62,7 +62,7 @@ export function PartnerSvgIcon({
   focused = false,
   width = "24",
   height = "24",
-  fill = focused ? theme.color.focusedGray : theme.color.unfocusedGray,
+  fill = focused ? theme.color.focused_gray : theme.color.unfocused_gray,
 }: BottomTabSvgIconProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
@@ -91,7 +91,7 @@ export function ResearchSvgIcon({
   focused = false,
   width = "24",
   height = "24",
-  fill = focused ? theme.color.focusedGray : theme.color.unfocusedGray,
+  fill = focused ? theme.color.focused_gray : theme.color.unfocused_gray,
 }: BottomTabSvgIconProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24">
@@ -128,7 +128,7 @@ export function CommunitySvgIcon({
   focused = false,
   width = "24",
   height = "24",
-  fill = focused ? theme.color.focusedGray : theme.color.unfocusedGray,
+  fill = focused ? theme.color.focused_gray : theme.color.unfocused_gray,
 }: BottomTabSvgIconProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
@@ -150,7 +150,7 @@ export function MypageSvgIcon({
   focused = false,
   width = "24",
   height = "24",
-  fill = focused ? theme.color.focusedGray : theme.color.unfocusedGray,
+  fill = focused ? theme.color.focused_gray : theme.color.unfocused_gray,
 }: BottomTabSvgIconProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">

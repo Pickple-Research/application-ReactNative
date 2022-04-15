@@ -1,14 +1,35 @@
-import { color, size } from "./Value";
-import { buttonTheme, textTheme, viewTheme } from "./Component";
+import { Platform, Appearance } from "react-native";
+import { lightThemeColors, darkThemeColors } from "./color.theme";
 
 /**
  * 모든 테마를 가져와 배포합니다.
  * @author 현웅
  */
 export const theme = {
-  color,
-  size,
-  button: buttonTheme,
-  text: textTheme,
-  view: viewTheme,
+  color: lightThemeColors,
 };
+
+//TODO: Platform과 Appearance에 따라 theme을 다르게 배포해주어야 합니다.
+// function getTheme(){
+//   if(Platform.OS === "android"){
+//     if(Appearance.getColorScheme() === "light"){
+//       return lightThemeColors
+//     } else {
+//       return darkThemeColors
+//     }
+//   }
+
+//   if(Platform.OS === "ios"){
+//     if(Appearance.getColorScheme() === "light"){
+//       return lightThemeColors
+//     } else {
+//       return darkThemeColors
+//     }
+//   }
+
+//   if(Appearance.getColorScheme() === "light"){
+//     return lightThemeColors
+//   } else {
+//     return darkThemeColors
+//   }
+// }
