@@ -1,31 +1,32 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { Text } from "react-native";
+import styled from "styled-components/native";
 import { screenStyles } from "./Partner.main.screen";
-import { theme } from "@Theme/index";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 import CategoryIcon02 from "@Resource/svg/category-icon02.svg";
 import CategoryIcon03 from "@Resource/svg/category-icon03.svg";
 
 export function PartnerMainCategory() {
   return (
-    <View style={styles.container}>
+    <Container>
       <Header />
-      <CategoryList />
-    </View>
+      <CategoryButtonsBox />
+    </Container>
   );
 }
 
 function Header() {
   return (
-    <View style={{ ...screenStyles.padding, ...screenStyles.headerContainer }}>
+    <Header__Container
+      style={{ ...screenStyles.padding, ...screenStyles.headerContainer }}>
       <Text style={screenStyles.headerTitleText}>카테고리별 파트너</Text>
-    </View>
+    </Header__Container>
   );
 }
 
-function CategoryList() {
+function CategoryButtonsBox() {
   return (
-    <View style={styles.categoryListContainer}>
+    <CategoryButtonsBox__Container>
       <CategoryButton index={1} />
       <CategoryButton index={2} />
       <CategoryButton index={3} />
@@ -36,18 +37,18 @@ function CategoryList() {
       <CategoryButton index={8} />
       <CategoryButton index={9} />
       <CategoryButton index={10} />
-    </View>
+    </CategoryButtonsBox__Container>
   );
 }
 
 function CategoryButton({ index }: { index: number }) {
   return (
-    <View style={styles.categoryButtonContainer}>
-      <View style={styles.categoryButtonIconContainer}>
+    <CategoryButton__Container>
+      <CategoryButton__IconContainer>
         <CategoryIcon index={index} />
-      </View>
-      <Text style={styles.categoryButtonText}>{`카테고리${index}`}</Text>
-    </View>
+      </CategoryButton__IconContainer>
+      <CategoryButton__Text>{`카테고리${index}`}</CategoryButton__Text>
+    </CategoryButton__Container>
   );
 }
 
@@ -63,34 +64,35 @@ function CategoryIcon({ index }: { index: number }) {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 20,
-  },
+const Container = styled.View`
+  margin-bottom: 20px;
+`;
 
-  headerContainer: {
-    marginBottom: 20,
-  },
-  headerTitleText: {},
+// Header()
+const Header__Container = styled.View`
+  margin-bottom: 30px;
+`;
 
-  categoryListContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingHorizontal: 10,
-  },
+// CategoryButtonsBox()
+const CategoryButtonsBox__Container = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0px 10px;
+`;
 
-  categoryButtonContainer: {
-    alignItems: "center",
-    width: "20%",
-    paddingBottom: 30,
-  },
-  categoryButtonIconContainer: {
-    marginBottom: 12,
-  },
-  categoryButtonIcon: {},
-  categoryButtonText: {
-    fontSize: 10,
-    fontWeight: "bold",
-    color: theme.color.text_color_666,
-  },
-});
+// CategoryButton()
+const CategoryButton__Container = styled.View`
+  align-items: center;
+  width: 20%;
+  padding-bottom: 30px;
+`;
+
+const CategoryButton__IconContainer = styled.View`
+  margin-bottom: 12px;
+`;
+
+const CategoryButton__Text = styled.Text`
+  font-size: 10px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.color.text_color_666};
+`;

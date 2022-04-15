@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 import { Carousel } from "@Component/React";
 
 export function PartnerMainBanner() {
@@ -23,20 +24,13 @@ export function PartnerMainBanner() {
   );
 }
 
-type P = {
+type BannerPageProps = {
   color: string;
   key: number;
 };
 
-function BannerPage({ item }: { item: P }) {
-  return (
-    <View
-      style={{
-        ...styles.bannerPage,
-        backgroundColor: item.color,
-      }}
-    />
-  );
+function BannerPage({ item }: { item: BannerPageProps }) {
+  return <BannerPage__Container color={item.color} />;
 }
 
 const styles = StyleSheet.create({
@@ -44,9 +38,10 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 35,
   },
-
-  bannerPage: {
-    width: "100%",
-    height: 120,
-  },
 });
+
+const BannerPage__Container = styled.View<{ color: string }>`
+  width: 100%;
+  height: 120px;
+  background-color: ${({ color }) => color};
+`;

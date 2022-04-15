@@ -1,29 +1,28 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
+import styled from "styled-components/native";
 import { screenStyles } from "./Partner.main.screen";
 import { Carousel } from "@Component/React";
-import { theme } from "@Theme/index";
 
 export function PartnerMainFollow() {
   return (
-    <View style={styles.container}>
+    <Container>
       <Header />
       <FollowingPartnersList />
-    </View>
+    </Container>
   );
 }
 
 function Header() {
   return (
-    <View
+    <Header__Container
       style={{
         ...screenStyles.padding,
         ...screenStyles.headerContainer,
-        ...styles.headerContainer,
       }}>
       <Text style={screenStyles.headerTitleText}>팔로우</Text>
       <Text style={screenStyles.headerMoreText}>MORE</Text>
-    </View>
+    </Header__Container>
   );
 }
 
@@ -61,44 +60,45 @@ type Partner = {
  */
 function PartnerButton({ item }: { item: Partner }) {
   return (
-    <View style={styles.partnerButtonContainer}>
-      <View
-        style={{ ...styles.partnerButtonImage, backgroundColor: item.color }}
-      />
-      <Text style={styles.partnerButtonText}>{item.partnerName}</Text>
-    </View>
+    <PartnerButton__Container>
+      <PartnerButton__IconContainer color={item.color} />
+      <PartnerButton__Text>{item.partnerName}</PartnerButton__Text>
+    </PartnerButton__Container>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 45,
-  },
-
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerTitleText: {},
-
   carouselContainer: {},
   carouselContentContainer: { paddingHorizontal: 15 },
-
-  partnerButtonContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 12,
-  },
-  partnerButtonImage: {
-    width: 50,
-    height: 50,
-    marginBottom: 10,
-    borderRadius: 25,
-  },
-  partnerButtonText: {
-    color: theme.color.text_color_666,
-    fontSize: 12,
-    fontWeight: "bold",
-  },
 });
+
+const Container = styled.View`
+  margin-bottom: 45px;
+`;
+
+// Header()
+const Header__Container = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+// PartnerButton()
+const PartnerButton__Container = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding: 0px 12px;
+`;
+
+const PartnerButton__IconContainer = styled.View<{ color: string }>`
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: 25px;
+  background-color: ${({ color }) => color};
+`;
+
+const PartnerButton__Text = styled.Text`
+  color: ${({ theme }) => theme.color.text_color_666};
+  font-size: 12px;
+  font-weight: bold;
+`;

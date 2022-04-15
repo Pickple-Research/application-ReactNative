@@ -1,16 +1,17 @@
 import React from "react";
-import { StyleSheet, View, TextInput, TextInputProps } from "react-native";
+import { TextInputProps } from "react-native";
+import styled from "styled-components/native";
 import { theme } from "@Theme/index";
 
 export function PartnerMainSearch() {
   return (
-    <View style={styles.container}>
+    <Container>
       <SearchBox
         onSubmitEditing={() => {
           console.log("submitted");
         }}
       />
-    </View>
+    </Container>
   );
 }
 
@@ -22,9 +23,8 @@ export function PartnerMainSearch() {
  */
 function SearchBox(props?: TextInputProps) {
   return (
-    <TextInput
-      {...props}
-      style={styles.searchInput}
+    <SearchBox__Input
+      onSubmitEditing={props?.onSubmitEditing}
       placeholder="스타트업을 검색해보세요"
       placeholderTextColor={theme.color.inactive_button}
       numberOfLines={1}
@@ -33,14 +33,12 @@ function SearchBox(props?: TextInputProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 15,
-  },
-  searchIcon: {},
-  searchInput: {
-    paddingHorizontal: 15,
-    color: theme.color.inactive_button,
-    backgroundColor: "#ffffff",
-  },
-});
+const Container = styled.View`
+  margin-bottom: 15px;
+`;
+
+const SearchBox__Input = styled.TextInput`
+  padding: 0px 15px;
+  color: ${({ theme }) => theme.color.inactive_button};
+  background-color: white;
+`;
