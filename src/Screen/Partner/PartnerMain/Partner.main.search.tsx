@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TextInputProps,
-} from "react-native";
-import { screenStyles } from "./Partner.main.screen";
+import { StyleSheet, View, TextInput, TextInputProps } from "react-native";
 import { theme } from "@Theme/theme";
 
 export function PartnerMainSearch() {
   return (
-    <View style={screenStyles.view}>
+    <View style={styles.container}>
       <SearchBox
         onSubmitEditing={() => {
           console.log("submitted");
@@ -41,12 +34,12 @@ function SearchBox(props?: TextInputProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginBottom: 15,
+  },
   searchIcon: {},
   searchInput: {
     paddingHorizontal: 15,
-    borderColor: "black",
-    borderWidth: 3,
     color: theme.color.inactive_button,
     backgroundColor: "#ffffff",
   },

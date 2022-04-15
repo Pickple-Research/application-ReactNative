@@ -22,6 +22,7 @@ type CarouselProps<DataType> = {
   data: DataType[];
   PageComponent: ({ item }: { item: DataType }) => JSX.Element;
   style?: StyleProp<any>;
+  contentContainerStyle?: StyleProp<any>;
   fullPage?: boolean;
   useScrollBreak?: boolean;
   showIndicator?: boolean;
@@ -119,7 +120,10 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         //? decelerationRate: 스크롤 이벤트 반영속도
         //? showsHorizontalScrollIndicator: 수평 스크롤바 표시 여부
         // style={styles.carouselContainer}
-        contentContainerStyle={styles.carouselContentContainer}
+        contentContainerStyle={{
+          ...props.contentContainerStyle,
+          ...styles.carouselContentContainer,
+        }}
         data={props.data}
         renderItem={
           props.fullPage === false ? props.PageComponent : FullPageRenderer
@@ -166,6 +170,7 @@ type IndicatorProps = {
  * @author 현웅
  */
 function Indicator({ currentPageIndex, totalPage, data }: IndicatorProps) {
+  //TODO: data를 이용하지 않고 totalPage만으로 map 가능하도록 설정
   return (
     <View style={styles.indicatorContainer}>
       {data &&

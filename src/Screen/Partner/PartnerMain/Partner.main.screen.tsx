@@ -6,14 +6,19 @@ import { PartnerMainFollow } from "./Partner.main.follow";
 import { PartnerMainCategory } from "./Partner.main.category";
 import { PartnerMainAd } from "./Partner.main.ad";
 import { PartnerMainRecent } from "./Partner.main.recent";
+import { globalStyles } from "@Component/GlobalStyles";
+import { theme } from "@Theme/index";
 
 export type PartnerMainScreenProps = {};
 
+/**
+ * 파트너 랜딩 페이지
+ * @author 현웅
+ */
 export function PartnerMainScreen({ navigation }: any) {
   return (
     <ScrollView
-      //? contentContainerStyle: ScrollView의 자식을 감싸는 Container 스타일을 정의합니다.
-      style={styles.container}
+      style={{ ...globalStyles.fullView, ...styles.container }}
       contentContainerStyle={styles.contentContainer}
       nestedScrollEnabled>
       <PartnerMainSearch />
@@ -28,9 +33,10 @@ export function PartnerMainScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: {},
+
   contentContainer: {
     paddingTop: 25,
-    paddingBottom: 20,
+    paddingBottom: 70,
   },
 });
 
@@ -39,9 +45,25 @@ const styles = StyleSheet.create({
  * @author 현웅
  */
 export const screenStyles = StyleSheet.create({
-  view: {
-    width: "100%",
-    paddingHorizontal: 10,
-    borderColor: "yellow",
+  // 각 섹션 헤더 View 패딩
+  padding: {
+    paddingHorizontal: 20,
+  },
+
+  // 각 섹션 헤더 View 스타일
+  headerContainer: {
+    marginBottom: 20,
+  },
+
+  // 헤더 타이틀 텍스트 스타일
+  headerTitleText: {
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+
+  // 헤더 MORE 텍스트 스타일
+  headerMoreText: {
+    color: theme.color.main_skyblue,
   },
 });

@@ -180,7 +180,7 @@ function TabBarHomeIcon() {
 
 const styles = StyleSheet.create({
   //하단바 전체 스타일
-  //TODO: #SETTING 그림자 설정 Android, iOS 다르게 해야함
+  //TODO: #SETTING(style) 그림자 설정 Android, iOS 다르게 해야함
   bottomTabBar: {
     height: 56,
     backgroundColor: "#ffffff",

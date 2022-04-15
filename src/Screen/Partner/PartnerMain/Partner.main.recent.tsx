@@ -4,8 +4,8 @@ import { screenStyles } from "./Partner.main.screen";
 
 export function PartnerMainRecent() {
   return (
-    <View style={screenStyles.view}>
-      <Text>{`최신(UX Writing)`}</Text>
+    <View style={styles.container}>
+      <Text>{`최신`}</Text>
     </View>
   );
 }

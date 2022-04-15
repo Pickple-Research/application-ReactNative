@@ -20,4 +20,5 @@ export const color = {
   text_skyblue: "#599BDF",
   background_purple: "#F5F5FC",
   skyblue_textfield: "#EDF5FD",
+  text_color_666: "#666666",
 };

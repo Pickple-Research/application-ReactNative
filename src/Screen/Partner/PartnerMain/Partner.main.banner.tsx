@@ -15,7 +15,7 @@ export function PartnerMainBanner() {
 
   return (
     <Carousel
-      style={styles.container}
+      style={styles.carouselContainer}
       data={data}
       PageComponent={BannerPage}
       showIndex
@@ -40,8 +40,9 @@ function BannerPage({ item }: { item: P }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 15,
+  carouselContainer: {
+    width: "100%",
+    marginBottom: 35,
   },
 
   bannerPage: {
