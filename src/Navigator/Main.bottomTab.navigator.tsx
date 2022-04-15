@@ -51,8 +51,10 @@ export function MainBottomTabNavigator() {
       screenOptions={({ route }) => ({
         //? headerShown: bottomTabNavigator 상에서의 위치를 나타내는 헤더를 표시하지 않습니다.
         //? tabBarShowLabel: 기본 tabBarLabel을 표시하지 않습니다.
+        //? tabBarHideOnKeyBoard: 키보드를 사용하면 tabBar를 숨깁니다.
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
         //? 전역적으로 tabBarStyle을 적용하더라도 각 TabBar 옵션마다 새로 style이 적용되므로 쓸모가 없습니다.
         // tabBarStyle: styles.bottomTabBar,
       })}>
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
   //TODO: #SETTING(style) 그림자 설정 Android, iOS 다르게 해야함
   bottomTabBar: {
     height: 56,
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
     // iOS 그림자 스타일
     shadowColor: "#000000",
     shadowOffset: {
@@ -216,14 +218,14 @@ const styles = StyleSheet.create({
   // tab bar 버튼 텍스트 (선택시)
   tabBarIconFocusedText: {
     fontSize: 8,
-    color: theme.color.focusedGray,
+    color: theme.color.focused_gray,
     marginTop: 3,
   },
 
   // tab bar 버튼 텍스트 (비선택시)
   tabBarIconUnfocusedText: {
     fontSize: 8,
-    color: theme.color.unfocusedGray,
+    color: theme.color.unfocused_gray,
     marginTop: 3,
   },
 });

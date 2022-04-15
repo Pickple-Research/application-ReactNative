@@ -4,8 +4,8 @@
  */
 export type ThemeColors = {
   // bottomTabBar에서 사용되는 선택/비선택 회색
-  focusedGray: string;
-  unfocusedGray: string;
+  focused_gray: string;
+  unfocused_gray: string;
 
   // 아래는 희연이 작명 그대로 사용
   main_skyblue: string;
@@ -15,11 +15,13 @@ export type ThemeColors = {
 
   text_skyblue: string;
   text_purple: string;
-  deep_purple_text: string;
+  text_deep_purple: string;
   text_color_666: string;
+  text_color_bbb: string;
 
   inactive_button: string;
-  skyblue_textfield: string;
+  inactive_button_gray: string;
+  textfield_skyblue: string;
   background_purple: string;
 
   // 메인 테마 그라디언트 색상

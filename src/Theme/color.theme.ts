@@ -7,8 +7,8 @@ import { ThemeColors } from "@Object/Type";
  */
 export const lightThemeColors: ThemeColors = {
   // bottomTabBar에서 사용되는 선택/비선택 회색
-  focusedGray: "#848899",
-  unfocusedGray: "#D3D4D4",
+  focused_gray: "#848899",
+  unfocused_gray: "#D3D4D4",
 
   // 아래는 희연이 작명 그대로 사용
   main_skyblue: "#8BBFF5",
@@ -18,11 +18,13 @@ export const lightThemeColors: ThemeColors = {
 
   text_skyblue: "#599BDF",
   text_purple: "#8F84D0",
-  deep_purple_text: "#594E96",
+  text_deep_purple: "#594E96",
   text_color_666: "#666666",
+  text_color_bbb: "#BBBBBB",
 
   inactive_button: "#D6D4E2",
-  skyblue_textfield: "#EDF5FD",
+  inactive_button_gray: "#EEEEEE",
+  textfield_skyblue: "#EDF5FD",
   background_purple: "#F5F5FC",
 
   // 메인 테마 그라디언트 색상
@@ -36,8 +38,8 @@ export const lightThemeColors: ThemeColors = {
  */
 export const darkThemeColors: ThemeColors = {
   // bottomTabBar에서 사용되는 선택/비선택 회색
-  focusedGray: "",
-  unfocusedGray: "",
+  focused_gray: "",
+  unfocused_gray: "",
 
   // 아래는 희연이 작명 그대로 사용
   main_skyblue: "",
@@ -47,11 +49,13 @@ export const darkThemeColors: ThemeColors = {
 
   text_skyblue: "",
   text_purple: "",
-  deep_purple_text: "",
+  text_deep_purple: "",
   text_color_666: "",
+  text_color_bbb: "",
 
   inactive_button: "",
-  skyblue_textfield: "",
+  inactive_button_gray: "",
+  textfield_skyblue: "",
   background_purple: "",
 
   // 메인 테마 그라디언트 색상

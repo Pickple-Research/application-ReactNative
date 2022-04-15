@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, Text } from "react-native";
+import styled from "styled-components/native";
 import { screenStyles } from "./Partner.main.screen";
 import { Carousel } from "@Component/React";
-import { theme } from "@Theme/index";
-import styled from "styled-components/native";
 
 /**
  * 파트너 랜딩 페이지 광고 섹션
@@ -11,32 +10,23 @@ import styled from "styled-components/native";
  */
 export function PartnerMainAd() {
   return (
-    <View style={styles.container}>
+    <Container>
       <Header />
       <PartnersAdList />
-      <Container focused={false} />
-    </View>
+    </Container>
   );
 }
 
-const Container = styled.View<{ focused: boolean }>`
-  width: 80px;
-  height: 80px;
-  background-color: ${({ focused, theme }) =>
-    focused ? theme.color.background_purple : theme.color.main_skyblue};
-`;
-
 function Header() {
   return (
-    <View
+    <Header__Container
       style={{
         ...screenStyles.padding,
         ...screenStyles.headerContainer,
-        ...styles.header__container,
       }}>
       <Text style={screenStyles.headerTitleText}>광고</Text>
       <Text style={screenStyles.headerMoreText}>MORE</Text>
-    </View>
+    </Header__Container>
   );
 }
 
@@ -79,93 +69,115 @@ type PartnerAd = {
  */
 function PartnerAdButton({ item }: { item: PartnerAd }) {
   return (
-    <View style={styles.adButton__container}>
-      <View style={styles.adButton__imageContainer}></View>
-      <View style={styles.adButton__bottomContainer}>
-        <View style={styles.adButton__iconContainer}>
-          <View
-            style={{
-              ...styles.adButton__icon,
-              backgroundColor: item.color,
-            }}
-          />
-        </View>
-        <View style={styles.adButton__nameTagContainer}>
-          <Text style={styles.adButton__nameText}>{item.partnerName}</Text>
-          <View style={styles.adButton__tagContainer}>
+    <AdButton__Container>
+      <AdButton__ImageContainer />
+      <AdButton__BottomContainer>
+        <AdButton__IconContainer>
+          <AdButton__Icon color={item.color} />
+        </AdButton__IconContainer>
+        <AdButton__NameTagContainer>
+          <AdButton__NameText>{item.partnerName}</AdButton__NameText>
+          <AdButton__TagContainer>
             {item.tags.splice(0, 2).map(tag => {
               return (
-                <Text
-                  style={styles.adButton__tagText}
-                  key={tag}>{`#${tag} `}</Text>
+                <AdButton__TagText key={tag}>{`#${tag} `}</AdButton__TagText>
               );
             })}
-          </View>
-        </View>
-        <Button title={"팔로우"} />
-      </View>
-    </View>
+          </AdButton__TagContainer>
+        </AdButton__NameTagContainer>
+        <FollowButton />
+      </AdButton__BottomContainer>
+    </AdButton__Container>
+  );
+}
+
+function FollowButton() {
+  return (
+    <FollowButton__Container activeOpacity={0.6}>
+      <FollowButton__Text>팔로우</FollowButton__Text>
+    </FollowButton__Container>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 45,
-  },
-
-  // Header()
-  header__container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-
   // PartnerAdList()
   carouselContainer: {},
   carouselContentContainer: { paddingHorizontal: 20 },
-
-  // PartnerAdButton()
-  adButton__container: {
-    paddingHorizontal: 3,
-  },
-  adButton__imageContainer: {
-    height: 105,
-    backgroundColor: "gray",
-    borderRadius: 6,
-    marginBottom: 8,
-  },
-  adButton__bottomContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    // borderWidth: 2,
-    // borderColor: "black",
-  },
-  adButton__iconContainer: {
-    padding: 5,
-    marginRight: 10,
-  },
-  adButton__icon: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-  },
-  adButton__nameTagContainer: {
-    justifyContent: "space-between",
-    width: 160,
-  },
-  adButton__nameText: {
-    color: "black",
-    fontSize: 14,
-    fontWeight: "bold",
-    paddingBottom: 6,
-  },
-  adButton__tagContainer: {
-    flexDirection: "row",
-  },
-  adButton__tagText: {
-    color: theme.color.text_skyblue,
-    fontSize: 12,
-    paddingLeft: 3,
-  },
-  adButton__followButton: {},
 });
+
+const Container = styled.View`
+  margin-bottom: 45px;
+`;
+
+// Header()
+const Header__Container = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+// PartnerAdButton()
+const AdButton__Container = styled.View`
+  padding: 0px 5px;
+`;
+
+const AdButton__ImageContainer = styled.View`
+  height: 105px;
+  background-color: gray;
+  border-radius: 6px;
+  margin-bottom: 8px;
+`;
+
+const AdButton__BottomContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const AdButton__IconContainer = styled.View`
+  padding: 5px;
+  margin-right: 10px;
+`;
+
+const AdButton__Icon = styled.View<{ color: string }>`
+  width: 46px;
+  height: 46px;
+  border-radius: 23px;
+  background-color: ${({ color }) => color};
+`;
+
+const AdButton__NameTagContainer = styled.View`
+  justify-content: space-between;
+  width: 120px;
+`;
+
+const AdButton__NameText = styled.Text`
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 6px;
+`;
+
+const AdButton__TagContainer = styled.View`
+  flex-direction: row;
+`;
+
+const AdButton__TagText = styled.Text`
+  color: ${({ theme }) => theme.color.text_skyblue};
+  font-size: 12px;
+  padding-right: 3px;
+`;
+
+const FollowButton__Container = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 36px;
+  background-color: ${({ theme }) => theme.color.main_skyblue};
+  border-radius: 18px;
+`;
+
+const FollowButton__Text = styled.Text`
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+`;
