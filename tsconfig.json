@@ -45,6 +45,7 @@
       "@Component/*": ["./src/Component/*"],
       "@Constant/*": ["./src/Constant/*"],
       "@Navigator/*": ["./src/Navigator/*"],
+      "@Object/*": ["./src/Object/*"],
       "@Resource/*": ["./src/Resource/*"],
       "@Screen/*": ["./src/Screen/*"],
       "@Theme/*": ["./src/Theme/*"],

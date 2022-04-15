@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import { screenStyles } from "./Partner.main.screen";
 import { Carousel } from "@Component/React";
 import { theme } from "@Theme/index";
+import styled from "styled-components/native";
 
 /**
  * 파트너 랜딩 페이지 광고 섹션
@@ -13,9 +14,17 @@ export function PartnerMainAd() {
     <View style={styles.container}>
       <Header />
       <PartnersAdList />
+      <Container focused={false} />
     </View>
   );
 }
+
+const Container = styled.View<{ focused: boolean }>`
+  width: 80px;
+  height: 80px;
+  background-color: ${({ focused, theme }) =>
+    focused ? theme.color.background_purple : theme.color.main_skyblue};
+`;
 
 function Header() {
   return (

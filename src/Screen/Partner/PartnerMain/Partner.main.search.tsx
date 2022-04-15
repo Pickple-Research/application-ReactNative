@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, TextInput, TextInputProps } from "react-native";
-import { theme } from "@Theme/theme";
+import { theme } from "@Theme/index";
 
 export function PartnerMainSearch() {
   return (
