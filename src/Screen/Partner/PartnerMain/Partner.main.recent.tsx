@@ -7,7 +7,8 @@ export function PartnerMainRecent() {
   return (
     <Container style={styles.container}>
       <Header />
-      <PartnersTypeButtonsList />
+      <PartnerTypeButtonsList />
+      <RecentPartnersList />
     </Container>
   );
 }
@@ -25,7 +26,7 @@ function Header() {
   );
 }
 
-function PartnersTypeButtonsList() {
+function PartnerTypeButtonsList() {
   const data = [
     { title: "스타트업", selected: true },
     { title: "학회", selected: true },
@@ -38,13 +39,13 @@ function PartnersTypeButtonsList() {
         ...screenStyles.padding,
       }}>
       {data.map(tag => {
-        return <PartnersTypeButton key={tag.title} tag={tag} />;
+        return <PartnerTypeButton key={tag.title} tag={tag} />;
       })}
     </TypeButtonsList__Container>
   );
 }
 
-function PartnersTypeButton({
+function PartnerTypeButton({
   tag,
 }: {
   tag: { title: string; selected: boolean };
@@ -56,7 +57,9 @@ function PartnersTypeButton({
   );
 }
 
-function PartnersList() {}
+function RecentPartnersList() {
+  return null;
+}
 
 const styles = StyleSheet.create({
   container: {},
@@ -91,4 +94,4 @@ const TypeButton__Text = styled.Text<{ selected: boolean }>`
   font-weight: bold;
 `;
 
-// List()
+// RecentPartnersList()

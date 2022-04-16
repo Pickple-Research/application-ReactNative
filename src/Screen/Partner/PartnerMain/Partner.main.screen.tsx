@@ -6,7 +6,7 @@ import { PartnerMainFollow } from "./Partner.main.follow";
 import { PartnerMainCategory } from "./Partner.main.category";
 import { PartnerMainAd } from "./Partner.main.ad";
 import { PartnerMainRecent } from "./Partner.main.recent";
-import { globalStyles } from "@Component/GlobalStyles";
+import { WhiteBackgroundScrollView } from "@Component/StyledComponents";
 import { theme } from "@Theme/index";
 
 export type PartnerMainScreenProps = {};
@@ -17,8 +17,7 @@ export type PartnerMainScreenProps = {};
  */
 export function PartnerMainScreen({ navigation }: any) {
   return (
-    <ScrollView
-      style={{ ...globalStyles.fullView, ...styles.container }}
+    <WhiteBackgroundScrollView
       contentContainerStyle={styles.contentContainer}
       nestedScrollEnabled>
       <PartnerMainSearch />
@@ -27,13 +26,11 @@ export function PartnerMainScreen({ navigation }: any) {
       <PartnerMainCategory />
       <PartnerMainAd />
       <PartnerMainRecent />
-    </ScrollView>
+    </WhiteBackgroundScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
-
   contentContainer: {
     paddingTop: 25,
     paddingBottom: 70,

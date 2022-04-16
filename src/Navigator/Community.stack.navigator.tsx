@@ -5,6 +5,15 @@ import {
   CommunityTopTabNavigator,
 } from "./Community.topTab.navigator";
 
+/**
+ * CommunityStackNavigator 스크린들에 사용되는 속성들을 정의합니다.
+ * 이 type의 key에 해당하는 값은 CommunityStack.Screen의 name과 일치해야 합니다.
+ * @author 현웅
+ */
+export type CommunityStackProps = {
+  CommunityTopTabNavigator: CommunityTopTabProps;
+};
+
 const CommunityStack = createNativeStackNavigator<CommunityStackProps>();
 
 /**
@@ -21,13 +30,3 @@ export function CommunityStackNavigator() {
     </CommunityStack.Navigator>
   );
 }
-
-/**
- * CommunityStackNavigator 스크린들에 사용되는 속성들을 정의합니다.
- * 이 type의 key에 해당하는 값은 CommunityStack.Screen의 name과 일치해야 합니다.
- * @author 현웅
- */
-
-export type CommunityStackProps = {
-  CommunityTopTabNavigator: CommunityTopTabProps;
-};

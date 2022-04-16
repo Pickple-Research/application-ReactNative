@@ -21,6 +21,8 @@ export const lightThemeColors: ThemeColors = {
   text_deep_purple: "#594E96",
   text_color_666: "#666666",
   text_color_bbb: "#BBBBBB",
+  text_color_8f: "#8F8F8F",
+  text_color_999: "#999999",
 
   inactive_button: "#D6D4E2",
   inactive_button_gray: "#EEEEEE",
@@ -52,6 +54,8 @@ export const darkThemeColors: ThemeColors = {
   text_deep_purple: "",
   text_color_666: "",
   text_color_bbb: "",
+  text_color_8f: "",
+  text_color_999: "",
 
   inactive_button: "",
   inactive_button_gray: "",
