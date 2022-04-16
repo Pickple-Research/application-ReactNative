@@ -9,6 +9,12 @@ import {
   PartnerDetailScreenProps,
 } from "@Screen/Partner";
 
+export type PartnerStackProps = {
+  PartnerMainScreen: PartnerMainScreenProps;
+  PartnerCategoryScreen: PartnerCategoryScreenProps;
+  PartnerDetailScreen: PartnerDetailScreenProps;
+};
+
 export const PartnerStack = createNativeStackNavigator<PartnerStackProps>();
 
 export function PartnerStackNavigator() {
@@ -29,8 +35,3 @@ export function PartnerStackNavigator() {
     </PartnerStack.Navigator>
   );
 }
-export type PartnerStackProps = {
-  PartnerMainScreen: PartnerMainScreenProps;
-  PartnerCategoryScreen: PartnerCategoryScreenProps;
-  PartnerDetailScreen: PartnerDetailScreenProps;
-};

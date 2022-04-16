@@ -1,7 +1,3 @@
 import { StyleSheet } from "react-native";
 
-export const globalStyles = StyleSheet.create({
-  fullView: {
-    backgroundColor: "white",
-  },
-});
+export const globalStyles = StyleSheet.create({});

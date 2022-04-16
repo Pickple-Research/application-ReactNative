@@ -9,6 +9,17 @@ import {
   ResearchUploadScreenProps,
 } from "@Screen/Research";
 
+/**
+ * ResearchStackNavigator의 스크린들에 사용되는 속성들을 정의합니다.
+ * 이 부분의 key에 해당하는 값은 ResearchStack.Screen의 name과 일치해야 합니다.
+ * @author 현웅
+ */
+export type ResearchStackProps = {
+  ResearchMainScreen: ResearchMainScreenProps;
+  ResearchDetailScreen: ResearchDetailScreenProps;
+  ResearchUploadScreen: ResearchUploadScreenProps;
+};
+
 const ResearchStack = createNativeStackNavigator<ResearchStackProps>();
 
 /**
@@ -33,14 +44,3 @@ export function ResearchStackNavigator({ navigation }: any) {
     </ResearchStack.Navigator>
   );
 }
-
-/**
- * ResearchStackNavigator의 스크린들에 사용되는 속성들을 정의합니다.
- * 이 부분의 key에 해당하는 값은 ResearchStack.Screen의 name과 일치해야 합니다.
- * @author 현웅
- */
-export type ResearchStackProps = {
-  ResearchMainScreen: ResearchMainScreenProps;
-  ResearchDetailScreen: ResearchDetailScreenProps;
-  ResearchUploadScreen: ResearchUploadScreenProps;
-};

@@ -18,6 +18,8 @@ export type ThemeColors = {
   text_deep_purple: string;
   text_color_666: string;
   text_color_bbb: string;
+  text_color_8f: string;
+  text_color_999: string;
 
   inactive_button: string;
   inactive_button_gray: string;

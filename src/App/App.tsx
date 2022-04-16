@@ -12,7 +12,7 @@ export default function App() {
   const userInfo = useUserStore(state => state.userInfo);
 
   useEffect(() => {
-    console.log(`initial userInfo: ${userInfo}`);
+    // console.log(`initial userInfo: ${userInfo}`);
     setTimeout(() => {
       setInitialLoaded(true);
     }, 1500);

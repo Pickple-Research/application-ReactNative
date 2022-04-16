@@ -121,8 +121,8 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         //? showsHorizontalScrollIndicator: 수평 스크롤바 표시 여부
         // style={styles.carouselContainer}
         contentContainerStyle={{
-          ...props.contentContainerStyle,
-          ...styles.carouselContentContainer,
+          ...styles.carouselContentContainer, // 기본 스타일
+          ...props.contentContainerStyle, // 인자로 들어온 추가 스타일
         }}
         data={props.data}
         renderItem={
@@ -215,7 +215,9 @@ const styles = StyleSheet.create({
   // Carousel을 구성하는 FlatList 스타일
   // carouselContainer: {},
 
-  carouselContentContainer: {},
+  carouselContentContainer: {
+    alignItems: "center",
+  },
 
   carouselFullPageContainer: {
     justifyContent: "center",
