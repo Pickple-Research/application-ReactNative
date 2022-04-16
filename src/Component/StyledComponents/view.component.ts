@@ -10,3 +10,7 @@ export const FullView = styled.View`
   width: 100%;
   background-color: #ffffff;
 `;
+
+export const HorizontalView = styled.View`
+  flex-direction: row;
+`

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   PartnerStackNavigator,
@@ -23,6 +23,7 @@ import {
   MypageSvgIcon,
 } from "@Component/React";
 import { theme } from "@Theme/theme";
+import { HorizontalView } from "@Component/StyledComponents";
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 
@@ -89,6 +90,18 @@ export function MainBottomTabNavigator() {
         name={"HomeStack"}
         component={HomeStackNavigator}
         options={({ route }) => ({
+          headerShown: true,
+          headerTitle: "픽플리",
+          headerRight: (() => (
+            <HorizontalView>
+              <TouchableOpacity style={{marginRight: 15}}>
+                <Image source={require("@Resource/search.png")} style={{width: 30, height: 30, resizeMode: "cover"}} />
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginRight: 15}}>
+                <Image source={require("@Resource/bell.png")} style={{width: 30, height: 30, resizeMode: "cover"}} />
+              </TouchableOpacity>
+            </HorizontalView>
+          )),
           tabBarStyle: {
             display: getBottomTabVisibilityFromRoute(route),
             ...styles.bottomTabBar,
