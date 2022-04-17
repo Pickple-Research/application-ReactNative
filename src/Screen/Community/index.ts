@@ -1,1 +1,1 @@
-export * from "./CommunityMain/index";
+export * from "./CommunityMain/Community.main.screen";
