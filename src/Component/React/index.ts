@@ -6,4 +6,5 @@
 export * from "./Button.component";
 export * from "./Carousel.component";
 export * from "./Gradient.component";
+export * from "./ScrollView.component";
 export * from "./Svg.component";

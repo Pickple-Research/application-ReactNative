@@ -3,5 +3,4 @@
  * @author 현웅
  */
 
-export * from "./scrollView.component";
 export * from "./view.component";

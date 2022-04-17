@@ -15,7 +15,7 @@ export default function App() {
     // console.log(`initial userInfo: ${userInfo}`);
     setTimeout(() => {
       setInitialLoaded(true);
-    }, 1500);
+    }, 500);
 
     return;
   }, []);

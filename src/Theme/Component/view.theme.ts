@@ -1,5 +1,6 @@
-import { color, size } from "../Value";
+import { theme } from "../index";
+import { size } from "../Value";
 
 export const viewTheme = {
-    home_main_background: color.background_purple
+  home_main_background: theme.color.background_purple,
 };
