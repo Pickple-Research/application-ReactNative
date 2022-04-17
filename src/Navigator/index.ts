@@ -9,6 +9,5 @@ export * from "./Research.stack.navigator";
 export * from "./Home.stack.navigator";
 
 export * from "./Community.stack.navigator";
-export * from "./Community.topTab.navigator";
 
 export * from "./Profile.stack.navigator";

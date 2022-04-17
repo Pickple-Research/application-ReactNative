@@ -1,5 +1,5 @@
-import { color } from "@Theme/Value";
+import { theme } from "@Theme/index";
 
 export const textTheme = {
-    home_main_research_category_tag: color.text_purple
+  home_main_research_category_tag: theme.color.text_purple,
 };

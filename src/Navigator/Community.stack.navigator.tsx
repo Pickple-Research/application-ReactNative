@@ -1,9 +1,9 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
-  CommunityTopTabProps,
-  CommunityTopTabNavigator,
-} from "./Community.topTab.navigator";
+  CommunityMainScreen,
+  CommunityMainScreenProps,
+} from "@Screen/Community";
 
 /**
  * CommunityStackNavigator 스크린들에 사용되는 속성들을 정의합니다.
@@ -11,7 +11,7 @@ import {
  * @author 현웅
  */
 export type CommunityStackProps = {
-  CommunityTopTabNavigator: CommunityTopTabProps;
+  CommunityMainScreen: CommunityMainScreenProps;
 };
 
 const CommunityStack = createNativeStackNavigator<CommunityStackProps>();
@@ -24,8 +24,8 @@ export function CommunityStackNavigator() {
   return (
     <CommunityStack.Navigator screenOptions={{ headerShown: false }}>
       <CommunityStack.Screen
-        name={"CommunityTopTabNavigator"}
-        component={CommunityTopTabNavigator}
+        name={"CommunityMainScreen"}
+        component={CommunityMainScreen}
       />
     </CommunityStack.Navigator>
   );
