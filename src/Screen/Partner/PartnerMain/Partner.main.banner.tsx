@@ -19,6 +19,8 @@ export function PartnerMainBanner() {
       style={styles.carouselContainer}
       data={data}
       PageComponent={BannerPage}
+      fullPage
+      useScrollBreak
       showIndex
     />
   );

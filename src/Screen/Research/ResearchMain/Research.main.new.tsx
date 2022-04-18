@@ -36,8 +36,6 @@ function ResearchTypeButtonsList() {
       contentContainerStyle={styles.carousel__contentContainer}
       data={tags}
       PageComponent={ResearchTypeButton}
-      fullPage={false}
-      useScrollBreak={false}
     />
   );
 }

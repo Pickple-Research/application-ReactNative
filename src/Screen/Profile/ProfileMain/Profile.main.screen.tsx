@@ -39,8 +39,12 @@ export const screenStyles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+  header__margin: {
+    marginBottom: 20,
+  },
+
   border: {
-    borderBottomWidth: 5,
+    borderBottomWidth: 8,
     borderBottomColor: theme.color.background_purple,
   },
 });

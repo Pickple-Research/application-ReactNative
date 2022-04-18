@@ -1,6 +1,12 @@
 import { ThemeColors } from "@Object/Type";
 
 /**
+ * 모든 테마에 공통으로 적용되는 색상값들
+ * @author 현웅
+ */
+const defaultThemeColors = {};
+
+/**
  * Light 테마 선택시 사용되는 색상값들
  * !색상을 추가하려면 ThemeColors에 정의를 추가해줘야 합니다.
  * @author 현웅
@@ -19,12 +25,14 @@ export const lightThemeColors: ThemeColors = {
   text_skyblue: "#599BDF",
   text_purple: "#8F84D0",
   text_deep_purple: "#594E96",
+  text_color_333: "#333333",
   text_color_666: "#666666",
   text_color_bbb: "#BBBBBB",
   text_color_8f: "#8F8F8F",
   text_color_999: "#999999",
 
   inactive_button: "#D6D4E2",
+  inactive_button_purple: "#D6D4E2",
   inactive_button_gray: "#EEEEEE",
   textfield_skyblue: "#EDF5FD",
   background_purple: "#F5F5FC",
@@ -52,12 +60,14 @@ export const darkThemeColors: ThemeColors = {
   text_skyblue: "",
   text_purple: "",
   text_deep_purple: "",
+  text_color_333: "",
   text_color_666: "",
   text_color_bbb: "",
   text_color_8f: "",
   text_color_999: "",
 
   inactive_button: "",
+  inactive_button_purple: "",
   inactive_button_gray: "",
   textfield_skyblue: "",
   background_purple: "",

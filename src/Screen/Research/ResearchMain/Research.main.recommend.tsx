@@ -46,8 +46,6 @@ function RecommendedResearchesList() {
       contentContainerStyle={styles.carouselContentContainer}
       data={data}
       PageComponent={RecommendedResearchButton}
-      fullPage={false}
-      useScrollBreak={false}
     />
   );
 }
