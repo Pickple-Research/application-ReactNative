@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Community.main.screen";
+import { screenStyles } from "./Profile.main.screen";
 import { SectionHeaderTitle } from "@Component/React";
 import { InterestCategoryCarousel } from "@Component/React/Category";
 import { exampleInterestingCategories } from "../../../Object/Type";
 
-export function CommunityMainInterest() {
+/**
+ * 프로필 랜딩 페이지 관심 카테고리 섹션
+ * @author 현웅
+ */
+export function ProfileMainInterest() {
   return (
-    <Container>
+    <Container style={{ ...screenStyles.border }}>
       <Header />
       <InterestCategoryCarousel categories={exampleInterestingCategories} />
     </Container>
@@ -17,18 +21,15 @@ export function CommunityMainInterest() {
 function Header() {
   return (
     <Header__Container
-      style={{ ...screenStyles.padding, ...screenStyles.headerContainer }}>
-      <SectionHeaderTitle title="즐겨찾는 관심사" />
+      style={{ ...screenStyles.header__margin, ...screenStyles.padding }}>
+      <SectionHeaderTitle title="관심 카테고리" />
     </Header__Container>
   );
 }
 
 const Container = styled.View`
-  margin-bottom: 50px;
+  padding-bottom: 25px;
+  margin-bottom: 18px;
 `;
 
-const Header__Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+const Header__Container = styled.View``;

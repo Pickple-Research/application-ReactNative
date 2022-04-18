@@ -126,7 +126,7 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         }}
         data={props.data}
         renderItem={
-          props.fullPage === false ? props.PageComponent : FullPageRenderer
+          props.fullPage === true ? FullPageRenderer : props.PageComponent
         }
         onLayout={setInitialPageWidth}
         onScroll={
@@ -135,8 +135,8 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         scrollEventThrottle={10000}
         horizontal
         // pagingEnabled
-        snapToInterval={props.useScrollBreak === false ? undefined : pageWidth}
-        snapToAlignment={props.useScrollBreak === false ? undefined : "start"}
+        snapToInterval={props.useScrollBreak === true ? pageWidth : undefined}
+        snapToAlignment={props.useScrollBreak === true ? "start" : undefined}
         decelerationRate="normal"
         showsHorizontalScrollIndicator={false}
       />

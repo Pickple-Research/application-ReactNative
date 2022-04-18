@@ -16,6 +16,7 @@ export type ThemeColors = {
   text_skyblue: string;
   text_purple: string;
   text_deep_purple: string;
+  text_color_333: string;
   text_color_555: string;
   text_color_666: string;
   text_color_bbb: string;
@@ -23,6 +24,7 @@ export type ThemeColors = {
   text_color_999: string;
 
   inactive_button: string;
+  inactive_button_purple: string;
   inactive_button_gray: string;
   textfield_skyblue: string;
   background_purple: string;

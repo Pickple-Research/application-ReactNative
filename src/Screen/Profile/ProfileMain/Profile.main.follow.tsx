@@ -1,11 +1,15 @@
 import React from "react";
-import { Text } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Partner.main.screen";
+import { screenStyles } from "./Profile.main.screen";
 import { FollowingPartnerCarousel } from "@Component/React/Partner";
+import { SectionHeaderTitle, MoreText } from "@Component/React";
 import { examplePartnersList } from "../../../Object/Type";
 
-export function PartnerMainFollow() {
+/**
+ * 프로필 랜딩 페이지 팔로우 스타트업 섹션
+ * @author 현웅
+ */
+export function ProfileMainFollow() {
   return (
     <Container>
       <Header />
@@ -17,18 +21,15 @@ export function PartnerMainFollow() {
 function Header() {
   return (
     <Header__Container
-      style={{
-        ...screenStyles.padding,
-        ...screenStyles.headerContainer,
-      }}>
-      <Text style={screenStyles.headerTitleText}>팔로우</Text>
-      <Text style={screenStyles.headerMoreText}>MORE</Text>
+      style={{ ...screenStyles.header__margin, ...screenStyles.padding }}>
+      <SectionHeaderTitle title={"팔로우 스타트업"} />
+      <MoreText />
     </Header__Container>
   );
 }
 
 const Container = styled.View`
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 `;
 
 const Header__Container = styled.View`
