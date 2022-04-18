@@ -1,8 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
-import { TagGeneral } from "./TagGeneral.component";
-import { Dimensions } from "react-native";
+import { TagGeneral } from "@Component/React/TagGeneral.component";
 import { textTheme } from "@Theme/Component";
 import { vw } from "@Theme/Value";
 import { HorizontalView } from "@Component/StyledComponents";

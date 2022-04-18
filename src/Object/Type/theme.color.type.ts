@@ -16,6 +16,7 @@ export type ThemeColors = {
   text_skyblue: string;
   text_purple: string;
   text_deep_purple: string;
+  text_color_555: string;
   text_color_666: string;
   text_color_bbb: string;
   text_color_8f: string;
