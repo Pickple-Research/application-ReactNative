@@ -1,8 +1,8 @@
 /**
- * styled-component를 통해 뿌리는 테마 색상 종류입니다.
+ * LightTheme, DarkTheme에 상관없이 공통으로 쓰이는 색상 타입
  * @author 현웅
  */
-export type ThemeColors = {
+export type DefaultThemeColors = {
   // bottomTabBar에서 사용되는 선택/비선택 회색
   focused_gray: string;
   unfocused_gray: string;
@@ -32,3 +32,9 @@ export type ThemeColors = {
   // 메인 테마 그라디언트 색상
   purple_blue_gradient: string[];
 };
+
+/**
+ * LightTheme/DarkTheme에 따라 색상값에 차이가 나는 색상 타입
+ * @author 현웅
+ */
+export type ThemeColors = DefaultThemeColors & {};

@@ -13,4 +13,4 @@ export const FullView = styled.View`
 
 export const HorizontalView = styled.View`
   flex-direction: row;
-`
+`;

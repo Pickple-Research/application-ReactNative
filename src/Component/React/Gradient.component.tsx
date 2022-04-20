@@ -6,8 +6,8 @@ import { theme } from "@Theme/index";
 type LinearGradientContainerProps = {
   children: JSX.Element;
   colors?: string[];
-  start?: number[];
-  end?: number[];
+  start?: { x: number; y: number };
+  end?: { x: number; y: number };
   style?: StyleProp<any>;
 };
 
@@ -19,16 +19,12 @@ type LinearGradientContainerProps = {
 export function LinearGradeintContainer({
   children,
   colors = theme.color.purple_blue_gradient,
-  start = [1, 0],
-  end = [0, 1],
+  start = { x: 1, y: 0 },
+  end = { x: 0, y: 1 },
   style,
 }: LinearGradientContainerProps) {
   return (
-    <LinearGradient
-      start={{ x: start[0], y: start[1] }}
-      end={{ x: end[0], y: end[1] }}
-      colors={colors}
-      style={style}>
+    <LinearGradient start={start} end={end} colors={colors} style={style}>
       {children}
     </LinearGradient>
   );
