@@ -3,7 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Community.main.screen";
 import {
-  VotesContainer,
+  VoteListContainer,
   VoteParticipantInfo,
   VoteOption,
 } from "@Component/React/Vote";
@@ -29,7 +29,7 @@ function Header() {
 
 function HotVote({ vote }: { vote: VoteProps }) {
   return (
-    <VotesContainer style={styles.votesContainer}>
+    <VoteListContainer style={styles.votesContainer}>
       <HotVote__Title>{vote.title}</HotVote__Title>
       {vote.options.map((option, index) => {
         return (
@@ -43,7 +43,7 @@ function HotVote({ vote }: { vote: VoteProps }) {
         <HotVote__Viewed>10명이 이 투표를 읽었습니다.</HotVote__Viewed>
         <VoteParticipantInfo />
       </HotVote__BottomContainer>
-    </VotesContainer>
+    </VoteListContainer>
   );
 }
 

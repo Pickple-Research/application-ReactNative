@@ -8,7 +8,7 @@ import styled from "styled-components/native";
  * 그림자 이펙트가 있는 Container입니다.
  * @author 현웅
  */
-export function VotesContainer({
+export function VoteListContainer({
   children,
   style,
   ...props

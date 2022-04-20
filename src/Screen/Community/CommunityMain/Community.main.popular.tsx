@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/React";
-import { VotesContainer, VoteListItem } from "@Component/React/Vote";
+import { VoteListContainer, VoteListItem } from "@Component/React/Vote";
 import { screenStyles } from "./Community.main.screen";
 import { exampleVotesList } from "../../../Object/Type";
 
@@ -25,7 +25,7 @@ function Header() {
 
 function PopularVotesList() {
   return (
-    <VotesContainer>
+    <VoteListContainer>
       {exampleVotesList.map(vote => {
         return (
           <VoteListItem
@@ -34,7 +34,7 @@ function PopularVotesList() {
           />
         );
       })}
-    </VotesContainer>
+    </VoteListContainer>
   );
 }
 

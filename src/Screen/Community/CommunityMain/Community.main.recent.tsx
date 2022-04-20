@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Community.main.screen";
-import { VotesContainer, VoteListItem } from "@Component/React/Vote";
+import { VoteListContainer, VoteListItem } from "@Component/React/Vote";
 import { exampleVotesList } from "../../../Object/Type";
 
 export function CommunityMainRecent() {
@@ -25,11 +25,11 @@ export function Header() {
 
 export function RecentVotesList() {
   return (
-    <VotesContainer>
+    <VoteListContainer>
       {exampleVotesList.map((vote, index) => {
         return <VoteListItem key={`${index}:${vote.tag}`} vote={vote} />;
       })}
-    </VotesContainer>
+    </VoteListContainer>
   );
 }
 
