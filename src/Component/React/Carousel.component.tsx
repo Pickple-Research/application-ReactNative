@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   FlatList,
+  ListRenderItem,
   View,
   Text,
   ListRenderItemInfo,
@@ -20,7 +21,7 @@ type CarouselProps<DataType> = {
   //? showIndicator: 하단 인디케이터 표시 여부
   //? showIndex: 우측 하단에 페이지 숫자 표시 여부
   data: DataType[];
-  PageComponent: ({ item }: { item: DataType }) => JSX.Element;
+  RenderItem: ListRenderItem<any>;
   style?: StyleProp<any>;
   contentContainerStyle?: StyleProp<any>;
   fullPage?: boolean;
@@ -41,7 +42,7 @@ type CarouselProps<DataType> = {
  *
  * @caution
  * 또한 페이지 디자인 함수에서 최외곽 태그의 width에 상대값을 사용하는 경우,
- * fullPage 값을 반드시 true로 설정해주어야 합니다. (기본적으로 true입니다)
+ * fullPage 값을 반드시 true로 설정해주어야 합니다.
  *
  * @example
  * const data = [
@@ -80,14 +81,18 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
    * (fullPage 옵션이 주어진 경우 사용)
    * @author 현웅
    */
-  function FullPageRenderer({ item }: ListRenderItemInfo<DataType>) {
+  function FullPageRenderer({
+    item,
+    index,
+    separators,
+  }: ListRenderItemInfo<any>) {
     return (
       <View
         style={{
           ...styles.carouselFullPageContainer,
           width: pageWidth,
         }}>
-        <props.PageComponent item={item} />
+        <props.RenderItem item={item} index={index} separators={separators} />
       </View>
     );
   }
@@ -126,7 +131,7 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         }}
         data={props.data}
         renderItem={
-          props.fullPage === true ? FullPageRenderer : props.PageComponent
+          props.fullPage === true ? FullPageRenderer : props.RenderItem
         }
         onLayout={setInitialPageWidth}
         onScroll={
@@ -141,6 +146,7 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         showsHorizontalScrollIndicator={false}
       />
 
+      {/* 인디케이터를 표시하는 경우 */}
       {props.showIndicator === true && (
         <Indicator
           currentPageIndex={currentPageIndex}
@@ -149,6 +155,7 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         />
       )}
 
+      {/* 페이지 번호를 (우측 하단에) 표시하는 경우 */}
       {props.showIndex === true && (
         <PageIndex
           currentPageIndex={currentPageIndex + 1}

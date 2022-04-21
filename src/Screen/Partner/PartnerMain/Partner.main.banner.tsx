@@ -3,6 +3,10 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/React";
 
+/**
+ * 파트너 랜딩 페이지 배너 섹션
+ * @author 현웅
+ */
 export function PartnerMainBanner() {
   const data = [
     { key: 0, color: "red" },
@@ -18,7 +22,7 @@ export function PartnerMainBanner() {
     <Carousel
       style={styles.carouselContainer}
       data={data}
-      PageComponent={BannerPage}
+      RenderItem={BannerCarouselItem}
       fullPage
       useScrollBreak
       showIndex
@@ -31,7 +35,7 @@ type BannerPageProps = {
   key: number;
 };
 
-function BannerPage({ item }: { item: BannerPageProps }) {
+function BannerCarouselItem({ item }: { item: BannerPageProps }) {
   return <BannerPage__Container color={item.color} />;
 }
 

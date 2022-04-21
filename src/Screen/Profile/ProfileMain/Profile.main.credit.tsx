@@ -4,7 +4,7 @@ import { screenStyles } from "./Profile.main.screen";
 import WalletIcon from "@Resource/svg/wallet-icon.svg";
 
 /**
- * 프로필 랜딩 페이지 크레딧 확인 섹션
+ * 마이페이지 랜딩 페이지 크레딧 확인 섹션
  * @author 현웅
  */
 export function ProfileMainCredit() {

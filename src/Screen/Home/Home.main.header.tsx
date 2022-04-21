@@ -1,10 +1,13 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Home.main.screen";
 import BigSearchIcon from "@Resource/svg/big-search-icon.svg";
 import AlarmIcon from "@Resource/svg/alarm-icon.svg";
 
+/**
+ * 홈 랜딩 페이지의 헤더
+ * @author 현웅
+ */
 export function HomeMainHeader() {
   return (
     <Container>

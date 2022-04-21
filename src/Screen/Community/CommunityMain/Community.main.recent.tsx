@@ -1,42 +1,47 @@
 import React from "react";
-import { Text } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Community.main.screen";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderTitle, MoreText } from "@Component/React";
 import { VoteListContainer, VoteListItem } from "@Component/React/Vote";
-import { exampleVotesList } from "../../../Object/Type";
+import { useVoteStore } from "@Zustand/index";
+import { globalStyles } from "../../../Style";
 
+/**
+ * 커뮤니티 랜딩 페이지 최신 투표 섹션
+ * @author 현웅
+ */
 export function CommunityMainRecent() {
   return (
-    <Container style={{ ...screenStyles.padding }}>
-      <Header />
-      <RecentVotesList />
+    <Container>
+      <SectionHeader />
+      <RecentVotes />
     </Container>
   );
 }
 
-export function Header() {
+export function SectionHeader() {
   return (
-    <Header__Container style={{ ...screenStyles.headerContainer }}>
-      <Text style={{ ...screenStyles.headerTitleText }}>최신 투표</Text>
-      <Text style={{ ...screenStyles.headerMoreText }}>more</Text>
-    </Header__Container>
+    <SectionHeaderMoreContainer>
+      <SectionHeaderTitle title="최신 투표" />
+      <MoreText />
+    </SectionHeaderMoreContainer>
   );
 }
 
-export function RecentVotesList() {
+export function RecentVotes() {
+  const exampleVotes = useVoteStore(state => state.exampleVotes);
+
   return (
-    <VoteListContainer>
-      {exampleVotesList.map((vote, index) => {
-        return <VoteListItem key={`${index}:${vote.tag}`} vote={vote} />;
-      })}
-    </VoteListContainer>
+    <RecentVotes__Container style={globalStyles.screen__horizontalPadding}>
+      <VoteListContainer>
+        {exampleVotes.map((vote, index) => {
+          return <VoteListItem key={`${index}:${vote.tag}`} vote={vote} />;
+        })}
+      </VoteListContainer>
+    </RecentVotes__Container>
   );
 }
 
 const Container = styled.View``;
 
-const Header__Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+const RecentVotes__Container = styled.View``;

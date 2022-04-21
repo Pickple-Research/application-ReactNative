@@ -3,6 +3,7 @@
  * @author 현웅
  */
 
+export * from "./Button.component";
 export * from "./Carousel.component";
 export * from "./Gradient.component";
 export * from "./ScrollView.component";

@@ -1,33 +1,32 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Home.main.screen";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
 import { SectionHeaderTitle, MoreText } from "@Component/React";
 import { PartnerAdCarousel } from "@Component/React/Partner";
-import { examplePartnersList } from "../../Object/Type";
+import { usePartnerStore } from "@Zustand/index";
 
+/**
+ * 홈 랜딩 페이지의 파트너 섹션
+ * @author 현웅
+ */
 export function HomeMainPartner() {
+  const examplePartners = usePartnerStore(state => state.examplePartners);
+
   return (
     <Container>
       <SectionHeader />
-      <PartnerAdCarousel partners={examplePartnersList} />
+      <PartnerAdCarousel partners={examplePartners} />
     </Container>
   );
 }
 
 function SectionHeader() {
   return (
-    <Header__Container
-      style={{ ...screenStyles.padding, ...screenStyles.header__margin }}>
+    <SectionHeaderMoreContainer>
       <SectionHeaderTitle title="파트너" />
       <MoreText />
-    </Header__Container>
+    </SectionHeaderMoreContainer>
   );
 }
 
 const Container = styled.View``;
-
-const Header__Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;

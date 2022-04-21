@@ -1,28 +1,35 @@
 import React from "react";
-import styled from "styled-components/native";
-import { screenStyles } from "./Research.main.screen";
-import { Carousel } from "@Component/React";
 import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderTitle, Carousel } from "@Component/React";
+import { ResearchListItem } from "@Component/React/Research";
+import { useResearchStore } from "@Zustand/index";
+import { globalStyles } from "../../../Style";
 
+/**
+ * 리서치 랜딩 페이지 신규 리서치 섹션
+ * @author 현웅
+ */
 export function ResearchMainNew() {
   return (
     <Container>
-      <Header />
-      <ResearchTypeButtonsList />
-      <RecentResearchesList />
+      <SectionHeader />
+      <ResearchTypeCarousel />
+      <RecentResearches />
     </Container>
   );
 }
 
-function Header() {
+function SectionHeader() {
   return (
-    <Header__Container style={{ ...screenStyles.padding }}>
-      <Header__TitleText>신규 리서치</Header__TitleText>
-    </Header__Container>
+    <SectionHeaderMoreContainer>
+      <SectionHeaderTitle title="신규 리서치" />
+    </SectionHeaderMoreContainer>
   );
 }
 
-function ResearchTypeButtonsList() {
+function ResearchTypeCarousel() {
   const tags = [
     { tagName: "전체", selected: true },
     { tagName: "설문조사", selected: false },
@@ -35,7 +42,7 @@ function ResearchTypeButtonsList() {
     <Carousel
       contentContainerStyle={styles.carousel__contentContainer}
       data={tags}
-      PageComponent={ResearchTypeButton}
+      RenderItem={ResearchTypeCarouselItem}
     />
   );
 }
@@ -45,20 +52,30 @@ type ResearchTypeProps = {
   selected: boolean;
 };
 
-function ResearchTypeButton({ item }: { item: ResearchTypeProps }) {
+function ResearchTypeCarouselItem({ item }: { item: ResearchTypeProps }) {
+  //TODO: selected 여부에 따라 PillButton으로 변경
   return (
-    <TypeButton__Container
+    <CarouselItem__Container
       style={item.selected && styles.typeButton__Container}
       selected={item.selected}>
-      <TypeButton__Text selected={item.selected}>
+      <CarouselItem__Text selected={item.selected}>
         {item.tagName}
-      </TypeButton__Text>
-    </TypeButton__Container>
+      </CarouselItem__Text>
+    </CarouselItem__Container>
   );
 }
 
-function RecentResearchesList() {
-  return null;
+function RecentResearches() {
+  const exampleResearches = useResearchStore(state => state.exampleResearches);
+
+  return (
+    <RecentResearches__Container
+      style={{ ...globalStyles.screen__horizontalPadding }}>
+      {exampleResearches.map(research => {
+        return <ResearchListItem key={research.title} research={research} />;
+      })}
+    </RecentResearches__Container>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -74,25 +91,17 @@ const styles = StyleSheet.create({
 
 const Container = styled.View``;
 
-// Header()
-const Header__Container = styled.View`
-  margin-bottom: 25px;
-`;
-
-const Header__TitleText = styled.Text`
-  color: black;
-  font-size: 15px;
-  font-weight: bold;
-`;
-
-// ResearchTypeButton()
-const TypeButton__Container = styled.View<{ selected: boolean }>`
+// ResearchTypeCarouselItem()
+const CarouselItem__Container = styled.View<{ selected: boolean }>`
   margin: 0px 8px;
   background-color: ${({ selected }) => selected && "#444444"};
   border-radius: 100px;
 `;
 
-const TypeButton__Text = styled.Text<{ selected: boolean }>`
+const CarouselItem__Text = styled.Text<{ selected: boolean }>`
   color: ${({ selected, theme }) =>
     selected ? "white" : theme.color.text_color_999};
 `;
+
+// RecentResearches()
+const RecentResearches__Container = styled.View``;

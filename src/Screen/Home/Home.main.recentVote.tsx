@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Home.main.screen";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
 import { SectionHeaderTitle, MoreText } from "@Component/React";
 import { VoteRow } from "@Component/React/Vote";
+import { globalStyles } from "../../Style";
 
+/**
+ * 홈 랜딩 페이지의 최신 투표 섹션
+ * @author 현웅
+ */
 export function HomeMainRecentVote() {
   return (
-    <Container style={{ ...screenStyles.padding, ...screenStyles.border }}>
+    <Container style={{ ...screenStyles.border }}>
       <SectionHeader />
       <RecentVotes />
     </Container>
@@ -15,15 +21,20 @@ export function HomeMainRecentVote() {
 
 function SectionHeader() {
   return (
-    <Header__Container style={{ ...screenStyles.header__margin }}>
+    <SectionHeaderMoreContainer>
       <SectionHeaderTitle title="최신 투표" />
       <MoreText />
-    </Header__Container>
+    </SectionHeaderMoreContainer>
   );
 }
 
 function RecentVotes() {
-  return <VoteRow />;
+  return (
+    <RecentVotes__Container
+      style={{ ...globalStyles.screen__horizontalPadding }}>
+      <VoteRow />
+    </RecentVotes__Container>
+  );
 }
 
 const Container = styled.View`
@@ -31,8 +42,4 @@ const Container = styled.View`
   margin-bottom: 15px;
 `;
 
-const Header__Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+const RecentVotes__Container = styled.View``;

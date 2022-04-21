@@ -12,6 +12,10 @@ import { ProfileMainAbout } from "./Profile.main.about";
 import { WhiteBackgroundScrollView } from "@Component/React";
 import { theme } from "@Theme/index";
 
+/**
+ * 마이페이지 랜딩 페이지
+ * @author 현웅
+ */
 export type ProfileMainScreenProps = {};
 
 /**

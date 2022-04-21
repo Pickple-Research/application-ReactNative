@@ -1,52 +1,53 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/React";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeaderTitle } from "@Component/React";
 import { VoteListContainer, VoteListItem } from "@Component/React/Vote";
-import { screenStyles } from "./Community.main.screen";
-import { exampleVotesList } from "../../../Object/Type";
+import { useVoteStore } from "@Zustand/index";
+import { globalStyles } from "../../../Style";
 
+/**
+ * 커뮤니티 랜딩 페이지 인기 투표 섹션
+ * @author 현웅
+ */
 export function CommunityMainPopular() {
   return (
-    <Container style={{ ...screenStyles.padding }}>
-      <Header />
-      <PopularVotesList />
+    <Container>
+      <SectionHeader />
+      <PopularVotes />
     </Container>
   );
 }
 
-function Header() {
+function SectionHeader() {
   return (
-    <Header__Container style={{ ...screenStyles.headerContainer }}>
-      <Text style={{ ...screenStyles.headerTitleText }}>인기 투표</Text>
-    </Header__Container>
+    <SectionHeaderContainer>
+      <SectionHeaderTitle title="인기 투표" />
+    </SectionHeaderContainer>
   );
 }
 
-function PopularVotesList() {
+function PopularVotes() {
+  const exampleVotes = useVoteStore(state => state.exampleVotes);
+
   return (
-    <VoteListContainer>
-      {exampleVotesList.map(vote => {
-        return (
-          <VoteListItem
-            key={`${vote.tag}:${vote.title.slice(0, 10)}`}
-            vote={vote}
-          />
-        );
-      })}
-    </VoteListContainer>
+    <PopularVotes__Container style={globalStyles.screen__horizontalPadding}>
+      <VoteListContainer>
+        {exampleVotes.map(vote => {
+          return (
+            <VoteListItem
+              key={`${vote.tag}:${vote.title.slice(0, 10)}`}
+              vote={vote}
+            />
+          );
+        })}
+      </VoteListContainer>
+    </PopularVotes__Container>
   );
 }
-
-const styles = StyleSheet.create({
-  carousel__contentContainer: {},
-});
 
 const Container = styled.View`
   margin-bottom: 45px;
 `;
 
-// Header()
-const Header__Container = styled.View``;
-
-// PopularVotesList()
+const PopularVotes__Container = styled.View``;

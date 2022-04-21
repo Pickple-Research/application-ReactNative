@@ -1,25 +1,30 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
+import { globalStyles } from "../../../Style";
 
 /**
- * 프로필 랜딩 페이지 고객기능 섹션
+ * 마이페이지 랜딩 페이지 고객기능 섹션
  * @author 현웅
  */
 export function ProfileMainFunction() {
   return (
-    <Container style={{ ...screenStyles.padding, ...screenStyles.border }}>
-      <Header />
+    <Container
+      style={{
+        ...globalStyles.screen__horizontalPadding,
+        ...screenStyles.border,
+      }}>
+      <SectionHeader />
       <FunctionsList />
     </Container>
   );
 }
 
-function Header() {
+function SectionHeader() {
   return (
-    <Header__Container style={{ ...screenStyles.header__margin }}>
-      <Header__Title>고객기능</Header__Title>
-    </Header__Container>
+    <SectionHeader__Container style={{ ...screenStyles.header__margin }}>
+      <SectionHeader__Title>고객기능</SectionHeader__Title>
+    </SectionHeader__Container>
   );
 }
 
@@ -71,9 +76,9 @@ const Container = styled.View`
   margin-bottom: 25px;
 `;
 
-const Header__Container = styled.View``;
+const SectionHeader__Container = styled.View``;
 
-const Header__Title = styled.Text``;
+const SectionHeader__Title = styled.Text``;
 
 const FunctionsList__Container = styled.View``;
 

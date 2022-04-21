@@ -9,16 +9,16 @@ import { PartnerProps } from "@Object/Type";
  * @author 현웅
  */
 export function FollowingPartnerCarousel({
-  followingPartners,
+  partners: followingPartners,
 }: {
-  followingPartners: PartnerProps[];
+  partners: PartnerProps[];
 }) {
   return (
     <Carousel
       style={styles.carousel__container}
       contentContainerStyle={styles.carousel__contentContainer}
       data={followingPartners}
-      PageComponent={PartnerCarouselComponent}
+      RenderItem={PartnerCarouselItem}
     />
   );
 }
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
  * 팔로우하는 파트너 캐러샐에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function PartnerCarouselComponent({ item }: { item: PartnerProps }) {
+export function PartnerCarouselItem({ item }: { item: PartnerProps }) {
   return (
     <Container>
       <Icon__Container>

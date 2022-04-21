@@ -19,7 +19,7 @@ export function InterestCategoryCarousel({
       style={styles.carousel__container}
       contentContainerStyle={styles.carousel__contentContainer}
       data={categories}
-      PageComponent={InterestCategoryCarouselComponent}
+      RenderItem={InterestCategoryCarouselItem}
     />
   );
 }
@@ -35,11 +35,7 @@ const styles = StyleSheet.create({
  * 관심 카테고리 캐러샐에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function InterestCategoryCarouselComponent({
-  item,
-}: {
-  item: Category;
-}) {
+export function InterestCategoryCarouselItem({ item }: { item: Category }) {
   return (
     <Container>
       <CategoryIcon01 />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ViewProps, StyleProp } from "react-native";
 import styled from "styled-components/native";
 
@@ -20,10 +20,6 @@ export function VoteListContainer({
   style?: StyleProp<any>;
   props?: ViewProps;
 }) {
-  useEffect(() => {
-    return;
-  }, []);
-
   return (
     <Container style={style} {...props}>
       {children}
