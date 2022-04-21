@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { ThemeProvider } from "styled-components/native";
 import { MainBottomTabNavigator } from "@Navigator/index";
 import { SplashScreen } from "@Screen/index";
-import { useUserStore } from "@Zustand/index";
-import { ThemeProvider } from "styled-components/native";
 import { lightThemeColors, darkThemeColors } from "@Theme/index";
 
 /**
@@ -13,7 +12,6 @@ import { lightThemeColors, darkThemeColors } from "@Theme/index";
 export default function App() {
   const [initialLoaded, setInitialLoaded] = useState<boolean>(false);
   const [useLightMode, setUseLightMode] = useState<boolean>(true);
-  const userInfo = useUserStore(state => state.userInfo);
 
   //? 앱이 시작되면, research 정보와 자신이 팔로우한 기업 소식을 서버에 요청하여 받아옵니다.
   //? 해당 작업이 수행되는 동안 SplashScreen이 보여집니다.
