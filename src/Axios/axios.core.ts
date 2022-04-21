@@ -5,7 +5,7 @@ import { API_ENDPOINT } from "../Constant";
  * axios 요청에 공통적으로 사용되는 설정들을 지정해둔 axios 요청 인스턴스입니다.
  * @author 현웅
  */
-export const customAxios = axios.create({
+const customAxios = axios.create({
   baseURL: API_ENDPOINT,
   timeout: 5000,
   headers: {},
@@ -30,3 +30,5 @@ customAxios.interceptors.response.use(
   //* 에러가 발생한 경우 처리합니다.
   error => {},
 );
+
+export default customAxios;

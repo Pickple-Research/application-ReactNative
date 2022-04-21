@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Home.main.screen";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
 import { SectionHeaderTitle, MoreText } from "@Component/React";
 import { VoteListContainer, VoteListItem } from "@Component/React/Vote";
-import { exampleVote } from "../../Object/Type";
+import { useVoteStore } from "@Zustand/index";
 
+/**
+ * 홈 랜딩 페이지의 HOT 투표 섹션
+ * @author 현웅
+ */
 export function HomeMainHotVote() {
   return (
     <Container>
@@ -16,15 +20,16 @@ export function HomeMainHotVote() {
 
 function SectionHeader() {
   return (
-    <Header__Container
-      style={{ ...screenStyles.padding, ...screenStyles.header__margin }}>
+    <SectionHeaderMoreContainer>
       <SectionHeaderTitle title="HOT 투표" />
       <MoreText />
-    </Header__Container>
+    </SectionHeaderMoreContainer>
   );
 }
 
 function HotVotes() {
+  const exampleVote = useVoteStore(state => state.exampleVote);
+
   return (
     <VoteListContainer>
       <VoteListItem vote={exampleVote} />
@@ -34,10 +39,4 @@ function HotVotes() {
 
 const Container = styled.View`
   margin-bottom: 35px;
-`;
-
-const Header__Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 `;

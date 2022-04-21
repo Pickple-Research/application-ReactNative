@@ -8,7 +8,8 @@ import PenIcon from "@Resource/svg/pen-icon.svg";
 import BlankCommentIcon from "@Resource/svg/blank-comment-icon.svg";
 
 /**
- * 프로필 랜딩 페이지 스크랩/투표한 글/올린 글/내 댓글 섹션
+ * 마이페이지 랜딩 페이지 유저 활동 정보 섹션
+ * (스크랩/투표한 글/올린 글/내 댓글)
  * @author 현웅
  */
 export function ProfileMainActivity() {

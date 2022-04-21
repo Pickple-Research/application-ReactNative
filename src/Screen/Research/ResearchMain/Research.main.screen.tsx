@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ResearchStackProps } from "@Navigator/index";
 import { ResearchMainSearch } from "./Research.main.search";
@@ -23,6 +23,10 @@ type ResearchStackResearchMainScreenProps = NativeStackScreenProps<
   "ResearchMainScreen"
 >;
 
+/**
+ * 리서치 랜딩 페이지
+ * @author 현웅
+ */
 export function ResearchMainScreen({
   navigation,
 }: ResearchStackResearchMainScreenProps) {

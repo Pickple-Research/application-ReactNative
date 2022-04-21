@@ -1,11 +1,16 @@
 import React from "react";
 import { TextInputProps } from "react-native";
 import styled from "styled-components/native";
+import { globalStyles } from "../../../Style";
 import { theme } from "@Theme/index";
 
+/**
+ * 파트너 랜딩 페이지 검색 섹션
+ * @author 현웅
+ */
 export function PartnerMainSearch() {
   return (
-    <Container>
+    <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <SearchBox
         onSubmitEditing={() => {
           console.log("submitted");
@@ -38,7 +43,6 @@ const Container = styled.View`
 `;
 
 const SearchBox__Input = styled.TextInput`
-  padding: 0px 15px;
   color: ${({ theme }) => theme.color.inactive_button};
   background-color: white;
 `;

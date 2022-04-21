@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/React";
+import { HashTags } from "../Text.component";
 import { PartnerProps } from "@Object/Type";
 
 /**
@@ -14,7 +15,7 @@ export function PartnerAdCarousel({ partners }: { partners: PartnerProps[] }) {
       style={styles.carousel__container}
       contentContainerStyle={styles.carousel__contentContainer}
       data={partners}
-      PageComponent={PartnerAdCarouselComponent}
+      RenderItem={PartnerAdCarouselComponent}
     />
   );
 }
@@ -38,11 +39,7 @@ export function PartnerAdCarouselComponent({ item }: { item: PartnerProps }) {
         </IconContainer>
         <NameTagContainer>
           <NameText>{item.name}</NameText>
-          <TagContainer>
-            {item.tags.splice(0, 2).map(tag => {
-              return <TagText key={tag}>{`#${tag} `}</TagText>;
-            })}
-          </TagContainer>
+          <HashTags tags={item.tags} />
         </NameTagContainer>
         {/* <FollowButton /> */}
       </BottomContainer>
@@ -87,15 +84,5 @@ const NameText = styled.Text`
   color: black;
   font-size: 14px;
   font-weight: bold;
-  padding-bottom: 6px;
-`;
-
-const TagContainer = styled.View`
-  flex-direction: row;
-`;
-
-const TagText = styled.Text`
-  color: ${({ theme }) => theme.color.text_skyblue};
-  font-size: 12px;
-  padding-right: 3px;
+  margin-bottom: 6px;
 `;

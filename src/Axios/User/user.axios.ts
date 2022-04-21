@@ -1,4 +1,4 @@
-import { customAxios } from "../axios.core";
+import customAxios from "../axios.core";
 
 /**
  * TODO: 구현 필요

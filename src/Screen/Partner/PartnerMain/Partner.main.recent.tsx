@@ -1,32 +1,36 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Partner.main.screen";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeaderTitle } from "@Component/React";
+import { Carousel } from "@Component/React";
+import { PartnerListItem } from "@Component/React/Partner";
+import { globalStyles } from "../../../Style";
+import { usePartnerStore } from "@Zustand/index";
 
+/**
+ * 파트너 랜딩 페이지 최신 파트너 섹션
+ * @author 현웅
+ */
 export function PartnerMainRecent() {
   return (
-    <Container style={styles.container}>
-      <Header />
-      <PartnerTypeButtonsList />
-      <RecentPartnersList />
+    <Container>
+      <SectionHeader />
+      <PartnerTypeCarousel />
+      <RecentPartners />
     </Container>
   );
 }
 
-function Header() {
+function SectionHeader() {
   return (
-    <Header__Container
-      style={{
-        ...screenStyles.padding,
-        ...screenStyles.headerContainer,
-      }}>
-      <Text style={screenStyles.headerTitleText}>최신</Text>
-      <Text style={screenStyles.headerTitleText}>최신순</Text>
-    </Header__Container>
+    <SectionHeaderContainer>
+      <SectionHeaderTitle title="최신" />
+    </SectionHeaderContainer>
   );
 }
 
-function PartnerTypeButtonsList() {
+function PartnerTypeCarousel() {
   const data = [
     { title: "스타트업", selected: true },
     { title: "학회", selected: true },
@@ -34,53 +38,49 @@ function PartnerTypeButtonsList() {
   ];
 
   return (
-    <TypeButtonsList__Container
-      style={{
-        ...screenStyles.padding,
-      }}>
-      {data.map(tag => {
-        return <PartnerTypeButton key={tag.title} tag={tag} />;
-      })}
-    </TypeButtonsList__Container>
+    <Carousel
+      data={data}
+      RenderItem={PartnerTypeCarouselItem}
+      style={styles.carousel}
+      contentContainerStyle={{ ...globalStyles.screen__horizontalPadding }}
+    />
   );
 }
 
-function PartnerTypeButton({
-  tag,
+function PartnerTypeCarouselItem({
+  item,
 }: {
-  tag: { title: string; selected: boolean };
+  item: { title: string; selected: boolean };
 }) {
   return (
-    <TypeButton__Container selected={tag.selected}>
-      <TypeButton__Text selected={tag.selected}>{tag.title}</TypeButton__Text>
-    </TypeButton__Container>
+    <CarouselItem__Container selected={item.selected}>
+      <CarouselItem__Text selected={item.selected}>
+        {item.title}
+      </CarouselItem__Text>
+    </CarouselItem__Container>
   );
 }
 
-function RecentPartnersList() {
-  return null;
+function RecentPartners() {
+  const examplePartner = usePartnerStore(state => state.examplePartner);
+
+  return (
+    <RecentPartners__Container
+      style={{ ...globalStyles.screen__horizontalPadding }}>
+      <PartnerListItem partner={examplePartner} />
+    </RecentPartners__Container>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  carousel: {
+    marginBottom: 15,
+  },
 });
 
 const Container = styled.View``;
 
-// Header()
-const Header__Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-// TypeButtons()
-const TypeButtonsList__Container = styled.View`
-  flex-direction: row;
-  margin-bottom: 20px;
-`;
-
-const TypeButton__Container = styled.TouchableOpacity<{ selected: boolean }>`
+const CarouselItem__Container = styled.TouchableOpacity<{ selected: boolean }>`
   background-color: ${({ selected, theme }) =>
     selected ? theme.color.pastel_skyblue : theme.color.inactive_button_gray};
   padding: 8px 15px;
@@ -88,10 +88,11 @@ const TypeButton__Container = styled.TouchableOpacity<{ selected: boolean }>`
   border-radius: 6px;
 `;
 
-const TypeButton__Text = styled.Text<{ selected: boolean }>`
+const CarouselItem__Text = styled.Text<{ selected: boolean }>`
   color: ${({ selected, theme }) =>
     selected ? theme.color.text_skyblue : theme.color.text_color_bbb};
   font-weight: bold;
 `;
 
-// RecentPartnersList()
+// RecentPartners()
+const RecentPartners__Container = styled.View``;

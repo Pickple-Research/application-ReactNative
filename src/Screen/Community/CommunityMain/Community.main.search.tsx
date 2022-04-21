@@ -1,13 +1,17 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Community.main.screen";
+import { globalStyles } from "../../../Style";
 import SearchIcon from "@Resource/svg/search-icon.svg";
 import AlarmIcon from "@Resource/svg/alarm-icon.svg";
-import { StyleSheet } from "react-native";
 
+/**
+ * 커뮤니티 랜딩 페이지 검색 섹션
+ * @author 현웅
+ */
 export function CommunityMainSearch() {
   return (
-    <Container style={{ ...screenStyles.padding }}>
+    <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <SearchBox__Container>
         <SearchIcon style={styles.searchIcon} />
         <SearchBox__Input placeholder="검색어를 입력하세요" />

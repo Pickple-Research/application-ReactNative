@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.main.screen";
+import { globalStyles } from "../../../Style";
 
 /**
- * 프로필 랜딩 페이지 최하단 'about 픽플리' 섹션
+ * 마이페이지 랜딩 페이지 최하단 'about 픽플리' 섹션
  * @author 현웅
  */
 export function ProfileMainAbout() {
   return (
-    <Container style={{ ...screenStyles.padding }}>
+    <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <About__Container>
         <About__FormerText>픽플리를 알고 싶다면?</About__FormerText>
         <About__LatterText>ABOUT 픽플리</About__LatterText>

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { CommunityMainSearch } from "./Community.main.search";
 import { CommunityMainInterest } from "./Community.main.interest";
-import { CommunityMainHot } from "./Community.main.hot";
+import { CommunityMainHotVote } from "./Community.main.hotVote";
 import { CommunityMainPopular } from "./Community.main.popular";
 import { CommunityMainRecent } from "./Community.main.recent";
 import { WhiteBackgroundScrollView } from "@Component/React";
@@ -19,7 +19,7 @@ export function CommunityMainScreen() {
     <WhiteBackgroundScrollView>
       <CommunityMainSearch />
       <CommunityMainInterest />
-      <CommunityMainHot />
+      <CommunityMainHotVote />
       <CommunityMainPopular />
       <CommunityMainRecent />
     </WhiteBackgroundScrollView>

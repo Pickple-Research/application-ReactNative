@@ -7,7 +7,7 @@ import SendIcon from "@Resource/svg/send-icon.svg";
 import AlarmIcon from "@Resource/svg/alarm-icon.svg";
 
 /**
- * 프로필 랜딩 페이지 최상단 헤더 섹션
+ * 마이페이지 랜딩 페이지 최상단 헤더 섹션
  * @author 현웅
  */
 export function ProfileMainHeader() {

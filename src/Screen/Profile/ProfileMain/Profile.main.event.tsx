@@ -3,30 +3,34 @@ import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
 import { Carousel } from "@Component/React";
 import { StyleSheet } from "react-native";
+import { globalStyles } from "../../../Style";
 
 /**
- * 프로필 랜딩 페이지 이벤트 섹션
+ * 마이페이지 랜딩 페이지 이벤트 섹션
  * @author 현웅
  */
 export function ProfileMainEvent() {
   return (
     <Container style={{ ...screenStyles.border }}>
-      <Header />
-      <EventsList />
+      <SectionHeader />
+      <EventCarousel />
     </Container>
   );
 }
 
-function Header() {
+function SectionHeader() {
   return (
-    <Header__Container
-      style={{ ...screenStyles.padding, ...screenStyles.header__margin }}>
-      <Header__TitleText>이벤트</Header__TitleText>
-    </Header__Container>
+    <SectionHeader__Container
+      style={{
+        ...globalStyles.screen__horizontalPadding,
+        ...screenStyles.header__margin,
+      }}>
+      <SectionHeader__Title>이벤트</SectionHeader__Title>
+    </SectionHeader__Container>
   );
 }
 
-function EventsList() {
+function EventCarousel() {
   const events: EventProps[] = [
     { title: "황금을 찾아라!", deadline: "~04.08" },
     { title: "팬케이크를 찾아라!", deadline: "~04.08" },
@@ -37,7 +41,7 @@ function EventsList() {
     <Carousel
       contentContainerStyle={styles.carousel__contentContainer}
       data={events}
-      PageComponent={EventButton}
+      RenderItem={EventCarouselItem}
     />
   );
 }
@@ -47,7 +51,7 @@ type EventProps = {
   deadline: string;
 };
 
-function EventButton({ item }: { item: EventProps }) {
+function EventCarouselItem({ item }: { item: EventProps }) {
   return (
     <EventButton__Container>
       <EventButton__ImgContainer></EventButton__ImgContainer>
@@ -68,9 +72,9 @@ const Container = styled.View`
   margin-bottom: 15px;
 `;
 
-const Header__Container = styled.View``;
+const SectionHeader__Container = styled.View``;
 
-const Header__TitleText = styled.Text``;
+const SectionHeader__Title = styled.Text``;
 
 // EventButton()
 const EventButton__Container = styled.View`

@@ -24,12 +24,6 @@ export function HomeMainScreen() {
 }
 
 export const screenStyles = StyleSheet.create({
-  padding: { paddingHorizontal: 20 },
-
-  header__margin: {
-    marginBottom: 20,
-  },
-
   border: {
     borderBottomWidth: 8,
     borderBottomColor: theme.color.background_purple,

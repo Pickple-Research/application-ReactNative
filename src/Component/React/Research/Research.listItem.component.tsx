@@ -1,44 +1,55 @@
 import React from "react";
 import { StyleProp } from "react-native";
 import styled from "styled-components/native";
-import { ResearchTag } from "./Research.tag.component";
 import { ResearchTarget } from "./Research.target.component";
 import { ResearchGift } from "./Research.gift.component";
+import { HashTags } from "../Text.component";
+import { ResearchProps } from "@Object/Type";
 
 /**
- * 리서치 리스트 한 줄의 컴포넌트입니다.
+ * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.
  * @author 현웅
  */
 export function ResearchListItem({
-  item,
+  research,
   style,
 }: {
-  item?: any;
+  research: ResearchProps;
   style?: StyleProp<any>;
 }) {
   return (
-    <Container>
-      <ResearchThumbnail />
-      <ResearchInfo />
+    <Container style={style}>
+      <Thumbnail />
+      <ResearchInfo
+        title={research.title}
+        tags={research.tags}
+        targets={research.targets}
+      />
       <ResearchGift />
     </Container>
   );
 }
 
-function ResearchThumbnail() {
+function Thumbnail() {
   return <Thumbnail__Container>{/* <Thumbnail__Img/> */}</Thumbnail__Container>;
 }
 
-function ResearchInfo() {
+function ResearchInfo({
+  title,
+  tags,
+  targets,
+}: {
+  title: string;
+  tags: string[];
+  targets: string[];
+}) {
   return (
     <ResearchInfo__Container>
-      <ResearchTag tags={["마케팅"]} />
-      <ResearchInfo__TitleContainer>
-        <ResearchInfo__TitleText numberOfLines={2}>
-          디자인/기획 관련
-        </ResearchInfo__TitleText>
-      </ResearchInfo__TitleContainer>
-      <ResearchTarget targets={["여성"]} />
+      <HashTags tags={tags} />
+      <ResearchInfo__TitleText numberOfLines={2}>
+        {title}
+      </ResearchInfo__TitleText>
+      <ResearchTarget targets={targets} />
     </ResearchInfo__Container>
   );
 }
@@ -65,13 +76,9 @@ const ResearchInfo__Container = styled.View`
   flex: 1;
 `;
 
-const ResearchInfo__TitleContainer = styled.View`
-  justify-content: center;
-  height: 42px; // TitleText의 line-height*2
-`;
-
 const ResearchInfo__TitleText = styled.Text`
   width: 90%;
+  height: 42px;
   color: black;
   font-size: 16px;
   font-weight: bold;

@@ -1,10 +1,14 @@
 import React from "react";
 import { StyleSheet, TextInputProps } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Research.main.screen";
 import { theme } from "@Theme/index";
 import SearchIcon from "@Resource/svg/search-icon.svg";
+import { globalStyles } from "../../../Style";
 
+/**
+ * 리서치 랜딩 페이지 검색 섹션
+ * @author 현웅
+ */
 export function ResearchMainSearch() {
   return (
     <Container>
@@ -16,7 +20,10 @@ export function ResearchMainSearch() {
 function SearchBox(props?: TextInputProps) {
   return (
     <SearchBox__Container
-      style={{ ...screenStyles.padding, ...styles.searchBox__containerShadow }}>
+      style={{
+        ...globalStyles.screen__horizontalPadding,
+        ...styles.searchBox__containerShadow,
+      }}>
       <SearchIcon />
       <SearchBox__Input
         onSubmitEditing={props?.onSubmitEditing}

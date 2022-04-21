@@ -4,7 +4,7 @@ import { screenStyles } from "./Profile.main.screen";
 import PencilIcon from "@Resource/svg/pencil-icon.svg";
 
 /**
- * 프로필 랜딩 페이지 프로필 사진, 별명, 이메일, 회원 등급 섹션 섹션
+ * 마이페이지 랜딩 페이지 프로필 섹션
  * @author 현웅
  */
 export function ProfileMainUserInfo() {
