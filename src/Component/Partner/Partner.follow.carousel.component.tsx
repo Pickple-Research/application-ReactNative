@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/React";
+import { Carousel } from "@Component/FlatList";
 import { PartnerProps } from "@Object/Type";
 
 /**
@@ -25,7 +25,7 @@ export function FollowingPartnerCarousel({
 
 const styles = StyleSheet.create({
   carousel__container: {},
-  carousel__contentContainer: { paddingHorizontal: 15 },
+  carousel__contentContainer: { paddingHorizontal: 12 },
 });
 
 /**
@@ -45,11 +45,12 @@ export function PartnerCarouselItem({ item }: { item: PartnerProps }) {
   );
 }
 
-// PartnerButton()
 const Container = styled.View`
   justify-content: center;
   align-items: center;
   padding: 0px 12px;
+  //? notification 컴포넌트가 위로 올라가 있어서 padding-top을 주지 않으면 잘림.
+  padding-top: 2px;
 `;
 
 const Icon__Container = styled.View`

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/React";
+import { Carousel } from "@Component/FlatList";
 import { Category } from "@Object/Enum";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 

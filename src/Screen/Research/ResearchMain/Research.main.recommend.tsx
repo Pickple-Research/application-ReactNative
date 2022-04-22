@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ResearchRecommendCarousel } from "@Component/React/Research";
+import { ResearchRecommendCarousel } from "@Component/Research";
 import { useResearchStore } from "@Zustand/index";
 
 /**
@@ -30,7 +30,7 @@ function Greeting({ username }: { username: string }) {
 }
 
 const Container = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 
 // Greeting()
@@ -39,7 +39,7 @@ const Greeting__Container = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: 0px 30px;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 `;
 
 const Greeting__Text = styled.Text`

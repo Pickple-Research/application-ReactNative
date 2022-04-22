@@ -1,14 +1,14 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Community.main.screen";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle } from "@Component/React";
 import {
   VoteListContainer,
   VoteParticipantInfo,
   VoteOption,
-} from "@Component/React/Vote";
+} from "@Component/Vote";
+import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
 import { VoteProps } from "@Object/Type";
 import { useVoteStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
@@ -60,7 +60,8 @@ function HotVote({ vote }: { vote: VoteProps }) {
 
 const styles = StyleSheet.create({
   votesContainer: {
-    padding: 10,
+    paddingVertical: 18,
+    paddingHorizontal: 12,
   },
 });
 
@@ -72,9 +73,8 @@ const Container = styled.View`
 const HotVote__Container = styled.View``;
 
 const HotVote__Title = styled.Text`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
-
   margin-bottom: 12px;
 `;
 

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
+import { VoteListContainer, VoteListItem } from "@Component/Vote";
+import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeaderContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle } from "@Component/React";
-import { VoteListContainer, VoteListItem } from "@Component/React/Vote";
 import { useVoteStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
 

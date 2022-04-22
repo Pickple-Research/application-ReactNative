@@ -6,4 +6,5 @@ export type ResearchProps = {
   title: string;
   tags: string[];
   targets: string[];
+  type: string;
 };

@@ -4,6 +4,7 @@ import {
   FlatList,
   ListRenderItem,
   View,
+  ViewStyle,
   Text,
   ListRenderItemInfo,
   LayoutChangeEvent,
@@ -22,8 +23,8 @@ type CarouselProps<DataType> = {
   //? showIndex: 우측 하단에 페이지 숫자 표시 여부
   data: DataType[];
   RenderItem: ListRenderItem<any>;
-  style?: StyleProp<any>;
-  contentContainerStyle?: StyleProp<any>;
+  style?: StyleProp<ViewStyle>;
+  contentContainerStyle?: StyleProp<ViewStyle>;
   fullPage?: boolean;
   useScrollBreak?: boolean;
   showIndicator?: boolean;
@@ -108,7 +109,7 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
   }
 
   return (
-    <View style={{ ...props.style, ...styles.container }}>
+    <View style={[props.style, styles.container]}>
       <FlatList
         //? data: 캐러샐에서 사용하는 데이터
         //? renderItem: 데이터별 페이지 디자인
@@ -125,10 +126,10 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
         //? decelerationRate: 스크롤 이벤트 반영속도
         //? showsHorizontalScrollIndicator: 수평 스크롤바 표시 여부
         // style={styles.carouselContainer}
-        contentContainerStyle={{
-          ...styles.carouselContentContainer, // 기본 스타일
-          ...props.contentContainerStyle, // 인자로 들어온 추가 스타일
-        }}
+        contentContainerStyle={[
+          styles.carouselContentContainer, // 기본 스타일
+          props.contentContainerStyle, // 인자로 들어온 추가 스타일
+        ]}
         data={props.data}
         renderItem={
           props.fullPage === true ? FullPageRenderer : props.RenderItem

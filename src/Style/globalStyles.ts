@@ -12,6 +12,6 @@ export const globalStyles = StyleSheet.create({
    * 스크린 좌우 여백
    */
   screen__horizontalPadding: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
   },
 });

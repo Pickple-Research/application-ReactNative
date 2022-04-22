@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Home.main.screen";
+import { ResearchListItem } from "@Component/Research";
+import { SectionHeaderTitle, MoreText } from "@Component/Text";
 import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle, MoreText } from "@Component/React";
-import { ResearchListItem } from "@Component/React/Research";
 import { useResearchStore } from "@Zustand/index";
 import { globalStyles } from "../../Style";
 

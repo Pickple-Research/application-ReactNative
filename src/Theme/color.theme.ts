@@ -1,10 +1,10 @@
-import { DefaultThemeColors, ThemeColors } from "@Object/Type";
+import { CommonThemeColors, ThemeColors } from "@Object/Type";
 
 /**
  * 모든 테마에 공통으로 적용되는 색상값들
  * @author 현웅
  */
-const defaultThemeColors: DefaultThemeColors = {
+const commonThemeColors: CommonThemeColors = {
   // bottomTabBar에서 사용되는 선택/비선택 회색
   focused_gray: "#848899",
   unfocused_gray: "#D3D4D4",
@@ -41,7 +41,7 @@ const defaultThemeColors: DefaultThemeColors = {
  * @author 현웅
  */
 export const lightThemeColors: ThemeColors = {
-  ...defaultThemeColors,
+  ...commonThemeColors,
 };
 
 /**
@@ -50,5 +50,5 @@ export const lightThemeColors: ThemeColors = {
  * @author 현웅
  */
 export const darkThemeColors: ThemeColors = {
-  ...defaultThemeColors,
+  ...commonThemeColors,
 };

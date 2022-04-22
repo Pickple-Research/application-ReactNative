@@ -6,7 +6,7 @@ import { PartnerMainFollow } from "./Partner.main.follow";
 import { PartnerMainCategory } from "./Partner.main.category";
 import { PartnerMainAd } from "./Partner.main.ad";
 import { PartnerMainRecent } from "./Partner.main.recent";
-import { WhiteBackgroundScrollView } from "@Component/React";
+import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 
 export type PartnerMainScreenProps = {};
 

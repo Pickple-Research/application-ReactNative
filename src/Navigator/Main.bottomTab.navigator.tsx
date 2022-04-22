@@ -14,14 +14,14 @@ import {
   ProfileStackProps,
 } from "@Navigator/index";
 import { getBottomTabVisibilityFromRoute } from "@Util/index";
+import { LinearGradeintContainer } from "@Component/View";
 import {
-  LinearGradeintContainer,
-  HomeSvgIcon,
-  PartnerSvgIcon,
-  ResearchSvgIcon,
-  CommunitySvgIcon,
+  HomeIcon,
+  PartnerIcon,
+  ResearchIcon,
+  CommunityIcon,
   MypageSvgIcon,
-} from "@Component/React";
+} from "@Component/Svg";
 import { theme } from "@Theme/theme";
 import { HorizontalView } from "@Component/StyledComponents";
 
@@ -92,16 +92,22 @@ export function MainBottomTabNavigator() {
         options={({ route }) => ({
           headerShown: true,
           headerTitle: "픽플리",
-          headerRight: (() => (
+          headerRight: () => (
             <HorizontalView>
-              <TouchableOpacity style={{marginRight: 15}}>
-                <Image source={require("@Resource/search.png")} style={{width: 30, height: 30, resizeMode: "cover"}} />
+              <TouchableOpacity style={{ marginRight: 15 }}>
+                <Image
+                  source={require("@Resource/search.png")}
+                  style={{ width: 30, height: 30, resizeMode: "cover" }}
+                />
               </TouchableOpacity>
-              <TouchableOpacity style={{marginRight: 15}}>
-                <Image source={require("@Resource/bell.png")} style={{width: 30, height: 30, resizeMode: "cover"}} />
+              <TouchableOpacity style={{ marginRight: 15 }}>
+                <Image
+                  source={require("@Resource/bell.png")}
+                  style={{ width: 30, height: 30, resizeMode: "cover" }}
+                />
               </TouchableOpacity>
             </HorizontalView>
-          )),
+          ),
           tabBarStyle: {
             display: getBottomTabVisibilityFromRoute(route),
             ...styles.bottomTabBar,
@@ -171,11 +177,11 @@ function TabBarIcon({ label, focused }: TabBarIconProps) {
 function TabBarSvgIcon({ label, focused }: TabBarIconProps) {
   switch (label) {
     case "파트너":
-      return <PartnerSvgIcon focused={focused} />;
+      return <PartnerIcon focused={focused} />;
     case "리서치":
-      return <ResearchSvgIcon focused={focused} />;
+      return <ResearchIcon focused={focused} />;
     case "커뮤니티":
-      return <CommunitySvgIcon focused={focused} />;
+      return <CommunityIcon focused={focused} />;
     case "마이페이지":
       return <MypageSvgIcon focused={focused} />;
   }
@@ -188,7 +194,7 @@ function TabBarSvgIcon({ label, focused }: TabBarIconProps) {
 function TabBarHomeIcon() {
   return (
     <LinearGradeintContainer style={styles.tabBarHomeIconContainer}>
-      <HomeSvgIcon />
+      <HomeIcon />
     </LinearGradeintContainer>
   );
 }

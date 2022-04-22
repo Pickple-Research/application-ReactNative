@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { VoteParticipantInfo } from "./Vote.partcipantInfo.component";
+import { VoteParticipantInfo } from "@Component/Vote";
 
 /**
  * 얇은 투표 한 줄에 사용되는 컴포넌트입니다.

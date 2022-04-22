@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeaderContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle } from "@Component/React";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 import CategoryIcon02 from "@Resource/svg/category-icon02.svg";
 import CategoryIcon03 from "@Resource/svg/category-icon03.svg";

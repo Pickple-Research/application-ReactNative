@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { HashTags } from "../Text.component";
+import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
 
 /**
@@ -57,7 +57,10 @@ const PartnerInfo__Container = styled.View`
 
 const PartnerInfo__PartnerName = styled.Text`
   color: black;
-  margin-bottom: 0px;
+  font-weight: bold;
+  margin-bottom: 6px;
 `;
 
-const PartnerType__Text = styled.Text``;
+const PartnerType__Text = styled.Text`
+  font-size: 12px;
+`;

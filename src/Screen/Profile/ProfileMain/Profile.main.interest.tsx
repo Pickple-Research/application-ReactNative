@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
+import { InterestCategoryCarousel } from "@Component/Category";
+import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle } from "@Component/React";
-import { InterestCategoryCarousel } from "@Component/React/Category";
 import { exampleInterestingCategories } from "../../../Object/Type";
 
 /**

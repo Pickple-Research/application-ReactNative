@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import { theme } from "@Theme/index";
-import SearchIcon from "@Resource/svg/search-icon.svg";
 import { globalStyles } from "../../../Style";
+import SearchIcon from "@Resource/svg/search-icon.svg";
 
 /**
  * 리서치 랜딩 페이지 검색 섹션
@@ -36,6 +36,7 @@ function SearchBox(props?: TextInputProps) {
   );
 }
 
+//TODO: #shadow
 const styles = StyleSheet.create({
   searchBox__containerShadow: {
     borderBottomWidth: 0,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 });
 
 const Container = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 `;
 
 const SearchBox__Container = styled.View`

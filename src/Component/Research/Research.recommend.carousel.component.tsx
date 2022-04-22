@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Carousel } from "../Carousel.component";
-import { HashTags } from "../Text.component";
-import { ResearchGift } from "./Research.gift.component";
-import { ResearchTarget } from "./Research.target.component";
+import { Carousel } from "@Component/FlatList";
+import { ResearchTarget, ResearchGift } from "@Component/Research";
+import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
 
 /**
@@ -28,9 +27,10 @@ export function ResearchRecommendCarouselItem({
   return (
     <CarouselItem__Container>
       <CarouselItem__TagGiftContainer>
+        <Chip content="기업" />
         <ResearchGift />
       </CarouselItem__TagGiftContainer>
-      <HashTags tags={item.tags} />
+      <HashTags tags={item.tags} style={{ marginBottom: 3 }} />
       <CarouselItem__ResearchTitle numberOfLines={2}>
         {item.title}
       </CarouselItem__ResearchTitle>
@@ -40,7 +40,7 @@ export function ResearchRecommendCarouselItem({
 }
 
 const CarouselItem__Container = styled.View`
-  width: 260px;
+  width: 270px;
   padding: 10px 14px 18px 16px;
   border: 1px solid ${({ theme }) => theme.color.background_purple};
   border-radius: 12px;
@@ -51,6 +51,7 @@ const CarouselItem__TagGiftContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 4px;
 `;
 
 const CarouselItem__ResearchTitle = styled.Text`
