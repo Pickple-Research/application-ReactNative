@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
+import { ResearchListItem } from "@Component/Research";
+import { Carousel } from "@Component/FlatList";
+import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle, Carousel } from "@Component/React";
-import { ResearchListItem } from "@Component/React/Research";
 import { useResearchStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
 

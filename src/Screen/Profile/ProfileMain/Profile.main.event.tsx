@@ -1,8 +1,8 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
-import { Carousel } from "@Component/React";
-import { StyleSheet } from "react-native";
+import { Carousel } from "@Component/FlatList";
 import { globalStyles } from "../../../Style";
 
 /**

@@ -9,7 +9,7 @@ import { ProfileMainInterest } from "./Profile.main.interest";
 import { ProfileMainFunction } from "./Profile.main.function";
 import { ProfileMainEvent } from "./Profile.main.event";
 import { ProfileMainAbout } from "./Profile.main.about";
-import { WhiteBackgroundScrollView } from "@Component/React";
+import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 import { theme } from "@Theme/index";
 
 /**

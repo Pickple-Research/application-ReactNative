@@ -5,7 +5,7 @@ import { HomeMainResearch } from "./Home.main.research";
 import { HomeMainHotVote } from "./Home.main.hotVote";
 import { HomeMainRecentVote } from "./Home.main.recentVote";
 import { HomeMainPartner } from "./Home.main.partner";
-import { WhiteBackgroundScrollView } from "@Component/React";
+import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 import { theme } from "@Theme/index";
 
 export type HomeMainScreenProps = {};

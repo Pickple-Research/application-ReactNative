@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
+import { PartnerListItem } from "@Component/Partner";
+import { Carousel } from "@Component/FlatList";
+import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeaderContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle } from "@Component/React";
-import { Carousel } from "@Component/React";
-import { PartnerListItem } from "@Component/React/Partner";
-import { globalStyles } from "../../../Style";
 import { usePartnerStore } from "@Zustand/index";
+import { globalStyles } from "../../../Style";
 
 /**
  * 파트너 랜딩 페이지 최신 파트너 섹션

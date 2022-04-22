@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import { theme } from "@Theme/index";
-import SearchIcon from "@Resource/svg/search-icon.svg";
 import { globalStyles } from "../../../Style";
+import SearchIcon from "@Resource/svg/search-icon.svg";
 
 /**
  * 리서치 랜딩 페이지 검색 섹션

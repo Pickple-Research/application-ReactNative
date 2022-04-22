@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/React";
+import { Carousel } from "@Component/FlatList";
 
 /**
  * 파트너 랜딩 페이지 배너 섹션

@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel, PillButton } from "@Component/React";
-import { HashTags } from "../Text.component";
+import { Carousel } from "@Component/FlatList";
+import { PillButton } from "@Component/Button";
+import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
 
 /**

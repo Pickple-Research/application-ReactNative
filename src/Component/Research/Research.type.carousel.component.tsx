@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { Carousel } from "../Carousel.component";
-import { Chip } from "../Text.component";
+import { Carousel } from "@Component/FlatList";
+import { Chip } from "@Component/Text";
 import { ResearchType } from "@Object/Enum";
-import { allResearchTypes } from "../../../Object/Enum";
+import { allResearchTypes } from "../../Object/Enum";
 
 /**
  * 리서치 타입 선택 캐러샐입니다.

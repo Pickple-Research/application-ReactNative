@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Carousel } from "../Carousel.component";
-import { HashTags } from "../Text.component";
-import { ResearchGift } from "./Research.gift.component";
-import { ResearchTarget } from "./Research.target.component";
-import { Chip } from "../Text.component";
+import { Carousel } from "@Component/FlatList";
+import { ResearchTarget, ResearchGift } from "@Component/Research";
+import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
 
 /**

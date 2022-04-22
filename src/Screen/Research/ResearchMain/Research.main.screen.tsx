@@ -5,7 +5,7 @@ import { ResearchStackProps } from "@Navigator/index";
 import { ResearchMainSearch } from "./Research.main.search";
 import { ResearchMainRecommend } from "./Research.main.recommend";
 import { ResearchMainNew } from "./Research.main.new";
-import { WhiteBackgroundScrollView } from "@Component/React";
+import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 
 /**
  * ResearchMainScreen에서 사용하는 props

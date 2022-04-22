@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Home.main.screen";
+import { VoteRow } from "@Component/Vote";
+import { SectionHeaderTitle, MoreText } from "@Component/Text";
 import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle, MoreText } from "@Component/React";
-import { VoteRow } from "@Component/React/Vote";
 import { globalStyles } from "../../Style";
 
 /**

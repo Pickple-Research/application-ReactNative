@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { HashTags } from "../Text.component";
+import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
 
 /**

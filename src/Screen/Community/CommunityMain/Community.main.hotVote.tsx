@@ -1,14 +1,14 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Community.main.screen";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle } from "@Component/React";
 import {
   VoteListContainer,
   VoteParticipantInfo,
   VoteOption,
-} from "@Component/React/Vote";
+} from "@Component/Vote";
+import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
 import { VoteProps } from "@Object/Type";
 import { useVoteStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";

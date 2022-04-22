@@ -2,7 +2,7 @@ import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { ResearchTarget } from "./Research.target.component";
-import { Chip, HashTags } from "../Text.component";
+import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
 import CheckIcon from "@Resource/svg/check-icon.svg";
 

@@ -5,7 +5,7 @@ import { CommunityMainInterest } from "./Community.main.interest";
 import { CommunityMainHotVote } from "./Community.main.hotVote";
 import { CommunityMainPopular } from "./Community.main.popular";
 import { CommunityMainRecent } from "./Community.main.recent";
-import { WhiteBackgroundScrollView } from "@Component/React";
+import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 import { theme } from "@Theme/index";
 
 export type CommunityMainScreenProps = {};

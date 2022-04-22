@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/React";
+import { Carousel } from "@Component/FlatList";
 import { PartnerProps } from "@Object/Type";
 
 /**

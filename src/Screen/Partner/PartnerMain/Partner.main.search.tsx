@@ -1,8 +1,8 @@
 import React from "react";
 import { TextInputProps } from "react-native";
 import styled from "styled-components/native";
-import { globalStyles } from "../../../Style";
 import { theme } from "@Theme/index";
+import { globalStyles } from "../../../Style";
 
 /**
  * 파트너 랜딩 페이지 검색 섹션

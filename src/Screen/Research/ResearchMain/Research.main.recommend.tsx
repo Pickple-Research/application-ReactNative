@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ResearchRecommendCarousel } from "@Component/React/Research";
+import { ResearchRecommendCarousel } from "@Component/Research";
 import { useResearchStore } from "@Zustand/index";
 
 /**

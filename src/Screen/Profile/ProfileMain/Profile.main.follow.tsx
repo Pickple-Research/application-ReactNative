@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
+import { FollowingPartnerCarousel } from "@Component/Partner";
+import { SectionHeaderTitle, MoreText } from "@Component/Text";
 import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
-import { SectionHeaderTitle, MoreText } from "@Component/React";
-import { FollowingPartnerCarousel } from "@Component/React/Partner";
 import { usePartnerStore } from "@Zustand/index";
 
 /**
