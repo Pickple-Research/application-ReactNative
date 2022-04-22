@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { FollowingPartnerCarousel } from "@Component/Partner";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
 import { usePartnerStore } from "@Zustand/index";
 
 /**
@@ -22,10 +22,10 @@ export function PartnerMainFollow() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderMoreContainer>
+    <SectionHeaderContainer>
       <SectionHeaderTitle title="팔로우" />
       <MoreText />
-    </SectionHeaderMoreContainer>
+    </SectionHeaderContainer>
   );
 }
 

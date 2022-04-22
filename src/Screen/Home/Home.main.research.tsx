@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { screenStyles } from "./Home.main.screen";
 import { ResearchListItem } from "@Component/Research";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
 import { useResearchStore } from "@Zustand/index";
 import { globalStyles } from "../../Style";
 
@@ -22,10 +22,10 @@ export function HomeMainResearch() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderMoreContainer>
+    <SectionHeaderContainer>
       <SectionHeaderTitle title={"리서치"} />
       <MoreText />
-    </SectionHeaderMoreContainer>
+    </SectionHeaderContainer>
   );
 }
 

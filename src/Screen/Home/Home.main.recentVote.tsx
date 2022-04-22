@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { screenStyles } from "./Home.main.screen";
 import { VoteRow } from "@Component/Vote";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
 import { globalStyles } from "../../Style";
 
 /**
@@ -21,10 +21,10 @@ export function HomeMainRecentVote() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderMoreContainer>
+    <SectionHeaderContainer>
       <SectionHeaderTitle title="최신 투표" />
       <MoreText />
-    </SectionHeaderMoreContainer>
+    </SectionHeaderContainer>
   );
 }
 
