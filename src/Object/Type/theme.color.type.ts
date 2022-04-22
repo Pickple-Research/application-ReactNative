@@ -39,4 +39,6 @@ export type CommonThemeColors = {
  * @types/styled-components.d.ts 에서 import하여 사용합니다.
  * @author 현웅
  */
-export type ThemeColors = CommonThemeColors & {};
+export type ThemeColors = CommonThemeColors & {
+  background: string;
+};

@@ -1,6 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
+export type PartnerDetailScreenProps = {
+  partnerName: string;
+};
+
 export function PartnerDetailScreen() {
   return (
     <View>
@@ -8,5 +12,3 @@ export function PartnerDetailScreen() {
     </View>
   );
 }
-
-export type PartnerDetailScreenProps = {};

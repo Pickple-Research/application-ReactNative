@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   PartnerStackNavigator,
@@ -13,7 +13,7 @@ import {
   ProfileStackNavigator,
   ProfileStackProps,
 } from "@Navigator/index";
-import { getBottomTabVisibilityFromRoute } from "@Util/index";
+import { HomeMainScreenHeader } from "@Screen/Home/Home.main.screenHeader";
 import { LinearGradeintContainer } from "@Component/View";
 import {
   HomeIcon,
@@ -22,8 +22,8 @@ import {
   CommunityIcon,
   MypageSvgIcon,
 } from "@Component/Svg";
+import { getBottomTabVisibilityFromRoute } from "@Util/index";
 import { theme } from "@Theme/theme";
-import { HorizontalView } from "@Component/StyledComponents";
 
 const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
 
@@ -59,6 +59,7 @@ export function MainBottomTabNavigator() {
         //? 전역적으로 tabBarStyle을 적용하더라도 각 TabBar 옵션마다 새로 style이 적용되므로 쓸모가 없습니다.
         // tabBarStyle: styles.bottomTabBar,
       })}>
+      {/* 파트너 스택 */}
       <MainBottomTab.Screen
         name={"PartnerStack"}
         component={PartnerStackNavigator}
@@ -73,6 +74,7 @@ export function MainBottomTabNavigator() {
         })}
       />
 
+      {/* 리서치 스택 */}
       <MainBottomTab.Screen
         name={"ResearchStack"}
         component={ResearchStackNavigator}
@@ -86,35 +88,23 @@ export function MainBottomTabNavigator() {
           ),
         })}
       />
+
+      {/* 홈 랜딩 페이지 */}
       <MainBottomTab.Screen
         name={"HomeStack"}
         component={HomeStackNavigator}
         options={({ route }) => ({
           headerShown: true,
-          headerTitle: "픽플리",
-          headerRight: () => (
-            <HorizontalView>
-              <TouchableOpacity style={{ marginRight: 15 }}>
-                <Image
-                  source={require("@Resource/search.png")}
-                  style={{ width: 30, height: 30, resizeMode: "cover" }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={{ marginRight: 15 }}>
-                <Image
-                  source={require("@Resource/bell.png")}
-                  style={{ width: 30, height: 30, resizeMode: "cover" }}
-                />
-              </TouchableOpacity>
-            </HorizontalView>
-          ),
+          header: HomeMainScreenHeader,
           tabBarStyle: {
             display: getBottomTabVisibilityFromRoute(route),
             ...styles.bottomTabBar,
           },
-          tabBarIcon: ({ focused }) => <TabBarHomeIcon />,
+          tabBarIcon: () => <TabBarHomeIcon />,
         })}
       />
+
+      {/* 커뮤니티 스택 */}
       <MainBottomTab.Screen
         name={"CommunityStack"}
         component={CommunityStackNavigator}
@@ -128,6 +118,8 @@ export function MainBottomTabNavigator() {
           ),
         })}
       />
+
+      {/* 마이페이지 스택 */}
       <MainBottomTab.Screen
         name={"ProfileStack"}
         component={ProfileStackNavigator}

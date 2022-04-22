@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { VoteListContainer, VoteListItem } from "@Component/Vote";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeader__Container } from "../../../StyledComponents/View";
 import { useVoteStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
 
@@ -21,9 +21,9 @@ export function CommunityMainPopular() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderContainer>
+    <SectionHeader__Container>
       <SectionHeaderTitle title="인기 투표" />
-    </SectionHeaderContainer>
+    </SectionHeader__Container>
   );
 }
 

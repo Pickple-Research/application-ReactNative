@@ -8,6 +8,7 @@ import {
   PartnerDetailScreen,
   PartnerDetailScreenProps,
 } from "@Screen/Partner";
+import { PartnerDetailScreenHeader } from "@Screen/Partner/PartnerDetail/Partner.detail.screenHeader";
 
 export type PartnerStackProps = {
   PartnerMainScreen: PartnerMainScreenProps;
@@ -27,6 +28,10 @@ export function PartnerStackNavigator() {
       <PartnerStack.Screen
         name="PartnerCategoryScreen"
         component={PartnerCategoryScreen}
+        options={{
+          headerShown: true,
+          header: PartnerDetailScreenHeader,
+        }}
       />
       <PartnerStack.Screen
         name="PartnerDetailScreen"

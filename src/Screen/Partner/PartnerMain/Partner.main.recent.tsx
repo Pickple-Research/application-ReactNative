@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { PartnerTypeCarousel, PartnerListItem } from "@Component/Partner";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeader__Container } from "../../../StyledComponents/View";
 import { PartnerType } from "../../../Object/Enum";
 import { usePartnerStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
@@ -29,9 +29,9 @@ export function PartnerMainRecent() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderContainer>
+    <SectionHeader__Container>
       <SectionHeaderTitle title="최신" />
-    </SectionHeaderContainer>
+    </SectionHeader__Container>
   );
 }
 

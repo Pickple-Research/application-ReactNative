@@ -19,20 +19,10 @@ import styled from "styled-components/native";
  *
  * @author 현웅
  */
-export const SectionHeaderContainer = styled.View`
+export const SectionHeader__Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0px 20px;
   margin-bottom: 20px;
-`;
-
-export const HorizontalView = styled.View`
-  flex-direction: row;
-`;
-
-export const HorizontalSpaceBetweenView = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 `;
