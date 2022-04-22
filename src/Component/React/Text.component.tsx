@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleProp, TextProps, Text } from "react-native";
+import { StyleProp, TextProps, TextStyle } from "react-native";
 import styled from "styled-components/native";
+import { ThemeColors } from "@Object/Type";
 
 /**
  * 섹션 헤더의 타이틀 텍스트입니다.
@@ -35,6 +36,60 @@ const More__Text = styled.Text`
 `;
 
 /**
+ * 클릭할 수 없는, 둥근 좌우 모서리 디자인을 가진 텍스트입니다.
+ * 클릭이 필요한 경우 ./Button.component.tsx#PillButton 을 참고하세요.
+ * @author 현웅
+ */
+export function Chip({
+  content,
+  type = "PRIMARY",
+  style,
+}: {
+  content: string;
+  type?: ChipType;
+  style?: StyleProp<TextStyle>;
+}) {
+  return (
+    <Chip__Text type={type} style={style}>
+      {content}
+    </Chip__Text>
+  );
+}
+
+const Chip__Text = styled.Text<{ type: ChipType }>`
+  color: ${({ type, theme }) => chipTextColor(type, theme.color)};
+  background-color: ${({ type, theme }) =>
+    chipBackgroundColor(type, theme.color)};
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 100px;
+`;
+
+/**
+ * Chip의 디자인 종류
+ */
+type ChipType = "PRIMARY" | "GRAY";
+
+const chipTextColor = (type: ChipType, color: ThemeColors) => {
+  switch (type) {
+    case "PRIMARY":
+      return color.text_purple;
+    default:
+      return "#EEEEEE";
+  }
+};
+
+const chipBackgroundColor = (type: ChipType, color: ThemeColors) => {
+  switch (type) {
+    case "PRIMARY":
+      return color.pastel_purple;
+    default:
+      return "#8F8F8F";
+  }
+};
+
+/**
  * 파트너, 혹은 리서치의 태그 목록을 받아
  * '#디자인 #기획' 과 같은 형태로 만들어 반환합니다.
  * 추가적인 스타일이 필요한 경우 style 변수에 값을 전달합니다.
@@ -45,19 +100,20 @@ export function HashTags({
   style,
 }: {
   tags: string[];
-  style?: StyleProp<any>;
+  style?: StyleProp<TextStyle>;
 }) {
   return (
-    <HashTags__Text>
+    <HashTags__Text style={style}>
       {tags
         .map(tag => {
           return `#${tag}`;
         })
-        .join(` `)}
+        .join(`  `)}
     </HashTags__Text>
   );
 }
 
 const HashTags__Text = styled.Text`
-  color: ${({ theme }) => theme.color.text_skyblue};
+  color: ${({ theme }) => theme.color.text_purple};
+  font-size: 12px;
 `;

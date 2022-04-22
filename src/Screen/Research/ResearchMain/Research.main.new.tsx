@@ -40,6 +40,7 @@ function ResearchTypeCarousel() {
 
   return (
     <Carousel
+      style={styles.carousel__container}
       contentContainerStyle={styles.carousel__contentContainer}
       data={tags}
       RenderItem={ResearchTypeCarouselItem}
@@ -79,6 +80,10 @@ function RecentResearches() {
 }
 
 const styles = StyleSheet.create({
+  carousel__container: {
+    marginBottom: 8,
+  },
+
   carousel__contentContainer: {
     paddingHorizontal: 10,
   },

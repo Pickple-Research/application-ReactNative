@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/React";
+import { Carousel, PillButton } from "@Component/React";
 import { HashTags } from "../Text.component";
 import { PartnerProps } from "@Object/Type";
 
@@ -37,11 +37,11 @@ export function PartnerAdCarouselComponent({ item }: { item: PartnerProps }) {
         <IconContainer>
           <Icon />
         </IconContainer>
-        <NameTagContainer>
-          <NameText>{item.name}</NameText>
+        <NameTag__Container>
+          <PartnerName>{item.name}</PartnerName>
           <HashTags tags={item.tags} />
-        </NameTagContainer>
-        {/* <FollowButton /> */}
+        </NameTag__Container>
+        <PillButton content="팔로우" />
       </BottomContainer>
     </Container>
   );
@@ -75,14 +75,14 @@ const Icon = styled.View`
   background-color: gray;
 `;
 
-const NameTagContainer = styled.View`
+const NameTag__Container = styled.View`
   justify-content: space-between;
   width: 120px;
 `;
 
-const NameText = styled.Text`
+const PartnerName = styled.Text`
   color: black;
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 `;

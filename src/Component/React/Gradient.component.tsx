@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { theme } from "@Theme/index";
 
@@ -8,7 +8,7 @@ type LinearGradientContainerProps = {
   colors?: string[];
   start?: { x: number; y: number };
   end?: { x: number; y: number };
-  style?: StyleProp<any>;
+  style?: StyleProp<ViewStyle>;
 };
 
 /**

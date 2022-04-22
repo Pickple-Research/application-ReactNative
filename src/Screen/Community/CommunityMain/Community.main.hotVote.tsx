@@ -60,7 +60,8 @@ function HotVote({ vote }: { vote: VoteProps }) {
 
 const styles = StyleSheet.create({
   votesContainer: {
-    padding: 10,
+    paddingVertical: 18,
+    paddingHorizontal: 12,
   },
 });
 
@@ -72,9 +73,8 @@ const Container = styled.View`
 const HotVote__Container = styled.View``;
 
 const HotVote__Title = styled.Text`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
-
   margin-bottom: 12px;
 `;
 

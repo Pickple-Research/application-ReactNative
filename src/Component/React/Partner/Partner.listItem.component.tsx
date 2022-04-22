@@ -57,7 +57,10 @@ const PartnerInfo__Container = styled.View`
 
 const PartnerInfo__PartnerName = styled.Text`
   color: black;
-  margin-bottom: 0px;
+  font-weight: bold;
+  margin-bottom: 6px;
 `;
 
-const PartnerType__Text = styled.Text``;
+const PartnerType__Text = styled.Text`
+  font-size: 12px;
+`;

@@ -5,7 +5,7 @@ import styled from "styled-components/native";
  * 리서치 경품을 보여줍니다.
  * @author 현웅
  */
-export function ResearchGift({ giftIconSize = 36 }: { giftIconSize?: number }) {
+export function ResearchGift({ giftIconSize = 28 }: { giftIconSize?: number }) {
   return (
     <Container>
       <GiftIcon__Container size={giftIconSize}>

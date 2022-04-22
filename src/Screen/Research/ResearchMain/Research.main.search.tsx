@@ -36,6 +36,7 @@ function SearchBox(props?: TextInputProps) {
   );
 }
 
+//TODO: #shadow
 const styles = StyleSheet.create({
   searchBox__containerShadow: {
     borderBottomWidth: 0,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 });
 
 const Container = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 `;
 
 const SearchBox__Container = styled.View`

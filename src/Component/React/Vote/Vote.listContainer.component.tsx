@@ -1,5 +1,5 @@
 import React from "react";
-import { ViewProps, StyleProp } from "react-native";
+import { StyleProp, ViewStyle, ViewProps } from "react-native";
 import styled from "styled-components/native";
 
 /**
@@ -13,11 +13,12 @@ export function VoteListContainer({
   style,
   ...props
 }: {
+  //TODO: (children 타입에 any를 주지 않는 경우)
   //TODO: .map()을 이용하여 랜더링한 컴포넌트를 VotesContainer의
-  //TODO: 직접 자손으로 줄 경우 (해석이 잘 안 되는) 에러가 발생한니다.
+  //TODO: 직접 자손으로 줄 경우 (해석이 잘 안 되는) 에러가 발생합니다.
   //TODO: 당분간 any를 줘야하겠습니다.
   children: JSX.Element | JSX.Element[] | any;
-  style?: StyleProp<any>;
+  style?: StyleProp<ViewStyle>;
   props?: ViewProps;
 }) {
   return (
