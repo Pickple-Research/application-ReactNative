@@ -1,10 +1,9 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useState } from "react";
 import styled from "styled-components/native";
-import { PartnerListItem } from "@Component/Partner";
-import { Carousel } from "@Component/FlatList";
+import { PartnerTypeCarousel, PartnerListItem } from "@Component/Partner";
 import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { PartnerType } from "../../../Object/Enum";
 import { usePartnerStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
 
@@ -13,10 +12,16 @@ import { globalStyles } from "../../../Style";
  * @author 현웅
  */
 export function PartnerMainRecent() {
+  // PartnerTypeCarousel에서 사용할 상태와 함수 정의
+  const [selectedTypes, setSelectedTypes] = useState<PartnerType[]>([]);
+
   return (
     <Container>
       <SectionHeader />
-      <PartnerTypeCarousel />
+      <PartnerTypeCarousel
+        selectedTypes={selectedTypes}
+        setSelectedTypes={setSelectedTypes}
+      />
       <RecentPartners />
     </Container>
   );
@@ -30,22 +35,22 @@ function SectionHeader() {
   );
 }
 
-function PartnerTypeCarousel() {
-  const data = [
-    { title: "스타트업", selected: true },
-    { title: "학회", selected: true },
-    { title: "랩실", selected: false },
-  ];
+// function PartnerTypeCarousel() {
+//   const data = [
+//     { title: "스타트업", selected: true },
+//     { title: "학회", selected: true },
+//     { title: "랩실", selected: false },
+//   ];
 
-  return (
-    <Carousel
-      data={data}
-      RenderItem={PartnerTypeCarouselItem}
-      style={styles.carousel}
-      contentContainerStyle={{ ...globalStyles.screen__horizontalPadding }}
-    />
-  );
-}
+//   return (
+//     <Carousel
+//       data={data}
+//       RenderItem={PartnerTypeCarouselItem}
+//       style={styles.carousel}
+//       contentContainerStyle={{ ...globalStyles.screen__horizontalPadding }}
+//     />
+//   );
+// }
 
 function PartnerTypeCarouselItem({
   item,
@@ -71,12 +76,6 @@ function RecentPartners() {
     </RecentPartners__Container>
   );
 }
-
-const styles = StyleSheet.create({
-  carousel: {
-    marginBottom: 15,
-  },
-});
 
 const Container = styled.View``;
 
