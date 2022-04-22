@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { VoteListContainer, VoteListItem } from "@Component/Vote";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
 import { useVoteStore } from "@Zustand/index";
 import { globalStyles } from "../../Style";
 
@@ -21,10 +21,10 @@ export function HomeMainHotVote() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderMoreContainer>
+    <SectionHeaderContainer>
       <SectionHeaderTitle title="HOT 투표" />
       <MoreText />
-    </SectionHeaderMoreContainer>
+    </SectionHeaderContainer>
   );
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { PartnerAdCarousel } from "@Component/Partner";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
-import { SectionHeaderMoreContainer } from "@Component/StyledComponents";
+import { SectionHeaderContainer } from "@Component/StyledComponents";
 import { usePartnerStore } from "@Zustand/index";
 
 /**
@@ -22,10 +22,10 @@ export function PartnerMainAd() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderMoreContainer>
+    <SectionHeaderContainer>
       <SectionHeaderTitle title="광고" />
       <MoreText />
-    </SectionHeaderMoreContainer>
+    </SectionHeaderContainer>
   );
 }
 
