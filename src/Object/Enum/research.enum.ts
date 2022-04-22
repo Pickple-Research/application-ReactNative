@@ -6,6 +6,10 @@ export enum ResearchType {
   UIUX = "UIUX 리서치",
 }
 
+/**
+ * 모든 리서치 타입입니다
+ * @author 현웅
+ */
 export const allResearchTypes = [
   ResearchType.ALL,
   ResearchType.SURVEY,

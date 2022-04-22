@@ -6,7 +6,7 @@ import styled from "styled-components/native";
  * @author 현웅
  */
 export const SectionHeaderContainer = styled.View`
-  padding: 0px 15px;
+  padding: 0px 20px;
   margin-bottom: 20px;
 `;
 
