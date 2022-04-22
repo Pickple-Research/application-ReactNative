@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { screenStyles } from "./Community.main.screen";
 import { InterestCategoryCarousel } from "@Component/Category";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeader__Container } from "../../../StyledComponents/View";
 import { exampleInterestingCategories } from "../../../Object/Type";
 
 /**
@@ -21,10 +21,10 @@ export function CommunityMainInterest() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderContainer
+    <SectionHeader__Container
       style={{ ...screenStyles.padding, ...screenStyles.headerContainer }}>
       <SectionHeaderTitle title="즐겨찾는 관심사" />
-    </SectionHeaderContainer>
+    </SectionHeader__Container>
   );
 }
 

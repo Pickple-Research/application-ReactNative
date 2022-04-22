@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
 import { InterestCategoryCarousel } from "@Component/Category";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeader__Container } from "../../../StyledComponents/View";
 import { exampleInterestingCategories } from "../../../Object/Type";
 
 /**
@@ -21,9 +21,9 @@ export function ProfileMainInterest() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderContainer>
+    <SectionHeader__Container>
       <SectionHeaderTitle title="관심 카테고리" />
-    </SectionHeaderContainer>
+    </SectionHeader__Container>
   );
 }
 

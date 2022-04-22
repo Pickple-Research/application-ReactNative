@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeader__Container } from "../../../StyledComponents/View";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 import CategoryIcon02 from "@Resource/svg/category-icon02.svg";
 import CategoryIcon03 from "@Resource/svg/category-icon03.svg";
@@ -22,9 +22,9 @@ export function PartnerMainCategory() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderContainer>
+    <SectionHeader__Container>
       <SectionHeaderTitle title="카테고리별 파트너" />
-    </SectionHeaderContainer>
+    </SectionHeader__Container>
   );
 }
 

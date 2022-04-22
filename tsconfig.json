@@ -48,6 +48,7 @@
       "@Object/*": ["./src/Object/*"],
       "@Resource/*": ["./src/Resource/*"],
       "@Style/*": ["./src/Style/*"],
+      "@StyledComponents/*": ["./src/StyledComponents/*"],
       "@Screen/*": ["./src/Screen/*"],
       "@Theme/*": ["./src/Theme/*"],
       "@Util/*": ["./src/Util/*"],

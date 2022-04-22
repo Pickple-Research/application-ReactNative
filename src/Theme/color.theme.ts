@@ -42,6 +42,7 @@ const commonThemeColors: CommonThemeColors = {
  */
 export const lightThemeColors: ThemeColors = {
   ...commonThemeColors,
+  background: "white",
 };
 
 /**
@@ -51,4 +52,5 @@ export const lightThemeColors: ThemeColors = {
  */
 export const darkThemeColors: ThemeColors = {
   ...commonThemeColors,
+  background: "black",
 };

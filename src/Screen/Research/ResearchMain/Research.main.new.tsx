@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { ResearchTypeCarousel, ResearchListItem } from "@Component/Research";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeaderContainer } from "@Component/StyledComponents";
+import { SectionHeader__Container } from "../../../StyledComponents/View";
 //! #BUG? @Object/Enum 으로 import가 안 됩니다. (대체 왜?)
 import { ResearchType } from "../../../Object/Enum";
 import { useResearchStore } from "@Zustand/index";
@@ -31,9 +31,9 @@ export function ResearchMainNew() {
 
 function SectionHeader() {
   return (
-    <SectionHeaderContainer>
+    <SectionHeader__Container>
       <SectionHeaderTitle title="신규 리서치" />
-    </SectionHeaderContainer>
+    </SectionHeader__Container>
   );
 }
 
