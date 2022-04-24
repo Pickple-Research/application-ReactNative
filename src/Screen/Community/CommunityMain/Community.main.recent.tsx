@@ -19,7 +19,7 @@ export function CommunityMainRecent() {
   );
 }
 
-export function SectionHeader() {
+function SectionHeader() {
   return (
     <SectionHeader__Container>
       <SectionHeaderTitle title="최신 투표" />
@@ -28,7 +28,7 @@ export function SectionHeader() {
   );
 }
 
-export function RecentVotes() {
+function RecentVotes() {
   const exampleVotes = useVoteStore(state => state.exampleVotes);
 
   return (

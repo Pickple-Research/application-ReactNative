@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleProp, TextStyle } from "react-native";
 import styled from "styled-components/native";
 
 /**
@@ -6,8 +7,16 @@ import styled from "styled-components/native";
  * ex. 홈 랜딩 페이지에서 '리서치', 'HOT 투표', '파트너' 에 해당하는 단어 스타일
  * @author 현웅
  */
-export function SectionHeaderTitle({ title }: { title: string }) {
-  return <SectionHeaderTitle__Text>{title}</SectionHeaderTitle__Text>;
+export function SectionHeaderTitle({
+  title,
+  style,
+}: {
+  title: string;
+  style?: StyleProp<TextStyle>;
+}) {
+  return (
+    <SectionHeaderTitle__Text style={style}>{title}</SectionHeaderTitle__Text>
+  );
 }
 
 const SectionHeaderTitle__Text = styled.Text`

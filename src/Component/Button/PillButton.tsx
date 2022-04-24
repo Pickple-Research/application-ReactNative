@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
 
 /**
- * 알약 형태의, 모서리가 둥근 버튼입니다.
+ * 알약 형태의 둥근 버튼입니다.
  * @author 현웅
  */
 export function PillButton({

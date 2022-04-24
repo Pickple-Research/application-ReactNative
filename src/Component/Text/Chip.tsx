@@ -14,6 +14,10 @@ export function Chip({
   style,
 }: {
   content: string;
+  /**
+   * Chip 색상 종류를 정합니다.
+   * @author 현웅
+   */
   type?: ChipType;
   style?: StyleProp<TextStyle>;
 }) {
@@ -37,7 +41,7 @@ const Chip__Text = styled.Text<{ type: ChipType }>`
 
 /**
  * Chip의 디자인 종류
- * TODO:
+ * TODO: 이름을 좀 더 명확히 설정
  */
 type ChipType = "RESEARCHER_TYPE" | "RESEARCH_TYPE";
 

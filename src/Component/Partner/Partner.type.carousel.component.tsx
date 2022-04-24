@@ -10,6 +10,18 @@ import { allPartnerTypes } from "../../Object/Enum";
  * 선택된 파트너 타입 상태와 파트너 타입 상태 선택 함수는
  * 이 캐러샐을 호출하는 함수에서 정의하고 넘겨주어야 합니다.
  *
+ * @example
+ * function PartnerTypes(){
+ *  const [selectedTypes, setSelectedTypes] = useState<PartnerType[]>([])
+ *
+ *  return(
+ *    <PartnerTypeCarousel
+ *      selectedTypes={selectedTypes}
+ *      setSelectedTypes={setSelectedTypes}
+ *    />
+ *  )
+ * }
+ *
  * @reference @Object/Research/Research.type.carousel.component.tsx
  * @author 현웅
  */
@@ -69,7 +81,7 @@ export function PartnerTypeCarousel({
 }
 
 const styles = StyleSheet.create({
-  carousel__container: { marginBottom: 10 },
+  carousel__container: {},
   carousel__contentContainer: { paddingHorizontal: 16 },
 });
 
