@@ -25,18 +25,18 @@ export function PartnerStackNavigator() {
         name="PartnerMainScreen"
         component={PartnerMainScreen}
       /> */}
-      {/* <PartnerStack.Screen
+      <PartnerStack.Screen
         name="PartnerCategoryScreen"
         component={PartnerCategoryScreen}
-        /> */}
-      <PartnerStack.Screen
+      />
+      {/* <PartnerStack.Screen
         name="PartnerDetailScreen"
         component={PartnerDetailScreen}
         options={{
           headerShown: true,
           header: PartnerDetailScreenHeader,
         }}
-      />
+      /> */}
     </PartnerStack.Navigator>
   );
 }
