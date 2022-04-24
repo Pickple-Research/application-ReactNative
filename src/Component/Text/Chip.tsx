@@ -14,6 +14,10 @@ export function Chip({
   style,
 }: {
   content: string;
+  /**
+   * Chip 색상 종류를 정합니다.
+   * @author 현웅
+   */
   type?: ChipType;
   style?: StyleProp<TextStyle>;
 }) {

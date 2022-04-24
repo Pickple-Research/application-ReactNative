@@ -5,3 +5,4 @@
  */
 
 export * from "./PillButton";
+export * from "./RadiusButton";

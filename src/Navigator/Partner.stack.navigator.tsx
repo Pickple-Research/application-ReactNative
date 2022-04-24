@@ -21,21 +21,21 @@ export const PartnerStack = createNativeStackNavigator<PartnerStackProps>();
 export function PartnerStackNavigator() {
   return (
     <PartnerStack.Navigator screenOptions={{ headerShown: false }}>
-      <PartnerStack.Screen
+      {/* <PartnerStack.Screen
         name="PartnerMainScreen"
         component={PartnerMainScreen}
-      />
-      <PartnerStack.Screen
+      /> */}
+      {/* <PartnerStack.Screen
         name="PartnerCategoryScreen"
         component={PartnerCategoryScreen}
+        /> */}
+      <PartnerStack.Screen
+        name="PartnerDetailScreen"
+        component={PartnerDetailScreen}
         options={{
           headerShown: true,
           header: PartnerDetailScreenHeader,
         }}
-      />
-      <PartnerStack.Screen
-        name="PartnerDetailScreen"
-        component={PartnerDetailScreen}
       />
     </PartnerStack.Navigator>
   );
