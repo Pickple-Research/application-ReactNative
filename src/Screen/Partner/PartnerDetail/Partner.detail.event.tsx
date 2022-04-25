@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { RadiusButton } from "@Component/Button";
 import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeader__Container } from "../../../StyledComponents/View";
+import { H2, H3, BodyText, DetailText } from "../../../StyledComponents/Text";
 import { globalStyles } from "../../../Style";
 
 /**
@@ -69,9 +70,8 @@ const SectionHeader__TitleContainer = styled.View`
   align-items: center;
 `;
 
-const SectionHeader__TitleNum = styled.Text`
+const SectionHeader__TitleNum = styled(H2)`
   color: ${({ theme }) => theme.color.main_skyblue};
-  font-size: 14px;
   font-weight: bold;
 `;
 
@@ -105,20 +105,15 @@ const EventPost__TitleDateContainer = styled.View`
 
 const EventPost__TitleContainer = styled.View``;
 
-const EventPost__Title = styled.Text`
+const EventPost__Title = styled(H3)`
   color: black;
-  font-size: 15px;
 `;
 
-const EventPost__Date = styled.Text`
-  font-size: 13px;
-`;
+const EventPost__Date = styled(DetailText)``;
 
 const EventPost__ContentContainer = styled.View`
   flex: 1;
   justify-content: center;
 `;
 
-const EventPost__Content = styled.Text`
-  font-size: 13px;
-`;
+const EventPost__Content = styled(BodyText)``;

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { ResearchRecommendCarousel } from "@Component/Research";
 import { useResearchStore } from "@Zustand/index";
+import { H1 } from "../../../StyledComponents/Text";
 
 /**
  * 리서치 랜딩 페이지 리서치 추천 섹션
@@ -42,11 +43,10 @@ const Greeting__Container = styled.View`
   margin-bottom: 25px;
 `;
 
-const Greeting__Text = styled.Text`
+const Greeting__Text = styled(H1)`
   color: black;
-  font-size: 18px;
   font-weight: bold;
-  line-height: 30px;
+  line-height: 27px;
 `;
 
 const Greeting__ProfileIcon = styled.View`

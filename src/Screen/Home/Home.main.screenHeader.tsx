@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 const PickpleResearchText = styled.Text`
   color: black;
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 const Icon__Container = styled.View`

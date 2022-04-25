@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components/native";
 import { MainBottomTabNavigator } from "@Navigator/index";
 import { SplashScreen } from "@Screen/index";
-import { lightThemeColors, darkThemeColors } from "@Theme/index";
+import { lightThemeColors, darkThemeColors, themeSizes } from "@Theme/index";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -33,7 +33,7 @@ export default function App() {
       //? useLightMode가 참이라면 theme.color의 값은 lightThemeColors가 되고,
       //? 그렇지 않다면 darkThemeColor가 됩니다.
       // theme={{ color: useLightMode ? lightThemeColors : darkThemeColors }}>
-      theme={{ color: lightThemeColors }}>
+      theme={{ color: lightThemeColors, size: themeSizes }}>
       <NavigationContainer>
         <MainBottomTabNavigator />
       </NavigationContainer>

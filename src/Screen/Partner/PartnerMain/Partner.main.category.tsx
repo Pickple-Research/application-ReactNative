@@ -1,11 +1,12 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeader__Container } from "../../../StyledComponents/View";
+import { DetailText } from "../../../StyledComponents/Text";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 import CategoryIcon02 from "@Resource/svg/category-icon02.svg";
 import CategoryIcon03 from "@Resource/svg/category-icon03.svg";
-import { StyleSheet } from "react-native";
 
 /**
  * 파트너 랜딩 페이지 카테고리별 파트너 섹션
@@ -90,8 +91,7 @@ const CategoryListItem__Container = styled.View`
   margin-bottom: 30px;
 `;
 
-const CategoryListItem__Text = styled.Text`
+const CategoryListItem__Text = styled(DetailText)`
   color: ${({ theme }) => theme.color.text_color_666};
-  font-size: 10px;
   font-weight: bold;
 `;

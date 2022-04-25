@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { HashTags } from "@Component/Text";
 import { usePartnerStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
+import { BodyText } from "../../../StyledComponents/Text";
 import StarIcon from "@Resource/svg/star-icon.svg";
 
 /**
@@ -75,13 +76,12 @@ const PartnerInfo__Container = styled.View`
 
 const PartnerInfo__PartnerName = styled.Text`
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 2px;
 `;
 
-const PartnerInfo__PartnerType = styled.Text`
-  font-size: 12px;
+const PartnerInfo__PartnerType = styled(BodyText)`
   margin-bottom: 8px;
 `;
 
@@ -90,6 +90,4 @@ const Scrap__Container = styled.View`
   align-items: center;
 `;
 
-const Scrap__Num = styled.Text`
-  font-size: 12px;
-`;
+const Scrap__Num = styled(BodyText)``;

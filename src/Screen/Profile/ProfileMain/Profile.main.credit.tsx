@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
+import { H1, H3 } from "../../../StyledComponents/Text";
 import WalletIcon from "@Resource/svg/wallet-icon.svg";
 
 /**
@@ -44,10 +45,10 @@ const Credit__IconContainer = styled.View`
   border-radius: 100px;
 `;
 
-const Credit__Text = styled.Text`
+const Credit__Text = styled(H1)`
   flex: 1;
   color: black;
   padding: 0px 15px;
 `;
 
-const Credit__UseHistoryText = styled.Text``;
+const Credit__UseHistoryText = styled(H3)``;

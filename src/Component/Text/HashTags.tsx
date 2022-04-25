@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import styled from "styled-components/native";
+import { DetailText } from "../../StyledComponents/Text";
 
 /**
  * 파트너, 혹은 리서치의 태그 목록을 받아
@@ -26,7 +27,6 @@ export function HashTags({
   );
 }
 
-const HashTags__Text = styled.Text`
+const HashTags__Text = styled(DetailText)`
   color: ${({ theme }) => theme.color.text_purple};
-  font-size: 12px;
 `;

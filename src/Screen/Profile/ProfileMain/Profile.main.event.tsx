@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
 import { Carousel } from "@Component/FlatList";
 import { globalStyles } from "../../../Style";
+import { H3, DetailText } from "../../../StyledComponents/Text";
 
 /**
  * 마이페이지 랜딩 페이지 이벤트 섹션
@@ -74,7 +75,7 @@ const Container = styled.View`
 
 const SectionHeader__Container = styled.View``;
 
-const SectionHeader__Title = styled.Text``;
+const SectionHeader__Title = styled(H3)``;
 
 // EventButton()
 const EventButton__Container = styled.View`
@@ -89,10 +90,11 @@ const EventButton__ImgContainer = styled.View`
   margin-bottom: 12px;
 `;
 
-const EventButton__TitleText = styled.Text`
+const EventButton__TitleText = styled(H3)`
   color: ${({ theme }) => theme.color.text_color_333};
+  margin-bottom: 8px;
 `;
 
-const EventButton__DeadlineText = styled.Text`
+const EventButton__DeadlineText = styled(DetailText)`
   color: ${({ theme }) => theme.color.text_color_999};
 `;

@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { PartnerType } from "@Object/Enum";
 import { allPartnerTypes } from "../../Object/Enum";
+import { H3 } from "../../StyledComponents/Text";
 
 /**
  * 파트너 타입(들)을 보여주고 선택할 수 있는 캐러샐입니다.
@@ -93,7 +94,7 @@ const Item__Container = styled.TouchableOpacity<{ selected: boolean }>`
   border-radius: 6px;
 `;
 
-const Item__Text = styled.Text<{ selected: boolean }>`
+const Item__Text = styled(H3)<{ selected: boolean }>`
   color: ${({ selected, theme }) =>
     selected ? theme.color.text_skyblue : theme.color.text_color_bbb};
   font-weight: bold;

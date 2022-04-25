@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { PartnerProps } from "@Object/Type";
+import { DetailText } from "../../StyledComponents/Text";
 
 /**
  * 유저가 팔로우하는 파트너 캐러샐입니다.
@@ -74,13 +75,10 @@ const Notification__Container = styled.View`
   border-radius: 100px;
 `;
 
-const Notification__Text = styled.Text`
+const Notification__Text = styled(DetailText)`
   color: white;
-  font-size: 9px;
 `;
 
-const PartnerName = styled.Text`
+const PartnerName = styled(DetailText)`
   color: ${({ theme }) => theme.color.text_color_666};
-  font-size: 12px;
-  font-weight: bold;
 `;

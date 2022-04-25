@@ -4,6 +4,7 @@ import { Carousel } from "@Component/FlatList";
 import { ResearchTarget, ResearchGift } from "@Component/Research";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
+import { H2 } from "../../StyledComponents/Text";
 
 /**
  * 추천 리서치 캐러샐입니다.
@@ -54,12 +55,11 @@ const CarouselItem__TagGiftContainer = styled.View`
   margin-bottom: 4px;
 `;
 
-const CarouselItem__ResearchTitle = styled.Text`
+const CarouselItem__ResearchTitle = styled(H2)`
   width: 85%;
-  height: 42px;
+  height: 28px;
   color: black;
-  font-size: 16px;
   font-weight: bold;
-  line-height: 21px;
+  line-height: 14px;
   margin-bottom: 10px;
 `;
