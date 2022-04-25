@@ -15,6 +15,7 @@ export function PartnerDetailEvent() {
     <Container>
       <SectionHeader />
       <EventPostsList />
+      <MoreButton />
     </Container>
   );
 }
@@ -61,6 +62,15 @@ function EventPost() {
   );
 }
 
+function MoreButton() {
+  return (
+    <MoreButton__Container
+      style={{ ...globalStyles.screen__horizontalPadding }}>
+      <RadiusButton content="게시글 더보기" type="SHOW_MORE" />
+    </MoreButton__Container>
+  );
+}
+
 const Container = styled.View`
   margin-bottom: 50px;
 `;
@@ -81,6 +91,7 @@ const EventPostsList__Container = styled.View``;
 const EventPost__Container = styled.View`
   flex-direction: row;
   padding: 5px 0px;
+  margin-bottom: 20px;
 `;
 
 const EventPost__Thumbnail = styled.View`
@@ -117,3 +128,6 @@ const EventPost__ContentContainer = styled.View`
 `;
 
 const EventPost__Content = styled(BodyText)``;
+
+// MoreButton()
+const MoreButton__Container = styled.View``;

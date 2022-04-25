@@ -43,7 +43,7 @@ export function PartnerAdCarouselComponent({ item }: { item: PartnerProps }) {
           <PartnerName>{item.name}</PartnerName>
           <HashTags tags={item.tags} />
         </NameTag__Container>
-        <PillButton content="팔로우" />
+        <PillButton content="팔로우" type="FOLLOW" />
       </BottomContainer>
     </Container>
   );

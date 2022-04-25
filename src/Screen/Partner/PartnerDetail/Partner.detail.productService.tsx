@@ -49,7 +49,7 @@ function MoreButton() {
   return (
     <MoreButton__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <RadiusButton content="서비스 더보기" />
+      <RadiusButton content="서비스 더보기" type="SHOW_MORE" />
     </MoreButton__Container>
   );
 }

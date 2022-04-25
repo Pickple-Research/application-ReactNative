@@ -5,14 +5,14 @@ import {
   ListRenderItem,
   View,
   ViewStyle,
-  Text,
   ListRenderItemInfo,
   LayoutChangeEvent,
   NativeSyntheticEvent,
   NativeScrollEvent,
   StyleProp,
 } from "react-native";
-import { theme } from "@Theme/index";
+import styled from "styled-components/native";
+import { H3 } from "../../StyledComponents/Text";
 
 type CarouselProps<DataType> = {
   //? data: 캐러샐에 나타낼 데이터 array
@@ -39,7 +39,8 @@ type CarouselProps<DataType> = {
  *  function PageDesign({ item }: { item: { ... }}){}
  * ```
  * 이는 Carousel 구현을 위해 내부적으로 FlatList를 사용하고,
- * FlatList가 각 페이지를 랜더링할 때 정의한 함수가 { item } 형태로 인자를 받기 때문입니다.
+ * FlatList의 각 페이지를 랜더링하는 함수가 { item } 형태로 인자를 받기 때문입니다.
+ * (공식 홈페이지의 FlatList와 renderItem 참조)
  *
  * @caution
  * 또한 페이지 디자인 함수에서 최외곽 태그의 width에 상대값을 사용하는 경우,
@@ -88,13 +89,12 @@ export function Carousel<DataType>(props: CarouselProps<DataType>) {
     separators,
   }: ListRenderItemInfo<any>) {
     return (
-      <View
+      <Carousel__FullPageContentContainer
         style={{
-          ...styles.carouselFullPageContainer,
           width: pageWidth,
         }}>
         <props.RenderItem item={item} index={index} separators={separators} />
-      </View>
+      </Carousel__FullPageContentContainer>
     );
   }
 
@@ -180,25 +180,19 @@ type IndicatorProps = {
 function Indicator({ currentPageIndex, totalPage, data }: IndicatorProps) {
   //TODO: data를 이용하지 않고 totalPage만으로 map 가능하도록 설정
   return (
-    <View style={styles.indicatorContainer}>
+    <Indicator__Container>
       {data &&
         data.map((page, index) => {
           return (
             <IndicatorDot key={index} focused={currentPageIndex === index} />
           );
         })}
-    </View>
+    </Indicator__Container>
   );
 }
 
 function IndicatorDot({ focused }: { focused: boolean }) {
-  return (
-    <View
-      style={
-        focused ? styles.focusedIndicatorDot : styles.unfocusedIndicatorDot
-      }
-    />
-  );
+  return <IndicatorDot__Container focused={focused} />;
 }
 
 /**
@@ -207,72 +201,57 @@ function IndicatorDot({ focused }: { focused: boolean }) {
  */
 function PageIndex({ currentPageIndex, totalPage }: IndicatorProps) {
   return (
-    <View style={styles.pageIndexContainer}>
-      <Text
-        style={
-          styles.pageIndexText
-        }>{`${currentPageIndex} / ${totalPage}`}</Text>
-    </View>
+    <PageIndex__Container>
+      <PageIndex__Text>{`${currentPageIndex} / ${totalPage}`}</PageIndex__Text>
+    </PageIndex__Container>
   );
 }
 
 const styles = StyleSheet.create({
-  // Carousel을 감싸는 View 스타일
   container: { position: "relative" },
-
-  // Carousel을 구성하는 FlatList 스타일
-  // carouselContainer: {},
-
   carouselContentContainer: {
     alignItems: "center",
   },
-
-  carouselFullPageContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  indicatorContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    paddingVertical: 12,
-  },
-
-  focusedIndicatorDot: {
-    width: 30,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: theme.color.main_purple,
-    marginHorizontal: 5,
-  },
-
-  unfocusedIndicatorDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: theme.color.inactive_button,
-    marginHorizontal: 5,
-  },
-
-  pageIndexContainer: {
-    position: "absolute",
-    bottom: 12,
-    right: 15,
-    width: 70,
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    // backgroundColor: "black", opacity: 0.x 으로 설정하면
-    // 자손까지 영향을 주므로 사용하기 까다로워집니다.
-    backgroundColor: "rgba(0, 0, 0, .6)",
-    borderRadius: 10,
-  },
-
-  pageIndexText: {
-    color: "white",
-    fontWeight: "bold",
-    paddingBottom: 2,
-  },
 });
+
+const Carousel__FullPageContentContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+// Indicator()
+const Indicator__Container = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0px;
+`;
+
+const IndicatorDot__Container = styled.View<{ focused: boolean }>`
+  width: ${({ focused }) => (focused ? "30px" : "6px")};
+  height: 6px;
+  border-radius: 3px;
+  background-color: ${({ focused, theme }) =>
+    focused ? theme.color.main_purple : theme.color.inactive_button};
+  margin: 0px 5px;
+`;
+
+// PageIndex()
+const PageIndex__Container = styled.View`
+  position: absolute;
+  bottom: 12px;
+  right: 15px;
+  justify-content: center;
+  align-items: center;
+  // backgroundColor: "black", opacity: 0.x 으로 설정하면
+  // 자손까지 영향을 주므로 사용하기 까다로워집니다.
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 20px;
+  border-radius: 10px;
+`;
+
+const PageIndex__Text = styled(H3)`
+  color: white;
+  font-weight: bold;
+`;

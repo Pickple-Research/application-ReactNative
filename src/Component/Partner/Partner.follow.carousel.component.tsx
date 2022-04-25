@@ -77,6 +77,8 @@ const Notification__Container = styled.View`
 
 const Notification__Text = styled(DetailText)`
   color: white;
+  font-weight: bold;
+  padding-bottom: 2px;
 `;
 
 const PartnerName = styled(DetailText)`

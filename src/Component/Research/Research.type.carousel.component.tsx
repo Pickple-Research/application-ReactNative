@@ -45,7 +45,7 @@ export function ResearchTypeCarousel({
    */
   function ResearchTypeCarouselItem({ item }: { item: ResearchType }) {
     if (item === selectedType) {
-      return <Chip content={item} type={"RESEARCH_TYPE"} />;
+      return <Chip content={item} type="RESEARCH_TYPE" />;
     }
     return (
       <Type__Text

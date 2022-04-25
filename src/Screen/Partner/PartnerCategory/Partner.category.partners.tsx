@@ -73,14 +73,14 @@ function Partner({ item }: { item: PartnerProps }) {
             <Partner__Name>{item.name}</Partner__Name>
             <Partner__Type>{item.type}</Partner__Type>
           </Partner__NameTypeContainer>
-          <HashTags tags={item.tags} />
+          <HashTags tags={item.tags} style={{ marginBottom: 6 }} />
           <Partner__Description>스타트업 한줄 소개</Partner__Description>
         </Partner__InfoContainer>
       </Partner__ThumbnailInfoContainer>
       <Partner__NewResearchContainer>
         <Chip
           content="3건의 새 리서치"
-          type="RESEARCH_TYPE"
+          type="PARTNER_NEW_RESEARCH"
           style={{ marginRight: 8 }}
         />
         <Partner__NewResearchTitle numberOfLines={1}>
@@ -132,13 +132,16 @@ const Partner__InfoContainer = styled.View`
 `;
 
 const Partner__NameTypeContainer = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1px;
 `;
 
-const Partner__Name = styled(H3)``;
+const Partner__Name = styled(H3)`
+  color: black;
+  font-weight: bold;
+`;
 
 const Partner__Type = styled(BodyText)``;
 
