@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import styled from "styled-components/native";
+import { H2 } from "../../StyledComponents/Text";
 
 /**
  * 섹션 헤더의 타이틀 텍스트입니다.
@@ -19,8 +20,7 @@ export function SectionHeaderTitle({
   );
 }
 
-const SectionHeaderTitle__Text = styled.Text`
+const SectionHeaderTitle__Text = styled(H2)`
   color: black;
-  font-size: 16px;
   font-weight: bold;
 `;

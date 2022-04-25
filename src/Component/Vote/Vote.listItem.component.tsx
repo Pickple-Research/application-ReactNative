@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { VoteProps } from "@Object/Type";
+import { H2, H3, SmallText } from "../../StyledComponents/Text";
 
 /**
  * 투표 리스트의 투표 한 줄 디자인입니다.
@@ -30,17 +31,13 @@ const TitleTagContainer = styled.View`
   margin-right: 16px;
 `;
 
-const TitleText = styled.Text`
-  font-size: 12px;
+const TitleText = styled(H2)`
   font-weight: bold;
   margin-bottom: 8px;
 `;
 
-const TagText = styled.Text`
+const TagText = styled(SmallText)`
   color: ${({ theme }) => theme.color.text_color_999};
-  font-size: 10px;
 `;
 
-const NicknameText = styled.Text`
-  font-size: 12px;
-`;
+const NicknameText = styled(H3)``;

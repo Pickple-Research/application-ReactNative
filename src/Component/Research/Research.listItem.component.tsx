@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { ResearchTarget } from "./Research.target.component";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
+import { H2 } from "../../StyledComponents/Text";
 import CheckIcon from "@Resource/svg/check-icon.svg";
 
 /**
@@ -86,12 +87,11 @@ const ResearchInfo__TagsContainer = styled.View`
   margin-bottom: 6px;
 `;
 
-const ResearchInfo__TitleText = styled.Text`
+const ResearchInfo__TitleText = styled(H2)`
   width: 90%;
-  height: 42px;
+  height: 28px;
   color: black;
-  font-size: 16px;
   font-weight: bold;
-  line-height: 21px;
+  line-height: 14px;
   margin-bottom: 6px;
 `;

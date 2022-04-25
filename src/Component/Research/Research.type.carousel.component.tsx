@@ -5,6 +5,7 @@ import { Carousel } from "@Component/FlatList";
 import { Chip } from "@Component/Text";
 import { ResearchType } from "@Object/Enum";
 import { allResearchTypes } from "../../Object/Enum";
+import { H3 } from "../../StyledComponents/Text";
 
 /**
  * 리서치 타입을 보여주고 선택할 수 있는 캐러샐입니다.
@@ -73,6 +74,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const Type__Text = styled.Text`
+const Type__Text = styled(H3)`
   padding: 0px 12px;
 `;

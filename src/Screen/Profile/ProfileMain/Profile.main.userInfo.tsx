@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
+import { H2, H3, BodyText } from "../../../StyledComponents/Text";
 import PencilIcon from "@Resource/svg/pencil-icon.svg";
 
 /**
@@ -74,16 +75,14 @@ const Thumbnail__EditIconContainer = styled.View`
 `;
 
 // NicknameEmail()
-const NicknameText = styled.Text`
+const NicknameText = styled(H2)`
   color: black;
-  font-size: 14px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
-const EmailText = styled.Text`
+const EmailText = styled(H3)`
   color: ${({ theme }) => theme.color.text_color_999};
-  font-size: 12px;
   margin-bottom: 21px;
 `;
 
@@ -105,7 +104,6 @@ const Rank__IconContainer = styled.View`
   border-radius: 100px;
 `;
 
-const Rank__Text = styled.Text`
-  font-size: 12px;
+const Rank__Text = styled(BodyText)`
   padding: 0px 12px;
 `;

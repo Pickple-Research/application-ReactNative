@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { DetailText } from "../../StyledComponents/Text";
 
 /**
  * 리서치 경품을 보여줍니다.
@@ -46,4 +47,4 @@ const LeftGiftIcon = styled(GiftIcon)`
   right: ${({ size }) => `${size - 8}px`};
 `;
 
-const AdditionalGift__Text = styled.Text``;
+const AdditionalGift__Text = styled(DetailText)``;

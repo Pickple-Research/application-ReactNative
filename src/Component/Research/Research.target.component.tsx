@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleProp } from "react-native";
 import styled from "styled-components/native";
+import { BodyText } from "../../StyledComponents/Text";
 
 /**
  * 리서치 타겟 정보 리스트를 받아
@@ -22,7 +23,6 @@ export function ResearchTarget({
   );
 }
 
-const Targets__Text = styled.Text`
+const Targets__Text = styled(BodyText)`
   color: ${({ theme }) => theme.color.text_color_8f};
-  font-size: 14px;
 `;

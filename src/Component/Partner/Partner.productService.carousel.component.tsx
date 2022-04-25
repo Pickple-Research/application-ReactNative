@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { Chip } from "@Component/Text";
 import { PartnerProductServiceProps } from "@Object/Type";
+import { H3 } from "../../StyledComponents/Text";
 
 /**
  * 파트너 제품/서비스 캐러샐입니다.
@@ -68,8 +69,7 @@ const ProductServiceName__Container = styled.View`
   margin-bottom: 12px;
 `;
 
-const ProductServiceName = styled.Text`
-  font-size: 13px;
+const ProductServiceName = styled(H3)`
   font-weight: bold;
   line-height: 14px;
 `;

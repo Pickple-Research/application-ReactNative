@@ -5,6 +5,7 @@ import { Carousel } from "@Component/FlatList";
 import { PillButton } from "@Component/Button";
 import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
+import { H2 } from "../../StyledComponents/Text";
 
 /**
  * 파트너 광고 캐러샐입니다.
@@ -81,9 +82,8 @@ const NameTag__Container = styled.View`
   width: 120px;
 `;
 
-const PartnerName = styled.Text`
+const PartnerName = styled(H2)`
   color: black;
-  font-size: 14px;
   font-weight: bold;
   margin-bottom: 4px;
 `;

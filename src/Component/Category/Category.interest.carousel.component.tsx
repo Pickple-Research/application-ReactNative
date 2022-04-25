@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { Category } from "@Object/Enum";
+import { DetailText } from "../../StyledComponents/Text";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 
 /**
@@ -49,7 +50,6 @@ const Container = styled.View`
   padding: 0px 16px;
 `;
 
-const Category__Text = styled.Text`
-  font-size: 10px;
+const Category__Text = styled(DetailText)`
   margin-top: 10px;
 `;

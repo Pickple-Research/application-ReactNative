@@ -6,6 +6,7 @@ import { SectionHeaderTitle } from "@Component/Text";
 import { SectionHeader__Container } from "../../../StyledComponents/View";
 import { usePartnerStore } from "@Zustand/partner.zustand";
 import { globalStyles } from "../../../Style";
+import { H2 } from "../../../StyledComponents/Text";
 
 /**
  * 파트너 상세정보 페이지 제품/서비스 섹션
@@ -62,9 +63,8 @@ const SectionHeader__TitleContainer = styled.View`
   align-items: center;
 `;
 
-const SectionHeader__TitleNum = styled.Text`
+const SectionHeader__TitleNum = styled(H2)`
   color: ${({ theme }) => theme.color.main_skyblue};
-  font-size: 14px;
   font-weight: bold;
 `;
 

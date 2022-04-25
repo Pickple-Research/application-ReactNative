@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { globalStyles } from "../../../Style";
+import { H1, H3 } from "../../../StyledComponents/Text";
 
 /**
  * 마이페이지 랜딩 페이지 최하단 'about 픽플리' 섹션
@@ -29,14 +30,12 @@ const About__Container = styled.View`
   border-radius: 10px;
 `;
 
-const About__FormerText = styled.Text`
+const About__FormerText = styled(H3)`
   color: ${({ theme }) => theme.color.main_purple};
-  font-size: 15px;
   margin-right: 10px;
 `;
 
-const About__LatterText = styled.Text`
+const About__LatterText = styled(H1)`
   color: ${({ theme }) => theme.color.text_purple};
-  font-size: 18px;
   font-weight: bold;
 `;

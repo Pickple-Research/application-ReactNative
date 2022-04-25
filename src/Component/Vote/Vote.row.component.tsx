@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { VoteParticipantInfo } from "@Component/Vote";
+import { H3, BodyText } from "../../StyledComponents/Text";
 
 /**
  * 얇은 투표 한 줄에 사용되는 컴포넌트입니다.
@@ -25,16 +26,14 @@ const Container = styled.View`
   padding: 10px 0px;
 `;
 
-const VoteCategory = styled.Text`
+const VoteCategory = styled(H3)`
   color: black;
-  font-size: 12px;
   font-weight: bold;
   margin-right: 8px;
 `;
 
-const VoteTitle = styled.Text`
+const VoteTitle = styled(BodyText)`
   flex: 1;
   color: ${({ theme }) => theme.color.text_color_555};
-  font-size: 10px;
   margin-right: 12px;
 `;

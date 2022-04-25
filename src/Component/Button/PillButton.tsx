@@ -2,6 +2,7 @@ import React from "react";
 import { StyleProp, ViewStyle, TextStyle, ViewProps } from "react-native";
 import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
+import { H3 } from "../../StyledComponents/Text";
 
 /**
  * 알약 형태의 둥근 버튼입니다.
@@ -29,25 +30,29 @@ export function PillButton({
   );
 }
 
+//TODO: 종류 명시
 export type PillButtonType =
   | "FOLLOW" // 팔로우 버튼
   | "GRAY";
 
-function pillButtonTextColor(type: PillButtonType, color: ThemeColors) {
+const pillButtonTextColor = (type: PillButtonType, color: ThemeColors) => {
   switch (type) {
     case "FOLLOW":
       return "white";
     default:
   }
-}
+};
 
-function pillButtonBackgroundColor(type: PillButtonType, color: ThemeColors) {
+const pillButtonBackgroundColor = (
+  type: PillButtonType,
+  color: ThemeColors,
+) => {
   switch (type) {
     case "FOLLOW":
       return color.main_skyblue;
     default:
   }
-}
+};
 
 const PillButton__Container = styled.TouchableOpacity<{ type: PillButtonType }>`
   background-color: ${({ type, theme }) =>
@@ -56,6 +61,6 @@ const PillButton__Container = styled.TouchableOpacity<{ type: PillButtonType }>`
   border-radius: 100px;
 `;
 
-const PillButton__Content = styled.Text<{ type: PillButtonType }>`
+const PillButton__Content = styled(H3)<{ type: PillButtonType }>`
   color: ${({ type, theme }) => pillButtonTextColor(type, theme.color)};
 `;

@@ -2,6 +2,7 @@ import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
+import { DetailText } from "../../StyledComponents/Text";
 
 /**
  * 클릭할 수 없는, 둥근 좌우 모서리 디자인을 가진 텍스트입니다.
@@ -28,13 +29,11 @@ export function Chip({
   );
 }
 
-const Chip__Text = styled.Text<{ type: ChipType }>`
+const Chip__Text = styled(DetailText)<{ type: ChipType }>`
   color: ${({ type, theme }) => chipTextColor(type, theme.color)};
   background-color: ${({ type, theme }) =>
     chipBackgroundColor(type, theme.color)};
-  font-size: 13px;
   font-weight: bold;
-  /* padding: 3px 10px; */
   padding: ${({ type }) => chipPadding(type)};
   border-radius: 100px;
 `;

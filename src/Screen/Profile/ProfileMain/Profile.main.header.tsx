@@ -44,7 +44,7 @@ const Container = styled.View`
 
 const MYText = styled.Text`
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 `;
 

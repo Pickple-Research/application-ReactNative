@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { VoteOptionProps } from "@Object/Type";
+import { H2 } from "../../StyledComponents/Text";
 
 /**
  * 투표 선택 옵션 줄입니다.
@@ -26,8 +27,8 @@ const Container = styled.View`
   border-radius: 100px;
 `;
 
-const Content = styled.Text`
-  font-size: 12px;
-`;
+const Content = styled(H2)``;
 
-const Ratio = styled(Content)``;
+const Ratio = styled(Content)`
+  font-weight: bold;
+`;

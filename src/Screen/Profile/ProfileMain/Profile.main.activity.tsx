@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.main.screen";
+import { H2 } from "../../../StyledComponents/Text";
 import ScrabIcon from "@Resource/svg/scrab-icon.svg";
 import MarkedIcon from "@Resource/svg/marked-icon.svg";
 import PenIcon from "@Resource/svg/pen-icon.svg";
@@ -74,6 +75,6 @@ const Icon__Container = styled.View`
   align-items: center;
 `;
 
-const Icon__Text = styled.Text`
+const Icon__Text = styled(H2)`
   color: ${({ theme }) => theme.color.text_color_666};
 `;

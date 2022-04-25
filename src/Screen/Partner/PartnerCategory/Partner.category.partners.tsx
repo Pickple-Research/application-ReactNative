@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-  ListRenderItem,
-  ListRenderItemInfo,
-  FlatList,
-  Text,
-} from "react-native";
 import styled from "styled-components/native";
 import { PartnerTypeCarousel } from "@Component/Partner";
-import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 import { Chip, HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
 import { PartnerType } from "@Object/Enum";
 import { usePartnerStore } from "@Zustand/index";
 import { globalStyles } from "../../../Style";
+import { H3, BodyText } from "../../../StyledComponents/Text";
 import SortIcon from "@Resource/svg/sort-icon.svg";
 
 /**
@@ -144,11 +138,11 @@ const Partner__NameTypeContainer = styled.View`
   align-items: center;
 `;
 
-const Partner__Name = styled.Text``;
+const Partner__Name = styled(H3)``;
 
-const Partner__Type = styled.Text``;
+const Partner__Type = styled(BodyText)``;
 
-const Partner__Description = styled.Text``;
+const Partner__Description = styled(BodyText)``;
 
 const Partner__NewResearchContainer = styled.View`
   flex: 1;
@@ -159,6 +153,6 @@ const Partner__NewResearchContainer = styled.View`
   margin-top: 12px;
 `;
 
-const Partner__NewResearchTitle = styled.Text`
+const Partner__NewResearchTitle = styled(H3)`
   flex: 1;
 `;

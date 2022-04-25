@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { StyleSheet } from "react-native";
+import { DetailText } from "../../StyledComponents/Text";
 import CheckIcon from "@Resource/svg/check-icon.svg";
 import CommentIcon from "@Resource/svg/comment-icon.svg";
 
@@ -30,6 +31,4 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const InfoText = styled.Text`
-  font-size: 12px;
-`;
+const InfoText = styled(DetailText)``;

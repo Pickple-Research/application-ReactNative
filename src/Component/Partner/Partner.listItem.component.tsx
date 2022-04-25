@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
+import { H3, BodyText } from "../../StyledComponents/Text";
 
 /**
  * 파트너 목록을 보여줄 때 사용되는 목록 한 줄 디자인입니다.
@@ -55,12 +56,10 @@ const PartnerInfo__Container = styled.View`
   margin-right: 15px;
 `;
 
-const PartnerInfo__PartnerName = styled.Text`
+const PartnerInfo__PartnerName = styled(H3)`
   color: black;
   font-weight: bold;
   margin-bottom: 6px;
 `;
 
-const PartnerType__Text = styled.Text`
-  font-size: 12px;
-`;
+const PartnerType__Text = styled(BodyText)``;

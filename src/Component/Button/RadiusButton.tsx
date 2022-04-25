@@ -2,6 +2,9 @@ import React from "react";
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
+import { H2 } from "../../StyledComponents/Text";
+
+export type RadiusButtonType = "SHOW_MORE"; // '~ 더보기' 버튼
 
 /**
  * 모서리가 둥근 버튼입니다.
@@ -28,8 +31,6 @@ export function RadiusButton({
     </Button__Container>
   );
 }
-
-export type RadiusButtonType = "SHOW_MORE"; // '~ 더보기' 버튼
 
 function radiusButtonTextColor(type: RadiusButtonType, color: ThemeColors) {
   switch (type) {
@@ -59,6 +60,6 @@ const Button__Container = styled.TouchableOpacity<{ type: RadiusButtonType }>`
   border-radius: 12px;
 `;
 
-const Button__Content = styled.Text<{ type: RadiusButtonType }>`
+const Button__Content = styled(H2)<{ type: RadiusButtonType }>`
   color: ${({ type, theme }) => radiusButtonTextColor(type, theme.color)};
 `;
