@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
 import { H2 } from "../../StyledComponents/Text";
 
-export type RadiusButtonType = "SHOW_MORE"; // '~ 더보기' 버튼
+export type RadiusButtonType = "SHOW_MORE"; // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
 
 /**
  * 모서리가 둥근 버튼입니다.
@@ -12,13 +12,13 @@ export type RadiusButtonType = "SHOW_MORE"; // '~ 더보기' 버튼
  */
 export function RadiusButton({
   content,
-  type = "SHOW_MORE",
+  type,
   style,
   fontStyle,
   ...props
 }: {
   content: string;
-  type?: RadiusButtonType;
+  type: RadiusButtonType;
   style?: StyleProp<ViewStyle>;
   fontStyle?: StyleProp<TextStyle>;
   props?: ViewProps;
@@ -62,4 +62,5 @@ const Button__Container = styled.TouchableOpacity<{ type: RadiusButtonType }>`
 
 const Button__Content = styled(H2)<{ type: RadiusButtonType }>`
   color: ${({ type, theme }) => radiusButtonTextColor(type, theme.color)};
+  font-weight: bold;
 `;

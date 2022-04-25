@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, StyleSheet, ViewStyle } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { Chip } from "@Component/Text";
@@ -38,7 +38,7 @@ export function PartnerProductServiceCarouselItem({
       </ProductServiceName__Container>
       <Chip
         content="100C"
-        type="RESEARCHER_TYPE"
+        type="PARTNER_TYPE"
         style={{ alignSelf: "flex-start" }}
       />
     </Container>

@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
+import { ResearchDday } from "./Research.dday.component";
 import { ResearchTarget } from "./Research.target.component";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
 import { H2 } from "../../StyledComponents/Text";
-import CheckIcon from "@Resource/svg/check-icon.svg";
 
 /**
  * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.
@@ -26,7 +26,7 @@ export function ResearchListItem({
         tags={research.tags}
         targets={research.targets}
       />
-      <CheckIcon width={20} height={20} />
+      <Credit />
     </Container>
   );
 }
@@ -47,7 +47,7 @@ function ResearchInfo({
   return (
     <ResearchInfo__Container>
       <ResearchInfo__TagsContainer>
-        <Chip content="기업" style={{ marginRight: 6 }} />
+        <ResearchDday content="D-6" style={{ marginRight: 6 }} />
         <HashTags tags={tags} />
       </ResearchInfo__TagsContainer>
       <ResearchInfo__TitleText numberOfLines={2}>
@@ -56,6 +56,10 @@ function ResearchInfo({
       <ResearchTarget targets={targets} />
     </ResearchInfo__Container>
   );
+}
+
+function Credit() {
+  return <Chip content="100C" type="CREDIT_AVAILABLE" />;
 }
 
 const Container = styled.View`
@@ -83,8 +87,7 @@ const ResearchInfo__Container = styled.View`
 
 const ResearchInfo__TagsContainer = styled.View`
   flex-direction: row;
-  align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 `;
 
 const ResearchInfo__TitleText = styled(H2)`

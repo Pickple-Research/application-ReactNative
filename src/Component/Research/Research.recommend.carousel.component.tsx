@@ -28,7 +28,7 @@ export function ResearchRecommendCarouselItem({
   return (
     <CarouselItem__Container>
       <CarouselItem__TagGiftContainer>
-        <Chip content="기업" />
+        <Chip content="기업" type="PARTNER_TYPE" />
         <ResearchGift />
       </CarouselItem__TagGiftContainer>
       <HashTags tags={item.tags} style={{ marginBottom: 3 }} />
