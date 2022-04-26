@@ -1,11 +1,13 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ResearchStackProps } from "@Navigator/index";
 import { ResearchMainSearch } from "./Research.main.search";
 import { ResearchMainRecommend } from "./Research.main.recommend";
 import { ResearchMainNew } from "./Research.main.new";
 import { WhiteBackgroundScrollView } from "@Component/ScrollView";
+import { ResearchCreateIcon } from "@Component/Research";
 
 /**
  * ResearchMainScreen에서 사용하는 props
@@ -31,16 +33,14 @@ export function ResearchMainScreen({
   navigation,
 }: ResearchStackResearchMainScreenProps) {
   return (
-    <WhiteBackgroundScrollView>
-      {/* <TouchableOpacity
-        style={{ backgroundColor: "red", width: 100, height: 100 }}
-        onPress={() => {
-          navigation.navigate("ResearchDetailScreen", {});
-        }}></TouchableOpacity> */}
-      <ResearchMainSearch />
-      <ResearchMainRecommend />
-      <ResearchMainNew />
-    </WhiteBackgroundScrollView>
+    <Container>
+      <WhiteBackgroundScrollView>
+        <ResearchMainSearch />
+        <ResearchMainRecommend />
+        <ResearchMainNew />
+      </WhiteBackgroundScrollView>
+      <ResearchCreateIcon />
+    </Container>
   );
 }
 
@@ -49,3 +49,7 @@ export const screenStyles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 });
+
+const Container = styled.View`
+  position: relative;
+`;

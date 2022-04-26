@@ -8,3 +8,7 @@ export type ResearchProps = {
   targets: string[];
   type: string;
 };
+
+export type ResearchGiftProps = {
+  giftName: string;
+};

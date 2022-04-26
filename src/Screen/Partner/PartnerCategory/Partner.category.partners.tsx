@@ -10,24 +10,24 @@ import { H3, BodyText } from "../../../StyledComponents/Text";
 import SortIcon from "@Resource/svg/sort-icon.svg";
 
 /**
- * 카테고리별 파트너 페이지 파트너 목록 세션
+ * 카테고리별 파트너 페이지 파트너 목록 섹션
  * @author 현웅
  */
 export function PartnerCategoryPartners() {
   return (
     <>
-      <FilterHeader />
+      <Filter />
       <PartnersList />
     </>
   );
 }
 
-function FilterHeader() {
+function Filter() {
   //TODO: 나중에 Screen 단위에서 상태관리 할 수 있도록 바꿔야 합니다.
   const [selectedTypes, setSelectedTypes] = useState<PartnerType[]>([]);
 
   return (
-    <FilterHeader__Container>
+    <Filter__Container>
       <PartnerTypeCarousel
         selectedTypes={selectedTypes}
         setSelectedTypes={setSelectedTypes}
@@ -35,7 +35,7 @@ function FilterHeader() {
       {/* <FilterHeader__Filter> */}
       <SortIcon />
       {/* </FilterHeader__Filter> */}
-    </FilterHeader__Container>
+    </Filter__Container>
   );
 }
 
@@ -91,7 +91,7 @@ function Partner({ item }: { item: PartnerProps }) {
   );
 }
 
-const FilterHeader__Container = styled.View`
+const Filter__Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

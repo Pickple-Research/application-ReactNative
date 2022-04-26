@@ -55,6 +55,7 @@ const scrollViewBackgroundColor = (
 };
 
 const Container = styled.ScrollView<{ backgroundColor: BackgroundColor }>`
+  position: relative;
   background-color: ${({ backgroundColor, theme }) =>
     scrollViewBackgroundColor(backgroundColor, theme.color)};
 `;

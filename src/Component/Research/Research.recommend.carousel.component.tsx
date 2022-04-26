@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
-import { ResearchTarget, ResearchGift } from "@Component/Research";
+import { ResearchTarget, ResearchGiftIcons } from "@Component/Research";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
 import { H2 } from "../../StyledComponents/Text";
@@ -29,7 +29,7 @@ export function ResearchRecommendCarouselItem({
     <CarouselItem__Container>
       <CarouselItem__TagGiftContainer>
         <Chip content="기업" type="PARTNER_TYPE" />
-        <ResearchGift />
+        <ResearchGiftIcons />
       </CarouselItem__TagGiftContainer>
       <HashTags tags={item.tags} style={{ marginBottom: 3 }} />
       <CarouselItem__ResearchTitle numberOfLines={2}>

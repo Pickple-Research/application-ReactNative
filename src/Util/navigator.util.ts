@@ -23,7 +23,7 @@ export function getBottomTabVisibilityFromRoute(route: RouteProp<any, any>) {
     return "none";
   }
 
-  return "flex";
+  // return "flex";
 }
 
 /**

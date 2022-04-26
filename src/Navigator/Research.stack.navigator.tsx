@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   ResearchMainScreen,
   ResearchMainScreenProps,
+  ResearchCategoryScreen,
+  ResearchCategoryScreenProps,
   ResearchDetailScreen,
   ResearchDetailScreenProps,
   ResearchUploadScreen,
@@ -16,6 +18,7 @@ import {
  */
 export type ResearchStackProps = {
   ResearchMainScreen: ResearchMainScreenProps;
+  ResearchCategoryScreen: ResearchCategoryScreenProps;
   ResearchDetailScreen: ResearchDetailScreenProps;
   ResearchUploadScreen: ResearchUploadScreenProps;
 };
@@ -32,6 +35,10 @@ export function ResearchStackNavigator({ navigation }: any) {
       <ResearchStack.Screen
         name={"ResearchMainScreen"}
         component={ResearchMainScreen}
+      />
+      <ResearchStack.Screen
+        name={"ResearchCategoryScreen"}
+        component={ResearchCategoryScreen}
       />
       <ResearchStack.Screen
         name={"ResearchDetailScreen"}
