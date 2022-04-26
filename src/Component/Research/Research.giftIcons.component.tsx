@@ -3,10 +3,14 @@ import styled from "styled-components/native";
 import { DetailText } from "../../StyledComponents/Text";
 
 /**
- * 리서치 경품을 보여줍니다.
+ * 작은 원 두 개에 리서치 경품을 보여줍니다
  * @author 현웅
  */
-export function ResearchGift({ giftIconSize = 28 }: { giftIconSize?: number }) {
+export function ResearchGiftIcons({
+  giftIconSize = 28,
+}: {
+  giftIconSize?: number;
+}) {
   return (
     <Container>
       <GiftIcon__Container size={giftIconSize}>

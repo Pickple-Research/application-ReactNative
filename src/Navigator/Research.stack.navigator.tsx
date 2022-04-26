@@ -32,10 +32,10 @@ const ResearchStack = createNativeStackNavigator<ResearchStackProps>();
 export function ResearchStackNavigator({ navigation }: any) {
   return (
     <ResearchStack.Navigator screenOptions={{ headerShown: false }}>
-      {/* <ResearchStack.Screen
+      <ResearchStack.Screen
         name={"ResearchMainScreen"}
         component={ResearchMainScreen}
-      /> */}
+      />
       <ResearchStack.Screen
         name={"ResearchCategoryScreen"}
         component={ResearchCategoryScreen}
