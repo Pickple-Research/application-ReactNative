@@ -27,14 +27,16 @@ export function WhiteBackgroundScrollView({
   props?: ScrollViewProps; // 추가적으로 ScrollView에 넘겨줘야 하는 속성이 있는 경우
 }) {
   return (
-    <Container
-      style={style}
-      backgroundColor={backgroundColor}
-      contentContainerStyle={[{ paddingBottom: 70 }, contentContainerStyle]}
-      nestedScrollEnabled
-      {...props}>
-      {children}
-    </Container>
+    <SafeArea>
+      <Container
+        style={style}
+        backgroundColor={backgroundColor}
+        contentContainerStyle={[{ paddingBottom: 70 }, contentContainerStyle]}
+        nestedScrollEnabled
+        {...props}>
+        {children}
+      </Container>
+    </SafeArea>
   );
 }
 
@@ -53,6 +55,9 @@ const scrollViewBackgroundColor = (
       return "white";
   }
 };
+
+// IPhone의 경우 safearea 내부에 컴포넌트를 위치시켜야 status bar를 침범하지 않습니다.
+const SafeArea = styled.SafeAreaView``
 
 const Container = styled.ScrollView<{ backgroundColor: BackgroundColor }>`
   position: relative;
