@@ -19,9 +19,11 @@ import { bottomTabBarHidingScreens } from "@Constant/index";
 export function getBottomTabVisibilityFromRoute(route: RouteProp<any, any>) {
   const screenName = getFocusedRouteNameFromRoute(route);
 
+
   if (screenName && bottomTabBarHidingScreens.includes(screenName)) {
     return "none";
   }
+  
 
   // return "flex";
 }
