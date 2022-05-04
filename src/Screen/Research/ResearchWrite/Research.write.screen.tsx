@@ -7,13 +7,18 @@ import { ResearchWrite10Screen } from './ResearchWrite10/Research.write10.screen
 import { ResearchWrite20Screen } from './ResearchWrite20/Research.write20.screen';
 import { ResearchWrite30Screen } from './ResearchWrite30/Research.write30.screen';
 
+
+
 const pages = [
     <ResearchWrite10Screen />, 
     <ResearchWrite20Screen />, 
     <ResearchWrite30Screen />, 
 ]
 
-
+/**
+ * 리서치 작성 페이지 컨테이너
+ * pages 리스트에 스크린을 추가하면 그 순서대로 작성 페이지를 보여줌
+ */
 
 export function ResearchWriteScreen({
     navigation
@@ -33,6 +38,7 @@ export function ResearchWriteScreen({
         }
         setCurrentPage(prev => prev+1);
     }
+    
 
     return (
         <View style={{flex: 1, backgroundColor: "white"}}>
@@ -54,7 +60,9 @@ export function ResearchWriteScreen({
     )   
 }
 
-export type ResearchWriteScreenProps = {}
+export type ResearchWriteScreenProps = {
+
+}
 
 const Container = styled.View`
     width: ${100*vw}px;
