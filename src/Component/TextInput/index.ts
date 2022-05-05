@@ -1,1 +1,1 @@
-export * from "@Component/TextInput/TextInput.RoundTextInput.component";
+export * from "./RoundTextInput.component";
