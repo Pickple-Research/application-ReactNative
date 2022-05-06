@@ -1,8 +1,10 @@
+import { assertAccessor } from '@babel/types';
 import { RoundTextInput } from '@Component/TextInput'
 import { vw } from '@Theme/size.theme';
 import { getGalleryPhotoFromAndroid } from '@Util/Permissions/android.util';
 import React, { useState } from 'react'
-import { Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { Image, ImagePickerIOS, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { ImagePickerResponse } from 'react-native-image-picker';
 import styled from 'styled-components/native';
 /**
  * 리서치 작성 페이지 10 
@@ -14,30 +16,50 @@ import styled from 'styled-components/native';
 export function ResearchWrite10Screen({
     navigation
 }: any) {
-
-
     return (
         <Container>
             <Profile />
-            <Name />
+            <Author />
             <ResearchGroup />
             <ResearchName />
+            <ResearchLink />
             <ResearchDescription />
         </Container>
 
     )
 }
 
+async function test() {
+    const result = await getGalleryPhotoFromAndroid()
+    if (result !== undefined) {
+        const resultResponse: ImagePickerResponse = result
+        
+        if (resultResponse.assets !== undefined) {
+            return resultResponse.assets[0].uri
+        }
+        
+    }
+    return undefined
+}
 function Profile() {
+    const [profileImage, setProfileImage] = useState<string | undefined>();
     return (
         <View>
-            <TouchableOpacity onPress={getGalleryPhotoFromAndroid}>
-                <Text style={{color: "red"}}>눌러보시지</Text>
+            <TouchableOpacity style={{width: 100, height: 100, }} onPress={() => {
+                test()
+                .then((data) => {
+                    if (data === undefined) return;
+                    else {
+                        setProfileImage(data);
+                    }
+                })
+            }}>
+                <Image width={100} height={100} style={{ width:100, height: 100, borderRadius: 50}} source={profileImage === undefined ? require("@Resource/png/profile-default.png") : {uri: profileImage}} />
             </TouchableOpacity>
         </View>
     )
 }
-function Name() {
+function Author() {
     const [textValue, setTextValue] = useState("");
 
     function passData(data: string) {
@@ -46,12 +68,12 @@ function Name() {
         
     }
     return (
-        <Name__Container>
+        <Author__Container>
             <TitleContainer>
                 <TitleBoldText>실명과 닉네임</TitleBoldText>
                 <TitleNormalText> 중 선택해 주세요</TitleNormalText>
             </TitleContainer>
-            <Name__InputView>
+            <Author__InputView>
                 <RoundTextInput
                     fixedText='실명'
                     containerStyle={{
@@ -70,8 +92,8 @@ function Name() {
                     }}
                     dataTransfer={passData}
                 />
-            </Name__InputView>
-        </Name__Container>
+            </Author__InputView>
+        </Author__Container>
     )
 }
 
@@ -83,11 +105,7 @@ function ResearchGroup() {
                 <TitleNormalText>가 있다면 입력해주세요 (선택)</TitleNormalText>
             </TitleContainer>
             <ResearchGroup__InputView>
-                <RoundTextInput
-                    containerStyle={{
-        
-                    }}
-                />
+                <RoundTextInput />
             </ResearchGroup__InputView>
         </ResearchGroup__Container>
     )
@@ -111,6 +129,23 @@ function ResearchName() {
     )
 }
 
+function ResearchLink() {
+    return (
+        <ResearchLink__Container>
+            <TitleContainer>
+                <TitleBoldText>리서치 제목</TitleBoldText>
+                <TitleNormalText>을 입력해주세요</TitleNormalText>
+            </TitleContainer>
+            <ResearchLink__InputView>
+                <RoundTextInput
+                    containerStyle={{
+        
+                    }}
+                />
+            </ResearchLink__InputView>
+        </ResearchLink__Container>
+    )
+}
 function ResearchDescription() {
     return (
         <ResearchDescription__Container>
@@ -132,11 +167,11 @@ function ResearchDescription() {
 }
 //common
 const Container = styled.View`
-    
+    margin: 20px 20px 20px 20px;
 `
 const TitleContainer = styled.View`
     flex-direction: row;
-    margin: 10px 20px 4px 20px;
+    margin: 10px 0px 4px 0px;
 `
 const TitleNormalText = styled.Text`
     color: black;
@@ -153,12 +188,12 @@ const Profile__Container = styled.View`
     
 `
 // Name()
-const Name__Container = styled.View`
+const Author__Container = styled.View`
     
 `
-const Name__InputView = styled.View`
+const Author__InputView = styled.View`
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 `
 
 // ResearchGroup()
@@ -176,6 +211,15 @@ const ResearchName__Container = styled.View`
     
 `
 const ResearchName__InputView = styled.View`
+    flex-direction: row;
+    justify-content: space-evenly;
+`
+
+// ResearchLink()
+const ResearchLink__Container = styled.View`
+    
+`
+const ResearchLink__InputView = styled.View`
     flex-direction: row;
     justify-content: space-evenly;
 `
