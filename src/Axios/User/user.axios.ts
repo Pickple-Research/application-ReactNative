@@ -6,8 +6,8 @@ import customAxios from "../axios.core";
  * @author 현웅
  */
 export const getUserInfo = async () => {
-  await customAxios.request<string>({
+  return await customAxios.request<string>({
     method: "GET",
-    url: "/users",
+    url: "/users/test",
   });
 };
