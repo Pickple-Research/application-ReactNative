@@ -7,6 +7,8 @@ import {
   ResearchCategoryScreenProps,
   ResearchDetailScreen,
   ResearchDetailScreenProps,
+  ResearchWriteScreen,
+  ResearchWriteScreenProps,
   ResearchUploadScreen,
   ResearchUploadScreenProps,
 } from "@Screen/Research";
@@ -20,6 +22,7 @@ export type ResearchStackProps = {
   ResearchMainScreen: ResearchMainScreenProps;
   ResearchCategoryScreen: ResearchCategoryScreenProps;
   ResearchDetailScreen: ResearchDetailScreenProps;
+  ResearchWriteScreen: ResearchWriteScreenProps;
   ResearchUploadScreen: ResearchUploadScreenProps;
 };
 
@@ -31,7 +34,7 @@ const ResearchStack = createNativeStackNavigator<ResearchStackProps>();
  */
 export function ResearchStackNavigator({ navigation }: any) {
   return (
-    <ResearchStack.Navigator screenOptions={{ headerShown: false }}>
+    <ResearchStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"ResearchWriteScreen"}>
       <ResearchStack.Screen
         name={"ResearchMainScreen"}
         component={ResearchMainScreen}
@@ -43,6 +46,10 @@ export function ResearchStackNavigator({ navigation }: any) {
       <ResearchStack.Screen
         name={"ResearchDetailScreen"}
         component={ResearchDetailScreen}
+      />
+      <ResearchStack.Screen
+        name={"ResearchWriteScreen"}
+        component={ResearchWriteScreen}
       />
       <ResearchStack.Screen
         name={"ResearchUploadScreen"}

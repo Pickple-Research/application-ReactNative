@@ -80,7 +80,8 @@ export function MainBottomTabNavigator() {
         component={ResearchStackNavigator}
         options={({ route }) => ({
           tabBarStyle: {
-            display: getBottomTabVisibilityFromRoute(route),
+            // display: getBottomTabVisibilityFromRoute(route),
+            display: "none",
             ...styles.bottomTabBar,
           },
           tabBarIcon: ({ focused }) => (
