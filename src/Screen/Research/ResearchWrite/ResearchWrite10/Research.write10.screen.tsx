@@ -6,12 +6,12 @@ import React, { useState } from 'react'
 import { Image, ImagePickerIOS, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import { ImagePickerResponse } from 'react-native-image-picker';
 import styled from 'styled-components/native';
+
+
 /**
  * 리서치 작성 페이지 10 
  * 숫자가 클 수록 뒤 페이지입니다
  */
-
-
 
 export function ResearchWrite10Screen({
     navigation
@@ -119,11 +119,7 @@ function ResearchName() {
                 <TitleNormalText>을 입력해주세요</TitleNormalText>
             </TitleContainer>
             <ResearchName__InputView>
-                <RoundTextInput
-                    containerStyle={{
-        
-                    }}
-                />
+                <RoundTextInput />
             </ResearchName__InputView>
         </ResearchName__Container>
     )
@@ -137,11 +133,7 @@ function ResearchLink() {
                 <TitleNormalText>을 입력해주세요</TitleNormalText>
             </TitleContainer>
             <ResearchLink__InputView>
-                <RoundTextInput
-                    containerStyle={{
-        
-                    }}
-                />
+                <RoundTextInput />
             </ResearchLink__InputView>
         </ResearchLink__Container>
     )
@@ -154,12 +146,7 @@ function ResearchDescription() {
                 <TitleNormalText>을 입력해주세요</TitleNormalText>
             </TitleContainer>
             <ResearchDescription__InputView>
-                <RoundTextInput
-                    multiline={true}
-                    containerStyle={{
-        
-                    }}
-                />
+                <RoundTextInput multiline={true} />
             </ResearchDescription__InputView>
         </ResearchDescription__Container>
     )

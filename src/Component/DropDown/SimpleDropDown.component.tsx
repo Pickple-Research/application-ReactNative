@@ -4,6 +4,11 @@ import SelectDropdown from 'react-native-select-dropdown';
 import Svg, { Path } from 'react-native-svg';
 
 
+/**
+ * !TODO parameter 추가
+ * @param param0 
+ * @returns 
+ */
 export function SimpleDropDown({
     defaultValue = "",
     data = ["one", "two", "three"],

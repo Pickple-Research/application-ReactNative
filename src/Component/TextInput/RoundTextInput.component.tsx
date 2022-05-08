@@ -1,6 +1,6 @@
 import { vw } from '@Theme/size.theme';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from 'react-native';
 
 /**
  * RoundTextInput은 기본적으로 말 그대로 둥근 TextInput입니다
@@ -12,6 +12,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
  * focusStyle: RoundTextInput에 focus 했을 때 변경할 값을 넣습니다.
  * multiline: 여러줄을 받을지 말지를 결정하는 값입니다. True로 입력할 시 input을 넘어가면 다음 줄로 자동으로 넘어갑니다.
  * !(중요) dataTransfer: textInput 값이 변했을 때 그 값을 받을 function을 의미합니다. parent에서 setText(data)와 같은 형식으로 사용할 수 있습니다.
+ * @author 정원제
  */
 export function RoundTextInput({
     fixedText = "",
@@ -51,31 +52,12 @@ type RoundTextInputProps = {
     placeHolderTextColor?: string
     multiline?: boolean
     dataTransfer?: (data: any) => any
-    containerStyle?: commonSetting
-    fixedTextStyle?: commonSetting
-    textInputStyle?: commonSetting
-    focusStyle?: commonSetting
+    containerStyle?: StyleProp<ViewStyle>
+    fixedTextStyle?: StyleProp<TextStyle>
+    textInputStyle?: StyleProp<TextStyle>
+    focusStyle?: StyleProp<ViewStyle>
 }
-type commonSetting = {
-    width?: number
-    height?: number
-    backgroundColor?: string
-    marginHorizontal?: number
-    marginVertical?: number
-    marginTop?: number
-    marginRight?: number
-    marginLeft?: number
-    marginBottom?: number
-    paddingHorizontal?: number
-    paddingVertical?: number
-    paddingTop?: number
-    paddingRight?: number
-    paddingBottom?: number
-    paddingLeft?: number
-    borderWidth?: number
-    borderRadius?: number
-    borderColor?: string
-}
+
 const defaultStyle = StyleSheet.create({
     viewStyle: {
         width: 100* vw - 30,
