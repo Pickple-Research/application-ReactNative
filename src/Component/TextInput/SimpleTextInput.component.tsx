@@ -14,18 +14,21 @@ import styled from 'styled-components/native';
  * @function onLeftImageClick: leftImage를 클릭하였을 때 작동합니다.
  * @function onRightImageClick: rightImage를 클릭하였을 때 작동합니다.
  * * TIP: dataTransfer를 통해 데이터를 받고 검증하여 image를 보여줄지 말지 등을 선태할 수 있습니다.
+ * TODO Image를 어떻게 받을 것인가? SVG? PNG? URI?
  * @author 정원제
  */
 export function SimpleTextInput({
     placeHolder = "Enter your name here",
-    placeHolderTextColor = "red",
+    placeHolderTextColor = "#CCCCCC",
     showLeftImage = false,
     showRightImage = true,
     leftImageStyle,
     rightImageStyle,
     containerStyle,
     textInputStyle,
-    focusContainerStyle,
+    focusContainerStyle = {
+        borderBottomColor: "#8BBFF5"
+    },
     focusTextInputStyle,
     dataTransfer,
 }: SimpleTextInputType) {
@@ -44,13 +47,13 @@ export function SimpleTextInput({
                             style={[leftImageStyle]} />
                             : 
                         <></> 
-                    }
+                    }   
 
                     <MainTextInput 
                         placeholder = {placeHolder}
                         placeholderTextColor = {placeHolderTextColor}
                         underlineColorAndroid="transparent"
-                        onChange={dataTransfer}
+                        onChangeText={dataTransfer}
                         onFocus = {() => setFocus(true)}
                         onBlur = {() => setFocus(false)}
                         style={[textInputStyle, focus ? focusTextInputStyle : {}]} />
@@ -74,14 +77,13 @@ export function SimpleTextInput({
 
 
 const Container = styled.View`
-    margin: 10px;
     height: 40px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: "#fff";
     border-bottom-width: 2px;
-    border-color: "#8BBFF5";
+    border-bottom-color: #CCCCCC;
 `
 
 const LeftImage = styled.Image`

@@ -1,7 +1,6 @@
 import { vw } from '@Theme/size.theme';
 import React, { useState } from 'react';
 import { StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from 'react-native';
-
 /**
  * RoundTextInput은 기본적으로 말 그대로 둥근 TextInput입니다
  * @params
@@ -77,6 +76,7 @@ const defaultStyle = StyleSheet.create({
     },
     textInputStyle: {
         flex: 1,
+        fontSize: 13,
         color: "#333333",
     },
 
