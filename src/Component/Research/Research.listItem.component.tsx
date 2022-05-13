@@ -9,17 +9,20 @@ import { H2 } from "../../StyledComponents/Text";
 
 /**
  * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.
+ * onPress에는 Navigator를 이용한 이동 방식을 정의하여 넘겨주어야 합니다.
  * @author 현웅
  */
 export function ResearchListItem({
   research,
   style,
+  onPress,
 }: {
   research: ResearchProps;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }) {
   return (
-    <Container style={style}>
+    <Container style={style} activeOpacity={1} onPress={onPress}>
       <Thumbnail />
       <ResearchInfo
         title={research.title}
@@ -62,7 +65,7 @@ function Credit() {
   return <Chip content="100C" type="CREDIT_AVAILABLE" />;
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

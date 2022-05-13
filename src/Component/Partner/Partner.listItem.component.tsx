@@ -6,11 +6,18 @@ import { H3, BodyText } from "../../StyledComponents/Text";
 
 /**
  * 파트너 목록을 보여줄 때 사용되는 목록 한 줄 디자인입니다.
+ * onPress에는 Navigator를 이용한 이동 방식을 정의하여 넘겨주어야 합니다.
  * @author 현웅
  */
-export function PartnerListItem({ partner }: { partner: PartnerProps }) {
+export function PartnerListItem({
+  partner,
+  onPress,
+}: {
+  partner: PartnerProps;
+  onPress?: () => void;
+}) {
   return (
-    <Container>
+    <Container activeOpacity={1} onPress={onPress}>
       <Thumbnail />
       <PartnerInfo name={partner.name} tags={partner.tags} />
       <PartnerType type={partner.type} />
@@ -35,7 +42,7 @@ function PartnerType({ type }: { type: string }) {
   return <PartnerType__Text>{type}</PartnerType__Text>;
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
