@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 import { Image, ImagePickerIOS, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import { ImagePickerResponse } from 'react-native-image-picker';
 import styled from 'styled-components/native';
-import { Container, TitleBoldText, TitleContainer, TitleNormalText } from '../styled';
+import { Container, SectionContainer, TitleBoldText, TitleContainer, TitleNormalText } from '../styled';
 
 
 /**
@@ -38,14 +38,9 @@ export function ResearchWrite10Screen({
     )
 }
 
-
-
-
-
-
 function ResearchName() {
     return (
-        <ResearchName__Container>
+        <SectionContainer>
             <TitleContainer>
                 <TitleBoldText>리서치 제목</TitleBoldText>
                 <TitleNormalText>을 입력해주세요</TitleNormalText>
@@ -55,13 +50,13 @@ function ResearchName() {
                     placeHolder='MZ세대 여성들의 피트니스와 웰니스에 대한 인식 조사'
                 />
             </ResearchName__InputView>
-        </ResearchName__Container>
+        </SectionContainer>
     )
 }
 
 function ResearchLink() {
     return (
-        <ResearchLink__Container>
+        <SectionContainer>
             <TitleContainer>
                 <TitleBoldText>리서치 링크</TitleBoldText>
                 <TitleNormalText>를 입력해주세요</TitleNormalText>
@@ -71,12 +66,12 @@ function ResearchLink() {
                     placeHolder='https://forms.gle./r2cisthebest123'
                 />
             </ResearchLink__InputView>
-        </ResearchLink__Container>
+        </SectionContainer>
     )
 }
 function ResearchDescription() {
     return (
-        <ResearchDescription__Container>
+        <SectionContainer>
             <TitleContainer>
                 <TitleBoldText>설명</TitleBoldText>
                 <TitleNormalText>을 입력해주세요</TitleNormalText>
@@ -86,7 +81,7 @@ function ResearchDescription() {
                 {"안녕하세요. 스타트업 마케팅 팀에서 일하고 있는 직장인입니다.\n내일 오전에 PT해야 되는 자료에 사용할 데이터가 필요한데 리서치 참여 좀 부탁드릴게요 ㅠ.ㅜ"}
                 />
             </ResearchDescription__InputView>
-        </ResearchDescription__Container>
+        </SectionContainer>
     )
 
 }
