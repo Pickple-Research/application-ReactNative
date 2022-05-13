@@ -1,4 +1,5 @@
 import { SimpleDropDown } from '@Component/DropDown'
+import { SimpleTextInput } from '@Component/TextInput/SimpleTextInput.component'
 import React from 'react'
 import { Text, View } from 'react-native'
 
@@ -16,6 +17,7 @@ export function ResearchWrite20Screen({
                 defaultValue="5"
                 data={["5", "10", "20", "50"]}
             />
+            <SimpleTextInput />
         </View>
     )
 }
