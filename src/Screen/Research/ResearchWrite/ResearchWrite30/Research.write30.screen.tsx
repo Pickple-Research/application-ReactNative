@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
+import { Container } from '../styled'
 
 /**
  * 리서치 작성 페이지 30
@@ -10,9 +11,9 @@ export function ResearchWrite30Screen({
     navigation
 }: any) {
     return (
-        <View>
+        <Container>
             <Text style={{color: 'red'}}>30</Text>
-        </View>
+        </Container>
     )
 }
 

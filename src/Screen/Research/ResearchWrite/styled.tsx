@@ -5,7 +5,7 @@ export const Container = styled.View`
     margin: 20px;
 `
 export const SectionContainer = styled.View`
-    
+    margin: 4px 0px 10px 0px;
 `
 export const TitleContainer = styled.View`
     flex-direction: row;

@@ -2,7 +2,8 @@ import { SimpleDropDown } from '@Component/DropDown'
 import { RoundTextInput } from '@Component/TextInput';
 import { SimpleTextInput } from '@Component/TextInput/SimpleTextInput.component'
 import React, { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
+import styled from 'styled-components/native';
 import { Container, SectionContainer, TitleBoldText, TitleContainer, TitleNormalText } from '../styled';
 
 /**
@@ -46,7 +47,20 @@ function ResearchPurpose() {
                 <TitleNormalText>을 알려주세요</TitleNormalText>
             </TitleContainer>
             <View>
-                <SimpleDropDown />
+                <SimpleDropDown 
+                    data={["학술", "고객", "기타"]}
+                    buttonStyle = {{
+                        width: 180,
+                        backgroundColor: 'white',
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: "#E5E5E5",
+                    }}
+                    buttonTextStyle = {{
+                        textAlign: 'left',
+                        paddingLeft: 10,
+                    }}
+                />
             </View>
         </SectionContainer>
     )
@@ -79,6 +93,7 @@ function ResearchParticipants() {
             <View>
                 <SimpleTextInput 
                     placeHolder='쇼핑몰 이용 경험이 있는 MZ세대 여성'
+                    showRightImage={false}
                 />
             </View>
         </SectionContainer>
@@ -87,16 +102,59 @@ function ResearchParticipants() {
 
 function EstimatedTime() {
     return (
-        <View>
-            <Text style={{color: "red"}}>Estimated</Text>
-        </View>
+        <SectionContainer>
+            <EstimatedTime__Container>
+                <TitleBoldText>예상 소요 시간</TitleBoldText>
+                <TitleNormalText>을 입력해주세요</TitleNormalText>
+                <Image style={{width: 12, height: 12, marginLeft: 8,}} source={require("../../../../Resource/png/profile-default.png")} />
+                <SimpleDropDown
+                    defaultValue = {5}
+                    data={[3,5,7,9]}
+                    buttonStyle = {{
+                        width: 100,
+                        marginHorizontal: 8,
+                        borderRadius: 8,
+                    }}
+                />
+                <TitleNormalText> 분</TitleNormalText>
+            </EstimatedTime__Container>
+        </SectionContainer>
     )
 }
 
+const date = new Date();
 function DeadLine() {
     return (
-        <View>
-            <Text style={{color: "red"}}>Deadline</Text>
-        </View>
+        <DeadLine__Container>
+            <TitleContainer>
+                <TitleBoldText>마감일</TitleBoldText>
+                <TitleNormalText>을 입력해주세요</TitleNormalText>
+            </TitleContainer>
+            <DeadLine__Description>마감일에 맞추어 해당 게시물이 자동 마감됩니다.</DeadLine__Description>
+            <SimpleDropDown 
+                data={["2022. 04. 15"]}
+                buttonStyle = {{
+                    width: 180,
+                    borderRadius: 10,
+                    marginTop: 16,
+                }}
+            />
+        </DeadLine__Container>
     )
 }
+
+
+const EstimatedTime__Container = styled.View`
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+`
+
+const DeadLine__Container = styled.View`
+    
+`
+
+const DeadLine__Description = styled.Text`
+    color: #999999;
+    font-size: 11px;
+`
