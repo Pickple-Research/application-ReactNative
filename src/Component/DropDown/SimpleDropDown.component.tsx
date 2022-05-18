@@ -24,7 +24,8 @@ export function SimpleDropDown({
     rowStyle,
     buttonTextStyle,
     rowTextStyle,
-    dataTrasfer,
+    imageStyle,
+    dataTrasfer = (item: any) => {},
 }: SimpleDropDownProps) {
     return (
         <View>
@@ -40,18 +41,19 @@ export function SimpleDropDown({
                     console.log(selectedItem);
                 }}
                 buttonTextAfterSelection={(selectedItem, index) => {
+                    dataTrasfer(selectedItem);
                     return selectedItem
                 }}
                 rowTextForSelection={(item, index) => {
-                    return item
+                    return item;
                 }} 
                 dropdownIconPosition="right"
                 renderDropdownIcon={() => {
                     return (
                         <View
-                            style={{
+                            style={[{
                                 marginRight: 20,
-                            }}
+                            }, imageStyle]}
                         >
                             <Svg width="14" height="8" viewBox="0 0 14 8" fill="none">
                                 <Path
@@ -80,5 +82,6 @@ type SimpleDropDownProps = {
     rowStyle?: StyleProp<ViewStyle>
     buttonTextStyle?: StyleProp<TextStyle>
     rowTextStyle?: StyleProp<TextStyle>
+    imageStyle?: StyleProp<ViewStyle>
     dataTrasfer?: (data: any) => any
 }

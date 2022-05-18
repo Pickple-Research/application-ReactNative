@@ -15,16 +15,25 @@ export function RadiusButton({
   type,
   style,
   fontStyle,
+  activeOpacity,
+  onPress,
   ...props
 }: {
   content: string;
   type: RadiusButtonType;
   style?: StyleProp<ViewStyle>;
   fontStyle?: StyleProp<TextStyle>;
+  activeOpacity?: number;
+  onPress?: () => any;
   props?: ViewProps;
 }) {
   return (
-    <Button__Container {...props} style={style} type={type}>
+    <Button__Container
+      {...props}
+      style={style}
+      type={type}
+      activeOpacity={activeOpacity}
+      onPress={onPress}>
       <Button__Content style={fontStyle} type={type}>
         {content}
       </Button__Content>
