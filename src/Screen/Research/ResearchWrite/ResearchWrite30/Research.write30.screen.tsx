@@ -2,9 +2,10 @@ import { RadiusButton } from "@Component/Button";
 import { SimpleDropDown } from "@Component/DropDown";
 import { GiftListItem } from "@Component/Research";
 import { vw } from "@Theme/size.theme";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
+import { Observer } from "../Research.write.screen";
 
 /**
  * 리서치 작성 페이지 30
@@ -34,6 +35,9 @@ export function ResearchWrite30Screen({ navigation }: any) {
     });
     setGiftItems(temp);
   }
+
+  const { isComplete, setIsComplete } = useContext(Observer);
+  setIsComplete(true);
 
   return (
     <Container>
