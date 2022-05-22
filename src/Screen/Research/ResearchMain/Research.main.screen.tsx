@@ -30,6 +30,7 @@ type ResearchStackResearchMainScreenProps = NativeStackScreenProps<
  * @author 현웅
  */
 export function ResearchMainScreen({
+  route,
   navigation,
 }: ResearchStackResearchMainScreenProps) {
   return (

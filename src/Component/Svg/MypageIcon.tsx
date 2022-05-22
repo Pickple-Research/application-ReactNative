@@ -4,7 +4,7 @@ import { BottomTabSvgIconProps } from ".";
 import { theme } from "@Theme/theme";
 
 /**
- * MainBottomTab의 마이페이지 아이콘. focused 된 경우 색이 어두워집니다.
+ * LandingBottomTab의 마이페이지 아이콘. focused 된 경우 색이 어두워집니다.
  * @author 현웅
  */
 export function MypageSvgIcon({

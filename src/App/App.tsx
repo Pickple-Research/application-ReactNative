@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components/native";
-import { MainBottomTabNavigator } from "@Navigator/index";
+import { LandingBottomTabNavigator } from "@Navigator/index";
 import { SplashScreen } from "@Screen/index";
 import { lightThemeColors, darkThemeColors, themeSizes } from "@Theme/index";
 
@@ -35,7 +35,7 @@ export default function App() {
       // theme={{ color: useLightMode ? lightThemeColors : darkThemeColors }}>
       theme={{ color: lightThemeColors, size: themeSizes }}>
       <NavigationContainer>
-        <MainBottomTabNavigator />
+        <LandingBottomTabNavigator />
       </NavigationContainer>
     </ThemeProvider>
   );

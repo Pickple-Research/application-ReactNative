@@ -2,7 +2,7 @@ import React from "react";
 import Svg, { SvgProps, Path, ClipPath, Defs, G, Rect } from "react-native-svg";
 
 /**
- * MainBottomTab의 홈 아이콘
+ * LandingBottomTab의 홈 아이콘
  * @author 현웅
  */
 export function HomeIcon({

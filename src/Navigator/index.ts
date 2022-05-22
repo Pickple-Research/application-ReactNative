@@ -1,5 +1,5 @@
 // 최상단 navigator
-export * from "./Main.bottomTab.navigator";
+export * from "./Landing.bottomTab.navigator";
 
 // bottomTab Navigator의 하위 Navigator 5묶음
 export * from "./Partner.stack.navigator";
