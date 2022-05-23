@@ -1,18 +1,14 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { PartnerMainScreen, PartnerMainScreenProps } from "@Screen/Partner";
+import { ResearchMainScreen, ResearchMainScreenProps } from "@Screen/Research";
+import { HomeMainScreen, HomeMainScreenProps } from "@Screen/Home";
 import {
-  PartnerStackNavigator,
-  PartnerStackProps,
-  ResearchStackNavigator,
-  ResearchStackProps,
-  HomeStackNavigator,
-  HomeStackProps,
-  CommunityStackNavigator,
-  CommunityStackProps,
-  ProfileStackNavigator,
-  ProfileStackProps,
-} from "@Navigator/index";
+  CommunityMainScreen,
+  CommunityMainScreenProps,
+} from "@Screen/Community";
+import { ProfileMainScreen, ProfileMainScreenProps } from "@Screen/Profile";
 import { HomeMainScreenHeader } from "@Screen/Home/Home.main.screenHeader";
 import { LinearGradeintContainer } from "@Component/View";
 import {
@@ -22,33 +18,31 @@ import {
   CommunityIcon,
   MypageSvgIcon,
 } from "@Component/Svg";
-import { getBottomTabVisibilityFromRoute } from "@Util/index";
 import { theme } from "@Theme/theme";
 
-const MainBottomTab = createBottomTabNavigator<MainBottomTabProps>();
+const LandingBottomTab = createBottomTabNavigator<LandingBottomTabProps>();
 
 /**
  * MainBottomTab의 Props
  * @author 원제
  */
-export type MainBottomTabProps = {
-  PartnerStack: PartnerStackProps;
-  ResearchStack: ResearchStackProps;
-  HomeStack: HomeStackProps;
-  CommunityStack: CommunityStackProps;
-  ProfileStack: ProfileStackProps;
+export type LandingBottomTabProps = {
+  PartnerMainScreen: PartnerMainScreenProps;
+  ResearchMainScreen: ResearchMainScreenProps;
+  HomeMainScreen: HomeMainScreenProps;
+  CommunityMainScreen: CommunityMainScreenProps;
+  ProfileMainScreen: ProfileMainScreenProps;
 };
 
 /**
- * 앱 메인 하단바 네비게이터입니다. 사실상 앱 그 자체입니다.
- * 다른 (스택) 네비게이터가 이 네비게이터를 구성하는 스크린 컴포넌트로 들어옵니다.
+ * 파트너/리서치/메인/커뮤니티/프로필의 랜딩페이지가 모이는 네비게이터입니다.
  * @author 현웅
  */
-export function MainBottomTabNavigator() {
+export function LandingBottomTabNavigator() {
   return (
-    <MainBottomTab.Navigator
-      //? initialRouteName: 처음 보여주는 Screen을 순서를 무시하고 HomeStack으로 설정합니다.
-      initialRouteName="HomeStack"
+    <LandingBottomTab.Navigator
+      //? initialRouteName: 처음 보여주는 Screen을 순서를 무시하고 HomeMainScreen으로 설정합니다.
+      initialRouteName="HomeMainScreen"
       screenOptions={({ route }) => ({
         //? headerShown: bottomTabNavigator 상에서의 위치를 나타내는 헤더를 표시하지 않습니다.
         //? tabBarShowLabel: 기본 tabBarLabel을 표시하지 않습니다.
@@ -56,18 +50,13 @@ export function MainBottomTabNavigator() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
-        //? 전역적으로 tabBarStyle을 적용하더라도 각 TabBar 옵션마다 새로 style이 적용되므로 쓸모가 없습니다.
-        // tabBarStyle: styles.bottomTabBar,
+        tabBarStyle: styles.bottomTabBar,
       })}>
       {/* 파트너 스택 */}
-      <MainBottomTab.Screen
-        name={"PartnerStack"}
-        component={PartnerStackNavigator}
+      <LandingBottomTab.Screen
+        name={"PartnerMainScreen"}
+        component={PartnerMainScreen}
         options={({ route }) => ({
-          tabBarStyle: {
-            display: getBottomTabVisibilityFromRoute(route),
-            ...styles.bottomTabBar,
-          },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="파트너" focused={focused} />
           ),
@@ -75,15 +64,10 @@ export function MainBottomTabNavigator() {
       />
 
       {/* 리서치 스택 */}
-      <MainBottomTab.Screen
-        name={"ResearchStack"}
-        component={ResearchStackNavigator}
+      <LandingBottomTab.Screen
+        name={"ResearchMainScreen"}
+        component={ResearchMainScreen}
         options={({ route }) => ({
-          tabBarStyle: {
-            // display: getBottomTabVisibilityFromRoute(route),
-            display: "none",
-            ...styles.bottomTabBar,
-          },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="리서치" focused={focused} />
           ),
@@ -91,29 +75,21 @@ export function MainBottomTabNavigator() {
       />
 
       {/* 홈 랜딩 페이지 */}
-      <MainBottomTab.Screen
-        name={"HomeStack"}
-        component={HomeStackNavigator}
+      <LandingBottomTab.Screen
+        name={"HomeMainScreen"}
+        component={HomeMainScreen}
         options={({ route }) => ({
           headerShown: true,
           header: HomeMainScreenHeader,
-          tabBarStyle: {
-            display: getBottomTabVisibilityFromRoute(route),
-            ...styles.bottomTabBar,
-          },
           tabBarIcon: () => <TabBarHomeIcon />,
         })}
       />
 
       {/* 커뮤니티 스택 */}
-      <MainBottomTab.Screen
-        name={"CommunityStack"}
-        component={CommunityStackNavigator}
+      <LandingBottomTab.Screen
+        name={"CommunityMainScreen"}
+        component={CommunityMainScreen}
         options={({ route }) => ({
-          tabBarStyle: {
-            display: getBottomTabVisibilityFromRoute(route),
-            ...styles.bottomTabBar,
-          },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="커뮤니티" focused={focused} />
           ),
@@ -121,20 +97,16 @@ export function MainBottomTabNavigator() {
       />
 
       {/* 마이페이지 스택 */}
-      <MainBottomTab.Screen
-        name={"ProfileStack"}
-        component={ProfileStackNavigator}
+      <LandingBottomTab.Screen
+        name={"ProfileMainScreen"}
+        component={ProfileMainScreen}
         options={({ route }) => ({
-          tabBarStyle: {
-            display: getBottomTabVisibilityFromRoute(route),
-            ...styles.bottomTabBar,
-          },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="마이페이지" focused={focused} />
           ),
         })}
       />
-    </MainBottomTab.Navigator>
+    </LandingBottomTab.Navigator>
   );
 }
 

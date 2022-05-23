@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { PartnerTypeCarousel, PartnerListItem } from "@Component/Partner";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
-import { PartnerType } from "../../../Object/Enum";
-import { usePartnerStore } from "@Zustand/index";
-import { globalStyles } from "../../../Style";
+import { SectionHeader__Container } from "src/StyledComponents/View";
+import { PartnerType } from "src/Object/Enum";
+import { usePartnerStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
 
 /**
  * 파트너 랜딩 페이지 최신 파트너 섹션
@@ -38,10 +40,20 @@ function SectionHeader() {
 function RecentPartners() {
   const examplePartner = usePartnerStore(state => state.examplePartner);
 
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
     <RecentPartners__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <PartnerListItem partner={examplePartner} />
+      <PartnerListItem
+        partner={examplePartner}
+        onPress={() => {
+          navigation.navigate("PartnerDetailScreen", {
+            partnerId: examplePartner.id,
+          });
+        }}
+      />
     </RecentPartners__Container>
   );
 }

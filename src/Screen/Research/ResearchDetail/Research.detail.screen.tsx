@@ -8,7 +8,7 @@ import { ResearchDetailGift } from "./Research.detail.gift";
 import { ResearchDetailBottomTab } from "./Research.detail.bottomTab";
 import { WhiteBackgroundScrollView } from "@Component/ScrollView";
 
-export type ResearchDetailScreenProps = {};
+export type ResearchDetailScreenProps = { researchId: string };
 
 /**
  * 리서치 상세정보 페이지

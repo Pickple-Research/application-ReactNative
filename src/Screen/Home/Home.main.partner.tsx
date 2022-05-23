@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { PartnerAdCarousel } from "@Component/Partner";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
-import { SectionHeader__Container } from "../../StyledComponents/View";
-import { usePartnerStore } from "@Zustand/index";
+import { SectionHeader__Container } from "src/StyledComponents/View";
+import { usePartnerStore } from "src/Zustand";
 
 /**
  * 홈 랜딩 페이지의 파트너 섹션
@@ -21,10 +23,17 @@ export function HomeMainPartner() {
 }
 
 function SectionHeader() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
     <SectionHeader__Container>
       <SectionHeaderTitle title="파트너" />
-      <MoreText />
+      <MoreText
+        onPress={() => {
+          navigation.navigate("PartnerCategoryScreen", {});
+        }}
+      />
     </SectionHeader__Container>
   );
 }

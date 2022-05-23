@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { Carousel } from "@Component/FlatList";
 import { PillButton } from "@Component/Button";
 import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
-import { H2 } from "../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 광고 캐러샐입니다.
@@ -13,11 +15,17 @@ import { H2 } from "../../StyledComponents/Text";
  */
 export function PartnerAdCarousel({ partners }: { partners: PartnerProps[] }) {
   return (
-    <Carousel
-      style={styles.carousel__container}
-      contentContainerStyle={styles.carousel__contentContainer}
+    // <Carousel
+    //   style={styles.carousel__container}
+    //   contentContainerStyle={styles.carousel__contentContainer}
+    //   data={partners}
+    //   RenderItem={PartnerAdCarouselComponent}
+    // />
+    <FlatList
       data={partners}
-      RenderItem={PartnerAdCarouselComponent}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => <PartnerAdCarouselComponent partner={item} />}
     />
   );
 }
@@ -31,17 +39,28 @@ const styles = StyleSheet.create({
  * 파트너 광고 캐러샐에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function PartnerAdCarouselComponent({ item }: { item: PartnerProps }) {
+export function PartnerAdCarouselComponent({
+  partner,
+}: {
+  partner: PartnerProps;
+}) {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
-    <Container>
+    <Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("PartnerDetailScreen", { partnerId: partner.id });
+      }}>
       <ImageContainer />
       <BottomContainer>
         <IconContainer>
           <Icon />
         </IconContainer>
         <NameTag__Container>
-          <PartnerName>{item.name}</PartnerName>
-          <HashTags tags={item.tags} />
+          <PartnerName>{partner.name}</PartnerName>
+          <HashTags tags={partner.tags} />
         </NameTag__Container>
         <PillButton content="팔로우" type="FOLLOW" />
       </BottomContainer>
@@ -49,7 +68,7 @@ export function PartnerAdCarouselComponent({ item }: { item: PartnerProps }) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   padding: 0px 5px;
 `;
 

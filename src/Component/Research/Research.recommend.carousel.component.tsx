@@ -1,10 +1,13 @@
 import React from "react";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { Carousel } from "@Component/FlatList";
 import { ResearchTarget, ResearchGiftIcons } from "@Component/Research";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
-import { H2 } from "../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 추천 리서치 캐러샐입니다.
@@ -16,31 +19,48 @@ export function ResearchRecommendCarousel({
   researches: ResearchProps[];
 }) {
   return (
-    <Carousel data={researches} RenderItem={ResearchRecommendCarouselItem} />
+    // <Carousel data={researches} RenderItem={ResearchRecommendCarouselItem} />
+    <FlatList
+      data={researches}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => (
+        <ResearchRecommendCarouselItem research={item} />
+      )}
+    />
   );
 }
 
 export function ResearchRecommendCarouselItem({
-  item,
+  research,
 }: {
-  item: ResearchProps;
+  research: ResearchProps;
 }) {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
-    <CarouselItem__Container>
+    <CarouselItem__Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("ResearchDetailScreen", {
+          researchId: research.id,
+        });
+      }}>
       <CarouselItem__TagGiftContainer>
         <Chip content="기업" type="PARTNER_TYPE" />
         <ResearchGiftIcons />
       </CarouselItem__TagGiftContainer>
-      <HashTags tags={item.tags} style={{ marginBottom: 3 }} />
+      <HashTags tags={research.tags} style={{ marginBottom: 3 }} />
       <CarouselItem__ResearchTitle numberOfLines={2}>
-        {item.title}
+        {research.title}
       </CarouselItem__ResearchTitle>
-      <ResearchTarget targets={item.targets} />
+      <ResearchTarget targets={research.targets} />
     </CarouselItem__Container>
   );
 }
 
-const CarouselItem__Container = styled.View`
+const CarouselItem__Container = styled.TouchableOpacity`
   width: 270px;
   padding: 10px 14px 18px 16px;
   border: 1px solid ${({ theme }) => theme.color.background_purple};

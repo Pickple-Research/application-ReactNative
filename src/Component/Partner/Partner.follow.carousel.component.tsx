@@ -1,25 +1,33 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { Carousel } from "@Component/FlatList";
 import { PartnerProps } from "@Object/Type";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 
 /**
  * 유저가 팔로우하는 파트너 캐러샐입니다.
  * @author 현웅
  */
 export function FollowingPartnerCarousel({
-  partners: followingPartners,
+  followingPartners,
 }: {
-  partners: PartnerProps[];
+  followingPartners: PartnerProps[];
 }) {
   return (
-    <Carousel
-      style={styles.carousel__container}
-      contentContainerStyle={styles.carousel__contentContainer}
+    // <Carousel
+    //   style={styles.carousel__container}
+    //   contentContainerStyle={styles.carousel__contentContainer}
+    //   data={followingPartners}
+    //   RenderItem={PartnerCarouselItem}
+    // />
+    <FlatList
       data={followingPartners}
-      RenderItem={PartnerCarouselItem}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => <PartnerCarouselItem partner={item} />}
     />
   );
 }
@@ -33,25 +41,33 @@ const styles = StyleSheet.create({
  * 팔로우하는 파트너 캐러샐에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function PartnerCarouselItem({ item }: { item: PartnerProps }) {
+export function PartnerCarouselItem({ partner }: { partner: PartnerProps }) {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
-    <Container>
+    <Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("PartnerDetailScreen", { partnerId: partner.id });
+      }}>
       <Icon__Container>
         <Notification__Container>
           <Notification__Text>2</Notification__Text>
         </Notification__Container>
       </Icon__Container>
-      <PartnerName>{item.name}</PartnerName>
+      <PartnerName>{partner.name}</PartnerName>
     </Container>
   );
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  padding: 0px 12px;
-  //? notification 컴포넌트가 위로 올라가 있어서 padding-top을 주지 않으면 잘림.
+  //? notification 컴포넌트가 position: absolute 를 통해 2px만큼 솟아있기 때문에
+  //? padding-top을 주지 않으면 notification 컴포넌트가 잘림.
   padding-top: 2px;
+  margin: 0px 12px;
 `;
 
 const Icon__Container = styled.View`

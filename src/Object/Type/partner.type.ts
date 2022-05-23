@@ -3,6 +3,7 @@
  * @author 현웅
  */
 export type PartnerProps = {
+  id: string;
   name: string;
   type: string;
   tags: string[];
