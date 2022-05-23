@@ -15,7 +15,7 @@ export function PartnerMainFollow() {
   return (
     <Container>
       <SectionHeader />
-      <FollowingPartnerCarousel partners={examplePartners} />
+      <FollowingPartnerCarousel followingPartners={examplePartners} />
     </Container>
   );
 }

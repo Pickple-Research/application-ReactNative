@@ -1,4 +1,6 @@
-// 최상단 navigator
+// 앱 전체 Navigator
+export * from "./App.stack.navigator";
+// 랜딩페이지 Navigator
 export * from "./Landing.bottomTab.navigator";
 
 // bottomTab Navigator의 하위 Navigator 5묶음

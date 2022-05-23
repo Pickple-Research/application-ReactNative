@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { PartnerTypeCarousel } from "@Component/Partner";
 import { Chip, HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
 import { PartnerType } from "@Object/Enum";
-import { usePartnerStore } from "@Zustand/index";
-import { globalStyles } from "../../../Style";
-import { H3, BodyText } from "../../../StyledComponents/Text";
+import { usePartnerStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
+import { H3, BodyText } from "src/StyledComponents/Text";
 import SortIcon from "@Resource/svg/sort-icon.svg";
 
 /**
@@ -46,14 +48,17 @@ function PartnersList() {
 
   /**
    * #TYPE #TYPESCRIPT
-   * FlatList를 Typescript와 같이 쓰는 경우:
+   * FlatList를 styled-components, Typescript와 같이 쓰는 경우
+   * <React.Element> 타입을 지정해줍니다. 왜인진 저도 아직 확실히 몰라요..
    * @see https://stackoverflow.com/questions/64460114/rn-flatlist-with-typescript-and-styled-components#
    * @author 현웅
    */
   return (
     <PartnersList__Container<React.ElementType>
       data={examplePartners}
-      renderItem={Partner}
+      renderItem={({ item }: { item: PartnerProps }) => (
+        <Partner partner={item} />
+      )}
       contentContainerStyle={{
         ...globalStyles.screen__horizontalPadding,
         paddingTop: 10,
@@ -63,17 +68,24 @@ function PartnersList() {
   );
 }
 
-function Partner({ item }: { item: PartnerProps }) {
+function Partner({ partner }: { partner: PartnerProps }) {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "PartnerCategoryScreen">>();
+
   return (
-    <Partner__Container>
+    <Partner__Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("PartnerDetailScreen", { partnerId: partner.id });
+      }}>
       <Partner__ThumbnailInfoContainer>
         <Partner__Thumbnail />
         <Partner__InfoContainer>
           <Partner__NameTypeContainer>
-            <Partner__Name>{item.name}</Partner__Name>
-            <Partner__Type>{item.type}</Partner__Type>
+            <Partner__Name>{partner.name}</Partner__Name>
+            <Partner__Type>{partner.type}</Partner__Type>
           </Partner__NameTypeContainer>
-          <HashTags tags={item.tags} style={{ marginBottom: 6 }} />
+          <HashTags tags={partner.tags} style={{ marginBottom: 6 }} />
           <Partner__Description>스타트업 한줄 소개</Partner__Description>
         </Partner__InfoContainer>
       </Partner__ThumbnailInfoContainer>
@@ -107,7 +119,7 @@ const PartnersList__Container = styled.FlatList`
 `;
 
 // Partner()
-const Partner__Container = styled.View`
+const Partner__Container = styled.TouchableOpacity`
   background-color: white;
   padding: 12px;
   border-radius: 12px;

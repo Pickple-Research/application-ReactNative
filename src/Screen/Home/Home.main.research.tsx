@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps, LandingBottomTabProps } from "src/Navigator";
 import { screenStyles } from "./Home.main.screen";
 import { ResearchListItem } from "@Component/Research";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
@@ -21,10 +23,17 @@ export function HomeMainResearch() {
 }
 
 function SectionHeader() {
+  const navigation =
+    useNavigation<NavigationProp<LandingBottomTabProps, "HomeMainScreen">>();
+
   return (
     <SectionHeader__Container>
       <SectionHeaderTitle title={"리서치"} />
-      <MoreText />
+      <MoreText
+        onPress={() => {
+          navigation.navigate("ResearchMainScreen", {});
+        }}
+      />
     </SectionHeader__Container>
   );
 }
@@ -32,10 +41,20 @@ function SectionHeader() {
 function Researches() {
   const exampleResearch = useResearchStore(state => state.exampleResearch);
 
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
     <Researches__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <ResearchListItem research={exampleResearch} />
+      <ResearchListItem
+        research={exampleResearch}
+        onPress={() => {
+          navigation.navigate("ResearchDetailScreen", {
+            researchId: exampleResearch.id,
+          });
+        }}
+      />
     </Researches__Container>
   );
 }

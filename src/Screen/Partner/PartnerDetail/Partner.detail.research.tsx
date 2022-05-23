@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { SectionHeaderTitle, MoreText } from "@Component/Text";
 import { ResearchListItem } from "@Component/Research";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
-import { useResearchStore } from "@Zustand/index";
-import { globalStyles } from "../../../Style";
-import { H2 } from "../../../StyledComponents/Text";
+import { SectionHeader__Container } from "src/StyledComponents/View";
+import { useResearchStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 상세정보 페이지 파트너가 진행중인 리서치 섹션
@@ -35,10 +37,20 @@ function SectionHeader() {
 function Researches() {
   const exampleResearch = useResearchStore(state => state.exampleResearch);
 
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "PartnerDetailScreen">>();
+
   return (
     <Researches__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <ResearchListItem research={exampleResearch} />
+      <ResearchListItem
+        research={exampleResearch}
+        onPress={() => {
+          navigation.navigate("ResearchDetailScreen", {
+            researchId: exampleResearch.id,
+          });
+        }}
+      />
     </Researches__Container>
   );
 }

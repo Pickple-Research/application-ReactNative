@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { ResearchRecommendCarousel } from "@Component/Research";
 import { useResearchStore } from "@Zustand/index";
-import { H1 } from "../../../StyledComponents/Text";
+import { H1 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 랜딩 페이지 리서치 추천 섹션

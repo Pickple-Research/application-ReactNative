@@ -11,7 +11,7 @@ import { WhiteBackgroundScrollView } from "@Component/ScrollView";
  * @author 현웅
  */
 export type PartnerDetailScreenProps = {
-  partnerName: string;
+  partnerId: string;
 };
 
 export function PartnerDetailScreen() {

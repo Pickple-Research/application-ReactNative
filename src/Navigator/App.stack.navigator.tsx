@@ -49,7 +49,7 @@ const AppStack = createNativeStackNavigator<AppStackProps>();
  * 앱의 모든 화면들이 쌓이는 Stack Navigator입니다.
  * @author 현웅
  */
-export function CommunityStackNavigator() {
+export function AppStackNavigator() {
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
       {/* 랜딩 페이지 BottomTab Navigator */}

@@ -5,7 +5,7 @@ import { ResearchDday } from "./Research.dday.component";
 import { ResearchTarget } from "./Research.target.component";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
-import { H2 } from "../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.

@@ -3,6 +3,7 @@
  * @author 현웅
  */
 export type ResearchProps = {
+  id: string;
   title: string;
   tags: string[];
   targets: string[];
