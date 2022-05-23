@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   LandingBottomTabNavigator,
   LandingBottomTabProps,
-} from "@Navigator/index";
+} from "src/Navigator";
 // 파트너 관련 Screen
 import {
   PartnerCategoryScreen,

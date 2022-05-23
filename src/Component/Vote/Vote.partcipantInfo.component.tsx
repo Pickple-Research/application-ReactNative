@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { StyleSheet } from "react-native";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 import CheckIcon from "@Resource/svg/check-icon.svg";
 import CommentIcon from "@Resource/svg/comment-icon.svg";
 

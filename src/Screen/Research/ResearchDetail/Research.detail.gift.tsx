@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
+import { SectionHeader__Container } from "src/StyledComponents/View";
 import { ResearchGiftProps } from "@Object/Type";
 import { Carousel } from "@Component/FlatList";
-import { H3, BodyText } from "../../../StyledComponents/Text";
+import { H3, BodyText } from "src/StyledComponents/Text";
 
 /**
  * 리서치 상세정보 페이지 경품 섹션

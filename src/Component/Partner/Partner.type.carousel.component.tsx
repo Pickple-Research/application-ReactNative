@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { PartnerType } from "@Object/Enum";
-import { allPartnerTypes } from "../../Object/Enum";
-import { H3 } from "../../StyledComponents/Text";
+import { allPartnerTypes } from "src/Object/Enum";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 타입(들)을 보여주고 선택할 수 있는 캐러샐입니다.

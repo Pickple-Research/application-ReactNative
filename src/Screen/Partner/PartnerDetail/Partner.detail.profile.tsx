@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { HashTags } from "@Component/Text";
-import { usePartnerStore } from "@Zustand/index";
-import { globalStyles } from "../../../Style";
-import { BodyText } from "../../../StyledComponents/Text";
+import { usePartnerStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
+import { BodyText } from "src/StyledComponents/Text";
 import StarIcon from "@Resource/svg/star-icon.svg";
 
 /**

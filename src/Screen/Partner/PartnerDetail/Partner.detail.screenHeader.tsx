@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ScreenHeader__Container } from "../../../StyledComponents/View";
+import { ScreenHeader__Container } from "src/StyledComponents/View";
 import CaretLeftIcon from "@Resource/svg/caret-left-icon.svg";
 
 export function PartnerDetailScreenHeader() {

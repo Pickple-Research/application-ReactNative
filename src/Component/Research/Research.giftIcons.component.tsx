@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 
 /**
  * 작은 원 두 개에 리서치 경품을 보여줍니다

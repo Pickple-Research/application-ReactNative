@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import styled from "styled-components/native";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 
 /**
  * 파트너, 혹은 리서치의 태그 목록을 받아

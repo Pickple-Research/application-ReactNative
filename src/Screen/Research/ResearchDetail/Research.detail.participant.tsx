@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { H1, H3 } from "../../../StyledComponents/Text";
-import { globalStyles } from "../../../Style";
+import { H1, H3 } from "src/StyledComponents/Text";
+import { globalStyles } from "src/Style";
 
 /**
  * 리서치 상세정보 페이지 참여 현황 섹션

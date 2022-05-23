@@ -1,15 +1,24 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { PartnerMainScreen, PartnerMainScreenProps } from "@Screen/Partner";
-import { ResearchMainScreen, ResearchMainScreenProps } from "@Screen/Research";
-import { HomeMainScreen, HomeMainScreenProps } from "@Screen/Home";
 import {
-  CommunityMainScreen,
-  CommunityMainScreenProps,
+  PartnerLandingScreen,
+  PartnerLandingScreenProps,
+} from "@Screen/Partner";
+import {
+  ResearchLandingScreen,
+  ResearchLandingScreenProps,
+} from "@Screen/Research";
+import { HomeLandingScreen, HomeLandingScreenProps } from "@Screen/Home";
+import {
+  CommunityLandingScreen,
+  CommunityLandingScreenProps,
 } from "@Screen/Community";
-import { ProfileMainScreen, ProfileMainScreenProps } from "@Screen/Profile";
-import { HomeMainScreenHeader } from "@Screen/Home/Home.main.screenHeader";
+import {
+  ProfileLandingScreen,
+  ProfileLandingScreenProps,
+} from "@Screen/Profile";
+import { HomeLandingScreenHeader } from "@Screen/Home/Home.landing.screenHeader";
 import { LinearGradeintContainer } from "@Component/View";
 import {
   HomeIcon,
@@ -23,15 +32,15 @@ import { theme } from "@Theme/theme";
 const LandingBottomTab = createBottomTabNavigator<LandingBottomTabProps>();
 
 /**
- * MainBottomTab의 Props
+ * LandingBottomTab의 Props
  * @author 원제
  */
 export type LandingBottomTabProps = {
-  PartnerMainScreen: PartnerMainScreenProps;
-  ResearchMainScreen: ResearchMainScreenProps;
-  HomeMainScreen: HomeMainScreenProps;
-  CommunityMainScreen: CommunityMainScreenProps;
-  ProfileMainScreen: ProfileMainScreenProps;
+  PartnerLandingScreen: PartnerLandingScreenProps;
+  ResearchLandingScreen: ResearchLandingScreenProps;
+  HomeLandingScreen: HomeLandingScreenProps;
+  CommunityLandingScreen: CommunityLandingScreenProps;
+  ProfileLandingScreen: ProfileLandingScreenProps;
 };
 
 /**
@@ -41,8 +50,8 @@ export type LandingBottomTabProps = {
 export function LandingBottomTabNavigator() {
   return (
     <LandingBottomTab.Navigator
-      //? initialRouteName: 처음 보여주는 Screen을 순서를 무시하고 HomeMainScreen으로 설정합니다.
-      initialRouteName="HomeMainScreen"
+      //? initialRouteName: 처음 보여주는 Screen을 순서를 무시하고 HomeLandingScreen으로 설정합니다.
+      initialRouteName="HomeLandingScreen"
       screenOptions={({ route }) => ({
         //? headerShown: bottomTabNavigator 상에서의 위치를 나타내는 헤더를 표시하지 않습니다.
         //? tabBarShowLabel: 기본 tabBarLabel을 표시하지 않습니다.
@@ -54,8 +63,8 @@ export function LandingBottomTabNavigator() {
       })}>
       {/* 파트너 스택 */}
       <LandingBottomTab.Screen
-        name={"PartnerMainScreen"}
-        component={PartnerMainScreen}
+        name={"PartnerLandingScreen"}
+        component={PartnerLandingScreen}
         options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="파트너" focused={focused} />
@@ -65,8 +74,8 @@ export function LandingBottomTabNavigator() {
 
       {/* 리서치 스택 */}
       <LandingBottomTab.Screen
-        name={"ResearchMainScreen"}
-        component={ResearchMainScreen}
+        name={"ResearchLandingScreen"}
+        component={ResearchLandingScreen}
         options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="리서치" focused={focused} />
@@ -76,19 +85,19 @@ export function LandingBottomTabNavigator() {
 
       {/* 홈 랜딩 페이지 */}
       <LandingBottomTab.Screen
-        name={"HomeMainScreen"}
-        component={HomeMainScreen}
+        name={"HomeLandingScreen"}
+        component={HomeLandingScreen}
         options={({ route }) => ({
           headerShown: true,
-          header: HomeMainScreenHeader,
+          header: HomeLandingScreenHeader,
           tabBarIcon: () => <TabBarHomeIcon />,
         })}
       />
 
       {/* 커뮤니티 스택 */}
       <LandingBottomTab.Screen
-        name={"CommunityMainScreen"}
-        component={CommunityMainScreen}
+        name={"CommunityLandingScreen"}
+        component={CommunityLandingScreen}
         options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="커뮤니티" focused={focused} />
@@ -98,8 +107,8 @@ export function LandingBottomTabNavigator() {
 
       {/* 마이페이지 스택 */}
       <LandingBottomTab.Screen
-        name={"ProfileMainScreen"}
-        component={ProfileMainScreen}
+        name={"ProfileLandingScreen"}
+        component={ProfileLandingScreen}
         options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="마이페이지" focused={focused} />

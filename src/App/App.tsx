@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components/native";
-import { AppStackNavigator } from "@Navigator/index";
-import { SplashScreen } from "@Screen/index";
-import { lightThemeColors, darkThemeColors, themeSizes } from "@Theme/index";
+import { AppStackNavigator } from "src/Navigator";
+import { SplashScreen } from "src/Screen";
+import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
 
 /**
  * 앱이 시작되는 곳입니다.

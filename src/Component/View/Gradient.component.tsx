@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { theme } from "@Theme/index";
+import { theme } from "src/Theme";
 
 type LinearGradientContainerProps = {
   children: JSX.Element;

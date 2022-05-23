@@ -14,7 +14,7 @@ export function GiftListItem({
       <InnerContainer>
         <TouchableOpacity>
           <GiftImage
-            source={require("../../Resource/png/splash-screen-logo.png")}
+            source={require("src/Resource/png/splash-screen-logo.png")}
           />
         </TouchableOpacity>
         <GiftNameContainer>

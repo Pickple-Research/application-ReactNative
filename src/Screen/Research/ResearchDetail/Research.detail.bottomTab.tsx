@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { H2 } from "../../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 상세정보 페이지 하단바

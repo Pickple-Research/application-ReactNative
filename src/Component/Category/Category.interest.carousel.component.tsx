@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { Category } from "@Object/Enum";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
 
 /**

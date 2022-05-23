@@ -1,5 +1,5 @@
 import create from "zustand";
-import { getUserInfo } from "@Axios/index";
+import { getUserInfo } from "src/Axios";
 
 type UserStoreProps = {
   test: string;

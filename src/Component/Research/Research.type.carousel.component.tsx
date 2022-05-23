@@ -4,8 +4,8 @@ import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { Chip } from "@Component/Text";
 import { ResearchType } from "@Object/Enum";
-import { allResearchTypes } from "../../Object/Enum";
-import { H3 } from "../../StyledComponents/Text";
+import { allResearchTypes } from "src/Object/Enum";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 타입을 보여주고 선택할 수 있는 캐러샐입니다.

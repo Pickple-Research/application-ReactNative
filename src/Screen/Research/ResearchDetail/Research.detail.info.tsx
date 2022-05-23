@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { ResearchListItem } from "@Component/Research";
 import { useResearchStore } from "@Zustand/research.zustand";
-import { globalStyles } from "../../../Style";
+import { globalStyles } from "src/Style";
 
 /**
  * 리서치 상세정보 페이지 리서치 정보 섹션

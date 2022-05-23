@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 
 /**
  * Chip 종류

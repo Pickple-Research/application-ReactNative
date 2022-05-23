@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { VoteParticipantInfo } from "@Component/Vote";
-import { H3, BodyText } from "../../StyledComponents/Text";
+import { H3, BodyText } from "src/StyledComponents/Text";
 
 /**
  * 얇은 투표 한 줄에 사용되는 컴포넌트입니다.

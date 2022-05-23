@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle, StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { DetailText } from "../../StyledComponents/Text";
+import { DetailText } from "src/StyledComponents/Text";
 
 /**
  * 리서치 listItem에서 남은 기간을 보여줍니다.

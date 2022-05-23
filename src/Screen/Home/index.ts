@@ -1,1 +1,1 @@
-export * from "./Home.main.screen";
+export * from "./Home.landing.screen";

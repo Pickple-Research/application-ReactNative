@@ -1,1 +1,1 @@
-export * from "./ProfileMain/Profile.main.screen";
+export * from "./ProfileLanding/Profile.landing.screen";

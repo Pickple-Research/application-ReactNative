@@ -3,7 +3,7 @@ import {
   getFocusedRouteNameFromRoute,
   RouteProp,
 } from "@react-navigation/native";
-import { bottomTabBarHidingScreens } from "@Constant/index";
+import { bottomTabBarHidingScreens } from "src/Constant";
 
 /**
  * @deprecated

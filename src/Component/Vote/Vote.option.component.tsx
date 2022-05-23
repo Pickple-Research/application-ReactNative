@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { VoteOptionProps } from "@Object/Type";
-import { H2 } from "../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 투표 선택 옵션 줄입니다.
