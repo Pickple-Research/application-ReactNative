@@ -12,7 +12,7 @@ import {
   StyleProp,
 } from "react-native";
 import styled from "styled-components/native";
-import { H3 } from "../../StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 type CarouselProps<DataType> = {
   //? data: 캐러샐에 나타낼 데이터 array

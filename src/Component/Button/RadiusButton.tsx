@@ -2,7 +2,7 @@ import React from "react";
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
-import { H2 } from "../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 export type RadiusButtonType = "SHOW_MORE"; // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
 

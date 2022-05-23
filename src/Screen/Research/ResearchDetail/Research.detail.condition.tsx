@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { BodyText } from "../../../StyledComponents/Text";
-import { globalStyles } from "../../../Style";
+import { BodyText } from "src/StyledComponents/Text";
+import { globalStyles } from "src/Style";
 
 /**
  * 리서치 상세정보 페이지 소요시간/마감일/대상/최소 참여 요건 섹션

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { HashTags } from "@Component/Text";
 import { PartnerProps } from "@Object/Type";
-import { H3, BodyText } from "../../StyledComponents/Text";
+import { H3, BodyText } from "src/StyledComponents/Text";
 
 /**
  * 파트너 목록을 보여줄 때 사용되는 목록 한 줄 디자인입니다.

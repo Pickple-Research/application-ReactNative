@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
-import { H2 } from "../../../StyledComponents/Text";
-import { globalStyles } from "../../../Style";
+import { SectionHeader__Container } from "src/StyledComponents/View";
+import { H2 } from "src/StyledComponents/Text";
+import { globalStyles } from "src/Style";
 
 /**
  * 리서치 상세정보 페이지 내용 섹션

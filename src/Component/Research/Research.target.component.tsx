@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp } from "react-native";
 import styled from "styled-components/native";
-import { BodyText } from "../../StyledComponents/Text";
+import { BodyText } from "src/StyledComponents/Text";
 
 /**
  * 리서치 타겟 정보 리스트를 받아

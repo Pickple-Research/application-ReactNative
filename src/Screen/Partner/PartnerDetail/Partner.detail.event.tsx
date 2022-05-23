@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components/native";
 import { RadiusButton } from "@Component/Button";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
-import { H2, H3, BodyText, DetailText } from "../../../StyledComponents/Text";
-import { globalStyles } from "../../../Style";
+import { SectionHeader__Container } from "src/StyledComponents/View";
+import { H2, H3, BodyText, DetailText } from "src/StyledComponents/Text";
+import { globalStyles } from "src/Style";
 
 /**
  * 파트너 상세정보 페이지 파트너 이벤트/게시글 섹션

@@ -3,10 +3,10 @@ import styled from "styled-components/native";
 import { PartnerProductServiceCarousel } from "@Component/Partner";
 import { RadiusButton } from "@Component/Button";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
+import { SectionHeader__Container } from "src/StyledComponents/View";
 import { usePartnerStore } from "@Zustand/partner.zustand";
-import { globalStyles } from "../../../Style";
-import { H2 } from "../../../StyledComponents/Text";
+import { globalStyles } from "src/Style";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 상세정보 페이지 제품/서비스 섹션

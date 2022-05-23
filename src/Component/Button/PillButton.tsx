@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, ViewStyle, TextStyle, ViewProps } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
-import { H3 } from "../../StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 //TODO: 종류 명시
 export type PillButtonType = "FOLLOW"; // 파트너 팔로우 버튼

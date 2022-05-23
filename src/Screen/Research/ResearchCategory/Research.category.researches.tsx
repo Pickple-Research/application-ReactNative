@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { ResearchTypeCarousel, ResearchListItem } from "@Component/Research";
 import { ResearchProps } from "@Object/Type";
-import { ResearchType } from "../../../Object/Enum";
+import { ResearchType } from "src/Object/Enum";
 import { SectionHeaderTitle } from "@Component/Text";
-import { SectionHeader__Container } from "../../../StyledComponents/View";
+import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchStore } from "@Zustand/research.zustand";
-import { globalStyles } from "../../../Style";
+import { globalStyles } from "src/Style";
 
 /**
  * 카테고리별 리서치 페이지 리서치 목록 섹션

@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { Chip } from "@Component/Text";
 import { PartnerProductServiceProps } from "@Object/Type";
-import { H3 } from "../../StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 제품/서비스 캐러샐입니다.
