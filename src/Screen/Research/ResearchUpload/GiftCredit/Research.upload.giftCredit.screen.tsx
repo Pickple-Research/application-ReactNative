@@ -5,14 +5,14 @@ import { vw } from "@Theme/size.theme";
 import React, { useContext, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
-import { Observer } from "../Research.write.screen";
 
 /**
- * 리서치 작성 페이지 30
- * 숫자가 클 수록 뒤 페이지입니다
+ * 리서치 업로드 세번째 페이지입니다.
+ * 기프티콘, 추가 크레딧을 입력 받습니다.
+ * @author 원제
+ * @modify 현웅
  */
-
-export function ResearchWrite30Screen({ navigation }: any) {
+export function ResearchUploadGiftCreditScreen({ navigation }: any) {
   type item = {
     key_: string;
     name: string;
@@ -35,9 +35,6 @@ export function ResearchWrite30Screen({ navigation }: any) {
     });
     setGiftItems(temp);
   }
-
-  const { isComplete, setIsComplete } = useContext(Observer);
-  setIsComplete(true);
 
   return (
     <Container>

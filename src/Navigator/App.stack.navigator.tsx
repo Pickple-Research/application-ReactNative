@@ -17,8 +17,6 @@ import { PartnerDetailScreenHeader } from "@Screen/Partner/PartnerDetail/Partner
 import {
   ResearchDetailScreen,
   ResearchDetailScreenProps,
-  ResearchWriteScreen,
-  ResearchWriteScreenProps,
   ResearchUploadScreen,
   ResearchUploadScreenProps,
 } from "@Screen/Research";
@@ -37,7 +35,6 @@ export type AppStackProps = {
   PartnerDetailScreen: PartnerDetailScreenProps;
   // 리서치 관련 Screen
   ResearchDetailScreen: ResearchDetailScreenProps;
-  ResearchWriteScreen: ResearchWriteScreenProps;
   ResearchUploadScreen: ResearchUploadScreenProps;
   // 커뮤니티(투표) 관련 Screen
   // 마이페이지 관련 Screen
@@ -79,10 +76,6 @@ export function AppStackNavigator() {
         <AppStack.Screen
           name={"ResearchDetailScreen"}
           component={ResearchDetailScreen}
-        />
-        <AppStack.Screen
-          name={"ResearchWriteScreen"}
-          component={ResearchWriteScreen}
         />
         <AppStack.Screen
           name={"ResearchUploadScreen"}

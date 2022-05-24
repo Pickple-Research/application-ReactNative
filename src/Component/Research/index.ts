@@ -6,3 +6,4 @@ export * from "./Research.recommend.carousel.component";
 export * from "./Research.target.component";
 export * from "./Research.type.carousel.component";
 export * from "./Research.gift.listitem.component";
+export * from "./Research.upload.sectionHeaderTitle.component";

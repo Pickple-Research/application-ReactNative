@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, TextInput, Image, StyleProp, ImageStyle, TextStyle, ViewStyle } from 'react-native';
-import styled from 'styled-components/native';
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  StyleProp,
+  ImageStyle,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
+import styled from "styled-components/native";
 
 /**
  * SimpleTextInput은 기본적인 TextInput에서 몇 가지 추가 기능을 제공하는 TextInput입니다.
@@ -18,104 +24,105 @@ import styled from 'styled-components/native';
  * @author 정원제
  */
 export function SimpleTextInput({
-    placeHolder = "Enter your name here",
-    placeHolderTextColor = "#CCCCCC",
-    showLeftImage = false,
-    showRightImage = true,
-    leftImageStyle,
-    rightImageStyle,
-    containerStyle,
-    textInputStyle,
-    focusContainerStyle = {
-        borderBottomColor: "#8BBFF5"
-    },
-    focusTextInputStyle,
-    dataTransfer,
+  placeHolder = "Enter your name here",
+  placeHolderTextColor = "#CCCCCC",
+  showLeftImage = false,
+  showRightImage = true,
+  leftImageStyle,
+  rightImageStyle,
+  containerStyle,
+  textInputStyle,
+  focusContainerStyle = {
+    borderBottomColor: "#8BBFF5",
+  },
+  focusTextInputStyle,
+  dataTransfer,
 }: SimpleTextInputType) {
-    const [focus, setFocus] = useState<boolean>(false);
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-                <Container style={[containerStyle, focus ? focusContainerStyle : {}]}>
-                    {/* 왼쪽 이미지를 보여주는 곳 */}
-                    {
-                        showLeftImage ? 
-                        <LeftImage 
-                            source={{
-                                uri:
-                                    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png',
-                                }} 
-                            style={[leftImageStyle]} />
-                            : 
-                        <></> 
-                    }   
+  const [focus, setFocus] = useState<boolean>(false);
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Container style={[containerStyle, focus ? focusContainerStyle : {}]}>
+        {/* 왼쪽 이미지를 보여주는 곳 */}
+        {showLeftImage ? (
+          <LeftImage
+            source={{
+              uri: "https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png",
+            }}
+            style={[leftImageStyle]}
+          />
+        ) : (
+          <></>
+        )}
 
-                    <MainTextInput 
-                        placeholder = {placeHolder}
-                        placeholderTextColor = {placeHolderTextColor}
-                        underlineColorAndroid="transparent"
-                        onChangeText={dataTransfer}
-                        onFocus = {() => setFocus(true)}
-                        onBlur = {() => setFocus(false)}
-                        style={[textInputStyle, focus ? focusTextInputStyle : {}]} />
+        <MainTextInput
+          placeholder={placeHolder}
+          placeholderTextColor={placeHolderTextColor}
+          underlineColorAndroid="transparent"
+          onChangeText={dataTransfer}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          style={[textInputStyle, focus ? focusTextInputStyle : {}]}
+        />
 
-                    {/* 오른쪽 이미지를 보여주는 곳 */}
-                    {
-                        showRightImage ? 
-                        <RightImage 
-                            source={{
-                                uri:
-                                    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png',
-                                }} 
-                            style={[rightImageStyle]} />
-                            : 
-                        <></> 
-                    }
-                </Container>
-        </SafeAreaView>
-    );
-};
-
+        {/* 오른쪽 이미지를 보여주는 곳 */}
+        {showRightImage ? (
+          <RightImage
+            source={{
+              uri: "https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png",
+            }}
+            style={[rightImageStyle]}
+          />
+        ) : (
+          <></>
+        )}
+      </Container>
+    </SafeAreaView>
+  );
+}
 
 const Container = styled.View`
-    height: 40px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: "#fff";
-    border-bottom-width: 2px;
-    border-bottom-color: #CCCCCC;
-`
+  height: 40px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: "#fff";
+  border-bottom-width: 2px;
+  border-bottom-color: #cccccc;
+`;
 
 const LeftImage = styled.Image`
-    padding: 10px;
-    margin: 5px; 
-    height: 25px;
-    width: 25px;
-    align-items: center;
-`
+  padding: 10px;
+  margin: 5px;
+  height: 25px;
+  width: 25px;
+  align-items: center;
+`;
+
 const RightImage = styled.Image`
-    padding: 10px;
-    margin: 5px; 
-    height: 25px;
-    width: 25px;
-    align-items: center;
-`
+  padding: 10px;
+  margin: 5px;
+  height: 25px;
+  width: 25px;
+  align-items: center;
+`;
+
 const MainTextInput = styled.TextInput`
-    flex: 1;
-    color: red;
-`
+  flex: 1;
+  color: red;
+`;
+
 type SimpleTextInputType = {
-    placeHolder?: string;
-    placeHolderTextColor?: string;
-    showLeftImage?: boolean;
-    showRightImage?: boolean;
-    leftImageStyle?: StyleProp<ImageStyle>;
-    rightImageStyle?: StyleProp<ImageStyle>;
-    textInputStyle?: StyleProp<TextStyle>;
-    containerStyle?: StyleProp<ViewStyle>;
-    focusTextInputStyle?: StyleProp<TextStyle>;
-    focusContainerStyle?: StyleProp<ViewStyle>;
-    dataTransfer?: (data: any) => any;
-    onLeftImageClick?: () => any;
-    onRightImageClick?: () => any;
-}
+  placeHolder?: string;
+  placeHolderTextColor?: string;
+  showLeftImage?: boolean;
+  showRightImage?: boolean;
+  leftImageStyle?: StyleProp<ImageStyle>;
+  rightImageStyle?: StyleProp<ImageStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  focusTextInputStyle?: StyleProp<TextStyle>;
+  focusContainerStyle?: StyleProp<ViewStyle>;
+  dataTransfer?: (data: any) => any;
+  onLeftImageClick?: () => any;
+  onRightImageClick?: () => any;
+};

@@ -1,10 +1,9 @@
-import { SimpleDropDown } from "@Component/DropDown";
-import { RoundTextInput } from "@Component/TextInput";
-import { SimpleTextInput } from "@Component/TextInput/SimpleTextInput.component";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import styled from "styled-components/native";
-import { Observer } from "../Research.write.screen";
+import { SimpleDropDown } from "@Component/DropDown";
+import { RoundTextInput } from "@Component/TextInput";
+import { SimpleTextInput } from "@Component/TextInput/SimpleTextInput.component";
 import {
   Container,
   SectionContainer,
@@ -13,11 +12,6 @@ import {
   TitleNormalText,
 } from "../styled";
 
-/**
- * 리서치 작성 페이지 20
- * 숫자가 클 수록 뒤 페이지입니다
- */
-
 const ResearchObserver = createContext({
   organization: "",
   participants: "",
@@ -25,28 +19,23 @@ const ResearchObserver = createContext({
   setParticipants: (participants: string) => {},
 });
 
-export function ResearchWrite20Screen({ navigation }: any) {
+/**
+ * TODO 버그 수정: completeChecker()가 setText() 보다 늦게 호출됨
+ * 리서치 업로드 두번째 페이지입니다.
+ * 리서치 진행 목적, 기업/단체명, 참여 대상, 예상 소요 시간, 마감일을 입력 받습니다.
+ * @author 원제
+ * @modify 현웅
+ */
+export function ResearchUploadPurposeTargetScreen({ navigation }: any) {
   const [organization, _setOrganization] = useState("");
   const [participants, _setParticipants] = useState("");
 
   function setOrganization(organization: string) {
     _setOrganization(organization);
-    completeChecker();
   }
   function setParticipants(participants: string) {
     _setParticipants(participants);
-    completeChecker();
   }
-
-  function completeChecker() {
-    if (organization.length > 0 && participants.length > 0) {
-      setIsComplete(true);
-    } else {
-      setIsComplete(false);
-    }
-  }
-
-  const { isComplete, setIsComplete } = useContext(Observer);
 
   return (
     <ResearchObserver.Provider

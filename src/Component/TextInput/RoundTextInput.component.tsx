@@ -1,6 +1,14 @@
-import { vw } from '@Theme/size.theme';
-import React, { useState } from 'react';
-import { StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from 'react-native';
+import { vw } from "@Theme/size.theme";
+import React, { useState } from "react";
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 /**
  * RoundTextInput은 기본적으로 말 그대로 둥근 TextInput입니다
  * @params
@@ -14,71 +22,67 @@ import { StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } fr
  * @author 정원제
  */
 export function RoundTextInput({
-    fixedText = "",
-    placeHolder="",
-    placeHolderTextColor="#CCCCCC",
-    multiline = false,
-    dataTransfer,
-    containerStyle,
-    fixedTextStyle,
-    textInputStyle,
-    focusStyle = {
-        borderColor: "#8BBFF5"
-    },
+  fixedText = "",
+  placeHolder = "",
+  placeHolderTextColor = "#CCCCCC",
+  multiline = false,
+  dataTransfer,
+  containerStyle,
+  fixedTextStyle,
+  textInputStyle,
+  focusStyle = {
+    borderColor: "#8BBFF5",
+  },
 }: RoundTextInputProps): JSX.Element {
-    const [focus, setFocus] = useState<boolean>(false);
-    return (
-        <View style={[defaultStyle.viewStyle, containerStyle, focus ? focusStyle : {}]}>
-            <Text style={[defaultStyle.textStyle, fixedTextStyle]}>{fixedText}</Text>
-            <TextInput 
-                style={[defaultStyle.textInputStyle, textInputStyle]} 
-                placeholder={placeHolder}
-                placeholderTextColor={placeHolderTextColor}
-                selectionColor={'black'}
-                onChangeText={dataTransfer}
-                multiline={multiline}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
-            />
-        </View>
-        
-    )
+  const [focus, setFocus] = useState<boolean>(false);
+  return (
+    <View
+      style={[defaultStyle.viewStyle, containerStyle, focus ? focusStyle : {}]}>
+      <Text style={[defaultStyle.textStyle, fixedTextStyle]}>{fixedText}</Text>
+      <TextInput
+        style={[defaultStyle.textInputStyle, textInputStyle]}
+        placeholder={placeHolder}
+        placeholderTextColor={placeHolderTextColor}
+        selectionColor={"black"}
+        onChangeText={dataTransfer}
+        multiline={multiline}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+      />
+    </View>
+  );
 }
 
 type RoundTextInputProps = {
-    fixedText?: string
-    placeHolder?: string
-    placeHolderTextColor?: string
-    multiline?: boolean
-    dataTransfer?: (data: any) => any
-    containerStyle?: StyleProp<ViewStyle>
-    fixedTextStyle?: StyleProp<TextStyle>
-    textInputStyle?: StyleProp<TextStyle>
-    focusStyle?: StyleProp<ViewStyle>
-}
+  fixedText?: string;
+  placeHolder?: string;
+  placeHolderTextColor?: string;
+  multiline?: boolean;
+  dataTransfer?: (data: any) => any;
+  containerStyle?: StyleProp<ViewStyle>;
+  fixedTextStyle?: StyleProp<TextStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  focusStyle?: StyleProp<ViewStyle>;
+};
 
 const defaultStyle = StyleSheet.create({
-    viewStyle: {
-        width: 100* vw - 30,
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginHorizontal: 15,
-        marginVertical: 10,
-        paddingHorizontal: 12,
-        paddingVertical: 5,
-        borderWidth: 1, 
-        borderRadius: 10, 
-        borderColor: '#CCCCCC'
-    },
-    textStyle: {
-        color: "#599BDF",
-    },
-    textInputStyle: {
-        flex: 1,
-        fontSize: 13,
-        color: "#333333",
-    },
-
-})
-
+  viewStyle: {
+    flex: 1,
+    flexWrap: "wrap",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#CCCCCC",
+  },
+  textStyle: {
+    color: "#599BDF",
+  },
+  textInputStyle: {
+    flex: 1,
+    fontSize: 13,
+    color: "#333333",
+  },
+});
