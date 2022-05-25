@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { ResearchTypeCarousel, ResearchListItem } from "@Component/Research";
 import { ResearchProps } from "@Object/Type";
 import { ResearchType } from "src/Object/Enum";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchStore } from "@Zustand/research.zustand";
 import { globalStyles } from "src/Style";
@@ -25,7 +25,7 @@ export function ResearchCategoryResearches() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="신규 리서치" />
+      <SectionHeaderText title="신규 리서치" />
     </SectionHeader__Container>
   );
 }

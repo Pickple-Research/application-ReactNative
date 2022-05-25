@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { uploadScreenStyles } from "../Research.upload.screen";
-import { ResearchUploadSectionHeaderTitle } from "src/Component/Research";
+import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { SimpleTextInput } from "src/Component/TextInput";
-import { SectionHeader__Container } from "src/StyledComponents/View";
+import { SectionHeaderText } from "src/Component/Text";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -22,10 +21,9 @@ export function ResearchUploadLink() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container
-      style={uploadScreenStyles.sectionHeaderBottomMargin}>
-      <ResearchUploadSectionHeaderTitle title="리서치 링크" />
-    </SectionHeader__Container>
+    <ResearchUpload__SectionHeader__Container>
+      <SectionHeaderText title="리서치 링크" />
+    </ResearchUpload__SectionHeader__Container>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { DetailText } from "src/StyledComponents/Text";
 import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
@@ -24,7 +24,7 @@ export function PartnerLandingCategory() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="카테고리별 파트너" />
+      <SectionHeaderText title="카테고리별 파트너" />
     </SectionHeader__Container>
   );
 }

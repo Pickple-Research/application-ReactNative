@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, ViewStyle, TextStyle, ViewProps } from "react-native";
-import styled, { DefaultTheme } from "styled-components/native";
+import styled from "styled-components/native";
 import { H3 } from "src/StyledComponents/Text";
 
 //TODO: 종류 명시
@@ -23,41 +23,29 @@ export function PillButton({
   fontStyle?: StyleProp<TextStyle>;
   props?: ViewProps;
 }) {
-  return (
-    <PillButton__Container {...props} style={style} type={type}>
-      <PillButton__Content style={fontStyle} type={type}>
-        {content}
-      </PillButton__Content>
-    </PillButton__Container>
-  );
+  switch (type) {
+    case "FOLLOW":
+      return (
+        <FollowPillButton__Container style={style} {...props}>
+          <FollowPillButton__Content style={fontStyle}>
+            {content}
+          </FollowPillButton__Content>
+        </FollowPillButton__Container>
+      );
+    default:
+      return null;
+  }
 }
 
-const pillButtonTextColor = (type: PillButtonType, theme: DefaultTheme) => {
-  switch (type) {
-    case "FOLLOW":
-      return "white";
-    default:
-  }
-};
-
-const pillButtonBackgroundColor = (
-  type: PillButtonType,
-  theme: DefaultTheme,
-) => {
-  switch (type) {
-    case "FOLLOW":
-      return theme.color.main_skyblue;
-    default:
-  }
-};
-
-const PillButton__Container = styled.TouchableOpacity<{ type: PillButtonType }>`
-  background-color: ${({ type, theme }) =>
-    pillButtonBackgroundColor(type, theme)};
+const PillButton__Container = styled.TouchableOpacity`
   padding: 6px 24px;
   border-radius: 100px;
 `;
-
-const PillButton__Content = styled(H3)<{ type: PillButtonType }>`
-  color: ${({ type, theme }) => pillButtonTextColor(type, theme)};
+const PillButton__Content = styled(H3)`
+  color: white;
 `;
+
+const FollowPillButton__Container = styled(PillButton__Container)`
+  background-color: ${({ theme }) => theme.color.main_skyblue};
+`;
+const FollowPillButton__Content = styled(PillButton__Content)``;

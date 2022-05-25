@@ -7,7 +7,7 @@ import {
   VoteParticipantInfo,
   VoteOption,
 } from "@Component/Vote";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { VoteProps } from "@Object/Type";
 import { useVoteStore } from "src/Zustand";
@@ -32,7 +32,7 @@ export function CommunityLandingHotVote() {
 function SectionHeader() {
   return (
     <SectionHeader__Container style={{ ...screenStyles.headerContainer }}>
-      <SectionHeaderTitle title="지금 핫한 투표는" />
+      <SectionHeaderText title="지금 핫한 투표는" />
     </SectionHeader__Container>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { SimpleDropDown } from "src/Component/DropDown";
-import { SectionHeaderTitle } from "src/Component/Text";
+import { SectionHeaderText } from "src/Component/Text";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 import InfoIcon from "src/Resource/svg/Info-icon.svg";
@@ -22,8 +22,8 @@ export function ResearchUploadEstimatedTime() {
 function SectionTitle() {
   return (
     <SectionTitle__Container>
-      <SectionHeaderTitle title="예상 소요 시간" />
-      <SectionHeaderTitle
+      <SectionHeaderText title="예상 소요 시간" />
+      <SectionHeaderText
         title="을 입력해주세요"
         bold={false}
         style={{ marginRight: 5 }}
@@ -45,7 +45,7 @@ function EstimatedTimeInput() {
           borderRadius: 8,
         }}
       />
-      <SectionHeaderTitle title="분" bold={false} />
+      <SectionHeaderText title="분" bold={false} />
     </EstimatedTimeInput__Container>
   );
 }

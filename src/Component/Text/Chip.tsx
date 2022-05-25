@@ -28,78 +28,61 @@ export function Chip({
   type: ChipType;
   style?: StyleProp<TextStyle>;
 }) {
-  return (
-    <Chip__Text type={type} style={style}>
-      {content}
-    </Chip__Text>
-  );
+  switch (type) {
+    case "PARTNER_TYPE":
+      return <PartnerTypeChip style={style}>{content}</PartnerTypeChip>;
+    case "RESEARCH_TYPE":
+      return <ResearchTypeChip style={style}>{content}</ResearchTypeChip>;
+    case "PARTNER_NEW_RESEARCH":
+      return (
+        <PartnerNewResearchChip style={style}>{content}</PartnerNewResearchChip>
+      );
+    case "CREDIT_AVAILABLE":
+      return (
+        <AvailableResearchCreditChip style={style}>
+          {content}
+        </AvailableResearchCreditChip>
+      );
+    case "CREDIT_UNAVAILABLE":
+      return (
+        <UnavailableResearchCreditChip style={style}>
+          {content}
+        </UnavailableResearchCreditChip>
+      );
+  }
 }
 
-const Chip__Text = styled(DetailText)<{ type: ChipType }>`
-  color: ${({ type, theme }) => chipTextColor(type, theme)};
-  background-color: ${({ type, theme }) => chipBackgroundColor(type, theme)};
+const Chip__Text = styled(DetailText)`
   font-weight: bold;
-  padding: ${({ type }) => chipPadding(type)};
   border-radius: 100px;
 `;
 
-//TODO: 스타일별로 나누지 말고 타입 별로 나누는 게 좋을 것 같습니다
-const chipTextColor = (type: ChipType, theme: DefaultTheme) => {
-  switch (type) {
-    case "PARTNER_TYPE":
-      return theme.color.text_skyblue;
+const PartnerTypeChip = styled(Chip__Text)`
+  color: ${({ theme }) => theme.color.text_skyblue};
+  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  padding: 3px 10px;
+`;
 
-    case "RESEARCH_TYPE":
-      return "white";
+const ResearchTypeChip = styled(Chip__Text)`
+  color: white;
+  background-color: #444444;
+  padding: 10px 15px;
+`;
 
-    case "PARTNER_NEW_RESEARCH":
-    case "CREDIT_AVAILABLE":
-      return theme.color.text_skyblue;
+const PartnerNewResearchChip = styled(Chip__Text)`
+  color: ${({ theme }) => theme.color.text_skyblue};
+  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  padding: 8px 12px;
+`;
 
-    case "CREDIT_UNAVAILABLE":
-      return theme.color.text_purple;
+const AvailableResearchCreditChip = styled(Chip__Text)`
+  color: ${({ theme }) => theme.color.text_skyblue};
+  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  padding: 3px 10px;
+`;
 
-    default:
-      return theme.color.text_skyblue;
-  }
-};
-
-const chipBackgroundColor = (type: ChipType, theme: DefaultTheme) => {
-  switch (type) {
-    case "PARTNER_TYPE":
-      return theme.color.pastel_skyblue;
-
-    case "RESEARCH_TYPE":
-      return "#444444";
-
-    case "PARTNER_NEW_RESEARCH":
-    case "CREDIT_AVAILABLE":
-      return theme.color.pastel_skyblue;
-
-    case "CREDIT_UNAVAILABLE":
-      return "#444444";
-
-    default:
-      return theme.color.pastel_skyblue;
-  }
-};
-
-const chipPadding = (type: ChipType) => {
-  switch (type) {
-    case "PARTNER_TYPE":
-      return "3px 10px";
-
-    case "RESEARCH_TYPE":
-      return "10px 15px";
-
-    case "PARTNER_NEW_RESEARCH":
-      return "8px 12px";
-
-    case "CREDIT_AVAILABLE":
-    case "CREDIT_UNAVAILABLE":
-      return "3px 10px";
-
-    default:
-      return "3px 10px";
-  }
-};
+const UnavailableResearchCreditChip = styled(Chip__Text)`
+  color: ${({ theme }) => theme.color.text_purple};
+  background-color: #444444;
+  padding: 3px 10px;
+`;

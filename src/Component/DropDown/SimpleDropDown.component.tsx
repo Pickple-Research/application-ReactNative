@@ -1,14 +1,5 @@
-import { vw } from "@Theme/size.theme";
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  StyleSheet,
-} from "react-native";
+import { View, StyleProp, ViewStyle, TextStyle } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import Svg, { Path } from "react-native-svg";
 

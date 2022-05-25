@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Profile.landing.screen";
 import { InterestCategoryCarousel } from "@Component/Category";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { exampleInterestingCategories } from "src/Object/Type";
 
@@ -22,7 +22,7 @@ export function ProfileLandingInterest() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="관심 카테고리" />
+      <SectionHeaderText title="관심 카테고리" />
     </SectionHeader__Container>
   );
 }

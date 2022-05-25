@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LandingBottomTabProps } from "src/Navigator";
 import { screenStyles } from "./Home.landing.screen";
 import { VoteRow } from "@Component/Vote";
-import { SectionHeaderTitle, MoreText } from "@Component/Text";
+import { SectionHeaderText, MoreText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { globalStyles } from "src/Style";
 
@@ -27,7 +27,7 @@ function SectionHeader() {
 
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="최신 투표" />
+      <SectionHeaderText title="최신 투표" />
       <MoreText
         onPress={() => {
           navigation.navigate("CommunityLandingScreen", {});

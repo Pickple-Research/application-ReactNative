@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ResearchUploadSectionHeaderTitle } from "src/Component/Research";
+import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { RoundTextInput } from "src/Component/TextInput";
-import { SectionHeader__Container } from "src/StyledComponents/View";
+import { SectionHeaderText } from "src/Component/Text";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -21,14 +21,11 @@ export function ResearchUploadOrganization() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container>
-      <ResearchUploadSectionHeaderTitle
-        title="리서치를 진행하시는"
-        bold={false}
-      />
-      <ResearchUploadSectionHeaderTitle title="기업/단체/수업명" />
-      <ResearchUploadSectionHeaderTitle title="을 알려주세요" bold={false} />
-    </SectionHeader__Container>
+    <ResearchUpload__SectionHeader__Container>
+      <SectionHeaderText title="리서치를 진행하시는" bold={false} />
+      <SectionHeaderText title="기업/단체/수업명" />
+      <SectionHeaderText title="을 알려주세요" bold={false} />
+    </ResearchUpload__SectionHeader__Container>
   );
 }
 

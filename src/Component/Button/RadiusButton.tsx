@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import { ThemeColors } from "@Object/Type";
 import { H2 } from "src/StyledComponents/Text";
 
 export type RadiusButtonType = "SHOW_MORE"; // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
@@ -27,49 +26,37 @@ export function RadiusButton({
   onPress?: () => any;
   props?: ViewProps;
 }) {
-  return (
-    <Button__Container
-      {...props}
-      style={style}
-      type={type}
-      activeOpacity={activeOpacity}
-      onPress={onPress}>
-      <Button__Content style={fontStyle} type={type}>
-        {content}
-      </Button__Content>
-    </Button__Container>
-  );
-}
-
-function radiusButtonTextColor(type: RadiusButtonType, color: ThemeColors) {
   switch (type) {
     case "SHOW_MORE":
-      return color.main_skyblue;
+      return (
+        <ShowMoreButton__Container
+          {...props}
+          style={style}
+          activeOpacity={activeOpacity}
+          onPress={onPress}>
+          <ShowMoreButton__Content style={fontStyle}>
+            {content}
+          </ShowMoreButton__Content>
+        </ShowMoreButton__Container>
+      );
     default:
+      return null;
   }
 }
 
-function radiusButtonBackgroundColor(
-  type: RadiusButtonType,
-  color: ThemeColors,
-) {
-  switch (type) {
-    case "SHOW_MORE":
-      return color.textfield_skyblue;
-    default:
-  }
-}
-
-const Button__Container = styled.TouchableOpacity<{ type: RadiusButtonType }>`
+const Button__Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  background-color: ${({ type, theme }) =>
-    radiusButtonBackgroundColor(type, theme.color)};
   padding: 12px;
   border-radius: 12px;
 `;
-
-const Button__Content = styled(H2)<{ type: RadiusButtonType }>`
-  color: ${({ type, theme }) => radiusButtonTextColor(type, theme.color)};
+const Button__Content = styled(H2)`
   font-weight: bold;
+`;
+
+const ShowMoreButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.textfield_skyblue};
+`;
+const ShowMoreButton__Content = styled(Button__Content)`
+  color: ${({ theme }) => theme.color.main_skyblue};
 `;
