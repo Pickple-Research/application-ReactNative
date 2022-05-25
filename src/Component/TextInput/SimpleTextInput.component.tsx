@@ -8,6 +8,22 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 
+type SimpleTextInputType = {
+  placeHolder?: string;
+  placeHolderTextColor?: string;
+  showLeftImage?: boolean;
+  showRightImage?: boolean;
+  leftImageStyle?: StyleProp<ImageStyle>;
+  rightImageStyle?: StyleProp<ImageStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  focusTextInputStyle?: StyleProp<TextStyle>;
+  focusContainerStyle?: StyleProp<ViewStyle>;
+  dataTransfer?: (data: any) => any;
+  onLeftImageClick?: () => any;
+  onRightImageClick?: () => any;
+};
+
 /**
  * SimpleTextInput은 기본적인 TextInput에서 몇 가지 추가 기능을 제공하는 TextInput입니다.
  * placeHolder, placeHolderTextColor: 말 그대로 placeHolder와 placeHolder의 색깔을 결정합니다.
@@ -110,19 +126,3 @@ const MainTextInput = styled.TextInput`
   flex: 1;
   color: red;
 `;
-
-type SimpleTextInputType = {
-  placeHolder?: string;
-  placeHolderTextColor?: string;
-  showLeftImage?: boolean;
-  showRightImage?: boolean;
-  leftImageStyle?: StyleProp<ImageStyle>;
-  rightImageStyle?: StyleProp<ImageStyle>;
-  textInputStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  focusTextInputStyle?: StyleProp<TextStyle>;
-  focusContainerStyle?: StyleProp<ViewStyle>;
-  dataTransfer?: (data: any) => any;
-  onLeftImageClick?: () => any;
-  onRightImageClick?: () => any;
-};

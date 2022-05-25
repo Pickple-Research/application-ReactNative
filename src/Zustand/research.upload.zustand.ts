@@ -14,6 +14,12 @@ type ResearchUploadProps = {
 
   contentInput: string;
   setContentInput: (input: string) => void;
+
+  organizationInput: string;
+  setOrganizationInput: (input: string) => void;
+
+  targetInput: string;
+  setTargetInput: (input: string) => void;
 };
 
 /**
@@ -43,6 +49,16 @@ export const useResearchUploadStore = create<ResearchUploadProps>(
     contentInput: "",
     setContentInput: (input: string) => {
       set({ contentInput: input });
+    },
+
+    organizationInput: "",
+    setOrganizationInput: (input: string) => {
+      set({ organizationInput: input });
+    },
+
+    targetInput: "",
+    setTargetInput: (input: string) => {
+      set({ targetInput: input });
     },
   }),
 );

@@ -1,4 +1,3 @@
-import { vw } from "@Theme/size.theme";
 import React, { useState } from "react";
 import {
   StyleProp,
@@ -9,6 +8,19 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+
+type RoundTextInputProps = {
+  fixedText?: string;
+  placeHolder?: string;
+  placeHolderTextColor?: string;
+  multiline?: boolean;
+  dataTransfer?: (data: any) => any;
+  containerStyle?: StyleProp<ViewStyle>;
+  fixedTextStyle?: StyleProp<TextStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  focusStyle?: StyleProp<ViewStyle>;
+};
+
 /**
  * RoundTextInput은 기본적으로 말 그대로 둥근 TextInput입니다
  * @params
@@ -52,18 +64,6 @@ export function RoundTextInput({
     </View>
   );
 }
-
-type RoundTextInputProps = {
-  fixedText?: string;
-  placeHolder?: string;
-  placeHolderTextColor?: string;
-  multiline?: boolean;
-  dataTransfer?: (data: any) => any;
-  containerStyle?: StyleProp<ViewStyle>;
-  fixedTextStyle?: StyleProp<TextStyle>;
-  textInputStyle?: StyleProp<TextStyle>;
-  focusStyle?: StyleProp<ViewStyle>;
-};
 
 const defaultStyle = StyleSheet.create({
   viewStyle: {

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ResearchUploadTitleContentTitle } from "./Research.upload.titleContent.title";
-import { ResearchUploadTitleContentLink } from "./Research.upload.titleContent.link";
-import { ResearchUploadTitleContentContent } from "./Research.upload.titleContent.content";
+import { ResearchUploadTitle } from "./Research.upload.title";
+import { ResearchUploadLink } from "./Research.upload.link";
+import { ResearchUploadContent } from "./Research.upload.content";
 
 /**
  * 리서치 업로드 첫번째 페이지입니다.
@@ -13,9 +13,9 @@ import { ResearchUploadTitleContentContent } from "./Research.upload.titleConten
 export function ResearchUploadTitleContentScreen({ navigation }: any) {
   return (
     <Container>
-      <ResearchUploadTitleContentTitle />
-      <ResearchUploadTitleContentLink />
-      <ResearchUploadTitleContentContent />
+      <ResearchUploadTitle />
+      <ResearchUploadLink />
+      <ResearchUploadContent />
     </Container>
   );
 }

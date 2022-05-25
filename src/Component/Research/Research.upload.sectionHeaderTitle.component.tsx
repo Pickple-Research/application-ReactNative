@@ -22,5 +22,5 @@ export function ResearchUploadSectionHeaderTitle({
 
 const SectionHeaderTitle__Text = styled(H2)<{ bold: boolean }>`
   color: black;
-  font-weight: ${props => props.bold && "bold"};
+  font-weight: ${props => (props.bold ? "bold" : "normal")};
 `;

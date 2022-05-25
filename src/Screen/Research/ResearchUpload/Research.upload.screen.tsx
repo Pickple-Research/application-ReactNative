@@ -1,13 +1,11 @@
-import React, { createContext, useState } from "react";
-import { ScrollView, View } from "react-native";
-import { Bar } from "react-native-progress";
+import React from "react";
+import { StyleSheet, ScrollView, View } from "react-native";
 import { ResearchUploadTitleContentScreen } from "./TitleContent/Research.upload.titleContent.screen";
 import { ResearchUploadPurposeTargetScreen } from "./PurposeTarget/Research.upload.purposeTarget.screen";
 import { ResearchUploadGiftCreditScreen } from "./GiftCredit/Research.upload.giftCredit.screen";
 import { ResearchUploadProgressBar } from "./Research.upload.progressBar";
 import { ResearchUploadProgressButton } from "./Research.upload.progressButton";
 import { useResearchUploadStore } from "src/Zustand";
-import { vh, vw } from "@Theme/size.theme";
 
 const pages = [
   <ResearchUploadTitleContentScreen />,
@@ -39,3 +37,15 @@ export function ResearchUploadScreen({ navigation }: any) {
     </View>
   );
 }
+
+/**
+ * 리서치 업로드 페이지에서만 사용되는 스타일들입니다.
+ * @author 현웅
+ */
+export const uploadScreenStyles = StyleSheet.create({
+  /**
+   * 리서치 업로드 페이지의 섹션 헤더에만 적용되는 하단 마진입니다.
+   * @author 현웅
+   */
+  sectionHeaderBottomMargin: { marginBottom: 10 },
+});

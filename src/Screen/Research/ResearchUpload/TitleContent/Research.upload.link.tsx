@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { uploadScreenStyles } from "../Research.upload.screen";
 import { ResearchUploadSectionHeaderTitle } from "src/Component/Research";
 import { SimpleTextInput } from "src/Component/TextInput";
 import { SectionHeader__Container } from "src/StyledComponents/View";
@@ -10,7 +11,7 @@ import { globalStyles } from "src/Style/globalStyles";
  * 리서치 작성 페이지 첫번째 단계의 리서치 링크 입력란입니다.
  * @author 현웅
  */
-export function ResearchUploadTitleContentLink() {
+export function ResearchUploadLink() {
   return (
     <Container>
       <SectionHeader />
@@ -21,7 +22,8 @@ export function ResearchUploadTitleContentLink() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container>
+    <SectionHeader__Container
+      style={uploadScreenStyles.sectionHeaderBottomMargin}>
       <ResearchUploadSectionHeaderTitle title="리서치 링크" />
     </SectionHeader__Container>
   );
