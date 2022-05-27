@@ -1,88 +1,56 @@
 import React, { useState } from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextInput,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
-
-type RoundTextInputProps = {
-  fixedText?: string;
-  placeHolder?: string;
-  placeHolderTextColor?: string;
-  multiline?: boolean;
-  dataTransfer?: (data: any) => any;
-  containerStyle?: StyleProp<ViewStyle>;
-  fixedTextStyle?: StyleProp<TextStyle>;
-  textInputStyle?: StyleProp<TextStyle>;
-  focusStyle?: StyleProp<ViewStyle>;
-};
+import { StyleProp, TextStyle, TextInputProps } from "react-native";
+import styled from "styled-components/native";
 
 /**
- * RoundTextInput은 기본적으로 말 그대로 둥근 TextInput입니다
- * @params
- * fixedText:  고정되어 있는 글씨를 의미합니다. fixedTextStyle을 통해 스타일을 변경할 수 있으며, focus 해도 사라지지 않습니다.
- * placeHolder: focus하면 사라지는 text를 말합니다. placeHolderTextColor를 통해 색을 변경할 수 있습니다.
- * containerStyle: fixedText와 textInput을 감싼 View의 스타일을 변경할 수 있습니다.
- * textInput Style: textInput의 스타일을 변경할 수 있습니다.
- * focusStyle: RoundTextInput에 focus 했을 때 변경할 값을 넣습니다.
- * multiline: 여러줄을 받을지 말지를 결정하는 값입니다. True로 입력할 시 input을 넘어가면 다음 줄로 자동으로 넘어갑니다.
- * @function dataTransfer: textInput 값이 변했을 때 그 값을 받을 function을 의미합니다. parent에서 setText(data)와 같은 형식으로 사용할 수 있습니다.
+ * 모서리가 둥근 TextInput입니다.
+ * TextInputProps에 해당하는 값들을 props 인자에 한 데 모아 지정할 수 있습니다.
+ *
+ * @example
+ * function Example(){
+ *  const [titleInput, setTitleInput] = useState<string>("")
+ *  function onTextChange(e:){
+ *  }
+ *
+ *  return (
+ *    <RoundTextInput
+ *      props={{
+ *        placeHolder: "제목을 입력해주세요",
+ *        value: titleInput,
+ *        onChangeText: setTitleInput
+ *      }}
+ *    />
+ *  )
+ * }
+ *
  * @author 정원제
+ * @modify 현웅
  */
 export function RoundTextInput({
-  fixedText = "",
-  placeHolder = "",
-  placeHolderTextColor = "#CCCCCC",
-  multiline = false,
-  dataTransfer,
-  containerStyle,
-  fixedTextStyle,
-  textInputStyle,
-  focusStyle = {
-    borderColor: "#8BBFF5",
-  },
-}: RoundTextInputProps): JSX.Element {
-  const [focus, setFocus] = useState<boolean>(false);
+  style,
+  ...props
+}: {
+  style?: StyleProp<TextStyle>;
+  props?: TextInputProps;
+}) {
+  const [focused, setFocused] = useState<boolean>(false);
+
   return (
-    <View
-      style={[defaultStyle.viewStyle, containerStyle, focus ? focusStyle : {}]}>
-      <Text style={[defaultStyle.textStyle, fixedTextStyle]}>{fixedText}</Text>
-      <TextInput
-        style={[defaultStyle.textInputStyle, textInputStyle]}
-        placeholder={placeHolder}
-        placeholderTextColor={placeHolderTextColor}
-        selectionColor={"black"}
-        onChangeText={dataTransfer}
-        multiline={multiline}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-      />
-    </View>
+    <RoundTextInput__Container
+      style={style}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      spellCheck={false}
+      focused={focused}
+      {...props}
+    />
   );
 }
 
-const defaultStyle = StyleSheet.create({
-  viewStyle: {
-    flex: 1,
-    flexWrap: "wrap",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 5,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "#CCCCCC",
-  },
-  textStyle: {
-    color: "#599BDF",
-  },
-  textInputStyle: {
-    flex: 1,
-    fontSize: 13,
-    color: "#333333",
-  },
-});
+const RoundTextInput__Container = styled.TextInput<{ focused: boolean }>`
+  flex: 1;
+  font-size: ${({ theme }) => theme.size.header2};
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: 1px solid ${({ focused }) => (focused ? "#8BBFF5" : "#CCCCCC")};
+`;

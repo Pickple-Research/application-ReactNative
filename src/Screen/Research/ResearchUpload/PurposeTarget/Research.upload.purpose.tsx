@@ -32,7 +32,7 @@ function SectionHeader() {
 function PurposeInput() {
   return (
     <PurposeInput__Container style={globalStyles.screen__horizontalPadding}>
-      <SimpleDropDown
+      {/* <SimpleDropDown
         data={["학술", "고객", "기타"]}
         buttonStyle={{
           width: 180,
@@ -45,7 +45,7 @@ function PurposeInput() {
           textAlign: "left",
           paddingLeft: 10,
         }}
-      />
+      /> */}
     </PurposeInput__Container>
   );
 }

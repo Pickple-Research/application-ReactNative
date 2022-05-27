@@ -34,7 +34,7 @@ function TitleInput() {
     <TitleInput__Container style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
         placeHolder="제목을 입력해주세요"
-        dataTransfer={setTitleInput}
+        onChangeText={setTitleInput}
       />
     </TitleInput__Container>
   );

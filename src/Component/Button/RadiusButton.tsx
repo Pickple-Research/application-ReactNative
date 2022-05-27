@@ -3,7 +3,9 @@ import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { H2 } from "src/StyledComponents/Text";
 
-export type RadiusButtonType = "SHOW_MORE"; // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
+export type RadiusButtonType =
+  | "SHOW_MORE" // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
+  | "ADD_GIFT"; // 리서치 업로드 페이지 '경품 추가' 버튼
 
 /**
  * 모서리가 둥근 버튼입니다.
@@ -39,6 +41,20 @@ export function RadiusButton({
           </ShowMoreButton__Content>
         </ShowMoreButton__Container>
       );
+
+    case "ADD_GIFT":
+      return (
+        <AddGiftButton__Container
+          {...props}
+          style={style}
+          activeOpacity={activeOpacity}
+          onPress={onPress}>
+          <AddGiftButton__Content style={fontStyle}>
+            {content}
+          </AddGiftButton__Content>
+        </AddGiftButton__Container>
+      );
+
     default:
       return null;
   }
@@ -59,4 +75,11 @@ const ShowMoreButton__Container = styled(Button__Container)`
 `;
 const ShowMoreButton__Content = styled(Button__Content)`
   color: ${({ theme }) => theme.color.main_skyblue};
+`;
+
+const AddGiftButton__Container = styled(Button__Container)`
+  background-color: #444444;
+`;
+const AddGiftButton__Content = styled(Button__Content)`
+  color: white;
 `;

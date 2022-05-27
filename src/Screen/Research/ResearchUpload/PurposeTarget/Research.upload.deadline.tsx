@@ -41,13 +41,13 @@ function SectionHeader() {
 function DeadlineInput() {
   return (
     <DeadlineInput__Container style={globalStyles.screen__horizontalPadding}>
-      <SimpleDropDown
+      {/* <SimpleDropDown
         data={["2022. 04. 15"]}
         buttonStyle={{
           width: 180,
           borderRadius: 10,
         }}
-      />
+      /> */}
     </DeadlineInput__Container>
   );
 }

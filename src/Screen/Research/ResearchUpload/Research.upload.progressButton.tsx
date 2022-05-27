@@ -36,6 +36,10 @@ export function ResearchUploadProgressButton() {
 }
 
 const Container = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  //* ResearchUploadScreen의 padding-bottom과 같은 값으로 유지해야 합니다.
   height: 60px;
   background-color: #eeeeee;
   justify-content: center;

@@ -36,7 +36,7 @@ function SectionTitle() {
 function EstimatedTimeInput() {
   return (
     <EstimatedTimeInput__Container>
-      <SimpleDropDown
+      {/* <SimpleDropDown
         defaultValue={5}
         data={[3, 5, 7, 9]}
         buttonStyle={{
@@ -44,7 +44,7 @@ function EstimatedTimeInput() {
           marginHorizontal: 8,
           borderRadius: 8,
         }}
-      />
+      /> */}
       <SectionHeaderText title="분" bold={false} />
     </EstimatedTimeInput__Container>
   );

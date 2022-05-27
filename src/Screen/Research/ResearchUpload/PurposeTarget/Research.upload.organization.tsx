@@ -39,7 +39,7 @@ function OrganizationInput() {
       style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
         placeHolder="기업/단체/수업명 ex. 알투씨 컴퍼니"
-        dataTransfer={setOrganizationInput}
+        onChangeText={setOrganizationInput}
       />
     </OrganizationInput__Container>
   );

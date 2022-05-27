@@ -25,6 +25,7 @@ const Container = styled.View`
   bottom: 0px;
   flex-direction: row;
   width: ${`${Dimensions.get("screen").width}px`};
+  //* ResearchDetailScreen의 padding-bottom과 같은 값으로 유지해야 합니다.
   height: 60px;
 `;
 
