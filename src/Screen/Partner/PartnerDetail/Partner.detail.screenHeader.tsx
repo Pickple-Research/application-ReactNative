@@ -1,15 +1,6 @@
 import React from "react";
-import styled from "styled-components/native";
-import { ScreenHeader__Container } from "src/StyledComponents/View";
-import CaretLeftIcon from "@Resource/svg/caret-left-icon.svg";
+import { BackButtonScreenHeader } from "src/Component/View";
 
 export function PartnerDetailScreenHeader() {
-  return (
-    <ScreenHeader__Container>
-      <CaretLeftIcon />
-      <Icons__Container />
-    </ScreenHeader__Container>
-  );
+  return <BackButtonScreenHeader />;
 }
-
-const Icons__Container = styled.View``;

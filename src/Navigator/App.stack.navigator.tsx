@@ -12,14 +12,15 @@ import {
   PartnerDetailScreen,
   PartnerDetailScreenProps,
 } from "@Screen/Partner";
-import { PartnerDetailScreenHeader } from "@Screen/Partner/PartnerDetail/Partner.detail.screenHeader";
+import { PartnerCategoryScreenHeader } from "src/Screen/Partner/PartnerCategory/Partner.category.screenHeader";
+import { PartnerDetailScreenHeader } from "src/Screen/Partner/PartnerDetail/Partner.detail.screenHeader";
 // 리서치 관련 Screen
 import {
   ResearchDetailScreen,
   ResearchDetailScreenProps,
   ResearchUploadScreen,
   ResearchUploadScreenProps,
-} from "@Screen/Research";
+} from "src/Screen/Research";
 // 커뮤니티(투표) 관련 Screen
 // 마이페이지 관련 Screen
 
@@ -60,6 +61,11 @@ export function AppStackNavigator() {
         <AppStack.Screen
           name="PartnerCategoryScreen"
           component={PartnerCategoryScreen}
+          options={{
+            headerShown: true,
+            header: PartnerCategoryScreenHeader,
+            headerShadowVisible: true,
+          }}
         />
         <AppStack.Screen
           name="PartnerDetailScreen"

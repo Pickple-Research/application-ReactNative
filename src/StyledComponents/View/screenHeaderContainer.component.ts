@@ -5,9 +5,10 @@ import styled from "styled-components/native";
  * @author 현웅
  */
 export const ScreenHeader__Container = styled.SafeAreaView`
+  position: relative;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  height: 45px;
   background-color: ${({ theme }) => theme.color.background};
   padding: 10px 15px;
 `;
