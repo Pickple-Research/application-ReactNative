@@ -9,7 +9,7 @@ import { usePartnerStore } from "src/Zustand";
  * 마이페이지 랜딩 페이지 팔로우 스타트업 섹션
  * @author 현웅
  */
-export function ProfileLandingFollow() {
+export function MypageLandingFollow() {
   const examplePartners = usePartnerStore(state => state.examplePartners);
 
   return (

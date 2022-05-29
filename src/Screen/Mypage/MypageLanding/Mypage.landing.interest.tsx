@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { InterestCategoryCarousel } from "@Component/Category";
 import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
@@ -10,7 +10,7 @@ import { exampleInterestingCategories } from "src/Object/Type";
  * 마이페이지 랜딩 페이지 관심 카테고리 섹션
  * @author 현웅
  */
-export function ProfileLandingInterest() {
+export function MypageLandingInterest() {
   return (
     <Container style={{ ...screenStyles.border }}>
       <SectionHeader />

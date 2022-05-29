@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { H2, H3, BodyText } from "src/StyledComponents/Text";
 import PencilIcon from "@Resource/svg/pencil-icon.svg";
 
@@ -8,7 +8,7 @@ import PencilIcon from "@Resource/svg/pencil-icon.svg";
  * 마이페이지 랜딩 페이지 프로필 섹션
  * @author 현웅
  */
-export function ProfileLandingUserInfo() {
+export function MypageLandingUserInfo() {
   return (
     <Container style={{ ...screenStyles.padding }}>
       <ProfileThumbnail />

@@ -14,10 +14,7 @@ import {
   CommunityLandingScreen,
   CommunityLandingScreenProps,
 } from "@Screen/Community";
-import {
-  ProfileLandingScreen,
-  ProfileLandingScreenProps,
-} from "@Screen/Profile";
+import { MypageLandingScreen, MypageLandingScreenProps } from "@Screen/Mypage";
 import { HomeLandingScreenHeader } from "@Screen/Home/Home.landing.screenHeader";
 import { LinearGradeintContainer } from "@Component/View";
 import {
@@ -40,7 +37,7 @@ export type LandingBottomTabProps = {
   ResearchLandingScreen: ResearchLandingScreenProps;
   HomeLandingScreen: HomeLandingScreenProps;
   CommunityLandingScreen: CommunityLandingScreenProps;
-  ProfileLandingScreen: ProfileLandingScreenProps;
+  MypageLandingScreen: MypageLandingScreenProps;
 };
 
 /**
@@ -107,8 +104,8 @@ export function LandingBottomTabNavigator() {
 
       {/* 마이페이지 스택 */}
       <LandingBottomTab.Screen
-        name={"ProfileLandingScreen"}
-        component={ProfileLandingScreen}
+        name={"MypageLandingScreen"}
+        component={MypageLandingScreen}
         options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="마이페이지" focused={focused} />

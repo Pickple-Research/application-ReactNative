@@ -7,7 +7,7 @@ import { H1, H3 } from "src/StyledComponents/Text";
  * 마이페이지 랜딩 페이지 최하단 'about 픽플리' 섹션
  * @author 현웅
  */
-export function ProfileLandingAbout() {
+export function MypageLandingAbout() {
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <About__Container>

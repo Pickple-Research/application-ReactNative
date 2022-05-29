@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { Carousel } from "@Component/FlatList";
 import { globalStyles } from "src/Style";
 import { H3, DetailText } from "src/StyledComponents/Text";
@@ -10,7 +10,7 @@ import { H3, DetailText } from "src/StyledComponents/Text";
  * 마이페이지 랜딩 페이지 이벤트 섹션
  * @author 현웅
  */
-export function ProfileLandingEvent() {
+export function MypageLandingEvent() {
   return (
     <Container style={{ ...screenStyles.border }}>
       <SectionHeader />

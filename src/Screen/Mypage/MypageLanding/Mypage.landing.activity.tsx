@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { H2 } from "src/StyledComponents/Text";
 import ScrabIcon from "@Resource/svg/scrab-icon.svg";
 import MarkedIcon from "@Resource/svg/marked-icon.svg";
@@ -13,7 +13,7 @@ import BlankCommentIcon from "@Resource/svg/blank-comment-icon.svg";
  * (스크랩/투표한 글/올린 글/내 댓글)
  * @author 현웅
  */
-export function ProfileLandingActivity() {
+export function MypageLandingActivity() {
   return (
     <Container style={{ ...screenStyles.padding }}>
       <ScrabButton />

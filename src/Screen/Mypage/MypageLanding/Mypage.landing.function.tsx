@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { globalStyles } from "src/Style";
 import { H2, H3 } from "src/StyledComponents/Text";
 
@@ -8,7 +8,7 @@ import { H2, H3 } from "src/StyledComponents/Text";
  * 마이페이지 랜딩 페이지 고객기능 섹션
  * @author 현웅
  */
-export function ProfileLandingFunction() {
+export function MypageLandingFunction() {
   return (
     <Container
       style={{

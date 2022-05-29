@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { H1, H3 } from "src/StyledComponents/Text";
 import WalletIcon from "@Resource/svg/wallet-icon.svg";
 
@@ -8,7 +8,7 @@ import WalletIcon from "@Resource/svg/wallet-icon.svg";
  * 마이페이지 랜딩 페이지 크레딧 확인 섹션
  * @author 현웅
  */
-export function ProfileLandingCredit() {
+export function MypageLandingCredit() {
   return (
     <Container style={{ ...screenStyles.padding, ...screenStyles.border }}>
       <Credit__Container>
