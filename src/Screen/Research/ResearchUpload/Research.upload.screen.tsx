@@ -24,9 +24,9 @@ export function ResearchUploadScreen({ navigation }: any) {
   const step = useResearchUploadStore(state => state.step);
 
   const pages = [
-    <ResearchUploadGiftCreditScreen />,
     <ResearchUploadTitleContentScreen />,
     <ResearchUploadPurposeTargetScreen />,
+    <ResearchUploadGiftCreditScreen />,
   ];
 
   return (

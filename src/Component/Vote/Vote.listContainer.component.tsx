@@ -11,7 +11,7 @@ import styled from "styled-components/native";
 export function VoteListContainer({
   children,
   style,
-  ...props
+  props,
 }: {
   //TODO: (children 타입에 any를 주지 않는 경우)
   //TODO: .map()을 이용하여 랜더링한 컴포넌트를 VotesContainer의
@@ -22,7 +22,7 @@ export function VoteListContainer({
   props?: ViewProps;
 }) {
   return (
-    <Container style={style} {...props}>
+    <Container<React.ElementType> style={style} {...props}>
       {children}
     </Container>
   );

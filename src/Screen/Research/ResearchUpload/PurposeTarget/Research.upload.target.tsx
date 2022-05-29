@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
-import { SimpleTextInput } from "src/Component/TextInput";
+import { LinedTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
@@ -32,11 +32,11 @@ function TargetInput() {
 
   return (
     <TargetInput__Container style={globalStyles.screen__horizontalPadding}>
-      <SimpleTextInput
+      {/* <LinedTextInput
         placeHolder="쇼핑몰 이용 경험이 있는 MZ세대 여성"
         showRightImage={false}
         dataTransfer={setTargetInput}
-      />
+      /> */}
     </TargetInput__Container>
   );
 }

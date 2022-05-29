@@ -10,13 +10,13 @@ import { H2 } from "src/StyledComponents/Text";
  */
 export function MoreText({
   onPress,
-  ...props
+  props,
 }: {
   onPress?: () => void;
   props?: TextProps;
 }) {
   return (
-    <More__Text onPress={onPress} {...props}>
+    <More__Text<React.ElementType> onPress={onPress} {...props}>
       more
     </More__Text>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
@@ -56,5 +56,6 @@ export const screenStyles = StyleSheet.create({
 });
 
 const Container = styled.SafeAreaView`
+  flex: 1;
   position: relative;
 `;

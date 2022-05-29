@@ -33,12 +33,16 @@ function TitleInput() {
   return (
     <TitleInput__Container style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
-        placeHolder="제목을 입력해주세요"
-        onChangeText={setTitleInput}
+        props={{
+          placeholder: "제목을 입력해주세요",
+          onChangeText: setTitleInput,
+        }}
       />
     </TitleInput__Container>
   );
 }
+
+const Input = styled.Text``;
 
 const Container = styled.View``;
 

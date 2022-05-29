@@ -3,8 +3,7 @@ import { StyleProp, ViewStyle, TextStyle, ViewProps } from "react-native";
 import styled from "styled-components/native";
 import { H3 } from "src/StyledComponents/Text";
 
-//TODO: 종류 명시
-export type PillButtonType = "FOLLOW"; // 파트너 팔로우 버튼
+type PillButtonType = "FOLLOW"; // 파트너 팔로우 버튼
 
 /**
  * 알약 형태의 둥근 버튼입니다.
@@ -15,7 +14,7 @@ export function PillButton({
   type,
   style,
   fontStyle,
-  ...props
+  props,
 }: {
   content: string;
   type: PillButtonType;
@@ -26,7 +25,9 @@ export function PillButton({
   switch (type) {
     case "FOLLOW":
       return (
-        <FollowPillButton__Container style={style} {...props}>
+        <FollowPillButton__Container<React.ElementType>
+          style={style}
+          {...props}>
           <FollowPillButton__Content style={fontStyle}>
             {content}
           </FollowPillButton__Content>

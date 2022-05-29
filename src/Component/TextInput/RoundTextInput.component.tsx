@@ -28,15 +28,15 @@ import styled from "styled-components/native";
  */
 export function RoundTextInput({
   style,
-  ...props
+  props,
 }: {
   style?: StyleProp<TextStyle>;
-  props?: TextInputProps;
+  props?: Partial<TextInputProps>;
 }) {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
-    <RoundTextInput__Container
+    <RoundTextInput__Container<React.ElementType>
       style={style}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}

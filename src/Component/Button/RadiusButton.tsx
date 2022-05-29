@@ -18,7 +18,7 @@ export function RadiusButton({
   fontStyle,
   activeOpacity,
   onPress,
-  ...props
+  props,
 }: {
   content: string;
   type: RadiusButtonType;
@@ -31,24 +31,23 @@ export function RadiusButton({
   switch (type) {
     case "SHOW_MORE":
       return (
-        <ShowMoreButton__Container
-          {...props}
+        <ShowMoreButton__Container<React.ElementType>
           style={style}
           activeOpacity={activeOpacity}
-          onPress={onPress}>
+          onPress={onPress}
+          {...props}>
           <ShowMoreButton__Content style={fontStyle}>
             {content}
           </ShowMoreButton__Content>
         </ShowMoreButton__Container>
       );
-
     case "ADD_GIFT":
       return (
-        <AddGiftButton__Container
-          {...props}
+        <AddGiftButton__Container<React.ElementType>
           style={style}
           activeOpacity={activeOpacity}
-          onPress={onPress}>
+          onPress={onPress}
+          {...props}>
           <AddGiftButton__Content style={fontStyle}>
             {content}
           </AddGiftButton__Content>

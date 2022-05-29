@@ -40,7 +40,7 @@ export function BlackBackgroundModal({
   props,
 }: BlackBackgroundModalProps) {
   return (
-    <Container
+    <Container<React.ElementType>
       visible={modalVisible}
       //? 하드웨어 뒤로 가기 버튼이 눌렸을 때 방식 지정
       onRequestClose={() => {
