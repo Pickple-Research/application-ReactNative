@@ -5,7 +5,8 @@ import { ResearchDetailCondition } from "./Research.detail.condition";
 import { ResearchDetailParticipant } from "./Research.detail.participant";
 import { ResearchDetailContent } from "./Research.detail.content";
 import { ResearchDetailGift } from "./Research.detail.gift";
-import { ResearchDetailBottomTab } from "./Research.detail.bottomTab";
+import { ResearchDetailBottomButton } from "./Research.detail.bottomButton";
+import { ResearchPullupModal } from "src/Modal";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 
 export type ResearchDetailScreenProps = { researchId: string };
@@ -24,7 +25,8 @@ export function ResearchDetailScreen() {
         <ResearchDetailContent />
         <ResearchDetailGift />
       </WhiteBackgroundScrollView>
-      <ResearchDetailBottomTab />
+      <ResearchDetailBottomButton />
+      <ResearchPullupModal />
     </Container>
   );
 }
