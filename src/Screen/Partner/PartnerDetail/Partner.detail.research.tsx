@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { SectionHeaderTitle, MoreText } from "@Component/Text";
+import { SectionHeaderText, MoreText } from "@Component/Text";
 import { ResearchListItem } from "@Component/Research";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchStore } from "src/Zustand";
@@ -26,7 +26,7 @@ function SectionHeader() {
   return (
     <SectionHeader__Container>
       <SectionHeader__TitleContainer>
-        <SectionHeaderTitle title="새 리서치" style={{ marginRight: 6 }} />
+        <SectionHeaderText title="새 리서치" style={{ marginRight: 6 }} />
         <SectionHeader__TitleNum>3</SectionHeader__TitleNum>
       </SectionHeader__TitleContainer>
       <MoreText />

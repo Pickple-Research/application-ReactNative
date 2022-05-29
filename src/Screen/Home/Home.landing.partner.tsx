@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { PartnerAdCarousel } from "@Component/Partner";
-import { SectionHeaderTitle, MoreText } from "@Component/Text";
+import { SectionHeaderText, MoreText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { usePartnerStore } from "src/Zustand";
 
@@ -28,7 +28,7 @@ function SectionHeader() {
 
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="파트너" />
+      <SectionHeaderText title="파트너" />
       <MoreText
         onPress={() => {
           navigation.navigate("PartnerCategoryScreen", {});

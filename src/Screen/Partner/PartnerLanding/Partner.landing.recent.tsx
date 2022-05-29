@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { PartnerTypeCarousel, PartnerListItem } from "@Component/Partner";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { PartnerType } from "src/Object/Enum";
 import { usePartnerStore } from "src/Zustand";
@@ -32,7 +32,7 @@ export function PartnerLandingRecent() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="최신" />
+      <SectionHeaderText title="최신" />
     </SectionHeader__Container>
   );
 }

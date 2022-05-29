@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { ResearchGiftProps } from "@Object/Type";
 import { Carousel } from "@Component/FlatList";
@@ -23,7 +23,7 @@ export function ResearchDetailGift() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="추가로 받을 수도 있어요 (경품 추첨)" />
+      <SectionHeaderText title="추가로 받을 수도 있어요 (경품 추첨)" />
     </SectionHeader__Container>
   );
 }

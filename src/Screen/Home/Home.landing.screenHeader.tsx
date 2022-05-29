@@ -11,17 +11,19 @@ import AlarmIcon from "@Resource/svg/alarm-icon.svg";
  */
 export function HomeLandingScreenHeader() {
   return (
-    <ScreenHeader__Container>
-      <PickpleResearchText>픽플리</PickpleResearchText>
-      <Icon__Container>
+    <Container>
+      <Text__Container>
+        <PickpleResearchText>픽플리</PickpleResearchText>
+      </Text__Container>
+      <Icons__Container>
         <BigSearchIcon
           style={{ ...styles.icon__margin }}
           width={28}
           height={28}
         />
         <AlarmIcon width={28} height={28} />
-      </Icon__Container>
-    </ScreenHeader__Container>
+      </Icons__Container>
+    </Container>
   );
 }
 
@@ -29,12 +31,22 @@ const styles = StyleSheet.create({
   icon__margin: { marginRight: 15 },
 });
 
+const Container = styled(ScreenHeader__Container)`
+  justify-content: space-between;
+`;
+
+const Text__Container = styled.View`
+  flex-direction: row;
+  flex: 1;
+  justify-content: flex-start;
+`;
+
 const PickpleResearchText = styled.Text`
   color: black;
   font-size: 16px;
+  font-weight: bold;
 `;
 
-const Icon__Container = styled.View`
-  flex-direction: row;
-  align-items: center;
+const Icons__Container = styled(Text__Container)`
+  justify-content: flex-end;
 `;

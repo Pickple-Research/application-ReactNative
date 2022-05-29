@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { PartnerProductServiceCarousel } from "@Component/Partner";
 import { RadiusButton } from "@Component/Button";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { usePartnerStore } from "@Zustand/partner.zustand";
 import { globalStyles } from "src/Style";
@@ -26,7 +26,7 @@ function SectionHeader() {
   return (
     <SectionHeader__Container>
       <SectionHeader__TitleContainer>
-        <SectionHeaderTitle title="제품/서비스" style={{ marginRight: 6 }} />
+        <SectionHeaderText title="제품/서비스" style={{ marginRight: 6 }} />
         <SectionHeader__TitleNum>3</SectionHeader__TitleNum>
       </SectionHeader__TitleContainer>
     </SectionHeader__Container>

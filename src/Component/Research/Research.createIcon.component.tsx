@@ -6,9 +6,9 @@ import PencilIcon from "@Resource/svg/pencil-icon.svg";
  * 리서치 랜딩 페이지, 카테고리별 리서치 페이지 우측 하단에 사용되는 리서치 작성 아이콘입니다.
  * @author 현웅
  */
-export function ResearchCreateIcon() {
+export function ResearchCreateIcon({ onPress }: { onPress?: () => void }) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <PencilIcon width={21} height={21} />
     </Container>
   );

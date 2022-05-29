@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { ResearchTypeCarousel, ResearchListItem } from "src/Component/Research";
-import { SectionHeaderTitle } from "src/Component/Text";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { ResearchType } from "src/Object/Enum";
 import { useResearchStore } from "src/Zustand";
@@ -33,7 +33,7 @@ export function ResearchLandingNew() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="신규 리서치" />
+      <SectionHeaderText title="신규 리서치" />
     </SectionHeader__Container>
   );
 }

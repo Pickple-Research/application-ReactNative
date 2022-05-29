@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps, LandingBottomTabProps } from "src/Navigator";
 import { screenStyles } from "./Home.landing.screen";
 import { ResearchListItem } from "@Component/Research";
-import { SectionHeaderTitle, MoreText } from "@Component/Text";
+import { SectionHeaderText, MoreText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
@@ -28,7 +28,7 @@ function SectionHeader() {
 
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title={"리서치"} />
+      <SectionHeaderText title={"리서치"} />
       <MoreText
         onPress={() => {
           navigation.navigate("ResearchLandingScreen", {});

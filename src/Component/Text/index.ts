@@ -1,4 +1,4 @@
 export * from "./Chip";
 export * from "./HashTags";
 export * from "./MoreText";
-export * from "./SectionHeaderTitle";
+export * from "./SectionHeaderText";

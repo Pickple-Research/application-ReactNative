@@ -245,7 +245,7 @@ const PageIndex__Container = styled.View`
   justify-content: center;
   align-items: center;
   // backgroundColor: "black", opacity: 0.x 으로 설정하면
-  // 자손까지 영향을 주므로 사용하기 까다로워집니다.
+  // 자손까지 opacity의 영향을 받으므로 사용하기 까다로워집니다.
   background-color: rgba(0, 0, 0, 0.6);
   padding: 8px 20px;
   border-radius: 10px;

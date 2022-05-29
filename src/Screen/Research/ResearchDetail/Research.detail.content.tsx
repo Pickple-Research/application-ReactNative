@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { H2 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
@@ -21,7 +21,7 @@ export function ResearchDetailContent() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="내용" />
+      <SectionHeaderText title="내용" />
     </SectionHeader__Container>
   );
 }

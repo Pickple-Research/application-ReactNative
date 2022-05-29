@@ -5,8 +5,9 @@ import { ResearchDetailCondition } from "./Research.detail.condition";
 import { ResearchDetailParticipant } from "./Research.detail.participant";
 import { ResearchDetailContent } from "./Research.detail.content";
 import { ResearchDetailGift } from "./Research.detail.gift";
-import { ResearchDetailBottomTab } from "./Research.detail.bottomTab";
-import { WhiteBackgroundScrollView } from "@Component/ScrollView";
+import { ResearchDetailBottomButton } from "./Research.detail.bottomButton";
+import { ResearchPullupModal } from "src/Modal";
+import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 
 export type ResearchDetailScreenProps = { researchId: string };
 
@@ -24,13 +25,14 @@ export function ResearchDetailScreen() {
         <ResearchDetailContent />
         <ResearchDetailGift />
       </WhiteBackgroundScrollView>
-      <ResearchDetailBottomTab />
+      <ResearchDetailBottomButton />
+      <ResearchPullupModal />
     </Container>
   );
 }
 
 const Container = styled.View`
   position: relative;
-  //* ResearchDetailBottomTab 높이와 맞춰야 함
+  //* ResearchDetailBottomTab의 height과 같은 값으로 유지해야 합니다.
   padding-bottom: 60px;
 `;

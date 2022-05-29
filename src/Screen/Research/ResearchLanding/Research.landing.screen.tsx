@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-// import { ResearchStackProps } from "src/Navigator";
+import { AppStackProps } from "src/Navigator";
 import { ResearchLandingSearch } from "./Research.landing.search";
 import { ResearchLandingRecommend } from "./Research.landing.recommend";
 import { ResearchLandingNew } from "./Research.landing.new";
@@ -20,20 +20,19 @@ export type ResearchLandingScreenProps = {};
  * @TODO 타입 이름을 어떻게 지어야할까..
  * @author 현웅
  */
-// type ResearchStackResearchLandingScreenProps = NativeStackScreenProps<
-//   ResearchStackProps,
-//   "ResearchLandingScreen"
-// >;
+type AppStackResearchLandingScreenProps = NativeStackScreenProps<
+  AppStackProps,
+  "LandingBottomTabNavigator"
+>;
 
 /**
  * 리서치 랜딩 페이지
  * @author 현웅
  */
-export function ResearchLandingScreen() {
-  //   {
-  //   route,
-  //   navigation,
-  // }: ResearchStackResearchLandingScreenProps
+export function ResearchLandingScreen({
+  route,
+  navigation,
+}: AppStackResearchLandingScreenProps) {
   return (
     <Container>
       <WhiteBackgroundScrollView>
@@ -41,7 +40,11 @@ export function ResearchLandingScreen() {
         <ResearchLandingRecommend />
         <ResearchLandingNew />
       </WhiteBackgroundScrollView>
-      <ResearchCreateIcon />
+      <ResearchCreateIcon
+        onPress={() => {
+          navigation.navigate("ResearchUploadScreen", {});
+        }}
+      />
     </Container>
   );
 }

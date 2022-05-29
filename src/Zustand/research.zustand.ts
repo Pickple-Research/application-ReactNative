@@ -1,11 +1,15 @@
 import create from "zustand";
-import { ResearchProps } from "@Object/Type";
+import { ResearchProps } from "src/Object/Type";
 
 type ResearchStoreProps = {
   exampleResearch: ResearchProps;
   exampleResearches: ResearchProps[];
 };
 
+/**
+ * 리서치 데이터를 불러오거나 수정하는 zustand store 입니다.
+ * @author 현웅
+ */
 export const useResearchStore = create<ResearchStoreProps>(() => ({
   exampleResearch: {
     id: "res1",

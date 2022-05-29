@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { VoteListContainer, VoteListItem } from "@Component/Vote";
-import { SectionHeaderTitle, MoreText } from "@Component/Text";
+import { SectionHeaderText, MoreText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useVoteStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
@@ -22,7 +22,7 @@ export function CommunityLandingRecent() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="최신 투표" />
+      <SectionHeaderText title="최신 투표" />
       <MoreText />
     </SectionHeader__Container>
   );

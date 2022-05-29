@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { SectionHeaderTitle } from "@Component/Text";
+import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { globalStyles } from "src/Style";
 import { BodyText, DetailText } from "src/StyledComponents/Text";
@@ -21,7 +21,7 @@ export function PartnerDetailInfo() {
 function SectionHeader() {
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="스타트업 정보" />
+      <SectionHeaderText title="스타트업 정보" />
     </SectionHeader__Container>
   );
 }

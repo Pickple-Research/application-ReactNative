@@ -5,14 +5,14 @@ import styled from "styled-components/native";
  * 다음과 같이 활용하면 됩니다:
  *
  * @example
- * import { SectionHeaderTitle, MoreText } from "@Component/StyledComponents"
- * import { SectionHeaderContainer } from "@Component/StyledComponents"
+ * import { SectionHeaderTitle, MoreText } from "src/Component/StyledComponents"
+ * import { SectionHeaderContainer } from "src/Component/StyledComponents"
  *
  * function SectionHeader(){
  *  return (
  *   <SectionHeaderContainer>
  *     <SectionHeaderTitle title={"최신 리서치"}/>
- *     <MoreText/>
+ *     <MoreText onPress={...}/>
  *   </SectionHeaderContainer>
  *  )
  * }

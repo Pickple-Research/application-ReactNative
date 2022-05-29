@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LandingBottomTabProps } from "src/Navigator";
 import { VoteListContainer, VoteListItem } from "@Component/Vote";
-import { SectionHeaderTitle, MoreText } from "@Component/Text";
+import { SectionHeaderText, MoreText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useVoteStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
@@ -27,7 +27,7 @@ function SectionHeader() {
 
   return (
     <SectionHeader__Container>
-      <SectionHeaderTitle title="HOT 투표" />
+      <SectionHeaderText title="HOT 투표" />
       <MoreText
         onPress={() => {
           navigation.navigate("CommunityLandingScreen", {});
