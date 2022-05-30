@@ -9,6 +9,9 @@ export type RadiusButtonType =
 
 /**
  * 모서리가 둥근 버튼입니다.
+ * @param content 버튼 내용
+ * @param type 버튼 타입 (어디에 쓰이는지)
+ * @param onPress 클릭 시 기능
  * @author 현웅
  */
 export function RadiusButton({
@@ -28,6 +31,7 @@ export function RadiusButton({
   onPress?: () => any;
   props?: ViewProps;
 }) {
+  //TODO: 이렇게 해도 종류가 많아지니까 지저분함. 더 좋은 방식?
   switch (type) {
     case "SHOW_MORE":
       return (
@@ -41,6 +45,7 @@ export function RadiusButton({
           </ShowMoreButton__Content>
         </ShowMoreButton__Container>
       );
+
     case "ADD_GIFT":
       return (
         <AddGiftButton__Container<React.ElementType>
@@ -69,6 +74,7 @@ const Button__Content = styled(H2)`
   font-weight: bold;
 `;
 
+// case "SHOW_MORE"
 const ShowMoreButton__Container = styled(Button__Container)`
   background-color: ${({ theme }) => theme.color.textfield_skyblue};
 `;
@@ -76,6 +82,7 @@ const ShowMoreButton__Content = styled(Button__Content)`
   color: ${({ theme }) => theme.color.main_skyblue};
 `;
 
+// case "ADD_GIFT"
 const AddGiftButton__Container = styled(Button__Container)`
   background-color: #444444;
 `;

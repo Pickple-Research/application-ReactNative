@@ -48,8 +48,9 @@ function PartnersList() {
 
   /**
    * #TYPE #TYPESCRIPT #STYLED-COMPONENTS
-   * FlatList를 styled-components, Typescript와 같이 쓰는 경우
-   * <React.ElementType> 타입을 지정해줍니다. 왜인지 이융는 저도 아직 확실히 이해하진 못했어요..
+   * styled-components로 정의된 React 컴포넌트에 기본 props를 넘겨줘야 하는 경우
+   * <React.ElementType> 타입을 지정해줍니다.
+   * (왜인지 이유는 저도 아직 확실히 이해하진 못했습니다. styled-components에 제네릭을 정의해줄 수 있는 걸 보긴 했는데..)
    * @see https://stackoverflow.com/questions/64460114/rn-flatlist-with-typescript-and-styled-components#
    * @author 현웅
    */

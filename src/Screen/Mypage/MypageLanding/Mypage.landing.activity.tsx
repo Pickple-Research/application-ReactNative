@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { screenStyles } from "./Mypage.landing.screen";
 import { H2 } from "src/StyledComponents/Text";
-import ScrabIcon from "@Resource/svg/scrab-icon.svg";
-import MarkedIcon from "@Resource/svg/marked-icon.svg";
-import PenIcon from "@Resource/svg/pen-icon.svg";
-import BlankCommentIcon from "@Resource/svg/blank-comment-icon.svg";
+import ScrapIcon from "src/Resource/svg/scrap-icon.svg";
+import MarkedIcon from "src/Resource/svg/marked-icon.svg";
+import PenIcon from "src/Resource/svg/pen-icon.svg";
+import BlankCommentIcon from "src/Resource/svg/blank-comment-icon.svg";
 
 /**
  * 마이페이지 랜딩 페이지 유저 활동 정보 섹션
@@ -14,46 +16,69 @@ import BlankCommentIcon from "@Resource/svg/blank-comment-icon.svg";
  * @author 현웅
  */
 export function MypageLandingActivity() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
     <Container style={{ ...screenStyles.padding }}>
-      <ScrabButton />
-      <ParticipationButton />
-      <MyUploadButton />
-      <MyCommentButton />
+      <ScrapButton navigation={navigation} />
+      <ParticipationButton navigation={navigation} />
+      <MyUploadButton navigation={navigation} />
+      <MyCommentButton navigation={navigation} />
     </Container>
   );
 }
 
-function ScrabButton() {
+function ScrapButton({
+  navigation,
+}: {
+  navigation: NavigationProp<AppStackProps>;
+}) {
   return (
-    <Icon__Container>
-      <ScrabIcon style={styles.icon__margin} />
+    <Icon__Container activeOpacity={1} onPress={() => {}}>
+      <ScrapIcon style={styles.icon__margin} />
       <Icon__Text>스크랩</Icon__Text>
     </Icon__Container>
   );
 }
 
-function ParticipationButton() {
+function ParticipationButton({
+  navigation,
+}: {
+  navigation: NavigationProp<AppStackProps>;
+}) {
   return (
-    <Icon__Container>
+    <Icon__Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("MypageVotedScreen", {});
+      }}>
       <MarkedIcon style={styles.icon__margin} />
       <Icon__Text>투표한 글</Icon__Text>
     </Icon__Container>
   );
 }
 
-function MyUploadButton() {
+function MyUploadButton({
+  navigation,
+}: {
+  navigation: NavigationProp<AppStackProps>;
+}) {
   return (
-    <Icon__Container>
+    <Icon__Container activeOpacity={1} onPress={() => {}}>
       <PenIcon style={styles.icon__margin} />
       <Icon__Text>올린 글</Icon__Text>
     </Icon__Container>
   );
 }
 
-function MyCommentButton() {
+function MyCommentButton({
+  navigation,
+}: {
+  navigation: NavigationProp<AppStackProps>;
+}) {
   return (
-    <Icon__Container>
+    <Icon__Container activeOpacity={1} onPress={() => {}}>
       <BlankCommentIcon style={styles.icon__margin} />
       <Icon__Text>내 댓글</Icon__Text>
     </Icon__Container>
@@ -71,7 +96,7 @@ const Container = styled.View`
   margin-bottom: 40px;
 `;
 
-const Icon__Container = styled.View`
+const Icon__Container = styled.TouchableOpacity`
   align-items: center;
 `;
 
