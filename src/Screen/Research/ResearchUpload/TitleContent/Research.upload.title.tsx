@@ -42,8 +42,6 @@ function TitleInput() {
   );
 }
 
-const Input = styled.Text``;
-
 const Container = styled.View``;
 
 const TitleInput__Container = styled.View``;

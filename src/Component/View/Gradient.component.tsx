@@ -18,7 +18,7 @@ type LinearGradientContainerProps = {
  */
 export function LinearGradeintContainer({
   children,
-  colors = theme.color.purple_blue_gradient,
+  colors = theme.color.gradient.purpleBlue,
   start = { x: 1, y: 0 },
   end = { x: 0, y: 1 },
   style,

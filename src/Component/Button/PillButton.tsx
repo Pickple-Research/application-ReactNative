@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, ViewStyle, TextStyle, ViewProps } from "react-native";
 import styled from "styled-components/native";
-import { H3 } from "src/StyledComponents/Text";
+import { H4 } from "src/StyledComponents/Text";
 
 type PillButtonType = "FOLLOW"; // 파트너 팔로우 버튼
 
@@ -42,11 +42,11 @@ const PillButton__Container = styled.TouchableOpacity`
   padding: 6px 24px;
   border-radius: 100px;
 `;
-const PillButton__Content = styled(H3)`
+const PillButton__Content = styled(H4)`
   color: white;
 `;
 
 const FollowPillButton__Container = styled(PillButton__Container)`
-  background-color: ${({ theme }) => theme.color.main_skyblue};
+  background-color: ${({ theme }) => theme.color.blue.main};
 `;
 const FollowPillButton__Content = styled(PillButton__Content)``;

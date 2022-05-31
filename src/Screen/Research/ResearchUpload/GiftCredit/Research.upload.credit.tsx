@@ -7,7 +7,7 @@ import {
 import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
-import { H1, H2 } from "src/StyledComponents/Text";
+import { H1, H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -139,7 +139,7 @@ const CreditInput__DescriptionContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-const CreditInput__Description = styled(H2)<{ bold: boolean }>`
+const CreditInput__Description = styled(H3)<{ bold: boolean }>`
   font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
   flex-wrap: wrap;
 `;

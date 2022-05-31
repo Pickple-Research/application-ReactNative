@@ -5,7 +5,7 @@ import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { ResearchGiftProps } from "@Object/Type";
 import { Carousel } from "@Component/FlatList";
-import { H3, BodyText } from "src/StyledComponents/Text";
+import { H4, BodyText } from "src/StyledComponents/Text";
 
 /**
  * 리서치 상세정보 페이지 경품 섹션
@@ -77,7 +77,7 @@ const GiftCarouselItem__ImgContainer = styled.View`
   margin-bottom: 8px;
 `;
 
-const GiftCarouselItem__GiftName = styled(H3)`
+const GiftCarouselItem__GiftName = styled(H4)`
   color: black;
   font-weight: bold;
   margin-bottom: 4px;

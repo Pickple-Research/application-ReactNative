@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import styled from "styled-components/native";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 섹션 헤더 텍스트입니다.
@@ -26,7 +26,7 @@ export function SectionHeaderText({
   );
 }
 
-const SectionHeader__Text = styled(H2)<{ bold: boolean }>`
+const SectionHeader__Text = styled(H3)<{ bold: boolean }>`
   color: black;
   font-weight: ${props => (props.bold ? "bold" : "normal")};
 `;

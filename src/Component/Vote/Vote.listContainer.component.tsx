@@ -29,6 +29,6 @@ export function VoteListContainer({
 }
 
 const Container = styled.View`
-  border: 1px solid ${({ theme }) => theme.color.background_purple};
+  border: 1px solid ${({ theme }) => theme.color.purple.mild};
   border-radius: 10px;
 `;

@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { Carousel } from "@Component/FlatList";
 import { PartnerType } from "@Object/Enum";
 import { allPartnerTypes } from "src/Object/Enum";
-import { H3 } from "src/StyledComponents/Text";
+import { H4 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 타입(들)을 보여주고 선택할 수 있는 캐러샐입니다.
@@ -88,14 +88,15 @@ const styles = StyleSheet.create({
 
 const Item__Container = styled.TouchableOpacity<{ selected: boolean }>`
   background-color: ${({ selected, theme }) =>
-    selected ? theme.color.pastel_skyblue : theme.color.inactive_button_gray};
+    //TODO: #THEME
+    selected ? theme.color.blue.pastel : "#EEEEEE"};
   padding: 8px 15px;
   margin: 0px 3px;
   border-radius: 6px;
 `;
 
-const Item__Text = styled(H3)<{ selected: boolean }>`
+const Item__Text = styled(H4)<{ selected: boolean }>`
   color: ${({ selected, theme }) =>
-    selected ? theme.color.text_skyblue : theme.color.text_color_bbb};
+    selected ? theme.color.blue.text : theme.color.text_color_bbb};
   font-weight: bold;
 `;

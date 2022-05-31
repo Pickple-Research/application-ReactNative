@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 업로드 페이지에서 사용되는 섹션 헤더의 View 입니다.
@@ -23,7 +23,7 @@ export const ResearchUpload__CollapsibleSection__Container = styled.TouchableOpa
   padding-bottom: 12px;
 `;
 
-export const ResearchUpload__CollapsibleSection__Content = styled(H2)<{
+export const ResearchUpload__CollapsibleSection__Content = styled(H3)<{
   bold: boolean;
 }>`
   color: #333333;

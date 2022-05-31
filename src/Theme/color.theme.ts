@@ -9,30 +9,41 @@ const commonThemeColors: CommonThemeColors = {
   focused_gray: "#848899",
   unfocused_gray: "#D3D4D4",
 
-  // 아래는 희연이 작명 그대로 사용
-  main_skyblue: "#8BBFF5",
-  main_purple: "#BDB5EC",
-  pastel_skyblue: "#DEEEFF",
-  pastel_purple: "#E7E4F5",
-
-  text_skyblue: "#599BDF",
-  text_purple: "#8F84D0",
-  text_deep_purple: "#594E96",
-  text_color_333: "#333333",
-  text_color_555: "#555555",
-  text_color_666: "#666666",
   text_color_bbb: "#BBBBBB",
-  text_color_8f: "#8F8F8F",
-  text_color_999: "#999999",
 
-  inactive_button: "#D6D4E2",
-  inactive_button_purple: "#D6D4E2",
-  inactive_button_gray: "#EEEEEE",
-  textfield_skyblue: "#EDF5FD",
-  background_purple: "#F5F5FC",
+  // 하연이 figma 디자인 시스템 그대로 사용
+  blue: {
+    main: "#8BBFF5",
+    mild: "#EDF5FD",
+    pastel: "#DEEEFF",
+    text: "#599BDF",
+  },
 
-  // 메인 테마 그라디언트 색상
-  purple_blue_gradient: ["#F2CCFF", "#82BDF3"],
+  purple: {
+    deep: "#594E96",
+    inactive: "#D6D4E2",
+    main: "#BDB5EC",
+    mild: "#F5F5FC",
+    pastel: "#E7E4F5",
+    text: "#8F84D0",
+  },
+
+  gradient: {
+    purpleBlue: ["#F2CCFF", "#82BDF3"],
+  },
+
+  grey: {
+    black: "#000000",
+    deep: "#333333",
+    main: "#555555",
+    icon: "#666666",
+    mild: "#999999",
+    white: "#FFFFFF",
+  },
+
+  red: {
+    warning: "#FF6B6B",
+  },
 };
 
 /**

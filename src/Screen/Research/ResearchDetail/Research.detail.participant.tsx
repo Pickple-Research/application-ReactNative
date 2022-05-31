@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { H1, H3 } from "src/StyledComponents/Text";
+import { H1, H4 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
 /**
@@ -26,7 +26,7 @@ const Container = styled.View`
 const Icon__Container = styled.View`
   width: 24px;
   height: 24px;
-  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  background-color: ${({ theme }) => theme.color.blue.pastel};
   margin-right: 8px;
   border-radius: 100px;
 `;
@@ -35,4 +35,4 @@ const ParticipantsNum = styled(H1)`
   font-weight: bold;
 `;
 
-const ParticipantsText = styled(H3)``;
+const ParticipantsText = styled(H4)``;

@@ -57,12 +57,12 @@ const Condition__Container = styled.View`
 
 const Condition__Title = styled(BodyText)`
   width: 90px;
-  color: ${({ theme }) => theme.color.text_skyblue};
+  color: ${({ theme }) => theme.color.blue.text};
 `;
 
 const Condition__Spliter = styled.Text`
   width: 16px;
-  color: ${({ theme }) => theme.color.text_skyblue};
+  color: ${({ theme }) => theme.color.blue.text};
   font-size: 4px;
   font-weight: bold;
 `;

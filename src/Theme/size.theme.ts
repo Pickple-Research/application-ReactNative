@@ -6,8 +6,9 @@ export const vh = Dimensions.get("screen").height * 0.01;
 
 export const themeSizes: ThemeSizes = {
   header1: "15px",
-  header2: "13px",
-  header3: "12px",
+  header2: "14px",
+  header3: "13px",
+  header4: "12px",
   body: "11px",
   detail: "10px",
   small: "9px",

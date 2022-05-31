@@ -45,7 +45,7 @@ const scrollViewBackgroundColor = (
     case "WHITE":
       return "white";
     case "PURPLE":
-      return color.background_purple;
+      return color.purple.mild;
     default:
       return "white";
   }

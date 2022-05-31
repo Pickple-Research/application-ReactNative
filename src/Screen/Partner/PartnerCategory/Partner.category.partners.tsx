@@ -8,7 +8,7 @@ import { PartnerProps } from "@Object/Type";
 import { PartnerType } from "@Object/Enum";
 import { usePartnerStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
-import { H3, BodyText } from "src/StyledComponents/Text";
+import { H4, BodyText } from "src/StyledComponents/Text";
 import SortIcon from "@Resource/svg/sort-icon.svg";
 
 /**
@@ -116,7 +116,7 @@ const Filter__Container = styled.View`
 const FilterHeader__Filter = styled.View``;
 
 const PartnersList__Container = styled.FlatList`
-  background-color: ${({ theme }) => theme.color.background_purple};
+  background-color: ${({ theme }) => theme.color.purple.mild};
 `;
 
 // Partner()
@@ -151,7 +151,7 @@ const Partner__NameTypeContainer = styled.View`
   margin-bottom: 1px;
 `;
 
-const Partner__Name = styled(H3)`
+const Partner__Name = styled(H4)`
   color: black;
   font-weight: bold;
 `;
@@ -169,6 +169,6 @@ const Partner__NewResearchContainer = styled.View`
   margin-top: 12px;
 `;
 
-const Partner__NewResearchTitle = styled(H3)`
+const Partner__NewResearchTitle = styled(H4)`
   flex: 1;
 `;

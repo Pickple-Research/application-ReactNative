@@ -2,7 +2,7 @@ import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { VoteProps } from "src/Object/Type";
-import { H2, H3, DetailText, SmallText } from "src/StyledComponents/Text";
+import { H3, H4, DetailText, SmallText } from "src/StyledComponents/Text";
 import MarkedIcon from "src/Resource/svg/marked-icon.svg";
 
 /**
@@ -69,7 +69,7 @@ const Container = styled.View`
 const Icon__Container = styled.View`
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.pastel_purple};
+  background-color: ${({ theme }) => theme.color.purple.pastel};
   padding: 8px;
   margin-right: 15px;
   border-radius: 100px;
@@ -87,7 +87,7 @@ const TitleInfo__TitleContainer = styled.View`
   margin-bottom: 8px;
 `;
 
-const TitleInfo__Title = styled(H2)`
+const TitleInfo__Title = styled(H3)`
   color: black;
   font-weight: bold;
 `;
@@ -109,4 +109,4 @@ const Author__Container = styled.View`
   margin-bottom: 36px;
 `;
 
-const Author__Text = styled(H3)``;
+const Author__Text = styled(H4)``;

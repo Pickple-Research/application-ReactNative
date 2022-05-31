@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Mypage.landing.screen";
 import { globalStyles } from "src/Style";
-import { H2, H3 } from "src/StyledComponents/Text";
+import { H3, H4 } from "src/StyledComponents/Text";
 
 /**
  * 마이페이지 랜딩 페이지 고객기능 섹션
@@ -79,7 +79,7 @@ const Container = styled.View`
 
 const SectionHeader__Container = styled.View``;
 
-const SectionHeader__Title = styled(H3)``;
+const SectionHeader__Title = styled(H4)``;
 
 const FunctionsList__Container = styled.View``;
 
@@ -91,6 +91,6 @@ const FunctionRow__Container = styled.View`
   padding: 12px 0px;
 `;
 
-const FunctionRow__Text = styled(H2)`
-  color: ${({ theme }) => theme.color.text_color_333};
+const FunctionRow__Text = styled(H3)`
+  color: ${({ theme }) => theme.color.grey.deep};
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 import { useModalStore } from "src/Zustand";
 
 /**
@@ -46,10 +46,10 @@ const CloseButton = styled.TouchableOpacity`
 
 const PullupButton = styled(CloseButton)`
   flex: 5;
-  background-color: ${({ theme }) => theme.color.main_skyblue};
+  background-color: ${({ theme }) => theme.color.blue.main};
 `;
 
-const ButtonText = styled(H2)`
+const ButtonText = styled(H3)`
   color: white;
   font-weight: bold;
 `;

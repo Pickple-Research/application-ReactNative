@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 export type RadiusButtonType =
   | "SHOW_MORE" // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
@@ -70,16 +70,16 @@ const Button__Container = styled.TouchableOpacity`
   padding: 12px;
   border-radius: 12px;
 `;
-const Button__Content = styled(H2)`
+const Button__Content = styled(H3)`
   font-weight: bold;
 `;
 
 // case "SHOW_MORE"
 const ShowMoreButton__Container = styled(Button__Container)`
-  background-color: ${({ theme }) => theme.color.textfield_skyblue};
+  background-color: ${({ theme }) => theme.color.blue.mild};
 `;
 const ShowMoreButton__Content = styled(Button__Content)`
-  color: ${({ theme }) => theme.color.main_skyblue};
+  color: ${({ theme }) => theme.color.blue.main};
 `;
 
 // case "ADD_GIFT"

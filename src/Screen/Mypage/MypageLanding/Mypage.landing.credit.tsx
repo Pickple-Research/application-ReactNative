@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Mypage.landing.screen";
-import { H1, H3 } from "src/StyledComponents/Text";
+import { H1, H4 } from "src/StyledComponents/Text";
 import WalletIcon from "@Resource/svg/wallet-icon.svg";
 
 /**
@@ -31,7 +31,7 @@ const Credit__Container = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.background_purple};
+  background-color: ${({ theme }) => theme.color.purple.mild};
   padding: 15px;
   border-radius: 100px;
 `;
@@ -41,7 +41,7 @@ const Credit__IconContainer = styled.View`
   align-items: center;
   width: 36px;
   height: 36px;
-  background-color: ${({ theme }) => theme.color.main_purple};
+  background-color: ${({ theme }) => theme.color.purple.main};
   border-radius: 100px;
 `;
 
@@ -51,4 +51,4 @@ const Credit__Text = styled(H1)`
   padding: 0px 15px;
 `;
 
-const Credit__UseHistoryText = styled(H3)``;
+const Credit__UseHistoryText = styled(H4)``;

@@ -38,7 +38,7 @@ const SearchBox__Container = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.background_purple};
+  background-color: ${({ theme }) => theme.color.purple.mild};
   padding: 5px 20px;
   margin-right: 15px;
   border-radius: 100px;

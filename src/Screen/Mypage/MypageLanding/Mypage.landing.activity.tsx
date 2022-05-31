@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { screenStyles } from "./Mypage.landing.screen";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 import ScrapIcon from "src/Resource/svg/scrap-icon.svg";
 import MarkedIcon from "src/Resource/svg/marked-icon.svg";
 import PenIcon from "src/Resource/svg/pen-icon.svg";
@@ -100,6 +100,6 @@ const Icon__Container = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const Icon__Text = styled(H2)`
-  color: ${({ theme }) => theme.color.text_color_666};
+const Icon__Text = styled(H3)`
+  color: ${({ theme }) => theme.color.grey.icon};
 `;

@@ -28,7 +28,7 @@ function SearchBox(props?: TextInputProps) {
       <SearchBox__Input
         onSubmitEditing={props?.onSubmitEditing}
         placeholder="스타트업을 검색해보세요"
-        placeholderTextColor={theme.color.inactive_button}
+        placeholderTextColor={theme.color.purple.inactive}
         numberOfLines={1}
         autoCorrect={false}
       />
@@ -63,6 +63,6 @@ const SearchBox__Container = styled.View`
 const SearchBox__Input = styled.TextInput`
   width: 100%;
   align-items: center;
-  color: ${({ theme }) => theme.color.inactive_button};
+  color: ${({ theme }) => theme.color.purple.inactive};
   padding: 0px 10px;
 `;

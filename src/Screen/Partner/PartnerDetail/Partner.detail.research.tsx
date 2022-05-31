@@ -7,7 +7,7 @@ import { ResearchListItem } from "@Component/Research";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 파트너 상세정보 페이지 파트너가 진행중인 리서치 섹션
@@ -64,8 +64,8 @@ const SectionHeader__TitleContainer = styled.View`
   align-items: center;
 `;
 
-const SectionHeader__TitleNum = styled(H2)`
-  color: ${({ theme }) => theme.color.main_skyblue};
+const SectionHeader__TitleNum = styled(H3)`
+  color: ${({ theme }) => theme.color.blue.main};
   font-weight: bold;
 `;
 
