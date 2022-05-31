@@ -28,15 +28,15 @@ import styled from "styled-components/native";
  */
 export function RoundTextInput({
   style,
-  ...props
+  props,
 }: {
   style?: StyleProp<TextStyle>;
-  props?: TextInputProps;
+  props?: Partial<TextInputProps>;
 }) {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
-    <RoundTextInput__Container
+    <RoundTextInput__Container<React.ElementType>
       style={style}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
@@ -49,7 +49,7 @@ export function RoundTextInput({
 
 const RoundTextInput__Container = styled.TextInput<{ focused: boolean }>`
   flex: 1;
-  font-size: ${({ theme }) => theme.size.header2};
+  font-size: ${({ theme }) => theme.size.header3};
   padding: 5px 12px;
   border-radius: 10px;
   border: 1px solid ${({ focused }) => (focused ? "#8BBFF5" : "#CCCCCC")};

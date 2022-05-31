@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 export type RadiusButtonType =
   | "SHOW_MORE" // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
@@ -9,6 +9,9 @@ export type RadiusButtonType =
 
 /**
  * 모서리가 둥근 버튼입니다.
+ * @param content 버튼 내용
+ * @param type 버튼 타입 (어디에 쓰이는지)
+ * @param onPress 클릭 시 기능
  * @author 현웅
  */
 export function RadiusButton({
@@ -18,7 +21,7 @@ export function RadiusButton({
   fontStyle,
   activeOpacity,
   onPress,
-  ...props
+  props,
 }: {
   content: string;
   type: RadiusButtonType;
@@ -28,14 +31,15 @@ export function RadiusButton({
   onPress?: () => any;
   props?: ViewProps;
 }) {
+  //TODO: 이렇게 해도 종류가 많아지니까 지저분함. 더 좋은 방식?
   switch (type) {
     case "SHOW_MORE":
       return (
-        <ShowMoreButton__Container
-          {...props}
+        <ShowMoreButton__Container<React.ElementType>
           style={style}
           activeOpacity={activeOpacity}
-          onPress={onPress}>
+          onPress={onPress}
+          {...props}>
           <ShowMoreButton__Content style={fontStyle}>
             {content}
           </ShowMoreButton__Content>
@@ -44,11 +48,11 @@ export function RadiusButton({
 
     case "ADD_GIFT":
       return (
-        <AddGiftButton__Container
-          {...props}
+        <AddGiftButton__Container<React.ElementType>
           style={style}
           activeOpacity={activeOpacity}
-          onPress={onPress}>
+          onPress={onPress}
+          {...props}>
           <AddGiftButton__Content style={fontStyle}>
             {content}
           </AddGiftButton__Content>
@@ -66,17 +70,19 @@ const Button__Container = styled.TouchableOpacity`
   padding: 12px;
   border-radius: 12px;
 `;
-const Button__Content = styled(H2)`
+const Button__Content = styled(H3)`
   font-weight: bold;
 `;
 
+// case "SHOW_MORE"
 const ShowMoreButton__Container = styled(Button__Container)`
-  background-color: ${({ theme }) => theme.color.textfield_skyblue};
+  background-color: ${({ theme }) => theme.color.blue.mild};
 `;
 const ShowMoreButton__Content = styled(Button__Content)`
-  color: ${({ theme }) => theme.color.main_skyblue};
+  color: ${({ theme }) => theme.color.blue.main};
 `;
 
+// case "ADD_GIFT"
 const AddGiftButton__Container = styled(Button__Container)`
   background-color: #444444;
 `;

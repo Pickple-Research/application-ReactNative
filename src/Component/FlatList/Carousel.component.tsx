@@ -12,7 +12,7 @@ import {
   StyleProp,
 } from "react-native";
 import styled from "styled-components/native";
-import { H3 } from "src/StyledComponents/Text";
+import { H4 } from "src/StyledComponents/Text";
 
 type CarouselProps<DataType> = {
   //? data: 캐러샐에 나타낼 데이터 array
@@ -233,7 +233,7 @@ const IndicatorDot__Container = styled.View<{ focused: boolean }>`
   height: 6px;
   border-radius: 3px;
   background-color: ${({ focused, theme }) =>
-    focused ? theme.color.main_purple : theme.color.inactive_button};
+    focused ? theme.color.purple.main : theme.color.purple.inactive};
   margin: 0px 5px;
 `;
 
@@ -251,7 +251,7 @@ const PageIndex__Container = styled.View`
   border-radius: 10px;
 `;
 
-const PageIndex__Text = styled(H3)`
+const PageIndex__Text = styled(H4)`
   color: white;
   font-weight: bold;
 `;

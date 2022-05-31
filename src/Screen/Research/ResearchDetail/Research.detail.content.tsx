@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
 /**
@@ -42,4 +42,4 @@ const Container = styled.View`
 
 const Content__Container = styled.View``;
 
-const Content__Text = styled(H2)``;
+const Content__Text = styled(H3)``;

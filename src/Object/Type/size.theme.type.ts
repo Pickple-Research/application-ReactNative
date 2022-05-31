@@ -6,6 +6,7 @@ export type ThemeSizes = {
   header1: string;
   header2: string;
   header3: string;
+  header4: string;
   body: string;
   detail: string;
   small: string;

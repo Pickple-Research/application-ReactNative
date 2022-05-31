@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
-import { H2, H3, BodyText } from "src/StyledComponents/Text";
+import { screenStyles } from "./Mypage.landing.screen";
+import { H3, H4, BodyText } from "src/StyledComponents/Text";
 import PencilIcon from "@Resource/svg/pencil-icon.svg";
 
 /**
  * 마이페이지 랜딩 페이지 프로필 섹션
  * @author 현웅
  */
-export function ProfileLandingUserInfo() {
+export function MypageLandingUserInfo() {
   return (
     <Container style={{ ...screenStyles.padding }}>
       <ProfileThumbnail />
@@ -70,19 +70,19 @@ const Thumbnail__EditIconContainer = styled.View`
   width: 32px;
   height: 32px;
   background-color: white;
-  border: 1px solid ${({ theme }) => theme.color.inactive_button_purple};
+  border: 1px solid ${({ theme }) => theme.color.purple.inactive};
   border-radius: 100px;
 `;
 
 // NicknameEmail()
-const NicknameText = styled(H2)`
+const NicknameText = styled(H3)`
   color: black;
   font-weight: bold;
   margin-bottom: 5px;
 `;
 
-const EmailText = styled(H3)`
-  color: ${({ theme }) => theme.color.text_color_999};
+const EmailText = styled(H4)`
+  color: ${({ theme }) => theme.color.grey.mild};
   margin-bottom: 21px;
 `;
 
@@ -91,7 +91,7 @@ const Rank__Container = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 5px;
-  border: 1px solid ${({ theme }) => theme.color.background_purple};
+  border: 1px solid ${({ theme }) => theme.color.purple.mild};
   border-radius: 100px;
 `;
 
@@ -100,7 +100,7 @@ const Rank__IconContainer = styled.View`
   align-items: center;
   width: 28px;
   height: 28px;
-  background-color: ${({ theme }) => theme.color.pastel_purple};
+  background-color: ${({ theme }) => theme.color.purple.pastel};
   border-radius: 100px;
 `;
 

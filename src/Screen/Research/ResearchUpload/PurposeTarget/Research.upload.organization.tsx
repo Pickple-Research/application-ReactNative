@@ -38,8 +38,10 @@ function OrganizationInput() {
     <OrganizationInput__Container
       style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
-        placeHolder="기업/단체/수업명 ex. 알투씨 컴퍼니"
-        onChangeText={setOrganizationInput}
+        props={{
+          placeholder: "기업/단체/수업명 ex. 알투씨 컴퍼니",
+          onChangeText: setOrganizationInput,
+        }}
       />
     </OrganizationInput__Container>
   );

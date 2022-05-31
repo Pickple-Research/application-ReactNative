@@ -8,7 +8,7 @@ import { PartnerProps } from "@Object/Type";
 import { PartnerType } from "@Object/Enum";
 import { usePartnerStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
-import { H3, BodyText } from "src/StyledComponents/Text";
+import { H4, BodyText } from "src/StyledComponents/Text";
 import SortIcon from "@Resource/svg/sort-icon.svg";
 
 /**
@@ -47,9 +47,10 @@ function PartnersList() {
   );
 
   /**
-   * #TYPE #TYPESCRIPT
-   * FlatList를 styled-components, Typescript와 같이 쓰는 경우
-   * <React.Element> 타입을 지정해줍니다. 왜인진 저도 아직 확실히 몰라요..
+   * #TYPE #TYPESCRIPT #STYLED-COMPONENTS
+   * styled-components로 정의된 React 컴포넌트에 기본 props를 넘겨줘야 하는 경우
+   * <React.ElementType> 타입을 지정해줍니다.
+   * (왜인지 이유는 저도 아직 확실히 이해하진 못했습니다. styled-components에 제네릭을 정의해줄 수 있는 걸 보긴 했는데..)
    * @see https://stackoverflow.com/questions/64460114/rn-flatlist-with-typescript-and-styled-components#
    * @author 현웅
    */
@@ -115,7 +116,7 @@ const Filter__Container = styled.View`
 const FilterHeader__Filter = styled.View``;
 
 const PartnersList__Container = styled.FlatList`
-  background-color: ${({ theme }) => theme.color.background_purple};
+  background-color: ${({ theme }) => theme.color.purple.mild};
 `;
 
 // Partner()
@@ -150,7 +151,7 @@ const Partner__NameTypeContainer = styled.View`
   margin-bottom: 1px;
 `;
 
-const Partner__Name = styled(H3)`
+const Partner__Name = styled(H4)`
   color: black;
   font-weight: bold;
 `;
@@ -168,6 +169,6 @@ const Partner__NewResearchContainer = styled.View`
   margin-top: 12px;
 `;
 
-const Partner__NewResearchTitle = styled(H3)`
+const Partner__NewResearchTitle = styled(H4)`
   flex: 1;
 `;

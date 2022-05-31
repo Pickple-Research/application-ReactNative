@@ -44,7 +44,7 @@ export const screenStyles = StyleSheet.create({
   },
 
   headerMoreText: {
-    color: theme.color.text_purple,
+    color: theme.color.purple.text,
     fontSize: 13,
   },
 });

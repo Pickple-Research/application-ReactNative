@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import SettingIcon from "@Resource/svg/setting-icon.svg";
 import SendIcon from "@Resource/svg/send-icon.svg";
 import AlarmIcon from "@Resource/svg/alarm-icon.svg";
@@ -10,7 +10,7 @@ import AlarmIcon from "@Resource/svg/alarm-icon.svg";
  * 마이페이지 랜딩 페이지 최상단 헤더 섹션
  * @author 현웅
  */
-export function ProfileLandingHeader() {
+export function MypageLandingHeader() {
   return (
     <Container style={{ ...screenStyles.padding }}>
       <MYText>MY</MYText>

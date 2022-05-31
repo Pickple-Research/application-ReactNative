@@ -5,7 +5,7 @@ import { ResearchDday } from "./Research.dday.component";
 import { ResearchTarget } from "./Research.target.component";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
-import { H2 } from "src/StyledComponents/Text";
+import { H1 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.
@@ -93,7 +93,7 @@ const ResearchInfo__TagsContainer = styled.View`
   margin-bottom: 8px;
 `;
 
-const ResearchInfo__TitleText = styled(H2)`
+const ResearchInfo__TitleText = styled(H1)`
   width: 90%;
   height: 28px;
   color: black;

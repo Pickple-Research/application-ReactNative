@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Profile.landing.screen";
+import { screenStyles } from "./Mypage.landing.screen";
 import { Carousel } from "@Component/FlatList";
 import { globalStyles } from "src/Style";
-import { H3, DetailText } from "src/StyledComponents/Text";
+import { H4, DetailText } from "src/StyledComponents/Text";
 
 /**
  * 마이페이지 랜딩 페이지 이벤트 섹션
  * @author 현웅
  */
-export function ProfileLandingEvent() {
+export function MypageLandingEvent() {
   return (
     <Container style={{ ...screenStyles.border }}>
       <SectionHeader />
@@ -75,7 +75,7 @@ const Container = styled.View`
 
 const SectionHeader__Container = styled.View``;
 
-const SectionHeader__Title = styled(H3)``;
+const SectionHeader__Title = styled(H4)``;
 
 // EventButton()
 const EventButton__Container = styled.View`
@@ -90,11 +90,11 @@ const EventButton__ImgContainer = styled.View`
   margin-bottom: 12px;
 `;
 
-const EventButton__TitleText = styled(H3)`
-  color: ${({ theme }) => theme.color.text_color_333};
+const EventButton__TitleText = styled(H4)`
+  color: ${({ theme }) => theme.color.grey.deep};
   margin-bottom: 8px;
 `;
 
 const EventButton__DeadlineText = styled(DetailText)`
-  color: ${({ theme }) => theme.color.text_color_999};
+  color: ${({ theme }) => theme.color.grey.mild};
 `;

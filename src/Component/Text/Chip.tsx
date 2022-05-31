@@ -58,8 +58,8 @@ const Chip__Text = styled(DetailText)`
 `;
 
 const PartnerTypeChip = styled(Chip__Text)`
-  color: ${({ theme }) => theme.color.text_skyblue};
-  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  color: ${({ theme }) => theme.color.blue.text};
+  background-color: ${({ theme }) => theme.color.blue.pastel};
   padding: 3px 10px;
 `;
 
@@ -70,19 +70,19 @@ const ResearchTypeChip = styled(Chip__Text)`
 `;
 
 const PartnerNewResearchChip = styled(Chip__Text)`
-  color: ${({ theme }) => theme.color.text_skyblue};
-  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  color: ${({ theme }) => theme.color.blue.text};
+  background-color: ${({ theme }) => theme.color.blue.pastel};
   padding: 8px 12px;
 `;
 
 const AvailableResearchCreditChip = styled(Chip__Text)`
-  color: ${({ theme }) => theme.color.text_skyblue};
-  background-color: ${({ theme }) => theme.color.pastel_skyblue};
+  color: ${({ theme }) => theme.color.blue.text};
+  background-color: ${({ theme }) => theme.color.blue.pastel};
   padding: 3px 10px;
 `;
 
 const UnavailableResearchCreditChip = styled(Chip__Text)`
-  color: ${({ theme }) => theme.color.text_purple};
+  color: ${({ theme }) => theme.color.purple.text};
   background-color: #444444;
   padding: 3px 10px;
 `;

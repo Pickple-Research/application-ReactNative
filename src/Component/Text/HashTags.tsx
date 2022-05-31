@@ -28,6 +28,6 @@ export function HashTags({
 }
 
 const HashTags__Text = styled(DetailText)`
-  color: ${({ theme }) => theme.color.main_skyblue};
+  color: ${({ theme }) => theme.color.blue.main};
   font-weight: bold;
 `;

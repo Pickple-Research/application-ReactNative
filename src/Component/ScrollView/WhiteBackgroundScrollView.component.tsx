@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  ScrollView,
-  StyleProp,
-  ViewStyle,
-  ScrollViewProps,
-} from "react-native";
+import { StyleProp, ViewStyle, ScrollViewProps } from "react-native";
 import styled from "styled-components/native";
 import { ThemeColors } from "@Object/Type";
+
+type BackgroundColor = "WHITE" | "PURPLE";
 
 /**
  * 페이지 전체 컴포넌트를 담거나 페이지 끝부분을 포함하는 스크롤 리스트를 담는 데 사용되는 종스크롤 ScrollView입니다.
@@ -18,7 +15,7 @@ export function WhiteBackgroundScrollView({
   backgroundColor = "WHITE",
   style,
   contentContainerStyle,
-  ...props
+  props,
 }: {
   children: JSX.Element | JSX.Element[];
   backgroundColor?: BackgroundColor; // 배경색을 지정합니다. 기본적으로 흰색입니다.
@@ -28,7 +25,7 @@ export function WhiteBackgroundScrollView({
 }) {
   return (
     <SafeArea>
-      <Container
+      <Container<React.ElementType>
         style={style}
         backgroundColor={backgroundColor}
         contentContainerStyle={[{ paddingBottom: 70 }, contentContainerStyle]}
@@ -40,8 +37,6 @@ export function WhiteBackgroundScrollView({
   );
 }
 
-export type BackgroundColor = "WHITE" | "PURPLE";
-
 const scrollViewBackgroundColor = (
   backgroundColor: BackgroundColor,
   color: ThemeColors,
@@ -50,14 +45,14 @@ const scrollViewBackgroundColor = (
     case "WHITE":
       return "white";
     case "PURPLE":
-      return color.background_purple;
+      return color.purple.mild;
     default:
       return "white";
   }
 };
 
 // IPhone의 경우 safearea 내부에 컴포넌트를 위치시켜야 status bar를 침범하지 않습니다.
-const SafeArea = styled.SafeAreaView``
+const SafeArea = styled.SafeAreaView``;
 
 const Container = styled.ScrollView<{ backgroundColor: BackgroundColor }>`
   position: relative;

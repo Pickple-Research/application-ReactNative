@@ -11,7 +11,7 @@ import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { VoteProps } from "@Object/Type";
 import { useVoteStore } from "src/Zustand";
-import { H2, DetailText } from "src/StyledComponents/Text";
+import { H3, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
 /**
@@ -73,7 +73,7 @@ const Container = styled.View`
 // HotVote()
 const HotVote__Container = styled.View``;
 
-const HotVote__Title = styled(H2)`
+const HotVote__Title = styled(H3)`
   font-weight: bold;
   margin-bottom: 12px;
 `;

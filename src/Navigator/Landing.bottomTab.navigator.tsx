@@ -4,30 +4,30 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   PartnerLandingScreen,
   PartnerLandingScreenProps,
-} from "@Screen/Partner";
+} from "src/Screen/Partner";
 import {
   ResearchLandingScreen,
   ResearchLandingScreenProps,
-} from "@Screen/Research";
-import { HomeLandingScreen, HomeLandingScreenProps } from "@Screen/Home";
+} from "src/Screen/Research";
+import { HomeLandingScreen, HomeLandingScreenProps } from "src/Screen/Home";
 import {
   CommunityLandingScreen,
   CommunityLandingScreenProps,
-} from "@Screen/Community";
+} from "src/Screen/Community";
 import {
-  ProfileLandingScreen,
-  ProfileLandingScreenProps,
-} from "@Screen/Profile";
-import { HomeLandingScreenHeader } from "@Screen/Home/Home.landing.screenHeader";
-import { LinearGradeintContainer } from "@Component/View";
+  MypageLandingScreen,
+  MypageLandingScreenProps,
+} from "src/Screen/Mypage";
+import { HomeLandingScreenHeader } from "src/Screen/Home/Home.landing.screenHeader";
+import { LinearGradeintContainer } from "src/Component/View";
 import {
   HomeIcon,
   PartnerIcon,
   ResearchIcon,
   CommunityIcon,
   MypageSvgIcon,
-} from "@Component/Svg";
-import { theme } from "@Theme/theme";
+} from "src/Component/Svg";
+import { theme } from "src/Theme/theme";
 
 const LandingBottomTab = createBottomTabNavigator<LandingBottomTabProps>();
 
@@ -40,7 +40,7 @@ export type LandingBottomTabProps = {
   ResearchLandingScreen: ResearchLandingScreenProps;
   HomeLandingScreen: HomeLandingScreenProps;
   CommunityLandingScreen: CommunityLandingScreenProps;
-  ProfileLandingScreen: ProfileLandingScreenProps;
+  MypageLandingScreen: MypageLandingScreenProps;
 };
 
 /**
@@ -107,8 +107,8 @@ export function LandingBottomTabNavigator() {
 
       {/* 마이페이지 스택 */}
       <LandingBottomTab.Screen
-        name={"ProfileLandingScreen"}
-        component={ProfileLandingScreen}
+        name={"MypageLandingScreen"}
+        component={MypageLandingScreen}
         options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="마이페이지" focused={focused} />

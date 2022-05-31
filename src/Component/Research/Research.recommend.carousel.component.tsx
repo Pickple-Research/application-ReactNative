@@ -7,7 +7,7 @@ import { Carousel } from "@Component/FlatList";
 import { ResearchTarget, ResearchGiftIcons } from "@Component/Research";
 import { Chip, HashTags } from "@Component/Text";
 import { ResearchProps } from "@Object/Type";
-import { H2 } from "src/StyledComponents/Text";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 추천 리서치 캐러샐입니다.
@@ -63,7 +63,7 @@ export function ResearchRecommendCarouselItem({
 const CarouselItem__Container = styled.TouchableOpacity`
   width: 270px;
   padding: 10px 14px 18px 16px;
-  border: 1px solid ${({ theme }) => theme.color.background_purple};
+  border: 1px solid ${({ theme }) => theme.color.purple.mild};
   border-radius: 12px;
   margin: 0px 6px;
 `;
@@ -75,7 +75,7 @@ const CarouselItem__TagGiftContainer = styled.View`
   margin-bottom: 4px;
 `;
 
-const CarouselItem__ResearchTitle = styled(H2)`
+const CarouselItem__ResearchTitle = styled(H3)`
   width: 85%;
   height: 28px;
   color: black;

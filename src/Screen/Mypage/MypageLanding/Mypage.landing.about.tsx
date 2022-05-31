@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components/native";
 import { globalStyles } from "src/Style";
-import { H1, H3 } from "src/StyledComponents/Text";
+import { H1, H4 } from "src/StyledComponents/Text";
 
 /**
  * 마이페이지 랜딩 페이지 최하단 'about 픽플리' 섹션
  * @author 현웅
  */
-export function ProfileLandingAbout() {
+export function MypageLandingAbout() {
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <About__Container>
@@ -26,16 +26,16 @@ const About__Container = styled.View`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  border: 1px solid ${({ theme }) => theme.color.background_purple};
+  border: 1px solid ${({ theme }) => theme.color.purple.mild};
   border-radius: 10px;
 `;
 
-const About__FormerText = styled(H3)`
-  color: ${({ theme }) => theme.color.main_purple};
+const About__FormerText = styled(H4)`
+  color: ${({ theme }) => theme.color.purple.main};
   margin-right: 10px;
 `;
 
 const About__LatterText = styled(H1)`
-  color: ${({ theme }) => theme.color.text_purple};
+  color: ${({ theme }) => theme.color.purple.text};
   font-weight: bold;
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
-import { SimpleTextInput } from "src/Component/TextInput";
+import { LinedTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
@@ -32,9 +32,11 @@ function LinkInput() {
 
   return (
     <LinkInput__Container style={globalStyles.screen__horizontalPadding}>
-      <SimpleTextInput
-        placeHolder="https://form.gle/example"
-        dataTransfer={setLinkInput}
+      <LinedTextInput
+        props={{
+          placeholder: "구글폼/네이버폼 링크를 입력해주세요",
+          onChangeText: setLinkInput,
+        }}
       />
     </LinkInput__Container>
   );
@@ -43,3 +45,5 @@ function LinkInput() {
 const Container = styled.View``;
 
 const LinkInput__Container = styled.View``;
+
+const TextInput = styled.TextInput``;

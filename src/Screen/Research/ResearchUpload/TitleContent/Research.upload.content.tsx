@@ -35,8 +35,10 @@ function ContentInput() {
   return (
     <ContentInput__Container style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
-        placeHolder="참여하시는 분들께 리서치를 설명해주세요"
-        onChangeText={setContentInput}
+        props={{
+          placeholder: "참여하시는 분들께 리서치를 설명해주세요",
+          onChangeText: setContentInput,
+        }}
       />
     </ContentInput__Container>
   );

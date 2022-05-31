@@ -92,6 +92,6 @@ const CategoryListItem__Container = styled.View`
 `;
 
 const CategoryListItem__Text = styled(DetailText)`
-  color: ${({ theme }) => theme.color.text_color_666};
+  color: ${({ theme }) => theme.color.grey.icon};
   font-weight: bold;
 `;

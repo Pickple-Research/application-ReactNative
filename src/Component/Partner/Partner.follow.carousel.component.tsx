@@ -87,7 +87,7 @@ const Notification__Container = styled.View`
   align-items: center;
   width: 16px;
   height: 16px;
-  background-color: ${({ theme }) => theme.color.main_purple};
+  background-color: ${({ theme }) => theme.color.purple.main};
   border-radius: 100px;
 `;
 
@@ -98,5 +98,5 @@ const Notification__Text = styled(DetailText)`
 `;
 
 const PartnerName = styled(DetailText)`
-  color: ${({ theme }) => theme.color.text_color_666};
+  color: ${({ theme }) => theme.color.grey.icon};
 `;

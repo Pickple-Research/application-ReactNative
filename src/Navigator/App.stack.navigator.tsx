@@ -8,12 +8,12 @@ import {
 // 파트너 관련 Screen
 import {
   PartnerCategoryScreen,
+  PartnerCategoryScreenHeader,
   PartnerCategoryScreenProps,
   PartnerDetailScreen,
+  PartnerDetailScreenHeader,
   PartnerDetailScreenProps,
-} from "@Screen/Partner";
-import { PartnerCategoryScreenHeader } from "src/Screen/Partner/PartnerCategory/Partner.category.screenHeader";
-import { PartnerDetailScreenHeader } from "src/Screen/Partner/PartnerDetail/Partner.detail.screenHeader";
+} from "src/Screen/Partner";
 // 리서치 관련 Screen
 import {
   ResearchDetailScreen,
@@ -23,6 +23,11 @@ import {
 } from "src/Screen/Research";
 // 커뮤니티(투표) 관련 Screen
 // 마이페이지 관련 Screen
+import {
+  MypageVotedScreen,
+  MypageVotedScreenHeader,
+  MypageVotedScreenProps,
+} from "src/Screen/Mypage";
 
 /**
  * 앱에서 사용되는 모든 스크린의 속성들을 정의합니다.
@@ -39,6 +44,7 @@ export type AppStackProps = {
   ResearchUploadScreen: ResearchUploadScreenProps;
   // 커뮤니티(투표) 관련 Screen
   // 마이페이지 관련 Screen
+  MypageVotedScreen: MypageVotedScreenProps;
 };
 
 const AppStack = createNativeStackNavigator<AppStackProps>();
@@ -93,7 +99,16 @@ export function AppStackNavigator() {
       {/* <AppStack.Group></AppStack.Group> */}
 
       {/* 마이페이지 관련 Screen 그룹 */}
-      {/* <AppStack.Group></AppStack.Group> */}
+      <AppStack.Group>
+        <AppStack.Screen
+          name={"MypageVotedScreen"}
+          component={MypageVotedScreen}
+          options={{
+            headerShown: true,
+            header: MypageVotedScreenHeader,
+          }}
+        />
+      </AppStack.Group>
     </AppStack.Navigator>
   );
 }

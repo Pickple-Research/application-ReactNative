@@ -3,6 +3,7 @@
  * @author 현웅
  */
 export type VoteProps = {
+  id: string;
   title: string;
   options: VoteOptionProps[];
   tag: string;
