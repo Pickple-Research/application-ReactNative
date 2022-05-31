@@ -68,6 +68,7 @@ function GiftDeleteButton({ index }: { index: number }) {
 const Container = styled.View`
   align-items: center;
   padding: 16px 16px 0px 16px;
+  //TODO: #DESIGN-SYSTEM
   background-color: #f5f5f5;
   border: 1px solid black;
   border-radius: 10px;

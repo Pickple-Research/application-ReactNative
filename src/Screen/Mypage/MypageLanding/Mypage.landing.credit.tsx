@@ -47,7 +47,7 @@ const Credit__IconContainer = styled.View`
 
 const Credit__Text = styled(H1)`
   flex: 1;
-  color: black;
+  font-weight: bold;
   padding: 0px 15px;
 `;
 

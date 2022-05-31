@@ -7,6 +7,8 @@ import { BodyText } from "src/StyledComponents/Text";
  * 리서치 타겟 정보 리스트를 받아
  * '여성 · 20대 · 30대' 와 같은 형태로 반환합니다.
  * 추가적인 스타일 지정이 필요한 경우, style 변수를 넣어주면 됩니다.
+ * @param targets 리서치 타겟의 문자열 리스트
+ * @param styles 추가적인 스타일 지정
  * @author 현웅
  */
 export function ResearchTarget({
@@ -24,5 +26,6 @@ export function ResearchTarget({
 }
 
 const Targets__Text = styled(BodyText)`
-  color: ${({ theme }) => theme.color.text_color_8f};
+  //TODO: #DESIGN-SYSTEM
+  color: #8f8f8f;
 `;

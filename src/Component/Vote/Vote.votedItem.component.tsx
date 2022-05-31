@@ -1,6 +1,8 @@
 import React from "react";
-import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
+import { StyleProp, ViewStyle } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { VoteProps } from "src/Object/Type";
 import { H3, H4, DetailText, SmallText } from "src/StyledComponents/Text";
 import MarkedIcon from "src/Resource/svg/marked-icon.svg";
@@ -9,15 +11,22 @@ import MarkedIcon from "src/Resource/svg/marked-icon.svg";
  * 마이페이지 '투표한 글' 리스트에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function VoteParticipatedItem({
+export function VoteVotedItem({
   vote,
   style,
 }: {
   vote: VoteProps;
   style?: StyleProp<ViewStyle>;
 }) {
+  const navigation = useNavigation<NavigationProp<AppStackProps>>();
+
   return (
-    <Container style={style}>
+    <Container
+      style={style}
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("CommunityVoteDetailScreen", {});
+      }}>
       <Icon />
       <TitleInfo vote={vote} />
       <Author />
@@ -57,7 +66,7 @@ function Author() {
   );
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   padding: 12px;
@@ -88,7 +97,6 @@ const TitleInfo__TitleContainer = styled.View`
 `;
 
 const TitleInfo__Title = styled(H3)`
-  color: black;
   font-weight: bold;
 `;
 

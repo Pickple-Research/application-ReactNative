@@ -6,10 +6,10 @@ import {
   VoteListContainer,
   VoteParticipantInfo,
   VoteOption,
-} from "@Component/Vote";
-import { SectionHeaderText } from "@Component/Text";
+} from "src/Component/Vote";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { VoteProps } from "@Object/Type";
+import { VoteProps } from "src/Object/Type";
 import { useVoteStore } from "src/Zustand";
 import { H3, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
@@ -47,6 +47,7 @@ function HotVote({ vote }: { vote: VoteProps }) {
             <VoteOption
               key={`${index}:${option.content.slice(0, 4)}`}
               voteOption={option}
+              selected={true}
             />
           );
         })}

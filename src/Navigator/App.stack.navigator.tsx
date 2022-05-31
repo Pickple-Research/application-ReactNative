@@ -22,6 +22,11 @@ import {
   ResearchUploadScreenProps,
 } from "src/Screen/Research";
 // 커뮤니티(투표) 관련 Screen
+import {
+  CommunityVoteDetailScreen,
+  CommunityVoteDetailScreenHeader,
+  CommunityVoteDetailScreenProps,
+} from "src/Screen/Community";
 // 마이페이지 관련 Screen
 import {
   MypageVotedScreen,
@@ -43,6 +48,7 @@ export type AppStackProps = {
   ResearchDetailScreen: ResearchDetailScreenProps;
   ResearchUploadScreen: ResearchUploadScreenProps;
   // 커뮤니티(투표) 관련 Screen
+  CommunityVoteDetailScreen: CommunityVoteDetailScreenProps;
   // 마이페이지 관련 Screen
   MypageVotedScreen: MypageVotedScreenProps;
 };
@@ -96,7 +102,16 @@ export function AppStackNavigator() {
       </AppStack.Group>
 
       {/* 커뮤니티(투표) 관련 Screen 그룹 */}
-      {/* <AppStack.Group></AppStack.Group> */}
+      <AppStack.Group>
+        <AppStack.Screen
+          name={"CommunityVoteDetailScreen"}
+          component={CommunityVoteDetailScreen}
+          options={{
+            headerShown: true,
+            header: CommunityVoteDetailScreenHeader,
+          }}
+        />
+      </AppStack.Group>
 
       {/* 마이페이지 관련 Screen 그룹 */}
       <AppStack.Group>

@@ -78,7 +78,6 @@ const GiftCarouselItem__ImgContainer = styled.View`
 `;
 
 const GiftCarouselItem__GiftName = styled(H4)`
-  color: black;
   font-weight: bold;
   margin-bottom: 4px;
 `;

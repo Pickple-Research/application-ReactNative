@@ -64,7 +64,6 @@ const PartnerInfo__Container = styled.View`
 `;
 
 const PartnerInfo__PartnerName = styled(H4)`
-  color: black;
   font-weight: bold;
   margin-bottom: 6px;
 `;

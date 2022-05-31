@@ -78,7 +78,6 @@ const CarouselItem__TagGiftContainer = styled.View`
 const CarouselItem__ResearchTitle = styled(H3)`
   width: 85%;
   height: 28px;
-  color: black;
   font-weight: bold;
   line-height: 14px;
   margin-bottom: 10px;

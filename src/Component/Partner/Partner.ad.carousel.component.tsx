@@ -102,7 +102,6 @@ const NameTag__Container = styled.View`
 `;
 
 const PartnerName = styled(H3)`
-  color: black;
   font-weight: bold;
   margin-bottom: 4px;
 `;

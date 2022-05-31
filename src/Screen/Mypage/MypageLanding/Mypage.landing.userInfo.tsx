@@ -76,7 +76,6 @@ const Thumbnail__EditIconContainer = styled.View`
 
 // NicknameEmail()
 const NicknameText = styled(H3)`
-  color: black;
   font-weight: bold;
   margin-bottom: 5px;
 `;

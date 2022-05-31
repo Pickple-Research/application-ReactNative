@@ -116,9 +116,7 @@ const EventPost__TitleDateContainer = styled.View`
 
 const EventPost__TitleContainer = styled.View``;
 
-const EventPost__Title = styled(H4)`
-  color: black;
-`;
+const EventPost__Title = styled(H4)``;
 
 const EventPost__Date = styled(DetailText)``;
 

@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { VoteParticipantInfo } from "@Component/Vote";
 import { H4, BodyText } from "src/StyledComponents/Text";
 
@@ -8,8 +10,14 @@ import { H4, BodyText } from "src/StyledComponents/Text";
  * @author 현웅
  */
 export function VoteRow() {
+  const navigation = useNavigation<NavigationProp<AppStackProps>>();
+
   return (
-    <Container>
+    <Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("CommunityVoteDetailScreen", {});
+      }}>
       <VoteCategory>자유 토픽</VoteCategory>
       <VoteTitle numberOfLines={1}>
         진짜 변기 물 내릴 때 발로 눌러서 내리나요?
@@ -19,7 +27,7 @@ export function VoteRow() {
   );
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   align-items: center;
@@ -27,7 +35,6 @@ const Container = styled.View`
 `;
 
 const VoteCategory = styled(H4)`
-  color: black;
   font-weight: bold;
   margin-right: 8px;
 `;
