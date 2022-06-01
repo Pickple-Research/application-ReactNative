@@ -1,2 +1,2 @@
 export * from "./RoundTextInput.component";
-export * from "./SimpleTextInput.component";
+export * from "./LinedTextInput.component";

@@ -1,7 +1,7 @@
 import create from "zustand";
 import { ResearchUploadGiftProps } from "src/Object/Type";
 
-type ResearchUploadProps = {
+type ResearchUploadStoreProps = {
   /** 리서치 업로드 단계 */
   step: number;
   goNextStop: () => void;
@@ -31,7 +31,7 @@ type ResearchUploadProps = {
   /** 경품 삭제 함수 */
   removeGift: (index: number) => void;
   /** 경품 이름 수정 함수. index와 경품 이름을 인자로 받아 전체 경품을 재설정합니다. */
-  updateGift: (index: number, giftName: string) => void;
+  updateGiftName: (index: number, giftName: string) => void;
 
   /** 추가 크레딧 수령 인원 수 */
   creditReceiverNum: number;
@@ -40,13 +40,16 @@ type ResearchUploadProps = {
   /** 추가 크레딧 */
   extraCredit: number;
   setExtraCredit: (credit: number) => void;
+
+  /** 리서치 업로드 */
+  uploadResearch: () => void;
 };
 
 /**
- * 리서치 업로드 페이지에서 사용되는 값과 함수들을 정의합니다.
+ * 리서치 업로드 페이지에서 사용되는 상태/상태관리 함수들을 정의합니다.
  * @author 현웅
  */
-export const useResearchUploadStore = create<ResearchUploadProps>(
+export const useResearchUploadStore = create<ResearchUploadStoreProps>(
   (set, get) => ({
     step: 0,
     goNextStop: () => {
@@ -81,8 +84,8 @@ export const useResearchUploadStore = create<ResearchUploadProps>(
       set({ targetInput: input });
     },
 
-    giftIndex: 0,
-    gifts: [],
+    giftIndex: 1,
+    gifts: [{ giftName: "", index: 0 }],
     addNewGift: () => {
       //* 기존 gifts에 새로운 gift 요소를 추가하고
       set({
@@ -103,15 +106,24 @@ export const useResearchUploadStore = create<ResearchUploadProps>(
       set({ gifts: updatedGifts });
     },
     //TODO: 경품 이름/사진 바꾸는 방식 고민
-    updateGift: (index: number, giftName: string) => {
-      const updatedGift: ResearchUploadGiftProps = { index, giftName };
-      const updatedGifts = get().gifts.map(gift => {
-        if (gift.index === index) {
-          return updatedGift;
-        }
-        return gift;
+    updateGiftName: (index: number, giftName: string) => {
+      // 리서치 경품은 삭제가 가능하므로 최초에 부여된 index와 실제 index가 다를 수 있음.
+      // 때문에 gifts 내에서 실제 index를 찾은 후 경품 이름을 수정해야 함.
+      const arrayIndex = get().gifts.findIndex(gift => gift.index === index);
+      if (arrayIndex === -1) return;
+
+      set(state => {
+        state.gifts[arrayIndex].giftName = giftName;
       });
-      set({ gifts: updatedGifts });
+
+      // const updatedGift: ResearchUploadGiftProps = { index, giftName };
+      // const updatedGifts = get().gifts.map(gift => {
+      //   if (gift.index === index) {
+      //     return updatedGift;
+      //   }
+      //   return gift;
+      // });
+      // set({ gifts: updatedGifts });
     },
 
     creditReceiverNum: 0,
@@ -123,5 +135,7 @@ export const useResearchUploadStore = create<ResearchUploadProps>(
     setExtraCredit: (credit: number) => {
       set({ extraCredit: credit });
     },
+
+    uploadResearch: () => {},
   }),
 );

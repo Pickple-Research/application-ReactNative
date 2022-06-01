@@ -35,15 +35,14 @@ function GiftImageInput() {
 }
 
 function GiftName({ gift }: { gift: ResearchUploadGiftProps }) {
-  const updateGiftName = useResearchUploadStore(state => state.updateGift);
+  const updateGiftName = useResearchUploadStore(state => state.updateGiftName);
 
   return (
     <GiftName__Container>
       <GiftName__Text>상품명</GiftName__Text>
       <RoundTextInput
         props={{
-          value: gift.giftName,
-          onChangeText: newGiftName => {
+          onChangeText: (newGiftName: string) => {
             updateGiftName(gift.index, newGiftName);
           },
         }}

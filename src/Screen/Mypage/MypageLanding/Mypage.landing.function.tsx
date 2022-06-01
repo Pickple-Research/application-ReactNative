@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Mypage.landing.screen";
-import { globalStyles } from "src/Style";
+import { SectionHeader__Container } from "src/StyledComponents/View";
 import { H3, H4 } from "src/StyledComponents/Text";
+import { globalStyles } from "src/Style";
 
 /**
  * 마이페이지 랜딩 페이지 고객기능 섹션
@@ -10,11 +11,7 @@ import { H3, H4 } from "src/StyledComponents/Text";
  */
 export function MypageLandingFunction() {
   return (
-    <Container
-      style={{
-        ...globalStyles.screen__horizontalPadding,
-        ...screenStyles.border,
-      }}>
+    <Container style={screenStyles.boundary}>
       <SectionHeader />
       <FunctionsList />
     </Container>
@@ -23,15 +20,15 @@ export function MypageLandingFunction() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container style={{ ...screenStyles.header__margin }}>
-      <SectionHeader__Title>고객기능</SectionHeader__Title>
+    <SectionHeader__Container style={{ marginBottom: 8 }}>
+      <SectionHeader__Text>고객기능</SectionHeader__Text>
     </SectionHeader__Container>
   );
 }
 
 function FunctionsList() {
   return (
-    <FunctionsList__Container>
+    <FunctionsList__Container style={globalStyles.screen__horizontalPadding}>
       <NoticeFunction />
       <FAQFunction />
       <CustomerServiceFunction />
@@ -77,9 +74,9 @@ const Container = styled.View`
   margin-bottom: 25px;
 `;
 
-const SectionHeader__Container = styled.View``;
-
-const SectionHeader__Title = styled(H4)``;
+const SectionHeader__Text = styled(H4)`
+  color: ${({ theme }) => theme.color.grey.mild};
+`;
 
 const FunctionsList__Container = styled.View``;
 

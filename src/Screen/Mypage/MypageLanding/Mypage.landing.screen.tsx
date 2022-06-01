@@ -39,15 +39,11 @@ export function MypageLandingScreen() {
 }
 
 export const screenStyles = StyleSheet.create({
-  padding: {
-    paddingHorizontal: 20,
-  },
-
   header__margin: {
     marginBottom: 20,
   },
 
-  border: {
+  boundary: {
     borderBottomWidth: 8,
     borderBottomColor: theme.color.purple.mild,
   },

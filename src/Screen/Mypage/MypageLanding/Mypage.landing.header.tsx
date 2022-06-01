@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Mypage.landing.screen";
-import SettingIcon from "@Resource/svg/setting-icon.svg";
-import SendIcon from "@Resource/svg/send-icon.svg";
-import AlarmIcon from "@Resource/svg/alarm-icon.svg";
+import { globalStyles } from "src/Style/globalStyles";
+import SettingIcon from "src/Resource/svg/setting-icon.svg";
+import SendIcon from "src/Resource/svg/send-icon.svg";
+import AlarmIcon from "src/Resource/svg/alarm-icon.svg";
 
 /**
  * 마이페이지 랜딩 페이지 최상단 헤더 섹션
@@ -12,7 +12,7 @@ import AlarmIcon from "@Resource/svg/alarm-icon.svg";
  */
 export function MypageLandingHeader() {
   return (
-    <Container style={{ ...screenStyles.padding }}>
+    <Container style={globalStyles.screen__horizontalPadding}>
       <MYText>MY</MYText>
       <Icons />
     </Container>

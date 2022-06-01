@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { screenStyles } from "./Mypage.landing.screen";
-import { Carousel } from "@Component/FlatList";
-import { globalStyles } from "src/Style";
+import { SectionHeader__Container } from "src/StyledComponents/View";
+import { Carousel } from "src/Component/FlatList";
 import { H4, DetailText } from "src/StyledComponents/Text";
 
 /**
@@ -12,7 +12,7 @@ import { H4, DetailText } from "src/StyledComponents/Text";
  */
 export function MypageLandingEvent() {
   return (
-    <Container style={{ ...screenStyles.border }}>
+    <Container style={{ ...screenStyles.boundary }}>
       <SectionHeader />
       <EventCarousel />
     </Container>
@@ -21,12 +21,8 @@ export function MypageLandingEvent() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container
-      style={{
-        ...globalStyles.screen__horizontalPadding,
-        ...screenStyles.header__margin,
-      }}>
-      <SectionHeader__Title>이벤트</SectionHeader__Title>
+    <SectionHeader__Container>
+      <SectionHeader__Text>이벤트</SectionHeader__Text>
     </SectionHeader__Container>
   );
 }
@@ -73,9 +69,9 @@ const Container = styled.View`
   margin-bottom: 15px;
 `;
 
-const SectionHeader__Container = styled.View``;
-
-const SectionHeader__Title = styled(H4)``;
+const SectionHeader__Text = styled(H4)`
+  color: ${({ theme }) => theme.color.grey.mild};
+`;
 
 // EventButton()
 const EventButton__Container = styled.View`

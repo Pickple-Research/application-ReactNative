@@ -1,50 +1,49 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { AppStackProps } from "src/Navigator";
 import { CommunityLandingSearch } from "./Community.landing.search";
 import { CommunityLandingInterest } from "./Community.landing.interest";
 import { CommunityLandingHotVote } from "./Community.landing.hotVote";
 import { CommunityLandingPopular } from "./Community.landing.popular";
 import { CommunityLandingRecent } from "./Community.landing.recent";
-import { WhiteBackgroundScrollView } from "@Component/ScrollView";
-import { theme } from "src/Theme";
+import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import { CreateIcon } from "src/Component/Icon";
 
 export type CommunityLandingScreenProps = {};
+
+type AppStackCommunityLandingScreenProps = NativeStackScreenProps<
+  AppStackProps,
+  "LandingBottomTabNavigator"
+>;
 
 /**
  * 커뮤니티 랜딩 페이지
  * @author 현웅
  */
-export function CommunityLandingScreen() {
+export function CommunityLandingScreen({
+  route,
+  navigation,
+}: AppStackCommunityLandingScreenProps) {
   return (
-    <WhiteBackgroundScrollView>
-      <CommunityLandingSearch />
-      <CommunityLandingInterest />
-      <CommunityLandingHotVote />
-      <CommunityLandingPopular />
-      <CommunityLandingRecent />
-    </WhiteBackgroundScrollView>
+    <Container>
+      <WhiteBackgroundScrollView>
+        <CommunityLandingSearch />
+        <CommunityLandingInterest />
+        <CommunityLandingHotVote />
+        <CommunityLandingPopular />
+        <CommunityLandingRecent />
+      </WhiteBackgroundScrollView>
+      <CreateIcon
+        onPress={() => {
+          navigation.navigate("CommunityVoteUploadScreen", {});
+        }}
+      />
+    </Container>
   );
 }
 
-export const screenStyles = StyleSheet.create({
-  padding: {
-    paddingHorizontal: 20,
-  },
-
-  // 각 섹션 헤더 View 스타일
-  headerContainer: {
-    marginBottom: 20,
-  },
-
-  // 헤더 타이틀 텍스트 스타일
-  headerTitleText: {
-    color: "black",
-    fontSize: 15,
-    fontWeight: "bold",
-  },
-
-  headerMoreText: {
-    color: theme.color.purple.text,
-    fontSize: 13,
-  },
-});
+const Container = styled.SafeAreaView`
+  flex: 1;
+  position: relative;
+`;

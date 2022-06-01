@@ -16,3 +16,8 @@ export type VoteProps = {
 export type VoteOptionProps = {
   content: string;
 };
+
+export type VoteUploadOptionProps = {
+  index: number;
+  content: string;
+};

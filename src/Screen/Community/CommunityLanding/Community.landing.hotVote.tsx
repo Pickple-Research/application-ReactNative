@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Community.landing.screen";
 import {
   VoteListContainer,
   VoteParticipantInfo,
@@ -32,7 +31,7 @@ export function CommunityLandingHotVote() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container style={{ ...screenStyles.headerContainer }}>
+    <SectionHeader__Container style={globalStyles.screen__horizontalPadding}>
       <SectionHeaderText title="지금 핫한 투표는" />
     </SectionHeader__Container>
   );

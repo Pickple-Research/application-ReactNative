@@ -41,7 +41,7 @@ const CloseButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   flex: 3;
-  background-color: #555555;
+  background-color: ${({ theme }) => theme.color.grey.main};
 `;
 
 const PullupButton = styled(CloseButton)`

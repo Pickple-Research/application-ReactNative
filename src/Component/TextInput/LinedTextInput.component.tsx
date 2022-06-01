@@ -1,16 +1,6 @@
 import React, { useState } from "react";
-import {
-  StyleProp,
-  ImageStyle,
-  ViewStyle,
-  TextStyle,
-  TextInputProps,
-} from "react-native";
+import { TextInputProps } from "react-native";
 import styled from "styled-components/native";
-
-type LinedTextInputType = {
-  props?: Partial<TextInputProps>;
-};
 
 /**
  * 밑줄이 쳐져 있는 TextInput입니다.
@@ -19,7 +9,7 @@ type LinedTextInputType = {
  * @author 정원제
  * @modify 현웅
  */
-export function LinedTextInput({ props }: LinedTextInputType) {
+export function LinedTextInput({ props }: { props?: Partial<TextInputProps> }) {
   const [focused, setFocused] = useState<boolean>(false);
   return (
     <TextInput<React.ElementType>

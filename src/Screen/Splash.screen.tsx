@@ -56,6 +56,6 @@ const ServiceDescription__Container = styled.View`
 
 const ServiceDescription = styled(H2)`
   justify-content: center;
-  color: #555555;
+  color: ${({ theme }) => theme.color.grey.main};
   letter-spacing: 6px;
 `;

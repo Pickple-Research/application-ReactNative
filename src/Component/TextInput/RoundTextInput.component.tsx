@@ -51,6 +51,7 @@ const RoundTextInput__Container = styled.TextInput<{ focused: boolean }>`
   flex: 1;
   font-size: ${({ theme }) => theme.size.header3};
   padding: 5px 12px;
-  border-radius: 10px;
+  //TODO: #DESIGN-SYSTEM
   border: 1px solid ${({ focused }) => (focused ? "#8BBFF5" : "#CCCCCC")};
+  border-radius: 10px;
 `;
