@@ -99,7 +99,7 @@ const GiftName__Container = styled.View`
 
 const GiftName__Text = styled(H1)`
   font-weight: bold;
-  color: #666666;
+  color: ${({ theme }) => theme.color.grey.icon};
 `;
 
 // GiftDeleteButton()

@@ -6,6 +6,7 @@ import {
   VoteListContainer,
   VoteParticipantInfo,
   VoteOption,
+  VoteOptionResult,
 } from "src/Component/Vote";
 import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
@@ -48,6 +49,18 @@ function HotVote({ vote }: { vote: VoteProps }) {
               key={`${index}:${option.content.slice(0, 4)}`}
               voteOption={option}
               selected={true}
+              onPress={() => {}}
+            />
+          );
+        })}
+        {vote.options.map((option, index) => {
+          return (
+            <VoteOptionResult
+              key={`${index}:${option.content.slice(0, 4)}`}
+              voteOption={option}
+              selected={true}
+              ratio={24}
+              won={true}
             />
           );
         })}

@@ -33,6 +33,7 @@ function Options() {
             key={`${index}: ${option.content}`}
             voteOption={option}
             selected={false}
+            onPress={() => {}}
           />
         );
       })}

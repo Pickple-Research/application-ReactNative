@@ -12,7 +12,10 @@ export const useVoteStore = create<VoteStoreProps>(() => ({
     title: "진짜 변기 물 내릴 때 발로 눌러서 내리나요?",
     options: [
       { content: "당연히 손으로 눌러서 내리죠!" },
-      { content: "세상에.. 발로 눌러서 내리는 거 아닌가요?" },
+      {
+        content:
+          "세상에.. 발로 눌러서 내리는 거 아닌가요? 손으로 누른다니 너무 더러워질 것 같군요",
+      },
       { content: "저는 이 대화를 따라갈 수가 없네요" },
     ],
     tag: "일반",
@@ -24,7 +27,10 @@ export const useVoteStore = create<VoteStoreProps>(() => ({
       title: "진짜 변기 물 내릴 때 발로 눌러서 내리나요?",
       options: [
         { content: "당연히 손으로 눌러서 내리죠!" },
-        { content: "세상에.. 발로 눌러서 내리는 거 아닌가요?" },
+        {
+          content:
+            "세상에.. 발로 눌러서 내리는 거 아닌가요? 손으로 누른다니 너무 더러워질 것 같군요",
+        },
         { content: "저는 이 대화를 따라갈 수가 없네요" },
       ],
       tag: "일반",

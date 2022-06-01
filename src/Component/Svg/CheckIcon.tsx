@@ -9,6 +9,7 @@ import Svg, { Path } from "react-native-svg";
 export function CheckIcon({
   width = "10",
   height = "7",
+  //TODO: #DESIGN-SYSTEM
   color = "#EEEEEE",
 }: {
   width?: string;

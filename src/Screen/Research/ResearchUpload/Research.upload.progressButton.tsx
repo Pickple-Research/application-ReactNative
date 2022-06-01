@@ -41,6 +41,7 @@ const Container = styled.TouchableOpacity`
   width: 100%;
   //* ResearchUploadScreen의 padding-bottom과 같은 값으로 유지해야 합니다.
   height: 60px;
+  //TODO: #DESIGN-SYSTEM
   background-color: #eeeeee;
   justify-content: center;
   align-items: center;
