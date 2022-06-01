@@ -12,7 +12,9 @@ import CommentIcon from "@Resource/svg/comment-icon.svg";
 export function VoteParticipantInfo() {
   return (
     <Container>
-      <CheckIcon style={styles.margin} />
+      <CheckIcon__Container>
+        <CheckIcon />
+      </CheckIcon__Container>
       <InfoText style={styles.margin}>100</InfoText>
       <CommentIcon style={styles.margin} />
       <InfoText>100</InfoText>
@@ -29,6 +31,17 @@ const styles = StyleSheet.create({
 const Container = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+const CheckIcon__Container = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  //TODO: #DESIGN-SYSTEM
+  background-color: #dddddd;
+  margin-right: 8px;
+  border-radius: 100px;
 `;
 
 const InfoText = styled(DetailText)``;

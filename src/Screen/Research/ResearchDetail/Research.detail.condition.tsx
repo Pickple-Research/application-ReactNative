@@ -43,6 +43,7 @@ const Container = styled.View`
 //TODO: #shadow
 const ConditionsList__Container = styled.View`
   padding: 15px 18px;
+  //TODO: #DESIGN-SYSTEM
   border: 1px solid #f5f5f5;
   border-radius: 12px; ;
 `;

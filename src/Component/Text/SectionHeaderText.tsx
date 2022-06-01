@@ -27,6 +27,5 @@ export function SectionHeaderText({
 }
 
 const SectionHeader__Text = styled(H3)<{ bold: boolean }>`
-  color: black;
   font-weight: ${props => (props.bold ? "bold" : "normal")};
 `;

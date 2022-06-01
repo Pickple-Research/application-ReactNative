@@ -26,9 +26,3 @@ export function PartnerLandingScreen() {
     </WhiteBackgroundScrollView>
   );
 }
-
-/**
- * ParterLandingScreen에서 공통적으로 사용되는 스타일들을 정의합니다.
- * @author 현웅
- */
-export const screenStyles = StyleSheet.create({});

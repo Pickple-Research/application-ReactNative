@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Community.landing.screen";
 import {
   VoteListContainer,
   VoteParticipantInfo,
   VoteOption,
-} from "@Component/Vote";
-import { SectionHeaderText } from "@Component/Text";
+  VoteOptionResult,
+} from "src/Component/Vote";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { VoteProps } from "@Object/Type";
+import { VoteProps } from "src/Object/Type";
 import { useVoteStore } from "src/Zustand";
 import { H3, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
@@ -31,7 +31,7 @@ export function CommunityLandingHotVote() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container style={{ ...screenStyles.headerContainer }}>
+    <SectionHeader__Container style={globalStyles.screen__horizontalPadding}>
       <SectionHeaderText title="지금 핫한 투표는" />
     </SectionHeader__Container>
   );
@@ -47,6 +47,19 @@ function HotVote({ vote }: { vote: VoteProps }) {
             <VoteOption
               key={`${index}:${option.content.slice(0, 4)}`}
               voteOption={option}
+              selected={true}
+              onPress={() => {}}
+            />
+          );
+        })}
+        {vote.options.map((option, index) => {
+          return (
+            <VoteOptionResult
+              key={`${index}:${option.content.slice(0, 4)}`}
+              voteOption={option}
+              selected={true}
+              ratio={24}
+              won={true}
             />
           );
         })}

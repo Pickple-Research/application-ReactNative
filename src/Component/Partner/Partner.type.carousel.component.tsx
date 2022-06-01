@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 
 const Item__Container = styled.TouchableOpacity<{ selected: boolean }>`
   background-color: ${({ selected, theme }) =>
-    //TODO: #THEME
+    //TODO: #DESIGN-SYSTEM
     selected ? theme.color.blue.pastel : "#EEEEEE"};
   padding: 8px 15px;
   margin: 0px 3px;

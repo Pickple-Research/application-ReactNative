@@ -26,6 +26,6 @@ export const ResearchUpload__CollapsibleSection__Container = styled.TouchableOpa
 export const ResearchUpload__CollapsibleSection__Content = styled(H3)<{
   bold: boolean;
 }>`
-  color: #333333;
+  color: ${({ theme }) => theme.color.grey.deep};
   font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
 `;

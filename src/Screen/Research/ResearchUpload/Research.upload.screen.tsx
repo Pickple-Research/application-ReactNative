@@ -15,8 +15,8 @@ import { useResearchUploadStore } from "src/Zustand";
 export type ResearchUploadScreenProps = {};
 
 /**
- * 리서치 작성 페이지 컨테이너
- * pages 리스트에 스크린을 추가하면 해당 순서대로 작성 페이지를 보여줍니다.
+ * 리서치 업로드 페이지입니다.
+ * pages 리스트 순서대로 작성 페이지를 보여줍니다.
  * @author 원제
  * @modify 현웅
  */
@@ -24,9 +24,9 @@ export function ResearchUploadScreen({ navigation }: any) {
   const step = useResearchUploadStore(state => state.step);
 
   const pages = [
+    <ResearchUploadGiftCreditScreen />,
     <ResearchUploadTitleContentScreen />,
     <ResearchUploadPurposeTargetScreen />,
-    <ResearchUploadGiftCreditScreen />,
   ];
 
   return (

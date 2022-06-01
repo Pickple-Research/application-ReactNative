@@ -24,7 +24,11 @@ export default function App() {
   }, []);
 
   if (!initialLoaded) {
-    return <SplashScreen />;
+    return (
+      <ThemeProvider theme={{ color: lightThemeColors, size: themeSizes }}>
+        <SplashScreen />
+      </ThemeProvider>
+    );
   }
 
   return (

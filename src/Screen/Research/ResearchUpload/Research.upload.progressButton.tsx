@@ -10,17 +10,24 @@ import { useResearchUploadStore } from "src/Zustand";
  * @author 현웅
  */
 export function ResearchUploadProgressButton() {
-  const { step, goNextStep, titleInput, linkInput, contentInput } =
-    useResearchUploadStore(
-      state => ({
-        step: state.step,
-        goNextStep: state.goNextStop,
-        titleInput: state.titleInput,
-        linkInput: state.linkInput,
-        contentInput: state.contentInput,
-      }),
-      shallow,
-    );
+  const {
+    step,
+    goNextStep,
+    titleInput,
+    linkInput,
+    contentInput,
+    uploadResearch,
+  } = useResearchUploadStore(
+    state => ({
+      step: state.step,
+      goNextStep: state.goNextStop,
+      titleInput: state.titleInput,
+      linkInput: state.linkInput,
+      contentInput: state.contentInput,
+      uploadResearch: state.uploadResearch,
+    }),
+    shallow,
+  );
 
   function go() {
     if (titleInput && linkInput && contentInput) {
@@ -29,7 +36,7 @@ export function ResearchUploadProgressButton() {
   }
 
   return (
-    <Container onPress={go}>
+    <Container onPress={uploadResearch}>
       <Text>다음 단계로 이동</Text>
     </Container>
   );
@@ -41,6 +48,7 @@ const Container = styled.TouchableOpacity`
   width: 100%;
   //* ResearchUploadScreen의 padding-bottom과 같은 값으로 유지해야 합니다.
   height: 60px;
+  //TODO: #DESIGN-SYSTEM
   background-color: #eeeeee;
   justify-content: center;
   align-items: center;

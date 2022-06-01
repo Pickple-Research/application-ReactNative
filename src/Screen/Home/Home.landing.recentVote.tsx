@@ -14,7 +14,7 @@ import { globalStyles } from "src/Style";
  */
 export function HomeLandingRecentVote() {
   return (
-    <Container style={{ ...screenStyles.border }}>
+    <Container style={{ ...screenStyles.boundary }}>
       <SectionHeader />
       <RecentVotes />
     </Container>

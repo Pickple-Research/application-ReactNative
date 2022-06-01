@@ -96,7 +96,6 @@ const ResearchInfo__TagsContainer = styled.View`
 const ResearchInfo__TitleText = styled(H1)`
   width: 90%;
   height: 28px;
-  color: black;
   font-weight: bold;
   line-height: 14px;
   margin-bottom: 6px;

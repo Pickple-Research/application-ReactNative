@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Mypage.landing.screen";
 import { H3, H4, BodyText } from "src/StyledComponents/Text";
-import PencilIcon from "@Resource/svg/pencil-icon.svg";
+import { globalStyles } from "src/Style/globalStyles";
+import PencilIcon from "src/Resource/svg/pencil-icon.svg";
 
 /**
  * 마이페이지 랜딩 페이지 프로필 섹션
@@ -10,7 +10,7 @@ import PencilIcon from "@Resource/svg/pencil-icon.svg";
  */
 export function MypageLandingUserInfo() {
   return (
-    <Container style={{ ...screenStyles.padding }}>
+    <Container style={globalStyles.screen__horizontalPadding}>
       <ProfileThumbnail />
       <NicknameEmail />
       <UserRank />
@@ -76,7 +76,6 @@ const Thumbnail__EditIconContainer = styled.View`
 
 // NicknameEmail()
 const NicknameText = styled(H3)`
-  color: black;
   font-weight: bold;
   margin-bottom: 5px;
 `;

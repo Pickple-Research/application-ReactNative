@@ -12,7 +12,7 @@ import { exampleInterestingCategories } from "src/Object/Type";
  */
 export function MypageLandingInterest() {
   return (
-    <Container style={{ ...screenStyles.border }}>
+    <Container style={{ ...screenStyles.boundary }}>
       <SectionHeader />
       <InterestCategoryCarousel categories={exampleInterestingCategories} />
     </Container>

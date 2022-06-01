@@ -44,7 +44,6 @@ const Greeting__Container = styled.View`
 `;
 
 const Greeting__Text = styled(H1)`
-  color: black;
   font-weight: bold;
   line-height: 27px;
 `;

@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components/native";
 import { screenStyles } from "./Mypage.landing.screen";
 import { H1, H4 } from "src/StyledComponents/Text";
-import WalletIcon from "@Resource/svg/wallet-icon.svg";
+import { globalStyles } from "src/Style";
+import WalletIcon from "src/Resource/svg/wallet-icon.svg";
 
 /**
  * 마이페이지 랜딩 페이지 크레딧 확인 섹션
@@ -10,7 +11,11 @@ import WalletIcon from "@Resource/svg/wallet-icon.svg";
  */
 export function MypageLandingCredit() {
   return (
-    <Container style={{ ...screenStyles.padding, ...screenStyles.border }}>
+    <Container
+      style={{
+        ...globalStyles.screen__horizontalPadding,
+        ...screenStyles.boundary,
+      }}>
       <Credit__Container>
         <Credit__IconContainer>
           <WalletIcon />
@@ -47,7 +52,7 @@ const Credit__IconContainer = styled.View`
 
 const Credit__Text = styled(H1)`
   flex: 1;
-  color: black;
+  font-weight: bold;
   padding: 0px 15px;
 `;
 

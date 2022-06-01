@@ -24,7 +24,7 @@ export function HomeLandingScreen() {
 }
 
 export const screenStyles = StyleSheet.create({
-  border: {
+  boundary: {
     borderBottomWidth: 8,
     borderBottomColor: theme.color.purple.mild,
   },

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components/native";
+import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 앱 실행시 백그라운드에서 정보를 받아오는 동안 보여주는 화면입니다.
@@ -22,7 +23,9 @@ export function SplashScreen() {
 
   return (
     <Container>
-      <ServiceLogo source={require("@Resource/png/splash-screen-logo.png")} />
+      <ServiceLogo
+        source={require("src/Resource/png/splash-screen-logo.png")}
+      />
       <ServiceDescription__Container>
         <ServiceDescription>커뮤니티형 리서치 플랫폼</ServiceDescription>
       </ServiceDescription__Container>
@@ -51,9 +54,8 @@ const ServiceDescription__Container = styled.View`
   justify-content: center;
 `;
 
-const ServiceDescription = styled.Text`
+const ServiceDescription = styled(H2)`
   justify-content: center;
-  color: #555555;
-  font-size: 14px;
+  color: ${({ theme }) => theme.color.grey.main};
   letter-spacing: 6px;
 `;

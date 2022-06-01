@@ -6,8 +6,8 @@ import { AppStackProps } from "src/Navigator";
 import { ResearchLandingSearch } from "./Research.landing.search";
 import { ResearchLandingRecommend } from "./Research.landing.recommend";
 import { ResearchLandingNew } from "./Research.landing.new";
-import { WhiteBackgroundScrollView } from "@Component/ScrollView";
-import { ResearchCreateIcon } from "@Component/Research";
+import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import { CreateIcon } from "src/Component/Icon";
 
 /**
  * ResearchLandingScreen에서 사용하는 props
@@ -40,7 +40,7 @@ export function ResearchLandingScreen({
         <ResearchLandingRecommend />
         <ResearchLandingNew />
       </WhiteBackgroundScrollView>
-      <ResearchCreateIcon
+      <CreateIcon
         onPress={() => {
           navigation.navigate("ResearchUploadScreen", {});
         }}
@@ -48,12 +48,6 @@ export function ResearchLandingScreen({
     </Container>
   );
 }
-
-export const screenStyles = StyleSheet.create({
-  padding: {
-    paddingHorizontal: 20,
-  },
-});
 
 const Container = styled.SafeAreaView`
   flex: 1;

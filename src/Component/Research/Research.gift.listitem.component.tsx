@@ -35,15 +35,14 @@ function GiftImageInput() {
 }
 
 function GiftName({ gift }: { gift: ResearchUploadGiftProps }) {
-  const updateGiftName = useResearchUploadStore(state => state.updateGift);
+  const updateGiftName = useResearchUploadStore(state => state.updateGiftName);
 
   return (
     <GiftName__Container>
       <GiftName__Text>상품명</GiftName__Text>
       <RoundTextInput
         props={{
-          value: gift.giftName,
-          onChangeText: newGiftName => {
+          onChangeText: (newGiftName: string) => {
             updateGiftName(gift.index, newGiftName);
           },
         }}
@@ -68,6 +67,7 @@ function GiftDeleteButton({ index }: { index: number }) {
 const Container = styled.View`
   align-items: center;
   padding: 16px 16px 0px 16px;
+  //TODO: #DESIGN-SYSTEM
   background-color: #f5f5f5;
   border: 1px solid black;
   border-radius: 10px;
@@ -98,7 +98,7 @@ const GiftName__Container = styled.View`
 
 const GiftName__Text = styled(H1)`
   font-weight: bold;
-  color: #666666;
+  color: ${({ theme }) => theme.color.grey.icon};
 `;
 
 // GiftDeleteButton()

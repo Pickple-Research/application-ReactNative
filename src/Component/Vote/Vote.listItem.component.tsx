@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { VoteProps } from "@Object/Type";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
+import { VoteProps } from "src/Object/Type";
 import { H3, H4, SmallText } from "src/StyledComponents/Text";
 
 /**
@@ -8,8 +10,14 @@ import { H3, H4, SmallText } from "src/StyledComponents/Text";
  * @author 현웅
  */
 export function VoteListItem({ vote }: { vote: VoteProps }) {
+  const navigation = useNavigation<NavigationProp<AppStackProps>>();
+
   return (
-    <Container>
+    <Container
+      activeOpacity={1}
+      onPress={() => {
+        navigation.navigate("CommunityVoteDetailScreen", {});
+      }}>
       <TitleTagContainer>
         <TitleText numberOfLines={1}>{vote.title}</TitleText>
         <TagText>{vote.tag}</TagText>
@@ -19,10 +27,9 @@ export function VoteListItem({ vote }: { vote: VoteProps }) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-
   padding: 10px;
 `;
 
@@ -32,7 +39,6 @@ const TitleTagContainer = styled.View`
 `;
 
 const TitleText = styled(H3)`
-  font-weight: bold;
   margin-bottom: 8px;
 `;
 

@@ -15,7 +15,7 @@ import { globalStyles } from "src/Style";
  */
 export function HomeLandingResearch() {
   return (
-    <Container style={{ ...screenStyles.border }}>
+    <Container style={{ ...screenStyles.boundary }}>
       <SectionHeader />
       <Researches />
     </Container>

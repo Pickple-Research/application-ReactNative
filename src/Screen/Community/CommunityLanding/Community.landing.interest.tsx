@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Community.landing.screen";
 import { InterestCategoryCarousel } from "@Component/Category";
 import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
@@ -21,8 +20,7 @@ export function CommunityLandingInterest() {
 
 function SectionHeader() {
   return (
-    <SectionHeader__Container
-      style={{ ...screenStyles.padding, ...screenStyles.headerContainer }}>
+    <SectionHeader__Container>
       <SectionHeaderText title="즐겨찾는 관심사" />
     </SectionHeader__Container>
   );

@@ -8,20 +8,23 @@
  *     return <Logo width={} height={} />
  * }
  * ```
- * fill 등의 속성을 지정할 때 svg를 이루는 각 요소들에 반영되지 않기 떄문에
- * 고정된 색을 사용하는 아이콘이 아니라면 추천하지 않습니다.
+ * 얇은 컴포넌트처럼 fill대신 stroke가 컴포넌트의 색을 결정하는 경우,
+ * 여러 개의 컴포넌트가 하나의 아이콘을 이루는 경우 생각처럼 작동하지 않는 경우가 존재합니다.
  * 때문에 svg 파일을 열면 보이는 path 속성들을 복붙해와서 아래와 같이 상황에 맞게 커스텀하는 것을 추천합니다.
  * @author 현웅
  */
-// TODO: #ENHANCEMENT 다시 찾아보니, fill 속성을 넣었을 때 스트로크에 전달할 수 있도록 설정할 수 있습니다.
-// TODO: 차후 더 좋은 방안을 모색해봅시다
 
 import { SvgProps } from "react-native-svg";
 
+/**
+ * LandingBottomTab의 아이콘에서만 쓰이는 Svg 아이콘 속성입니다.
+ * @author 현웅
+ */
 export type BottomTabSvgIconProps = SvgProps & {
   focused: boolean;
 };
 
+export * from "./CheckIcon";
 export * from "./CommunityIcon";
 export * from "./HomeIcon";
 export * from "./MypageIcon";

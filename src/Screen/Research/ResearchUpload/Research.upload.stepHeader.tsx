@@ -16,12 +16,12 @@ const Container = styled.View`
   padding: 25px 20px;
 `;
 const TitleMainText__TitleContainer = styled.Text`
-  color: #333333;
+  color: ${({ theme }) => theme.color.grey.deep};
   font-size: 18px;
   font-weight: 500;
 `;
 const TitleSubText__TitleContainer = styled.Text`
-  color: #333333;
+  color: ${({ theme }) => theme.color.grey.deep};
   font-size: 14px;
   font-weight: 400;
   margin-left: 5px;

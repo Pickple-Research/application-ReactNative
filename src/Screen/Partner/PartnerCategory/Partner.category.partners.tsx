@@ -152,7 +152,6 @@ const Partner__NameTypeContainer = styled.View`
 `;
 
 const Partner__Name = styled(H4)`
-  color: black;
   font-weight: bold;
 `;
 
