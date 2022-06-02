@@ -13,7 +13,7 @@ import { ResearchUploadCredit } from "./Research.upload.credit";
 export function ResearchUploadGiftCreditScreen({ navigation }: any) {
   return (
     <Container>
-      {/* <ResearchUploadStepHeader /> */}
+      <ResearchUploadStepHeader stepName="참여자 경품" essential={false} />
       <ResearchUploadGift />
       <ResearchUploadCredit />
     </Container>

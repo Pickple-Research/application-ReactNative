@@ -7,7 +7,7 @@ export enum ResearchType {
 }
 
 /**
- * 모든 리서치 타입입니다
+ * 모든 리서치 타입 리스트입니다
  * @author 현웅
  */
 export const allResearchTypes = [
@@ -17,3 +17,12 @@ export const allResearchTypes = [
   ResearchType.EXPERIMENT,
   ResearchType.UIUX,
 ];
+
+/**
+ * 리서치 목적
+ * @author 현웅
+ */
+export enum ResearchPurpose {
+  ACADEMIC = "학술",
+  ETC = "기타",
+}

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import {
-  ResearchUpload__CollapsibleSection__Container,
-  ResearchUpload__CollapsibleSection__Content,
-} from "../Research.upload.component";
+import { ResearchUploadSubStepHeader } from "../Research.upload.subStepHeader";
 import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
-import { H1, H3 } from "src/StyledComponents/Text";
+import { H1, H2, H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -15,7 +12,7 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function ResearchUploadCredit() {
-  const [showCreditInput, setShowCreditInput] = useState<boolean>(false);
+  const [showCreditInput, setShowCreditInput] = useState<boolean>(true);
 
   function toggleShowCreditInput() {
     setShowCreditInput(!showCreditInput);
@@ -23,29 +20,22 @@ export function ResearchUploadCredit() {
 
   return (
     <Container>
-      <SectionToggleButton toggleShowCreditInput={toggleShowCreditInput} />
+      <StepHeader toggleShowCreditInput={toggleShowCreditInput} />
       {showCreditInput && <CreditInput />}
-      {/* <CreditInput /> */}
     </Container>
   );
 }
 
-function SectionToggleButton({
+function StepHeader({
   toggleShowCreditInput,
 }: {
   toggleShowCreditInput: () => void;
 }) {
   return (
-    <ResearchUpload__CollapsibleSection__Container
-      onPress={toggleShowCreditInput}
-      style={globalStyles.screen__horizontalPadding}>
-      <ResearchUpload__CollapsibleSection__Content bold={true}>
-        경품용 추가 크레딧
-      </ResearchUpload__CollapsibleSection__Content>
-      <ResearchUpload__CollapsibleSection__Content bold={false}>
-        을 입력해주세요
-      </ResearchUpload__CollapsibleSection__Content>
-    </ResearchUpload__CollapsibleSection__Container>
+    <ResearchUploadSubStepHeader onPress={toggleShowCreditInput}>
+      <StepHeader__Text bold={true}>경품용 추가 크레딧</StepHeader__Text>
+      <StepHeader__Text bold={false}>을 입력해주세요</StepHeader__Text>
+    </ResearchUploadSubStepHeader>
   );
 }
 
@@ -86,12 +76,15 @@ function CreditInput() {
       {/* 기프티콘 대신 크레딧으로 ~ 전할 수 있습니다. */}
       <CreditInput__DescriptionContainer>
         <CreditInput__Description bold={false}>
+          기프티콘 대신 크레딧으로 참여자분들께 감사의미를 전달할 수 있습니다.
+        </CreditInput__Description>
+        {/* <CreditInput__Description bold={false}>
           {`기프티콘 대신 `}
         </CreditInput__Description>
         <CreditInput__Description bold={true}>크레딧</CreditInput__Description>
         <CreditInput__Description bold={false}>
           으로 참여자분들께 감사의미를 전달할 수 있습니다.
-        </CreditInput__Description>
+        </CreditInput__Description> */}
       </CreditInput__DescriptionContainer>
 
       {/* ? 명에게 ? C 씩 추천 지급 */}
@@ -125,18 +118,26 @@ function CreditInput() {
       {/* = 총 ?C */}
       <CreditInput__TotalCredit>{` = 총 ${
         creditReceiverNum * extraCredit
-      }C`}</CreditInput__TotalCredit>
+      } C`}</CreditInput__TotalCredit>
     </CreditInput__Container>
   );
 }
 
 const Container = styled.View``;
 
-const CreditInput__Container = styled.View``;
+const StepHeader__Text = styled(H2)<{ bold: boolean }>`
+  color: ${({ theme }) => theme.color.grey.deep};
+  font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
+`;
+
+const CreditInput__Container = styled.View`
+  padding-top: 10px;
+`;
 
 const CreditInput__DescriptionContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: 12px;
 `;
 
 const CreditInput__Description = styled(H3)<{ bold: boolean }>`
@@ -148,6 +149,7 @@ const CreditInput__SettingContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  margin-bottom: 15px;
 `;
 
 const CreditInput__SettingText = styled(H1)<{ bold: boolean }>`

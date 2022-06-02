@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { ResearchUploadStepHeader } from "../Research.upload.stepHeader";
 import { ResearchUploadTitle } from "./Research.upload.title";
 import { ResearchUploadLink } from "./Research.upload.link";
 import { ResearchUploadContent } from "./Research.upload.content";
@@ -13,6 +14,7 @@ import { ResearchUploadContent } from "./Research.upload.content";
 export function ResearchUploadTitleContentScreen({ navigation }: any) {
   return (
     <Container>
+      <ResearchUploadStepHeader stepName="리서치 기본 정보" essential={true} />
       <ResearchUploadTitle />
       <ResearchUploadLink />
       <ResearchUploadContent />

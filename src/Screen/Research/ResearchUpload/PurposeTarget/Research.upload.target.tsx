@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { LinedTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -28,19 +29,29 @@ function SectionHeader() {
 }
 
 function TargetInput() {
-  const setTargetInput = useResearchUploadStore(state => state.setTargetInput);
+  const { targetInput, setTargetInput } = useResearchUploadStore(
+    state => ({
+      targetInput: state.targetInput,
+      setTargetInput: state.setTargetInput,
+    }),
+    shallow,
+  );
 
   return (
     <TargetInput__Container style={globalStyles.screen__horizontalPadding}>
-      {/* <LinedTextInput
-        placeHolder="쇼핑몰 이용 경험이 있는 MZ세대 여성"
-        showRightImage={false}
-        dataTransfer={setTargetInput}
-      /> */}
+      <LinedTextInput
+        props={{
+          placeholder: "쇼핑몰 이용 경험이 있는 MZ세대 여성",
+          value: targetInput,
+          onChangeText: setTargetInput,
+        }}
+      />
     </TargetInput__Container>
   );
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+  margin-bottom: 30px;
+`;
 
 const TargetInput__Container = styled.View``;

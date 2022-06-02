@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, ViewStyle, View } from "react-native";
+import { StyleProp, ViewStyle, TextStyle } from "react-native";
 import SelectDropdown, {
   SelectDropdownProps,
 } from "react-native-select-dropdown";
@@ -22,11 +22,12 @@ type SimpleDropDownProps<T> = {
   onSelect: (selectedItem: SimpleDropDownDataType<T>, index: number) => void;
   type: SimpleDropDownType;
   props?: Partial<SelectDropdownProps>;
+  style?: StyleProp<ViewStyle>;
 };
 
 type SimpleDropDownType =
   | "RESEARCH_PURPOSE" // 리서치 업로드 목적
-  | "ESTIMIATED_TIME" // 리서치 업로드 예상 소요시간
+  | "ESTIMATED_TIME" // 리서치 업로드 예상 소요시간
   | "CREDIT"; // 리서치 업로드 추가 크레딧
 
 /**
@@ -63,7 +64,7 @@ type SimpleDropDownType =
  * }
  * ```
  *
- * @param data dropdown에 들어갈 데이터 array. {value: any, }
+ * @param data dropdown에 들어갈 데이터 array. { value: any, displayName: string } 형태여야 합니다.
  * @param onSelect 값 선택시 호출 함수
  * @param type Dropdown 타입(종류)
  * @param props SelectDropdownProps의 값들을 지정할 수 있습니다.
@@ -92,33 +93,82 @@ export function SimpleDropDown<T>({
         return selectedItem.displayName;
       }}
       renderDropdownIcon={() => {
-        return (
-          <View style={{ marginHorizontal: 5 }}>
-            <DownCaretIcon />
-          </View>
-        );
+        return <DownCaretIcon style={{ marginHorizontal: 5 }} />;
       }}
       dropdownIconPosition="right"
-      buttonStyle={dropDownButtonStyle(type)}
+      buttonStyle={buttonStyle(type)}
+      buttonTextStyle={buttonFontStyle(type)}
       {...props}
     />
   );
 }
 
-const dropDownButtonStyle = (
-  type: SimpleDropDownType,
-): StyleProp<ViewStyle> => {
+const buttonStyle = (type: SimpleDropDownType): StyleProp<ViewStyle> => {
   switch (type) {
     case "CREDIT":
-      return creditDropDownButtonStyle;
+      return creditButtonStyle;
+    case "ESTIMATED_TIME":
+      return estimatedTimeButtonStyle;
+    case "RESEARCH_PURPOSE":
+      return researchPurposeButtonStyle;
     default:
       return {};
   }
 };
 
-const creditDropDownButtonStyle: StyleProp<ViewStyle> = {
-  width: 80,
+const buttonFontStyle = (type: SimpleDropDownType): StyleProp<TextStyle> => {
+  switch (type) {
+    case "CREDIT":
+      return creditButtonFontStyle;
+    case "ESTIMATED_TIME":
+      return estimatedTimeButtonFontStyle;
+    case "RESEARCH_PURPOSE":
+      return researchPurposeButtonFontStyle;
+    default:
+      return {};
+  }
+};
+
+/** 기본 스타일 */
+const defaultButtonStyle: StyleProp<ViewStyle> = {
   paddingVertical: 3,
   paddingHorizontal: 5,
   borderRadius: 10,
+};
+const defaultButtonTextStyle: StyleProp<TextStyle> = {
+  fontSize: 14,
+};
+
+/** type이 "CREDIT" 일 경우 사용할 스타일 */
+const creditButtonStyle: StyleProp<ViewStyle> = {
+  ...defaultButtonStyle,
+  width: 80,
+};
+const creditButtonFontStyle: StyleProp<TextStyle> = {
+  ...defaultButtonTextStyle,
+};
+
+/** type이 "ESTIMATED_TIME" 일 경우 사용할 스타일 */
+const estimatedTimeButtonStyle: StyleProp<ViewStyle> = {
+  ...defaultButtonStyle,
+  width: 100,
+  paddingHorizontal: 10,
+};
+const estimatedTimeButtonFontStyle: StyleProp<TextStyle> = {
+  ...defaultButtonTextStyle,
+};
+
+/** type이 "RESEARCH_PURPOSE" 일 경우 사용할 스타일 */
+const researchPurposeButtonStyle: StyleProp<ViewStyle> = {
+  ...defaultButtonStyle,
+  justifyContent: "flex-start",
+  width: 180,
+  backgroundColor: "white",
+  //TODO: DESIGN-SYSTEM
+  borderColor: "#cccccc",
+  borderWidth: 1.5,
+};
+const researchPurposeButtonFontStyle: StyleProp<TextStyle> = {
+  ...defaultButtonTextStyle,
+  textAlign: "left",
 };

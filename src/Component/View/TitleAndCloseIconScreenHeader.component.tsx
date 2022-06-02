@@ -4,13 +4,19 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { ScreenHeader__Container } from "src/StyledComponents/View";
 import { ScreenHeader__TitleText } from "src/StyledComponents/Text";
-import CloseIcon from "@Resource/svg/close-icon.svg";
+import CloseIcon from "src/Resource/svg/close-icon.svg";
 
 /**
  * 스크린 제목과 닫기 버튼이 포함된 스크린 헤더입니다.
  * @author 현웅
  */
-export function TitleAndCloseIconScreenHeader({ title }: { title: string }) {
+export function TitleAndCloseIconScreenHeader({
+  title,
+  onPressClose,
+}: {
+  title: string;
+  onPressClose?: () => void;
+}) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
 
   function goBack() {
@@ -24,7 +30,7 @@ export function TitleAndCloseIconScreenHeader({ title }: { title: string }) {
         <ScreenHeader__TitleText>{title}</ScreenHeader__TitleText>
       </TitleText__Container>
       <CloseButton__Container>
-        <CloseIcon onPress={goBack} />
+        <CloseIcon onPress={onPressClose ? onPressClose : goBack} />
       </CloseButton__Container>
     </Container>
   );

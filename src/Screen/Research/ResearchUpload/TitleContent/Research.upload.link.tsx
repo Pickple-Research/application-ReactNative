@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { LinedTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -28,13 +29,20 @@ function SectionHeader() {
 }
 
 function LinkInput() {
-  const setLinkInput = useResearchUploadStore(state => state.setLinkInput);
+  const { linkInput, setLinkInput } = useResearchUploadStore(
+    state => ({
+      linkInput: state.linkInput,
+      setLinkInput: state.setLinkInput,
+    }),
+    shallow,
+  );
 
   return (
     <LinkInput__Container style={globalStyles.screen__horizontalPadding}>
       <LinedTextInput
         props={{
           placeholder: "구글폼/네이버폼 링크를 입력해주세요",
+          value: linkInput,
           onChangeText: setLinkInput,
         }}
       />
@@ -42,8 +50,8 @@ function LinkInput() {
   );
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+  margin-bottom: 30px;
+`;
 
 const LinkInput__Container = styled.View``;
-
-const TextInput = styled.TextInput``;

@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { SimpleDropDown } from "src/Component/DropDown";
+import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 import InfoIcon from "src/Resource/svg/Info-icon.svg";
@@ -34,18 +35,38 @@ function SectionTitle() {
 }
 
 function EstimatedTimeInput() {
+  const { estimatedTimeInput, setEstimatedTimeInput } = useResearchUploadStore(
+    state => ({
+      estimatedTimeInput: state.estimatedTimeInput,
+      setEstimatedTimeInput: state.setEstimatedTimeInput,
+    }),
+    shallow,
+  );
+
+  const estimatedTimeDropDownData: SimpleDropDownDataType[] = [
+    { value: 1, displayName: "1" },
+    { value: 2, displayName: "2" },
+    { value: 3, displayName: "3" },
+    { value: 4, displayName: "4" },
+    { value: 5, displayName: "5" },
+  ];
+
   return (
     <EstimatedTimeInput__Container>
-      {/* <SimpleDropDown
-        defaultValue={5}
-        data={[3, 5, 7, 9]}
-        buttonStyle={{
-          width: 100,
-          marginHorizontal: 8,
-          borderRadius: 8,
+      <SimpleDropDown
+        data={estimatedTimeDropDownData}
+        onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
+          setEstimatedTimeInput(selectedItem.value);
         }}
-      /> */}
-      <SectionHeaderText title="분" bold={false} />
+        type="ESTIMATED_TIME"
+        props={{
+          defaultButtonText: estimatedTimeInput
+            ? estimatedTimeInput.toString()
+            : "0",
+          defaultValue: estimatedTimeInput,
+        }}
+      />
+      <SectionHeaderText title="분" bold={false} style={{ marginLeft: 12 }} />
     </EstimatedTimeInput__Container>
   );
 }
@@ -54,6 +75,7 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
 `;
 
 const SectionTitle__Container = styled.View`

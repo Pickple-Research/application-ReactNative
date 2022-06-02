@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { ScreenHeader__Container } from "src/StyledComponents/View";
-import CaretLeftIcon from "@Resource/svg/caret-left-icon.svg";
+import CaretLeftIcon from "src/Resource/svg/caret-left-icon.svg";
 
 /**
  * 뒤로 가기 버튼만 포함된 스크린 헤더입니다.

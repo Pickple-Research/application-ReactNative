@@ -29,5 +29,6 @@ export type ResearchGiftProps = {
  */
 export type ResearchUploadGiftProps = {
   index: number;
+  deleted: boolean;
   giftName: string;
 };

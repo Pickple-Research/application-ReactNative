@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { RoundTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -28,16 +29,23 @@ function SectionHeader() {
 }
 
 function ContentInput() {
-  const setContentInput = useResearchUploadStore(
-    state => state.setContentInput,
+  const { contentInput, setContentInput } = useResearchUploadStore(
+    state => ({
+      contentInput: state.contentInput,
+      setContentInput: state.setContentInput,
+    }),
+    shallow,
   );
 
   return (
     <ContentInput__Container style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
+        style={{ height: 200, textAlignVertical: "top", padding: 30 }}
         props={{
           placeholder: "참여하시는 분들께 리서치를 설명해주세요",
+          value: contentInput,
           onChangeText: setContentInput,
+          multiline: true,
         }}
       />
     </ContentInput__Container>

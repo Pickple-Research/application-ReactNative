@@ -4,10 +4,12 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { ScreenHeader__Container } from "src/StyledComponents/View";
 import { ScreenHeader__TitleText } from "src/StyledComponents/Text";
-import CaretLeftIcon from "@Resource/svg/caret-left-icon.svg";
+import CaretLeftIcon from "src/Resource/svg/caret-left-icon.svg";
 
 /**
  * 뒤로 가기 버튼, 스크린 헤더 타이틀, 우측 추가 기능들을 보여주는 스크린 헤더입니다.
+ * @param title 스크린 헤더 타이틀
+ * @param rightComponents 우측 추가 기능들
  * @author 현웅
  */
 export function FullOptionScreenHeader({

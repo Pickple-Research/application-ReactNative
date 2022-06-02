@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { RoundTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -28,13 +29,20 @@ function SectionHeader() {
 }
 
 function TitleInput() {
-  const setTitleInput = useResearchUploadStore(state => state.setTitleInput);
+  const { titleInput, setTitleInput } = useResearchUploadStore(
+    state => ({
+      titleInput: state.titleInput,
+      setTitleInput: state.setTitleInput,
+    }),
+    shallow,
+  );
 
   return (
     <TitleInput__Container style={globalStyles.screen__horizontalPadding}>
       <RoundTextInput
         props={{
           placeholder: "제목을 입력해주세요",
+          value: titleInput,
           onChangeText: setTitleInput,
         }}
       />
@@ -42,6 +50,8 @@ function TitleInput() {
   );
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+  margin-bottom: 30px;
+`;
 
 const TitleInput__Container = styled.View``;
