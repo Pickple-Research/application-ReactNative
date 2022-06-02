@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { ResearchUploadStepHeader } from "../Research.upload.stepHeader";
 import { ResearchUploadPurpose } from "./Research.upload.purpose";
 import { ResearchUploadOrganization } from "./Research.upload.organization";
 import { ResearchUploadTarget } from "./Research.upload.target";
@@ -15,6 +16,7 @@ import { ResearchUploadDeadline } from "./Research.upload.deadline";
 export function ResearchUploadPurposeTargetScreen({ navigation }: any) {
   return (
     <Container>
+      <ResearchUploadStepHeader stepName="리서치 기본 정보" essential={true} />
       <ResearchUploadPurpose />
       <ResearchUploadOrganization />
       <ResearchUploadTarget />

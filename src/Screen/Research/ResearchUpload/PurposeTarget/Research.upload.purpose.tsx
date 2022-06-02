@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
-import { SimpleDropDown } from "src/Component/DropDown";
+import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
+import { ResearchPurpose } from "src/Object/Enum";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -30,26 +32,40 @@ function SectionHeader() {
 }
 
 function PurposeInput() {
+  const { purposeInput, setPurposeInput } = useResearchUploadStore(
+    state => ({
+      purposeInput: state.purposeInput,
+      setPurposeInput: state.setPurposeInput,
+    }),
+    shallow,
+  );
+
+  const purposeDropDownData: SimpleDropDownDataType[] = [
+    { value: ResearchPurpose.ACADEMIC, displayName: "학술" },
+    { value: ResearchPurpose.ETC, displayName: "기타" },
+  ];
+
   return (
     <PurposeInput__Container style={globalStyles.screen__horizontalPadding}>
-      {/* <SimpleDropDown
-        data={["학술", "고객", "기타"]}
-        buttonStyle={{
-          width: 180,
-          backgroundColor: "white",
-          borderRadius: 10,
-          borderWidth: 1,
-          borderColor: "#E5E5E5",
+      <SimpleDropDown
+        data={purposeDropDownData}
+        onSelect={(selectedItem: SimpleDropDownDataType<ResearchPurpose>) => {
+          setPurposeInput(selectedItem.value);
         }}
-        buttonTextStyle={{
-          textAlign: "left",
-          paddingLeft: 10,
+        type="RESEARCH_PURPOSE"
+        props={{
+          defaultButtonText: purposeInput
+            ? purposeInput
+            : "목적을 선택해주세요",
+          defaultValue: purposeInput,
         }}
-      /> */}
+      />
     </PurposeInput__Container>
   );
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+  margin-bottom: 30px;
+`;
 
 const PurposeInput__Container = styled.View``;

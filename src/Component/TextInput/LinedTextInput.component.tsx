@@ -24,6 +24,9 @@ export function LinedTextInput({ props }: { props?: Partial<TextInputProps> }) {
 
 const TextInput = styled.TextInput<{ focused: boolean }>`
   flex: 1;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  //TODO: DESIGN-SYSTEM
   border-bottom-color: ${({ focused }) => (focused ? "#8BBFF5" : "gray")};
-  border-bottom-width: 2px;
+  border-bottom-width: 1.5px;
 `;

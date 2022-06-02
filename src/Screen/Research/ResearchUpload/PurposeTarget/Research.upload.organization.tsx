@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUpload__SectionHeader__Container } from "../Research.upload.component";
 import { RoundTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -30,8 +31,12 @@ function SectionHeader() {
 }
 
 function OrganizationInput() {
-  const setOrganizationInput = useResearchUploadStore(
-    state => state.setOrganizationInput,
+  const { organizationInput, setOrganizationInput } = useResearchUploadStore(
+    state => ({
+      organizationInput: state.organizationInput,
+      setOrganizationInput: state.setOrganizationInput,
+    }),
+    shallow,
   );
 
   return (
@@ -40,6 +45,7 @@ function OrganizationInput() {
       <RoundTextInput
         props={{
           placeholder: "기업/단체/수업명 ex. 알투씨 컴퍼니",
+          value: organizationInput,
           onChangeText: setOrganizationInput,
         }}
       />
@@ -47,6 +53,8 @@ function OrganizationInput() {
   );
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+  margin-bottom: 30px;
+`;
 
 const OrganizationInput__Container = styled.View``;

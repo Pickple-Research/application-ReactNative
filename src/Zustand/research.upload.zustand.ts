@@ -1,4 +1,5 @@
 import create from "zustand";
+import { ResearchPurpose } from "src/Object/Enum";
 import { ResearchUploadGiftProps } from "src/Object/Type";
 
 type ResearchUploadStoreProps = {
@@ -16,11 +17,17 @@ type ResearchUploadStoreProps = {
   contentInput: string;
   setContentInput: (input: string) => void;
 
+  purposeInput: ResearchPurpose | undefined;
+  setPurposeInput: (input: ResearchPurpose) => void;
+
   organizationInput: string;
   setOrganizationInput: (input: string) => void;
 
   targetInput: string;
   setTargetInput: (input: string) => void;
+
+  estimatedTimeInput: number;
+  setEstimatedTimeInput: (input: number) => void;
 
   /** 업로드할 리서치 경품의 index. 경품이 추가될 때마다 1씩 증가. */
   giftIndex: number;
@@ -41,6 +48,14 @@ type ResearchUploadStoreProps = {
   extraCredit: number;
   setExtraCredit: (credit: number) => void;
 
+  screeningSexInput: string | undefined;
+  setScreeningSexInput: (input: string | undefined) => void;
+
+  screeningAgeInputs: string[];
+  toggleScreeningAgeInputs: (input: string | undefined) => void;
+
+  /** 입력값 초기화 */
+  clearInputs: () => void;
   /** 리서치 업로드 */
   uploadResearch: () => void;
 };
@@ -74,6 +89,11 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       set({ contentInput: input });
     },
 
+    purposeInput: undefined,
+    setPurposeInput: (input: ResearchPurpose) => {
+      set({ purposeInput: input });
+    },
+
     organizationInput: "",
     setOrganizationInput: (input: string) => {
       set({ organizationInput: input });
@@ -84,15 +104,21 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       set({ targetInput: input });
     },
 
+    estimatedTimeInput: 0,
+    setEstimatedTimeInput: (input: number) => {
+      set({ estimatedTimeInput: input });
+    },
+
     giftIndex: 1,
-    gifts: [{ giftName: "", index: 0 }],
+    gifts: [{ index: 0, deleted: false, giftName: "" }],
     addNewGift: () => {
       //* 기존 gifts에 새로운 gift 요소를 추가하고
       set({
-        gifts: [...get().gifts, { giftName: "", index: get().giftIndex }],
+        gifts: [
+          ...get().gifts,
+          { index: get().giftIndex, deleted: false, giftName: "" },
+        ],
       });
-      //! 아래와 같이 .push를 통해 인자를 추가하면 state가 즉각 반영이 되지 않습니다.
-      // set(state => { state.gifts.push({ giftName: "", index: state.giftIndex }) })
 
       //* giftIndex를 증가시킵니다
       set(state => {
@@ -100,30 +126,16 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       });
     },
     removeGift: (index: number) => {
-      const updatedGifts = get().gifts.filter(gift => {
-        return gift.index !== index;
-      });
+      const updatedGifts = [...get().gifts];
+      updatedGifts[index].deleted = true;
+
       set({ gifts: updatedGifts });
     },
-    //TODO: 경품 이름/사진 바꾸는 방식 고민
     updateGiftName: (index: number, giftName: string) => {
-      // 리서치 경품은 삭제가 가능하므로 최초에 부여된 index와 실제 index가 다를 수 있음.
-      // 때문에 gifts 내에서 실제 index를 찾은 후 경품 이름을 수정해야 함.
-      const arrayIndex = get().gifts.findIndex(gift => gift.index === index);
-      if (arrayIndex === -1) return;
+      const updatedGifts = [...get().gifts];
+      updatedGifts[index].giftName = giftName;
 
-      set(state => {
-        state.gifts[arrayIndex].giftName = giftName;
-      });
-
-      // const updatedGift: ResearchUploadGiftProps = { index, giftName };
-      // const updatedGifts = get().gifts.map(gift => {
-      //   if (gift.index === index) {
-      //     return updatedGift;
-      //   }
-      //   return gift;
-      // });
-      // set({ gifts: updatedGifts });
+      set({ gifts: updatedGifts });
     },
 
     creditReceiverNum: 0,
@@ -136,6 +148,48 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       set({ extraCredit: credit });
     },
 
+    screeningSexInput: undefined,
+    setScreeningSexInput: (input: string | undefined) => {
+      set({ screeningSexInput: input });
+    },
+
+    screeningAgeInputs: [],
+    toggleScreeningAgeInputs: (input: string | undefined) => {
+      //* '상관없음' 선택한 경우
+      if (!input) {
+        set({ screeningAgeInputs: [] });
+        return;
+      }
+
+      const index = get().screeningAgeInputs!.indexOf(input);
+      if (index === -1) {
+        set({ screeningAgeInputs: [...get().screeningAgeInputs!, input] });
+      } else {
+        set({
+          screeningAgeInputs: get().screeningAgeInputs!.filter(
+            age => age !== input,
+          ),
+        });
+      }
+    },
+
+    clearInputs: () => {
+      set({
+        step: 0,
+        titleInput: "",
+        linkInput: "",
+        contentInput: "",
+        purposeInput: undefined,
+        organizationInput: "",
+        targetInput: "",
+        estimatedTimeInput: 0,
+        gifts: [{ index: 0, deleted: false, giftName: "" }],
+        creditReceiverNum: 0,
+        extraCredit: 0,
+        screeningSexInput: undefined,
+        screeningAgeInputs: [],
+      });
+    },
     uploadResearch: () => {},
   }),
 );

@@ -9,8 +9,6 @@ import styled from "styled-components/native";
  * @example
  * function Example(){
  *  const [titleInput, setTitleInput] = useState<string>("")
- *  function onTextChange(e:){
- *  }
  *
  *  return (
  *    <RoundTextInput
@@ -50,7 +48,7 @@ export function RoundTextInput({
 const RoundTextInput__Container = styled.TextInput<{ focused: boolean }>`
   flex: 1;
   font-size: ${({ theme }) => theme.size.header3};
-  padding: 5px 12px;
+  padding: 12px;
   //TODO: #DESIGN-SYSTEM
   border: 1px solid ${({ focused }) => (focused ? "#8BBFF5" : "#CCCCCC")};
   border-radius: 10px;

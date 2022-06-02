@@ -19,6 +19,7 @@ import {
   ResearchDetailScreen,
   ResearchDetailScreenProps,
   ResearchUploadScreen,
+  ResearchUploadScreenHeader,
   ResearchUploadScreenProps,
 } from "src/Screen/Research";
 // 커뮤니티(투표) 관련 Screen
@@ -102,6 +103,10 @@ export function AppStackNavigator() {
         <AppStack.Screen
           name={"ResearchUploadScreen"}
           component={ResearchUploadScreen}
+          options={{
+            headerShown: true,
+            header: ResearchUploadScreenHeader,
+          }}
         />
       </AppStack.Group>
 

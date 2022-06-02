@@ -9,7 +9,7 @@ import { MypageLandingInterest } from "./Mypage.landing.interest";
 import { MypageLandingFunction } from "./Mypage.landing.function";
 import { MypageLandingEvent } from "./Mypage.landing.event";
 import { MypageLandingAbout } from "./Mypage.landing.about";
-import { WhiteBackgroundScrollView } from "@Component/ScrollView";
+import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import { theme } from "src/Theme";
 
 /**

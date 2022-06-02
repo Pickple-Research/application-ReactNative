@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import {
-  ResearchUpload__CollapsibleSection__Container,
-  ResearchUpload__CollapsibleSection__Content,
-} from "../Research.upload.component";
+import { ResearchUploadSubStepHeader } from "../Research.upload.subStepHeader";
 import { ResearchGiftListItem } from "src/Component/Research";
 import { RadiusButton } from "src/Component/Button";
 import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
+import { H2 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
- * 리서치 업로드 페이지 기프티콘 추가 섹션입니다.
+ * 리서치 업로드 페이지 기프티콘 추가 단계입니다.
  * @author 현웅
  */
 export function ResearchUploadGift() {
-  const [showGiftList, setShowGiftList] = useState<boolean>(false);
+  const [showGiftList, setShowGiftList] = useState<boolean>(true);
 
   function toggleShowGiftList() {
     setShowGiftList(!showGiftList);
@@ -23,25 +21,21 @@ export function ResearchUploadGift() {
 
   return (
     <Container>
-      <SectionToggleButton toggleShowGiftList={toggleShowGiftList} />
+      <StepHeader toggleShowGiftList={toggleShowGiftList} />
       {showGiftList && <GiftList />}
     </Container>
   );
 }
 
-function SectionToggleButton({
+function StepHeader({
   toggleShowGiftList,
 }: {
   toggleShowGiftList: () => void;
 }) {
   return (
-    <ResearchUpload__CollapsibleSection__Container
-      onPress={toggleShowGiftList}
-      style={globalStyles.screen__horizontalPadding}>
-      <ResearchUpload__CollapsibleSection__Content bold={true}>
-        기프티콘을 추가해주세요
-      </ResearchUpload__CollapsibleSection__Content>
-    </ResearchUpload__CollapsibleSection__Container>
+    <ResearchUploadSubStepHeader onPress={toggleShowGiftList}>
+      <StepHeader__Text>기프티콘을 추가해주세요</StepHeader__Text>
+    </ResearchUploadSubStepHeader>
   );
 }
 
@@ -54,6 +48,7 @@ function GiftList() {
   return (
     <GiftList__Container style={globalStyles.screen__horizontalPadding}>
       {gifts.map((gift, index) => {
+        if (gift.deleted) return null;
         return <ResearchGiftListItem key={index} gift={gift} />;
       })}
       <RadiusButton content="+ 경품추가" type="ADD_GIFT" onPress={addNewGift} />
@@ -65,6 +60,12 @@ const Container = styled.View`
   margin-bottom: 10px;
 `;
 
+const StepHeader__Text = styled(H2)`
+  color: ${({ theme }) => theme.color.grey.deep};
+  font-weight: bold;
+`;
+
 const GiftList__Container = styled.View`
-  margin-bottom: 10px;
+  padding-top: 10px;
+  margin-bottom: 24px;
 `;
