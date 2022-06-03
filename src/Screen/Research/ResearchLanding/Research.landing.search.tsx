@@ -6,7 +6,9 @@ import { globalStyles } from "src/Style";
 import SearchIcon from "@Resource/svg/search-icon.svg";
 
 /**
- * 리서치 랜딩 페이지 검색 섹션
+ * @deprecated
+ * 리서치 랜딩 페이지 검색 섹션.
+ * screenHeader로 들어가야 합니다.
  * @author 현웅
  */
 export function ResearchLandingSearch() {

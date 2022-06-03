@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
+import styled from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   PartnerLandingScreen,
@@ -7,6 +8,7 @@ import {
 } from "src/Screen/Partner";
 import {
   ResearchLandingScreen,
+  ResearchLandingScreenHeader,
   ResearchLandingScreenProps,
 } from "src/Screen/Research";
 import { HomeLandingScreen, HomeLandingScreenProps } from "src/Screen/Home";
@@ -27,6 +29,7 @@ import {
   CommunityIcon,
   MypageSvgIcon,
 } from "src/Component/Svg";
+import { DetailText } from "src/StyledComponents/Text";
 import { theme } from "src/Theme/theme";
 
 const LandingBottomTab = createBottomTabNavigator<LandingBottomTabProps>();
@@ -61,7 +64,7 @@ export function LandingBottomTabNavigator() {
         tabBarHideOnKeyboard: true,
         tabBarStyle: styles.bottomTabBar,
       })}>
-      {/* 파트너 스택 */}
+      {/* 파트너 랜딩 페이지 */}
       <LandingBottomTab.Screen
         name={"PartnerLandingScreen"}
         component={PartnerLandingScreen}
@@ -72,11 +75,13 @@ export function LandingBottomTabNavigator() {
         })}
       />
 
-      {/* 리서치 스택 */}
+      {/* 리서치 랜딩 페이지 */}
       <LandingBottomTab.Screen
         name={"ResearchLandingScreen"}
         component={ResearchLandingScreen}
         options={({ route }) => ({
+          headerShown: true,
+          header: ResearchLandingScreenHeader,
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="리서치" focused={focused} />
           ),
@@ -94,7 +99,7 @@ export function LandingBottomTabNavigator() {
         })}
       />
 
-      {/* 커뮤니티 스택 */}
+      {/* 커뮤니티 랜딩 페이지 */}
       <LandingBottomTab.Screen
         name={"CommunityLandingScreen"}
         component={CommunityLandingScreen}
@@ -105,7 +110,7 @@ export function LandingBottomTabNavigator() {
         })}
       />
 
-      {/* 마이페이지 스택 */}
+      {/* 마이페이지 랜딩 페이지 */}
       <LandingBottomTab.Screen
         name={"MypageLandingScreen"}
         component={MypageLandingScreen}
@@ -130,17 +135,10 @@ type TabBarIconProps = {
  */
 function TabBarIcon({ label, focused }: TabBarIconProps) {
   return (
-    <View style={styles.tabBarIconContainer}>
+    <TabBarIcon__Container>
       <TabBarSvgIcon label={label} focused={focused} />
-      <Text
-        style={
-          focused
-            ? styles.tabBarIconFocusedText
-            : styles.tabBarIconUnfocusedText
-        }>
-        {label}
-      </Text>
-    </View>
+      <TabBarIcon__Text focused={focused}>{label}</TabBarIcon__Text>
+    </TabBarIcon__Container>
   );
 }
 
@@ -173,6 +171,18 @@ function TabBarHomeIcon() {
   );
 }
 
+const TabBarIcon__Container = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+const TabBarIcon__Text = styled(DetailText)<{ focused: boolean }>`
+  color: ${({ focused, theme }) =>
+    focused ? theme.color.focused_gray : theme.color.unfocused_gray};
+  margin-top: 3px;
+`;
+
 const styles = StyleSheet.create({
   //하단바 전체 스타일
   //TODO: #SETTING(style) 그림자 설정 Android, iOS 다르게 해야함
@@ -191,13 +201,6 @@ const styles = StyleSheet.create({
     elevation: 25,
   },
 
-  // tab bar 아이콘 컨테이너
-  tabBarIconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-
   // tab bar 홈 아이콘 컨테이너
   tabBarHomeIconContainer: {
     justifyContent: "center",
@@ -206,19 +209,5 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     marginBottom: 45,
-  },
-
-  // tab bar 버튼 텍스트 (선택시)
-  tabBarIconFocusedText: {
-    fontSize: 8,
-    color: theme.color.focused_gray,
-    marginTop: 3,
-  },
-
-  // tab bar 버튼 텍스트 (비선택시)
-  tabBarIconUnfocusedText: {
-    fontSize: 8,
-    color: theme.color.unfocused_gray,
-    marginTop: 3,
   },
 });

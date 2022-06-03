@@ -3,9 +3,9 @@ import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { ResearchDday } from "./Research.dday.component";
 import { ResearchTarget } from "./Research.target.component";
-import { Chip, HashTags } from "@Component/Text";
-import { ResearchProps } from "@Object/Type";
-import { H1 } from "src/StyledComponents/Text";
+import { Chip, HashTags } from "src/Component/Text";
+import { ResearchProps } from "src/Object/Type";
+import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.
@@ -69,7 +69,8 @@ const Container = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 `;
 
 // Thumbnail()
@@ -93,7 +94,7 @@ const ResearchInfo__TagsContainer = styled.View`
   margin-bottom: 8px;
 `;
 
-const ResearchInfo__TitleText = styled(H1)`
+const ResearchInfo__TitleText = styled(H3)`
   width: 90%;
   height: 28px;
   font-weight: bold;

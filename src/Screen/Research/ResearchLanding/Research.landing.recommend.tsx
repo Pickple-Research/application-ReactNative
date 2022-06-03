@@ -1,6 +1,7 @@
 import React from "react";
+import { Animated, LayoutChangeEvent } from "react-native";
 import styled from "styled-components/native";
-import { ResearchRecommendCarousel } from "@Component/Research";
+import { ResearchRecommendCarousel } from "src/Component/Research";
 import { useResearchStore } from "src/Zustand";
 import { H1 } from "src/StyledComponents/Text";
 
@@ -8,11 +9,17 @@ import { H1 } from "src/StyledComponents/Text";
  * 리서치 랜딩 페이지 리서치 추천 섹션
  * @author 현웅
  */
-export function ResearchLandingRecommend() {
+export function ResearchLandingRecommend({
+  onLayout,
+  translateY,
+}: {
+  onLayout: (event: LayoutChangeEvent) => void;
+  translateY: Animated.AnimatedInterpolation;
+}) {
   const exampleResearches = useResearchStore(state => state.exampleResearches);
 
   return (
-    <Container>
+    <Container onLayout={onLayout} style={{ transform: [{ translateY }] }}>
       <Greeting username="픽플리" />
       <ResearchRecommendCarousel researches={exampleResearches} />
     </Container>
@@ -30,8 +37,12 @@ function Greeting({ username }: { username: string }) {
   );
 }
 
-const Container = styled.View`
-  margin-bottom: 40px;
+const Container = styled(Animated.View)`
+  position: absolute;
+  top: 0px;
+  background-color: white;
+  padding-top: 30px;
+  padding-bottom: 20px;
 `;
 
 // Greeting()
