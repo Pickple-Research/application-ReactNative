@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import styled, { ThemeProvider } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
-import { ThemeProvider } from "styled-components/native";
 import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
 import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
@@ -26,7 +26,9 @@ export default function App() {
   if (!initialLoaded) {
     return (
       <ThemeProvider theme={{ color: lightThemeColors, size: themeSizes }}>
-        <SplashScreen />
+        <Container>
+          <SplashScreen />
+        </Container>
       </ThemeProvider>
     );
   }
@@ -38,9 +40,16 @@ export default function App() {
       //? 그렇지 않다면 darkThemeColor가 됩니다.
       // theme={{ color: useLightMode ? lightThemeColors : darkThemeColors }}>
       theme={{ color: lightThemeColors, size: themeSizes }}>
-      <NavigationContainer>
-        <AppStackNavigator />
-      </NavigationContainer>
+      <Container>
+        <NavigationContainer>
+          <AppStackNavigator />
+        </NavigationContainer>
+      </Container>
     </ThemeProvider>
   );
 }
+
+const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: ${({ theme }) => theme.color.grey.white};
+`;

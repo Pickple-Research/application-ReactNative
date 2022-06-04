@@ -5,6 +5,12 @@ import {
   LandingBottomTabNavigator,
   LandingBottomTabProps,
 } from "src/Navigator";
+// 로그인, 회원가입 등 Auth 관련 Screen
+import {
+  LoginScreen,
+  LoginScreenHeader,
+  LoginScreenProps,
+} from "src/Screen/Auth";
 // 파트너 관련 Screen
 import {
   PartnerCategoryScreen,
@@ -45,6 +51,8 @@ import {
  */
 export type AppStackProps = {
   LandingBottomTabNavigator: LandingBottomTabProps;
+  // Auth 관련 Screen
+  LoginScreen: LoginScreenProps;
   // 파트너 관련 Screen
   PartnerCategoryScreen: PartnerCategoryScreenProps;
   PartnerDetailScreen: PartnerDetailScreenProps;
@@ -72,6 +80,18 @@ export function AppStackNavigator() {
         name="LandingBottomTabNavigator"
         component={LandingBottomTabNavigator}
       />
+
+      {/* Auth 관련 Screen 그룹 */}
+      <AppStack.Group>
+        <AppStack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            headerShown: true,
+            header: LoginScreenHeader,
+          }}
+        />
+      </AppStack.Group>
 
       {/* 파트너 관련 Screen 그룹 */}
       <AppStack.Group>

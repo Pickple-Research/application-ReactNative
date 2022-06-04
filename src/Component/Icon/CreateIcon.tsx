@@ -21,8 +21,8 @@ const Container = styled.TouchableOpacity`
   bottom: 15px;
   justify-content: center;
   align-items: center;
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
   background-color: #444444;
   border-radius: 100px;
 `;
