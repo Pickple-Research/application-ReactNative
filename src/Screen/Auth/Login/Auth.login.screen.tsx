@@ -28,7 +28,7 @@ export function LoginScreen() {
     Boolean(emailInput.length) && passwordInput.length >= 6 && !isLoading;
 
   return (
-    <Container style={globalStyles.screen__horizontalPadding}>
+    <Container>
       <Header />
       <Email loginable={loginable} />
       <Password loginable={loginable} />
@@ -40,7 +40,7 @@ export function LoginScreen() {
 
 function Header() {
   return (
-    <Header__Container>
+    <Header__Container style={globalStyles.screen__horizontalPadding}>
       <Header__Text>로그인</Header__Text>
     </Header__Container>
   );
@@ -57,7 +57,7 @@ function Email({ loginable }: { loginable: boolean }) {
   );
 
   return (
-    <Email__Container>
+    <Email__Container style={globalStyles.authScreen__horizontalPadding}>
       <AuthTextInputName name="이메일" />
       <AuthTextInput
         props={{
@@ -84,7 +84,7 @@ function Password({ loginable }: { loginable: boolean }) {
   );
 
   return (
-    <Password__Container>
+    <Password__Container style={globalStyles.authScreen__horizontalPadding}>
       <AuthTextInputName name="비밀번호" />
       <AuthTextInput
         props={{
@@ -110,7 +110,7 @@ function Button({ loginable }: { loginable: boolean }) {
   );
 
   return (
-    <Button__Container>
+    <Button__Container style={globalStyles.authScreen__horizontalPadding}>
       <Button__Layout
         loginable={loginable}
         activeOpacity={loginable ? 0.6 : 1}
@@ -127,7 +127,7 @@ function Util() {
     useNavigation<NavigationProp<AppStackProps, "LoginScreen">>();
 
   return (
-    <Util__Container>
+    <Util__Container style={globalStyles.authScreen__horizontalPadding}>
       <Util__Text
         onPress={() => {
           // navigation.navigate("", {})
@@ -199,6 +199,4 @@ const Util__Text = styled(BodyText)`
   //TODO: #DESIGN-SYSTEM
   color: #807f7f;
   text-decoration: underline;
-  /* padding-bottom: 0.8px;
-  border: 0.8px solid #807f7f; */
 `;

@@ -20,12 +20,16 @@ type AuthLoginStoreProps = {
 export const useAuthLoginStore = create<AuthLoginStoreProps>((set, get) => ({
   emailInput: "",
   setEmailInput: (emailInput: string) => {
-    set({ emailInput });
+    if (emailInput.length < 36) {
+      set({ emailInput });
+    }
   },
 
   passwordInput: "",
   setPasswordInput: (passwordInput: string) => {
-    set({ passwordInput });
+    if (passwordInput.length < 36) {
+      set({ passwordInput });
+    }
   },
 
   isLoading: false,

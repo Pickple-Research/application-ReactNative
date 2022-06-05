@@ -10,7 +10,7 @@ import PencilIcon from "src/Resource/svg/pencil-icon.svg";
  * 마이페이지 랜딩 페이지 프로필 섹션
  * @author 현웅
  */
-export function MypageLandingUserInfo() {
+export function MypageLandingProfile() {
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <ProfileThumbnail />
@@ -29,7 +29,7 @@ function ProfileThumbnail() {
       <Thumbnail__EditIconContainer>
         <PencilIcon
           onPress={() => {
-            navigation.navigate("LoginScreen", {});
+            navigation.navigate("SignupScreen", {});
           }}
         />
       </Thumbnail__EditIconContainer>

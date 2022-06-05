@@ -10,6 +10,9 @@ import {
   LoginScreen,
   LoginScreenHeader,
   LoginScreenProps,
+  SignupScreen,
+  SignupScreenHeader,
+  SignupScreenProps,
 } from "src/Screen/Auth";
 // 파트너 관련 Screen
 import {
@@ -53,6 +56,7 @@ export type AppStackProps = {
   LandingBottomTabNavigator: LandingBottomTabProps;
   // Auth 관련 Screen
   LoginScreen: LoginScreenProps;
+  SignupScreen: SignupScreenProps;
   // 파트너 관련 Screen
   PartnerCategoryScreen: PartnerCategoryScreenProps;
   PartnerDetailScreen: PartnerDetailScreenProps;
@@ -89,6 +93,14 @@ export function AppStackNavigator() {
           options={{
             headerShown: true,
             header: LoginScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          name="SignupScreen"
+          component={SignupScreen}
+          options={{
+            headerShown: true,
+            header: SignupScreenHeader,
           }}
         />
       </AppStack.Group>

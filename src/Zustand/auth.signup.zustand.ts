@@ -17,6 +17,16 @@ type AuthSignupStoreProps = {
 
   passwordConfirmInput: string;
   setPasswordConfirmInput: (passwordConfirmInput: string) => void;
+
+  /** 이용약관/개인정보 처리방침 동의 */
+  agreeTerms: boolean;
+  toggleAgreeTerms: () => void;
+
+  /** 서비스 정보 수신 동의 */
+  agreeMarketing: boolean;
+  toggleAgreeMarketing: () => void;
+
+  signup: () => void;
 };
 
 /**
@@ -26,12 +36,16 @@ type AuthSignupStoreProps = {
 export const useAuthSignupStore = create<AuthSignupStoreProps>((set, get) => ({
   lastNameInput: "",
   setLastNameInput: (lastNameInput: string) => {
-    set({ lastNameInput });
+    if (lastNameInput.length < 3) {
+      set({ lastNameInput });
+    }
   },
 
   nameInput: "",
   setNameInput: (nameInput: string) => {
-    set({ nameInput });
+    if (nameInput.length < 7) {
+      set({ nameInput });
+    }
   },
 
   emailInput: "",
@@ -48,4 +62,15 @@ export const useAuthSignupStore = create<AuthSignupStoreProps>((set, get) => ({
   setPasswordConfirmInput: (passwordConfirmInput: string) => {
     set({ passwordConfirmInput });
   },
+
+  agreeTerms: false,
+  toggleAgreeTerms: () => {
+    set({ agreeTerms: !get().agreeTerms });
+  },
+  agreeMarketing: false,
+  toggleAgreeMarketing: () => {
+    set({ agreeMarketing: !get().agreeMarketing });
+  },
+
+  signup: () => {},
 }));

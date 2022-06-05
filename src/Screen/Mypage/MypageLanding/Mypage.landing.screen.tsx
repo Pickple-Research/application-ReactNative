@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { MypageLandingHeader } from "./Mypage.landing.header";
-import { MypageLandingUserInfo } from "./Mypage.landing.userInfo";
+import { MypageLandingProfile } from "./Mypage.landing.profile";
 import { MypageLandingActivity } from "./Mypage.landing.activity";
 import { MypageLandingCredit } from "./Mypage.landing.credit";
 import { MypageLandingFollow } from "./Mypage.landing.follow";
@@ -26,7 +26,7 @@ export function MypageLandingScreen() {
   return (
     <WhiteBackgroundScrollView>
       <MypageLandingHeader />
-      <MypageLandingUserInfo />
+      <MypageLandingProfile />
       <MypageLandingActivity />
       <MypageLandingCredit />
       <MypageLandingFollow />
