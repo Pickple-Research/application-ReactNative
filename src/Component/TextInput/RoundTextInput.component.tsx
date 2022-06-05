@@ -46,7 +46,6 @@ export function RoundTextInput({
 }
 
 const RoundTextInput__Container = styled.TextInput<{ focused: boolean }>`
-  flex: 1;
   font-size: ${({ theme }) => theme.size.header3};
   padding: 12px;
   //TODO: #DESIGN-SYSTEM

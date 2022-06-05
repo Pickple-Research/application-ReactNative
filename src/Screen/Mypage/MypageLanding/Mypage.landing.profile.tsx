@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator/App.stack.navigator";
 import { H3, H4, BodyText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 import PencilIcon from "src/Resource/svg/pencil-icon.svg";
@@ -8,7 +10,7 @@ import PencilIcon from "src/Resource/svg/pencil-icon.svg";
  * 마이페이지 랜딩 페이지 프로필 섹션
  * @author 현웅
  */
-export function MypageLandingUserInfo() {
+export function MypageLandingProfile() {
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <ProfileThumbnail />
@@ -19,10 +21,17 @@ export function MypageLandingUserInfo() {
 }
 
 function ProfileThumbnail() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
     <Thumbnail__Container>
       <Thumbnail__EditIconContainer>
-        <PencilIcon />
+        <PencilIcon
+          onPress={() => {
+            navigation.navigate("SignupScreen", {});
+          }}
+        />
       </Thumbnail__EditIconContainer>
     </Thumbnail__Container>
   );

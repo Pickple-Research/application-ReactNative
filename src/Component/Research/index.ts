@@ -1,4 +1,3 @@
-export * from "./Research.createIcon.component";
 export * from "./Research.dday.component";
 export * from "./Research.gift.listitem.component";
 export * from "./Research.giftIcons.component";

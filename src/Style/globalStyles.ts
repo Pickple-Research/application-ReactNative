@@ -7,10 +7,18 @@ import { StyleSheet } from "react-native";
  */
 export const globalStyles = StyleSheet.create({
   /**
-   * 스크린 좌우 여백. 좌우에 20px 여백을 줍니다.
+   * 일반적인 스크린들의 좌우 여백. 좌우에 20px 여백을 줍니다.
    * @author 현웅
    */
   screen__horizontalPadding: {
     paddingHorizontal: 20,
+  },
+
+  /**
+   * Auth 스크린 좌우 여백. 좌우에 25px 여백을 줍니다.
+   * @author 현웅
+   */
+  authScreen__horizontalPadding: {
+    paddingHorizontal: 25,
   },
 });

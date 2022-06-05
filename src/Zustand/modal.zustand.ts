@@ -1,6 +1,7 @@
 import create from "zustand";
 
 type ModalStoreProps = {
+  /** 리서치 상세 페이지 - 끌올 모달 */
   researchPullupModalVisible: boolean;
   setResearchPullupModalVisible: (status: boolean) => void;
 };
