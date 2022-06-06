@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { LayoutChangeEvent } from "react-native";
 import styled from "styled-components/native";
 import { RoundTextInput } from "src/Component/TextInput";
-import { H2 } from "src/StyledComponents/Text";
 import { ResearchUploadGiftProps } from "src/Object/Type";
 import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
+import { H2 } from "src/StyledComponents/Text";
+import CameraIcon from "src/Resource/svg/camera-icon.svg";
 
 type ResearchGiftListItemProps = {
   gift: ResearchUploadGiftProps;
@@ -18,20 +20,56 @@ type ResearchGiftListItemProps = {
 export function ResearchGiftListItem({ gift }: ResearchGiftListItemProps) {
   return (
     <Container>
-      <GiftImage />
+      <GiftImage index={gift.index} />
       <GiftName gift={gift} />
       <GiftDeleteButton index={gift.index} />
     </Container>
   );
 }
 
-function GiftImage() {
+function GiftImage({ index }: { index: number }) {
+  const [imageContainerWidth, setImageContainerWidth] = useState<number>(0);
+
+  const { gifts, uploadGiftPhoto } = useResearchUploadStore(
+    state => ({
+      gifts: state.gifts,
+      uploadGiftPhoto: state.uploadGiftPhoto,
+    }),
+    shallow,
+  );
+
+  function onImageContainerRender(event: LayoutChangeEvent) {
+    console.log(`container width: ${event.nativeEvent.layout.width}`);
+    setImageContainerWidth(event.nativeEvent.layout.width);
+  }
+
   return (
     <GiftImage__Container>
-      <GiftImageInput__Container>
-        {/* <GiftImageInput__Image
-          source={require("src/Resource/png/splash-screen-logo.png")}
-        /> */}
+      <GiftImageInput__Container
+        activeOpacity={0.8}
+        onPress={() => {
+          uploadGiftPhoto(index);
+        }}
+        onLayout={onImageContainerRender}>
+        {gifts[index].photoUri === "" ? (
+          // 이미지 추가가 안 된 경우
+          <>
+            <CameraIcon />
+            <GiftImageInput__GuideText>
+              이미지 추가하기
+            </GiftImageInput__GuideText>
+          </>
+        ) : (
+          // 이미지 추가된 경우
+          <GiftImageInput__Image
+            source={{ uri: gifts[index].photoUri }}
+            resizeMode="contain"
+            style={{
+              width: imageContainerWidth,
+              height: imageContainerWidth * gifts[index].photoRatio,
+            }}
+          />
+        )}
       </GiftImageInput__Container>
     </GiftImage__Container>
   );
@@ -47,6 +85,7 @@ function GiftName({ gift }: { gift: ResearchUploadGiftProps }) {
     <GiftName__Container>
       <GiftName__Text>상품명</GiftName__Text>
       <RoundTextInput
+        style={{ flex: 1 }}
         props={{
           value: gifts[gift.index].giftName,
           onChangeText: (newGiftName: string) => {
@@ -82,24 +121,27 @@ const Container = styled.View`
 
 // GiftImage()
 const GiftImage__Container = styled.View`
-  min-height: 120px;
+  min-height: 160px;
   padding: 0px 16px;
   margin-bottom: 28px;
 `;
 
-const GiftImageInput__Container = styled.View`
+const GiftImageInput__Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   flex: 1;
   //TODO: #DESIGN-SYSTEM
-  border: 1px solid #cccccc;
+  background-color: #eeeeee;
   border-radius: 10px;
   overflow: hidden;
 `;
 
-const GiftImageInput__Image = styled.Image`
-  /* height: 100%; */
+const GiftImageInput__GuideText = styled(H2)`
+  //TODO: #DESIGN-SYSTEM
+  color: #aaaaaa;
 `;
+
+const GiftImageInput__Image = styled.Image``;
 
 // GiftName()
 const GiftName__Container = styled.View`
@@ -125,5 +167,6 @@ const GiftDeleteButton__Container = styled.TouchableOpacity`
 `;
 
 const GiftDeleteButton__Content = styled.Text`
+  //TODO: #DESIGN-SYSTEM
   color: #aaaaaa;
 `;

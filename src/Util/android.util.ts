@@ -46,6 +46,7 @@ export async function getGalleryPhotoFromAndroid() {
       if (permissionAndroid || requestCameraPermissionFromAndroid()) {
         const result = await launchImageLibrary({
           mediaType: "photo",
+          selectionLimit: 1,
         });
         return result;
       }

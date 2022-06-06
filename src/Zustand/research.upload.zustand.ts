@@ -1,6 +1,7 @@
 import create from "zustand";
 import { ResearchPurpose } from "src/Object/Enum";
 import { ResearchUploadGiftProps } from "src/Object/Type";
+import { getGalleryPhotoFromAndroid } from "src/Util";
 
 type ResearchUploadStoreProps = {
   /** 리서치 업로드 단계 */
@@ -53,6 +54,8 @@ type ResearchUploadStoreProps = {
 
   screeningAgeInputs: string[];
   toggleScreeningAgeInputs: (input: string | undefined) => void;
+
+  uploadGiftPhoto: (index: number) => void;
 
   /** 입력값 초기화 */
   clearInputs: () => void;
@@ -110,13 +113,21 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
     },
 
     giftIndex: 1,
-    gifts: [{ index: 0, deleted: false, giftName: "" }],
+    gifts: [
+      { index: 0, deleted: false, giftName: "", photoUri: "", photoRatio: 0 },
+    ],
     addNewGift: () => {
       //* 기존 gifts에 새로운 gift 요소를 추가하고
       set({
         gifts: [
           ...get().gifts,
-          { index: get().giftIndex, deleted: false, giftName: "" },
+          {
+            index: get().giftIndex,
+            deleted: false,
+            giftName: "",
+            photoUri: "",
+            photoRatio: 0,
+          },
         ],
       });
 
@@ -136,6 +147,25 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       updatedGifts[index].giftName = giftName;
 
       set({ gifts: updatedGifts });
+    },
+
+    uploadGiftPhoto: async (index: number) => {
+      const result = await getGalleryPhotoFromAndroid();
+
+      if (
+        result &&
+        result.assets &&
+        result.assets[0].uri &&
+        result.assets[0].width &&
+        result.assets[0].height
+      ) {
+        const updatedGifts = [...get().gifts];
+        updatedGifts[index].photoUri = result.assets[0].uri;
+        updatedGifts[index].photoRatio =
+          result.assets[0].height / result.assets[0].width;
+
+        set({ gifts: updatedGifts });
+      }
     },
 
     creditReceiverNum: 0,
@@ -183,7 +213,15 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
         organizationInput: "",
         targetInput: "",
         estimatedTimeInput: 0,
-        gifts: [{ index: 0, deleted: false, giftName: "" }],
+        gifts: [
+          {
+            index: 0,
+            deleted: false,
+            giftName: "",
+            photoUri: "",
+            photoRatio: 0,
+          },
+        ],
         creditReceiverNum: 0,
         extraCredit: 0,
         screeningSexInput: undefined,
