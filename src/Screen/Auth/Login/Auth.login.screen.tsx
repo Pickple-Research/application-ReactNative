@@ -51,7 +51,7 @@ function Email({ loginable }: { loginable: boolean }) {
     state => ({
       emailInput: state.emailInput,
       setEmailInput: state.setEmailInput,
-      login: state.login,
+      login: state.loginWithEmailPassword,
     }),
     shallow,
   );
@@ -78,7 +78,7 @@ function Password({ loginable }: { loginable: boolean }) {
     state => ({
       passwordInput: state.passwordInput,
       setPasswordInput: state.setPasswordInput,
-      login: state.login,
+      login: state.loginWithEmailPassword,
     }),
     shallow,
   );
@@ -104,7 +104,7 @@ function Button({ loginable }: { loginable: boolean }) {
   const { isLoading, login } = useAuthLoginStore(
     state => ({
       isLoading: state.isLoading,
-      login: state.login,
+      login: state.loginWithEmailPassword,
     }),
     shallow,
   );

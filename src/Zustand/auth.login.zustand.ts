@@ -1,4 +1,5 @@
 import create from "zustand";
+import { loginWithEmailPassword } from "src/Axios";
 
 type AuthLoginStoreProps = {
   emailInput: string;
@@ -10,7 +11,8 @@ type AuthLoginStoreProps = {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 
-  login: () => void;
+  /** 이메일과 비밀번호를 이용해 로그인합니다 */
+  loginWithEmailPassword: () => void;
 };
 
 /**
@@ -37,5 +39,11 @@ export const useAuthLoginStore = create<AuthLoginStoreProps>((set, get) => ({
     set({ isLoading });
   },
 
-  login: () => {},
+  loginWithEmailPassword: async () => {
+    const jwt = await loginWithEmailPassword(
+      get().emailInput,
+      get().passwordInput,
+    );
+    //TODO: JWT 토큰 정보 저장
+  },
 }));

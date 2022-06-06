@@ -31,4 +31,6 @@ export type ResearchUploadGiftProps = {
   index: number;
   deleted: boolean;
   giftName: string;
+  photoUri: string;
+  photoRatio: number;
 };
