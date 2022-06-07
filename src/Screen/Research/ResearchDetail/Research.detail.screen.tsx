@@ -31,8 +31,14 @@ export function ResearchDetailScreen() {
   );
 }
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   position: relative;
+  flex: 1;
   //* ResearchDetailBottomTab의 height과 같은 값으로 유지해야 합니다.
   padding-bottom: 60px;
+`;
+
+const WebViewContainer = styled.View`
+  flex: 1;
+  background-color: black;
 `;
