@@ -3,6 +3,7 @@ export * from "./auth.signup.zustand";
 export * from "./modal.zustand";
 export * from "./partner.zustand";
 export * from "./research.upload.zustand";
+export * from "./research.participate.zustand";
 export * from "./research.zustand";
 export * from "./user.zustand";
 export * from "./vote.upload.zustand";

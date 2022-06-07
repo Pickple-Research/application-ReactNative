@@ -1,27 +1,29 @@
 import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 import { HomeLandingResearch } from "./Home.landing.research";
 import { HomeLandingHotVote } from "./Home.landing.hotVote";
 import { HomeLandingRecentVote } from "./Home.landing.recentVote";
 import { HomeLandingPartner } from "./Home.landing.partner";
-import { WhiteBackgroundScrollView } from "@Component/ScrollView";
+import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import { theme } from "src/Theme";
 
 export type HomeLandingScreenProps = {};
 
 export function HomeLandingScreen() {
   return (
-    <SafeAreaView>
+    <Container>
       <WhiteBackgroundScrollView>
-        {/* 헤더의 경우 기획 방안에 따라 Landing.bottomTab.navigator 에서 관리할 수 있음*/}
         <HomeLandingResearch />
         <HomeLandingHotVote />
         <HomeLandingRecentVote />
         <HomeLandingPartner />
       </WhiteBackgroundScrollView>
-    </SafeAreaView>
+    </Container>
   );
 }
+
+const Container = styled.SafeAreaView``;
 
 export const screenStyles = StyleSheet.create({
   boundary: {

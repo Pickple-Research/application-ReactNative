@@ -1,6 +1,8 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { H3 } from "src/StyledComponents/Text";
 import { useModalStore } from "src/Zustand";
 
@@ -9,13 +11,26 @@ import { useModalStore } from "src/Zustand";
  * @author 현웅
  */
 export function ResearchDetailBottomButton() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "ResearchDetailScreen">>();
+
   const setResearchPullupModalVisible = useModalStore(
     state => state.setResearchPullupModalVisible,
   );
 
   return (
     <Container>
-      <CloseButton>
+      <ScrapButton>
+        <ButtonText>스크랩</ButtonText>
+      </ScrapButton>
+      <ParticipateButton
+        onPress={() => {
+          navigation.navigate("ResearchParticipateScreen", {});
+        }}>
+        <ButtonText>참여하기</ButtonText>
+      </ParticipateButton>
+
+      {/* <CloseButton>
         <ButtonText>마감하기</ButtonText>
       </CloseButton>
       <PullupButton
@@ -23,7 +38,7 @@ export function ResearchDetailBottomButton() {
           setResearchPullupModalVisible(true);
         }}>
         <ButtonText>끌올하기</ButtonText>
-      </PullupButton>
+      </PullupButton> */}
     </Container>
   );
 }
@@ -37,17 +52,25 @@ const Container = styled.View`
   height: 60px;
 `;
 
-const CloseButton = styled.TouchableOpacity`
+const ScrapButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  flex: 3;
+  flex: 1;
   background-color: ${({ theme }) => theme.color.grey.main};
 `;
 
-const PullupButton = styled(CloseButton)`
+const ParticipateButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
   flex: 5;
   background-color: ${({ theme }) => theme.color.blue.main};
 `;
+
+const CloseButton = styled(ScrapButton)`
+  flex: 3;
+`;
+
+const PullupButton = styled(ParticipateButton)``;
 
 const ButtonText = styled(H3)`
   color: white;

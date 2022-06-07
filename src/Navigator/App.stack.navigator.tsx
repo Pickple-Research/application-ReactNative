@@ -26,7 +26,10 @@ import {
 // 리서치 관련 Screen
 import {
   ResearchDetailScreen,
+  ResearchDetailScreenHeader,
   ResearchDetailScreenProps,
+  ResearchParticipateScreen,
+  ResearchParticipateScreenProps,
   ResearchUploadScreen,
   ResearchUploadScreenHeader,
   ResearchUploadScreenProps,
@@ -62,6 +65,7 @@ export type AppStackProps = {
   PartnerDetailScreen: PartnerDetailScreenProps;
   // 리서치 관련 Screen
   ResearchDetailScreen: ResearchDetailScreenProps;
+  ResearchParticipateScreen: ResearchParticipateScreenProps;
   ResearchUploadScreen: ResearchUploadScreenProps;
   // 커뮤니티(투표) 관련 Screen
   CommunityVoteDetailScreen: CommunityVoteDetailScreenProps;
@@ -131,6 +135,14 @@ export function AppStackNavigator() {
         <AppStack.Screen
           name={"ResearchDetailScreen"}
           component={ResearchDetailScreen}
+          options={{
+            headerShown: true,
+            header: ResearchDetailScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          name={"ResearchParticipateScreen"}
+          component={ResearchParticipateScreen}
         />
         <AppStack.Screen
           name={"ResearchUploadScreen"}
