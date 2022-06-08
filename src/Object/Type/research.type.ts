@@ -1,3 +1,5 @@
+import { Asset } from "react-native-image-picker";
+
 /**
  * 리서치 정보
  * @param id
@@ -25,12 +27,17 @@ export type ResearchGiftProps = {
 
 /**
  * 리서치 경품 (업로드 시점)
+ * @param index 경품 index
+ * @param deleted 삭제 여부
+ * @param giftName 경품명
+ * @param giftImage 경품 이미지
+ * @param giftImageRatio 경품 이미지 비율
  * @author 현웅
  */
 export type ResearchUploadGiftProps = {
   index: number;
   deleted: boolean;
   giftName: string;
-  photoUri: string;
-  photoRatio: number;
+  giftImage: Asset;
+  giftImageRatio: number;
 };

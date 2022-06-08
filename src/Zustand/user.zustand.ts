@@ -1,5 +1,5 @@
 import create from "zustand";
-import { getUserInfo } from "src/Axios";
+import { getUser } from "src/Axios";
 
 type UserStoreProps = {
   test: string;
@@ -18,8 +18,7 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
     email: "tester@te.st",
   },
   getUserInfo: async () => {
-    const response = await getUserInfo();
-    console.log(`response: ${response}`);
+    const response = await getUser();
     // if (data) {
     //   set({ test: data });
     // }

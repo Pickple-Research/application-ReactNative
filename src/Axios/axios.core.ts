@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_ENDPOINT } from "../Constant";
 
 /**
+ * #AXIOS
  * Local에서 백엔드 요청을 하는 경우,
  * adb -s <device 혹은 emulator 이름> reverse tcp:<backend port> tcp:<backend port> 설정을 해야합니다.
  * @author 현웅
