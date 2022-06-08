@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { BackHandler } from "react-native";
 import styled from "styled-components/native";
 import { ResearchUploadTitleContentScreen } from "./TitleContent/Research.upload.titleContent.screen";
 import { ResearchUploadPurposeTargetScreen } from "./PurposeTarget/Research.upload.purposeTarget.screen";
@@ -7,6 +8,8 @@ import { ResearchUploadScreeningScreen } from "./Screening/Research.upload.scree
 import { ResearchUploadProgressBar } from "./Research.upload.progressBar";
 import { ResearchUploadButtomButton } from "./Research.upload.bottomButton";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import { ResearchUploadBlockExitModal } from "src/Modal";
+import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
 
 /**
@@ -22,7 +25,31 @@ export type ResearchUploadScreenProps = {};
  * @modify 현웅
  */
 export function ResearchUploadScreen({ navigation }: any) {
-  const step = useResearchUploadStore(state => state.step);
+  const { step, setBlockExitModalVisible, clearInputs } =
+    useResearchUploadStore(
+      state => ({
+        step: state.step,
+        setBlockExitModalVisible: state.setBlockExitModalVisible,
+        clearInputs: state.clearInputs,
+      }),
+      shallow,
+    );
+
+  function showBlockExitModal() {
+    setBlockExitModalVisible(true);
+    return true;
+  }
+
+  useEffect(() => {
+    //* 리서치 작성 중 뒤로가기 버튼을 눌렀을 때 재확인 모달을 띄우도록 이벤트 리스너를 추가합니다.
+    BackHandler.addEventListener("hardwareBackPress", showBlockExitModal);
+
+    return () => {
+      //* 창을 벗어나면 모든 입력값을 초기화하고 BackButton 이벤트 리스너를 제거합니다.
+      clearInputs();
+      BackHandler.removeEventListener("hardwareBackPress", showBlockExitModal);
+    };
+  }, []);
 
   const pages = [
     <ResearchUploadTitleContentScreen />,
@@ -36,6 +63,7 @@ export function ResearchUploadScreen({ navigation }: any) {
       <ResearchUploadProgressBar />
       <WhiteBackgroundScrollView>{pages[step]}</WhiteBackgroundScrollView>
       <ResearchUploadButtomButton />
+      <ResearchUploadBlockExitModal />
     </Container>
   );
 }

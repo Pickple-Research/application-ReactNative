@@ -47,10 +47,18 @@ export async function getGalleryPhotoFromAndroid() {
         const result = await launchImageLibrary({
           mediaType: "photo",
           selectionLimit: 1,
+          // includeBase64: true,
         });
-        return result;
+
+        if (
+          !result.didCancel && // 도중에 취소하지 않았고
+          result.assets && // 선택된 사진이 존재한다면
+          result.assets.length > 0
+        )
+          return result.assets[0]; // 해당 사진 반환
       }
     }
+    //TODO: iOS 인 경우 로직 추가
   } catch (err) {
     console.warn(err);
   }

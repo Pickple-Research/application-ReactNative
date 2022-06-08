@@ -1,32 +1,42 @@
 import create from "zustand";
+import { uploadResearch } from "src/Axios";
 import { ResearchPurpose } from "src/Object/Enum";
 import { ResearchUploadGiftProps } from "src/Object/Type";
 import { getGalleryPhotoFromAndroid } from "src/Util";
 
+import axios from "axios";
+
 type ResearchUploadStoreProps = {
-  /** 리서치 업로드 단계 */
+  /** 리서치 업로드 단계: 0/1/2/3 단계 */
   step: number;
   goNextStop: () => void;
   goPreviousStep: () => void;
 
+  /** 리서치 제목 */
   titleInput: string;
   setTitleInput: (input: string) => void;
 
+  /** 리서치 링크 */
   linkInput: string;
   setLinkInput: (input: string) => void;
 
+  /** 리서치 내용 */
   contentInput: string;
   setContentInput: (input: string) => void;
 
+  /** 리서치 목적 */
   purposeInput: ResearchPurpose | undefined;
   setPurposeInput: (input: ResearchPurpose) => void;
 
+  /** 리서치 기업/단체/수업 */
   organizationInput: string;
   setOrganizationInput: (input: string) => void;
 
+  /** 리서치 참여 대상 */
   targetInput: string;
   setTargetInput: (input: string) => void;
 
+  /** 리서치 예상 소요 시간 */
   estimatedTimeInput: number;
   setEstimatedTimeInput: (input: number) => void;
 
@@ -34,12 +44,15 @@ type ResearchUploadStoreProps = {
   giftIndex: number;
   /** 업로드할 리서치에 걸 경품 */
   gifts: ResearchUploadGiftProps[];
-  /** 경품 추가 함수 */
+  /** 경품 추가 */
   addNewGift: () => void;
-  /** 경품 삭제 함수 */
+  /** 경품 삭제 */
   removeGift: (index: number) => void;
-  /** 경품 이름 수정 함수. index와 경품 이름을 인자로 받아 전체 경품을 재설정합니다. */
+  /** 경품 이름 수정 함수. 경품의 index와 경품 이름을 인자로 받고 전체 경품을 재설정합니다. */
   updateGiftName: (index: number, giftName: string) => void;
+
+  /** 경품 사진 추가 함수. 경품의 index를 인자로 받고 전체 경품을 재설정합니다. */
+  uploadGiftPhoto: (index: number) => void;
 
   /** 추가 크레딧 수령 인원 수 */
   creditReceiverNum: number;
@@ -49,18 +62,29 @@ type ResearchUploadStoreProps = {
   extraCredit: number;
   setExtraCredit: (credit: number) => void;
 
+  /** 스크리닝: 성별 선택 */
   screeningSexInput: string | undefined;
   setScreeningSexInput: (input: string | undefined) => void;
 
+  /** 스크리닝: 연령 선택 */
   screeningAgeInputs: string[];
   toggleScreeningAgeInputs: (input: string | undefined) => void;
 
-  uploadGiftPhoto: (index: number) => void;
+  /** 작성 도중 나가려고 할 때 모달 */
+  blockExitModalVisible: boolean;
+  setBlockExitModalVisible: (status: boolean) => void;
 
-  /** 입력값 초기화 */
+  /** 리서치 업로드 화면에 입력한 모든 값을 초기화합니다. */
   clearInputs: () => void;
-  /** 리서치 업로드 */
-  uploadResearch: () => void;
+
+  /** 입력 정보들을 FormData로 묶어서 반환합니다. */
+  getFormData: () => FormData;
+
+  /**
+   * 리서치 업로드:
+   * 입력된 모든 리서치 정보를 formData에 담아 업로드합니다.
+   */
+  uploadResearch: () => Promise<void>;
 };
 
 /**
@@ -114,7 +138,13 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
 
     giftIndex: 1,
     gifts: [
-      { index: 0, deleted: false, giftName: "", photoUri: "", photoRatio: 0 },
+      {
+        index: 0,
+        deleted: false,
+        giftName: "",
+        giftImage: {},
+        giftImageRatio: 0,
+      },
     ],
     addNewGift: () => {
       //* 기존 gifts에 새로운 gift 요소를 추가하고
@@ -125,8 +155,8 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
             index: get().giftIndex,
             deleted: false,
             giftName: "",
-            photoUri: "",
-            photoRatio: 0,
+            giftImage: {},
+            giftImageRatio: 1,
           },
         ],
       });
@@ -150,19 +180,13 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
     },
 
     uploadGiftPhoto: async (index: number) => {
-      const result = await getGalleryPhotoFromAndroid();
+      const image = await getGalleryPhotoFromAndroid();
 
-      if (
-        result &&
-        result.assets &&
-        result.assets[0].uri &&
-        result.assets[0].width &&
-        result.assets[0].height
-      ) {
+      if (image) {
         const updatedGifts = [...get().gifts];
-        updatedGifts[index].photoUri = result.assets[0].uri;
-        updatedGifts[index].photoRatio =
-          result.assets[0].height / result.assets[0].width;
+        updatedGifts[index].giftImage = image;
+        updatedGifts[index].giftImageRatio =
+          (image.height || 1) / (image.width || 1);
 
         set({ gifts: updatedGifts });
       }
@@ -203,6 +227,11 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       }
     },
 
+    blockExitModalVisible: false,
+    setBlockExitModalVisible: (status: boolean) => {
+      set({ blockExitModalVisible: status });
+    },
+
     clearInputs: () => {
       set({
         step: 0,
@@ -218,16 +247,72 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
             index: 0,
             deleted: false,
             giftName: "",
-            photoUri: "",
-            photoRatio: 0,
+            giftImage: {},
+            giftImageRatio: 0,
           },
         ],
         creditReceiverNum: 0,
         extraCredit: 0,
         screeningSexInput: undefined,
         screeningAgeInputs: [],
+        blockExitModalVisible: false,
       });
     },
-    uploadResearch: () => {},
+
+    getFormData: () => {
+      const formData = new FormData();
+
+      get().gifts.forEach(gift => {
+        if (!gift.deleted) {
+          formData.append("images", {
+            uri: gift.giftImage.uri,
+            type: gift.giftImage.type,
+            name: gift.giftImage.fileName,
+          });
+        }
+      });
+
+      formData.append("title", get().titleInput.trim());
+      formData.append("link", get().linkInput.trim());
+      formData.append("content", get().contentInput.trim());
+      // formData.append("purpose", get().purposeInput);
+      // formData.append("organization", get().organizationInput.trim());
+      formData.append("target", get().targetInput.trim());
+      // formData.append("estimatedTime", get().estimatedTimeInput);
+      // formData.append("", get().creditReceiverNum)
+      // formData.append("", get().extraCredit)
+      // formData.append("", get().screeningSexInput)
+      // formData.append("", get().screeningAgeInputs)
+
+      return formData;
+    },
+
+    uploadResearch: async () => {
+      const formData = new FormData();
+
+      get().gifts.forEach(gift => {
+        if (!gift.deleted) {
+          formData.append("images", {
+            uri: gift.giftImage.uri,
+            type: gift.giftImage.type,
+            name: gift.giftImage.fileName,
+          });
+        }
+      });
+
+      formData.append("title", get().titleInput.trim());
+      formData.append("link", get().linkInput.trim());
+      formData.append("content", get().contentInput.trim());
+      // formData.append("purpose", get().purposeInput);
+      // formData.append("organization", get().organizationInput.trim());
+      formData.append("target", get().targetInput.trim());
+      // formData.append("estimatedTime", get().estimatedTimeInput);
+      // formData.append("", get().creditReceiverNum)
+      // formData.append("", get().extraCredit)
+      // formData.append("", get().screeningSexInput)
+      // formData.append("", get().screeningAgeInputs)
+
+      // await uploadResearch(formData);
+    },
   }),
 );

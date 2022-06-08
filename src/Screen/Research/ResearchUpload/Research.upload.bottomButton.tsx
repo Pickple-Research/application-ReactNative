@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
+import {
+  StackActions,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
+import { H2 } from "src/StyledComponents/Text";
+import { uploadResearch } from "src/Axios";
 import shallow from "zustand/shallow";
 import { useResearchUploadStore } from "src/Zustand";
-import { H2 } from "src/StyledComponents/Text";
 
 /**
  * 리서치 업로드 페이지의 하단 버튼입니다.
@@ -10,6 +17,9 @@ import { H2 } from "src/StyledComponents/Text";
  * @author 현웅
  */
 export function ResearchUploadButtomButton() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "ResearchUploadScreen">>();
+
   const {
     step,
     goNextStep,
@@ -20,7 +30,9 @@ export function ResearchUploadButtomButton() {
     organizationInput,
     targetInput,
     estimatedTimeInput,
-    uploadResearch,
+    gifts,
+    getFormData,
+    // uploadResearch,
   } = useResearchUploadStore(
     state => ({
       step: state.step,
@@ -31,8 +43,10 @@ export function ResearchUploadButtomButton() {
       purposeInput: state.purposeInput,
       organizationInput: state.organizationInput,
       targetInput: state.targetInput,
+      gifts: state.gifts,
       estimatedTimeInput: state.estimatedTimeInput,
-      uploadResearch: state.uploadResearch,
+      getFormData: state.getFormData,
+      // uploadResearch: state.uploadResearch,
     }),
     shallow,
   );
@@ -85,7 +99,17 @@ export function ResearchUploadButtomButton() {
 
   /** 경품, 기프티콘 입력 단계 */
   function GiftCreditStepButton() {
-    const available = true;
+    const uploadedGifts = gifts.filter(gifts => !gifts.deleted);
+
+    //* 삭제되지 않은 모든 경품은 사진과 이름이 모두 있거나, 혹은 모두 없어야 합니다.
+    const available = uploadedGifts.every(gift => {
+      return (
+        (Boolean(gift.giftName) &&
+          Boolean(Object.keys(gift.giftImage).length)) ||
+        (!Boolean(gift.giftName) &&
+          !Boolean(Object.keys(gift.giftImage).length))
+      );
+    });
 
     return (
       <Container
@@ -99,14 +123,39 @@ export function ResearchUploadButtomButton() {
 
   /** 스크리닝, 목표 인원 보장 입력 단계 */
   function ScreeningStepButton() {
+    const [uploading, setUploading] = useState<boolean>(false);
+
     const available = true;
 
     return (
       <Container
-        activeOpacity={available ? 0.6 : 1}
-        onPress={available ? uploadResearch : undefined}
-        available={available}>
-        <ButtonText available={available}>작성 완료!</ButtonText>
+        activeOpacity={!uploading ? 0.6 : 1}
+        onPress={
+          !uploading
+            ? async () => {
+                setUploading(true);
+                //TODO: Zustand를 async 과정에서 사용하면 에러가 납니다.
+                //TODO: getFormData() 조차 사용하면 안 됩니다.
+                const formData = new FormData();
+                formData.append("title", "test titleInput");
+                formData.append("link", "test linkInput");
+                formData.append("content", "test contentInput");
+                formData.append("target", "test targetInput");
+
+                const result = await uploadResearch(formData);
+                setUploading(false);
+                if (result) {
+                  navigation.dispatch(
+                    StackActions.replace("ResearchDetailScreen", {}),
+                  );
+                }
+              }
+            : undefined
+        }
+        available={!uploading}>
+        <ButtonText available={!uploading}>
+          {!uploading ? "작성 완료!" : "업로드 중..."}
+        </ButtonText>
       </Container>
     );
   }

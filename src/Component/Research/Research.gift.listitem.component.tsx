@@ -39,7 +39,6 @@ function GiftImage({ index }: { index: number }) {
   );
 
   function onImageContainerRender(event: LayoutChangeEvent) {
-    console.log(`container width: ${event.nativeEvent.layout.width}`);
     setImageContainerWidth(event.nativeEvent.layout.width);
   }
 
@@ -51,7 +50,17 @@ function GiftImage({ index }: { index: number }) {
           uploadGiftPhoto(index);
         }}
         onLayout={onImageContainerRender}>
-        {gifts[index].photoUri === "" ? (
+        {gifts[index].giftImage.uri ? (
+          // 이미지 추가된 경우
+          <GiftImageInput__Image
+            source={{ uri: gifts[index].giftImage.uri }}
+            resizeMode="contain"
+            style={{
+              width: imageContainerWidth,
+              height: imageContainerWidth * gifts[index].giftImageRatio,
+            }}
+          />
+        ) : (
           // 이미지 추가가 안 된 경우
           <>
             <CameraIcon />
@@ -59,16 +68,6 @@ function GiftImage({ index }: { index: number }) {
               이미지 추가하기
             </GiftImageInput__GuideText>
           </>
-        ) : (
-          // 이미지 추가된 경우
-          <GiftImageInput__Image
-            source={{ uri: gifts[index].photoUri }}
-            resizeMode="contain"
-            style={{
-              width: imageContainerWidth,
-              height: imageContainerWidth * gifts[index].photoRatio,
-            }}
-          />
         )}
       </GiftImageInput__Container>
     </GiftImage__Container>

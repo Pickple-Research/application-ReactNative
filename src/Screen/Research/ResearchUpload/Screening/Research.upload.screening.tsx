@@ -28,7 +28,7 @@ function Description() {
   return (
     <Description__Container style={globalStyles.screen__horizontalPadding}>
       <Description__Text bold={true}>최소 참여 조건</Description__Text>
-      <Description__Text bold={false}>을 설정하여</Description__Text>
+      <Description__Text bold={false}>{`을 설정하여 `}</Description__Text>
       <Description__Text bold={true}>해당되는 사람만 참여</Description__Text>
       <Description__Text bold={false}>할 수</Description__Text>
       <Description__Text bold={false}>{` 있도록 `}</Description__Text>
