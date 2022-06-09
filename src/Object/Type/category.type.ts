@@ -1,4 +1,3 @@
-//! import { Category } from "@Object/Enum" 하면 못 찾습니다.
 import { Category } from "../Enum";
 
 export type InterestingCategoryProps = Category[];
