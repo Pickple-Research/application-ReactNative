@@ -2,7 +2,7 @@ import React from "react";
 import { Animated, LayoutChangeEvent } from "react-native";
 import styled from "styled-components/native";
 import { ResearchRecommendCarousel } from "src/Component/Research";
-import { useResearchStore } from "src/Zustand";
+import { useUserStore, useResearchStore } from "src/Zustand";
 import { H1 } from "src/StyledComponents/Text";
 
 /**
@@ -16,11 +16,12 @@ export function ResearchLandingRecommend({
   onLayout: (event: LayoutChangeEvent) => void;
   translateY: Animated.AnimatedInterpolation;
 }) {
+  const user = useUserStore(state => state.user);
   const exampleResearches = useResearchStore(state => state.exampleResearches);
 
   return (
     <Container onLayout={onLayout} style={{ transform: [{ translateY }] }}>
-      <Greeting username="픽플리" />
+      <Greeting username={user.nickname} />
       <ResearchRecommendCarousel researches={exampleResearches} />
     </Container>
   );

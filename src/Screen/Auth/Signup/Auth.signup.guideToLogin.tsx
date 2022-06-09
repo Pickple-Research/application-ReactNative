@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  StackActions,
+  useNavigation,
+} from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
@@ -20,7 +24,7 @@ export function SignupGuideToLogin() {
         <GuideText>{`이미 회원이신가요? `}</GuideText>
         <GuideText__Underlined
           onPress={() => {
-            navigation.navigate("LoginScreen", {});
+            navigation.dispatch(StackActions.replace("LoginScreen", {}));
           }}>
           로그인하기
         </GuideText__Underlined>

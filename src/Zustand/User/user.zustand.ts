@@ -1,11 +1,27 @@
 import create from "zustand";
-import { getUser } from "src/Axios";
+import {
+  User,
+  UserActivity,
+  UserCreditHistory,
+  UserPrivacy,
+  UserProperty,
+} from "src/Schema";
 
 type UserStoreProps = {
-  test: string;
-  userInfo: { email: string };
-  getUserInfo: () => void;
-  setTest: (test: string) => void;
+  user: User;
+  userActivity: UserActivity;
+  userCreditHistory: UserCreditHistory;
+  userPrivacy: UserPrivacy;
+  userProperty: UserProperty;
+
+  /** 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다 */
+  setUserInfo: (userInfo: {
+    user: User;
+    userActivity: UserActivity;
+    userCreditHistory: UserCreditHistory;
+    userPrivacy: UserPrivacy;
+    userProperty: UserProperty;
+  }) => void;
 };
 
 /**
@@ -13,15 +29,44 @@ type UserStoreProps = {
  * @author 현웅
  */
 export const useUserStore = create<UserStoreProps>((set, get) => ({
-  test: "",
-  userInfo: {
-    email: "tester@te.st",
+  user: {
+    email: "",
+    nickname: "",
+    grade: 0,
+    createdAt: "",
   },
-  getUserInfo: async () => {
-    const response = await getUser();
-    // if (data) {
-    //   set({ test: data });
-    // }
+
+  userActivity: {
+    viewedResearchIds: [],
+    viewedVoteIds: [],
+    scrappedResearchIds: [],
+    scrappedVoteIds: [],
+    participatedResearchIds: [],
+    participatedVoteInfos: [],
+    uploadedResearchIds: [],
+    uploadedVoteIds: [],
   },
-  setTest: (test: string) => {},
+
+  userPrivacy: {},
+
+  userCreditHistory: { history: [] },
+
+  userProperty: {},
+
+  setUserInfo: (userInfo: {
+    user: User;
+    userActivity: UserActivity;
+    userCreditHistory: UserCreditHistory;
+    userPrivacy: UserPrivacy;
+    userProperty: UserProperty;
+  }) => {
+    set({
+      user: userInfo.user,
+      userActivity: userInfo.userActivity,
+      userCreditHistory: userInfo.userCreditHistory,
+      userPrivacy: userInfo.userPrivacy,
+      userProperty: userInfo.userProperty,
+    });
+    return;
+  },
 }));
