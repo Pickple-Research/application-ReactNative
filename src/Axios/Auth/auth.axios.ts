@@ -1,4 +1,11 @@
 import customAxios from "../axios.core";
+import {
+  User,
+  UserActivity,
+  UserCreditHistory,
+  UserPrivacy,
+  UserProperty,
+} from "src/Schema";
 
 /**
  * 이메일과 비밀번호를 이용해 로그인합니다.
@@ -10,7 +17,13 @@ export const loginWithEmailPassword = async (
   password: string,
 ) => {
   return await customAxios
-    .request<string>({
+    .request<{
+      user: User;
+      userActivity: UserActivity;
+      userCreditHistory: UserCreditHistory;
+      userPrivacy: UserPrivacy;
+      userProperty: UserProperty;
+    }>({
       method: "POST",
       url: "/auth/login",
       data: {
@@ -18,8 +31,11 @@ export const loginWithEmailPassword = async (
         password,
       },
     })
+    .then(response => {
+      return response.data;
+    })
     .catch(() => {
-      return "";
+      return null;
     });
 };
 

@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
-import { PartnerProductServiceCarousel } from "@Component/Partner";
-import { RadiusButton } from "@Component/Button";
-import { SectionHeaderText } from "@Component/Text";
+import { PartnerProductServiceCarousel } from "src/Component/Partner";
+import { RadiusButton } from "src/Component/Button";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { usePartnerStore } from "@Zustand/partner.zustand";
+import { usePartnerStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 import { H3 } from "src/StyledComponents/Text";
 

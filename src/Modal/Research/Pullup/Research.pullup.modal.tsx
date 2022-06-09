@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { BlackBackgroundModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
-import { useModalStore } from "src/Zustand";
+import { useResearchDetailStore } from "src/Zustand";
 
 /**
  * 리서치 끌올 모달입니다.
@@ -10,7 +10,7 @@ import { useModalStore } from "src/Zustand";
  */
 export function ResearchPullupModal() {
   const { researchPullupModalVisible, setResearchPullupModalVisible } =
-    useModalStore(
+    useResearchDetailStore(
       state => ({
         researchPullupModalVisible: state.researchPullupModalVisible,
         setResearchPullupModalVisible: state.setResearchPullupModalVisible,

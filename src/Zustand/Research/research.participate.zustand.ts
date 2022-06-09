@@ -23,6 +23,8 @@ type ResearchParticipateStoreProps = {
   /** 참여 완료 시 모달 */
   completeModalVisible: boolean;
   setCompleteModalVisible: (status: boolean) => void;
+
+  clearInputs: () => void;
 };
 
 /**
@@ -56,5 +58,14 @@ export const useResearchParticipateStore =
     completeModalVisible: false,
     setCompleteModalVisible: (status: boolean) => {
       set({ completeModalVisible: status });
+    },
+
+    clearInputs: () => {
+      set({
+        consummedTime: 0,
+        loadingModalVisible: true,
+        blockExitModalVisible: false,
+        completeModalVisible: false,
+      });
     },
   }));

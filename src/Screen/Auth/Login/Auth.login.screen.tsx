@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  StackActions,
+  useNavigation,
+} from "@react-navigation/native";
 import { AppStackProps } from "@Navigator/App.stack.navigator";
 import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
 import { H1, BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useAuthLoginStore } from "src/Zustand";
+import { useUserStore, useAuthLoginStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 export type LoginScreenProps = {};
@@ -15,17 +19,26 @@ export type LoginScreenProps = {};
  * @author 현웅
  */
 export function LoginScreen() {
-  const { emailInput, passwordInput, isLoading } = useAuthLoginStore(
-    state => ({
-      emailInput: state.emailInput,
-      passwordInput: state.passwordInput,
-      isLoading: state.isLoading,
-    }),
-    shallow,
-  );
+  const { emailInput, passwordInput, isLoading, clearInputs } =
+    useAuthLoginStore(
+      state => ({
+        emailInput: state.emailInput,
+        passwordInput: state.passwordInput,
+        isLoading: state.isLoading,
+        clearInputs: state.clearInputs,
+      }),
+      shallow,
+    );
 
   const loginable =
     Boolean(emailInput.length) && passwordInput.length >= 6 && !isLoading;
+
+  //* 로그인 창을 벗어나면 입력값을 초기화합니다.
+  useEffect(() => {
+    return () => {
+      clearInputs();
+    };
+  }, []);
 
   return (
     <Container>
@@ -47,11 +60,12 @@ function Header() {
 }
 
 function Email({ loginable }: { loginable: boolean }) {
-  const { emailInput, setEmailInput, login } = useAuthLoginStore(
+  const { emailInput, setEmailInput, isLoading, login } = useAuthLoginStore(
     state => ({
       emailInput: state.emailInput,
       setEmailInput: state.setEmailInput,
-      login: state.loginWithEmailPassword,
+      isLoading: state.isLoading,
+      login: state.login,
     }),
     shallow,
   );
@@ -65,6 +79,7 @@ function Email({ loginable }: { loginable: boolean }) {
           textContentType: "emailAddress",
           keyboardType: "email-address",
           value: emailInput,
+          editable: !isLoading,
           onChangeText: setEmailInput,
           onSubmitEditing: loginable ? login : undefined,
         }}
@@ -74,14 +89,16 @@ function Email({ loginable }: { loginable: boolean }) {
 }
 
 function Password({ loginable }: { loginable: boolean }) {
-  const { passwordInput, setPasswordInput, login } = useAuthLoginStore(
-    state => ({
-      passwordInput: state.passwordInput,
-      setPasswordInput: state.setPasswordInput,
-      login: state.loginWithEmailPassword,
-    }),
-    shallow,
-  );
+  const { passwordInput, setPasswordInput, isLoading, login } =
+    useAuthLoginStore(
+      state => ({
+        passwordInput: state.passwordInput,
+        setPasswordInput: state.setPasswordInput,
+        isLoading: state.isLoading,
+        login: state.login,
+      }),
+      shallow,
+    );
 
   return (
     <Password__Container style={globalStyles.authScreen__horizontalPadding}>
@@ -92,6 +109,7 @@ function Password({ loginable }: { loginable: boolean }) {
           textContentType: "password",
           secureTextEntry: true,
           value: passwordInput,
+          editable: !isLoading,
           onChangeText: setPasswordInput,
           onSubmitEditing: loginable ? login : undefined,
         }}
@@ -101,21 +119,33 @@ function Password({ loginable }: { loginable: boolean }) {
 }
 
 function Button({ loginable }: { loginable: boolean }) {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LoginScreen">>();
+
+  const setUserInfo = useUserStore(state => state.setUserInfo);
   const { isLoading, login } = useAuthLoginStore(
     state => ({
       isLoading: state.isLoading,
-      login: state.loginWithEmailPassword,
+      login: state.login,
     }),
     shallow,
   );
+
+  async function tryLogin() {
+    const result = await login();
+    if (!result) return;
+
+    setUserInfo(result);
+    navigation.dispatch(StackActions.replace("LandingBottomTabNavigator", {}));
+  }
 
   return (
     <Button__Container style={globalStyles.authScreen__horizontalPadding}>
       <Button__Layout
         loginable={loginable}
         activeOpacity={loginable ? 0.6 : 1}
-        onPress={loginable ? login : undefined}>
-        {isLoading ? null : <Button__Text>로그인</Button__Text>}
+        onPress={loginable ? tryLogin : undefined}>
+        <Button__Text>{isLoading ? `로그인 중...` : `로그인`}</Button__Text>
       </Button__Layout>
     </Button__Container>
   );
