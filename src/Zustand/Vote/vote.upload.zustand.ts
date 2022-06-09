@@ -19,6 +19,10 @@ type VoteUploadStoreProps = {
   allowMultiChoice: boolean;
   toggleAllowMultiChoice: () => void;
 
+  /** 작성 도중 나가려고 할 때 모달 */
+  blockExitModalVisible: boolean;
+  setBlockExitModalVisible: (status: boolean) => void;
+
   /** 모든 상태값 초기화 */
   clearInput: () => void;
   /** 투표 업로드 */
@@ -65,6 +69,24 @@ export const useVoteUploadStore = create<VoteUploadStoreProps>((set, get) => ({
     set(state => ({ allowMultiChoice: !state.allowMultiChoice }));
   },
 
-  clearInput: () => {},
+  blockExitModalVisible: false,
+  setBlockExitModalVisible: (status: boolean) => {
+    set({ blockExitModalVisible: status });
+  },
+
+  clearInput: () => {
+    set({
+      titleInput: "",
+      contentInput: "",
+      optionIndex: 2,
+      options: [
+        { index: 0, content: "" },
+        { index: 1, content: "" },
+      ],
+      allowMultiChoice: false,
+      blockExitModalVisible: false,
+    });
+  },
+
   uploadVote: () => {},
 }));

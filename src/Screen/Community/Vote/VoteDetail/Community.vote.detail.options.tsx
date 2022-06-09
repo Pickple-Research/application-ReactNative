@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { VoteOption } from "src/Component/Vote";
 import { H3, BodyText } from "src/StyledComponents/Text";
-import { useVoteStore } from "src/Zustand/vote.zustand";
+import { useVoteStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**

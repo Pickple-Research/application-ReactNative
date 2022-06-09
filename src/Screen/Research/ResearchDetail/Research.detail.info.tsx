@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ResearchListItem } from "@Component/Research";
-import { useResearchStore } from "@Zustand/research.zustand";
+import { ResearchListItem } from "src/Component/Research";
+import { useResearchStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 
 /**

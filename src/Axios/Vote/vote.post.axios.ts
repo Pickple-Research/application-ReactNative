@@ -8,5 +8,6 @@ export const uploadVote = async () => {
   return await customAxios.request<string>({
     method: "POST",
     url: "/votes",
+    data: {},
   });
 };

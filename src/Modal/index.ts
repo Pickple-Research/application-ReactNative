@@ -5,3 +5,5 @@ export * from "./Research/Participate/Research.participate.blockExit.modal";
 export * from "./Research/Participate/Research.participate.complete.modal";
 
 export * from "./Research/Upload/Research.upload.blockExit.modal";
+
+export * from "./Vote/Upload/Vote.upload.blockExit.modal";
