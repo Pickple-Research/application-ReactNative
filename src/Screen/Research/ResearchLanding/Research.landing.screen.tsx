@@ -14,15 +14,6 @@ import { CreateIcon } from "src/Component/Icon";
 export type ResearchLandingScreenProps = {};
 
 /**
- * ResearchLandingScreen에 넘겨진 route와 navigation의 props
- * @author 현웅
- */
-type AppStackResearchLandingScreenProps = NativeStackScreenProps<
-  AppStackProps,
-  "LandingBottomTabNavigator"
->;
-
-/**
  * 리서치 랜딩 페이지. Collapsible Header를 구현하는 방법은 링크 내용을 참고하였습니다.
  *
  * @explain
@@ -51,7 +42,7 @@ type AppStackResearchLandingScreenProps = NativeStackScreenProps<
 export function ResearchLandingScreen({
   route,
   navigation,
-}: AppStackResearchLandingScreenProps) {
+}: NativeStackScreenProps<AppStackProps, "LandingBottomTabNavigator">) {
   /**
    * 리서치 추천 섹션의 높이입니다. 초기값은 0이지만,
    * onRecommendSectionLayout 함수가 호출됨에 따라 변경됩니다.
@@ -103,7 +94,7 @@ export function ResearchLandingScreen({
    * Animated.diffClamp는 첫번째 인자의 값이 두번째, 세번째 값의 범위를 벗어나지 않도록 강제하므로,
    * 기존에 FlatList의 스크롤 이벤트 값만큼 무한정 늘어났던 scrollY 의 값이 recommendSectionHeight 보다 커지지 않게 됩니다.
    * 위로 올라가는 제스쳐를 취할 때 실제 위치와 상관 없이 무조건 나타나게 됩니다.
-   * 물론 이렇게 하면
+   * 물론 이렇게 하면 FlatList 스크린 헤더가 밀리는 현상이 일어날텐데, 그건 그 때 생각하도록 합시다.
    */
   // const scrollYClamp = Animated.diffClamp(scrollY.current, 0, recommendSectionHeight);
   // const recommendSectionTranslateY = scrollYClamp.interpolate({

@@ -16,7 +16,9 @@ export function VoteListItem({ vote }: { vote: VoteProps }) {
     <Container
       activeOpacity={1}
       onPress={() => {
-        navigation.navigate("CommunityVoteDetailScreen", {});
+        navigation.navigate("CommunityVoteDetailScreen", {
+          voteId: "62a3008a6c09b783e0fdda09",
+        });
       }}>
       <TitleTagContainer>
         <TitleText numberOfLines={1}>{vote.title}</TitleText>

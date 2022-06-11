@@ -4,7 +4,7 @@ import { ParticipatedVoteInfo } from "./Embedded";
  * 유저 활동(리서치나 투표 참여/조회/스크랩) 정보 스키마
  * @author 현웅
  */
-export type UserActivity = {
+export type UserActivitySchema = {
   /** 조회한 리서치 _id */
   viewedResearchIds: string[];
 
@@ -28,4 +28,15 @@ export type UserActivity = {
 
   /** 작성한 투표들 _id */
   uploadedVoteIds: string[];
+};
+
+export const BlankUserActivity: UserActivitySchema = {
+  viewedResearchIds: [],
+  viewedVoteIds: [],
+  scrappedResearchIds: [],
+  scrappedVoteIds: [],
+  participatedResearchIds: [],
+  participatedVoteInfos: [],
+  uploadedResearchIds: [],
+  uploadedVoteIds: [],
 };

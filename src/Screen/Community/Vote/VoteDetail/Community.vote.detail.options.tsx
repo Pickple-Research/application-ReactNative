@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components/native";
 import { VoteOption } from "src/Component/Vote";
 import { H3, BodyText } from "src/StyledComponents/Text";
-import { useVoteStore } from "src/Zustand";
+import shallow from "zustand/shallow";
+import { useVoteDetailStore } from "src/Zustand";
+import { VoteOptionSchema } from "src/Schema/Vote/Embedded";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -10,30 +12,46 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailOptions() {
+  const { vote, voteParticipation } = useVoteDetailStore(
+    state => ({
+      vote: state.vote,
+      voteParticipation: state.voteParticipation,
+    }),
+    shallow,
+  );
+
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <InnerContainer>
-        <Options />
+        <Options options={vote.options} />
         <VoteButton />
-        <VotedUserNum />
+        <VotedUserNum participantsNum={voteParticipation.participantNum} />
       </InnerContainer>
       <CommentsScrapNum />
     </Container>
   );
 }
 
-function Options() {
-  const exampleVote = useVoteStore(state => state.exampleVote);
+function Options({ options }: { options: VoteOptionSchema[] }) {
+  const { selectedOptions, onPressOption } = useVoteDetailStore(
+    state => ({
+      selectedOptions: state.selectedOptions,
+      onPressOption: state.onPressOption,
+    }),
+    shallow,
+  );
 
   return (
     <>
-      {exampleVote.options.map((option, index) => {
+      {options.map((option, index) => {
         return (
           <VoteOption
             key={`${index}: ${option.content}`}
             voteOption={option}
-            selected={false}
-            onPress={() => {}}
+            selected={selectedOptions.includes(index)}
+            onPress={() => {
+              onPressOption(index);
+            }}
           />
         );
       })}
@@ -49,8 +67,8 @@ function VoteButton() {
   );
 }
 
-function VotedUserNum() {
-  return <VotedUserNum__Text>{`??명 투표`}</VotedUserNum__Text>;
+function VotedUserNum({ participantsNum }: { participantsNum: number }) {
+  return <VotedUserNum__Text>{`${participantsNum}명 투표`}</VotedUserNum__Text>;
 }
 
 function CommentsScrapNum() {

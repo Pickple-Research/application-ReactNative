@@ -1,4 +1,4 @@
-export type CreditHistory = {
+export type CreditHistorySchema = {
   /** 변동 사유 */
   reason: string;
 
@@ -16,6 +16,10 @@ export type CreditHistory = {
  * 크레딧 사용 내역
  * @author 현웅
  */
-export type UserCreditHistory = {
-  history: CreditHistory[];
+export type UserCreditHistorySchema = {
+  history: CreditHistorySchema[];
+};
+
+export const BlankUserCreditHistory: UserCreditHistorySchema = {
+  history: [],
 };
