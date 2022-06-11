@@ -1,4 +1,5 @@
 import customAxios from "../axios.core";
+import { Vote, VoteParticipation } from "src/Schema";
 
 /**
  * 최신 투표를 가져옵니다
@@ -16,8 +17,15 @@ export const getRecentVotes = async () => {
  * @author 현웅
  */
 export const getVoteById = async (voteId: string) => {
-  return await customAxios.request<string>({
-    method: "GET",
-    url: `/votes/${voteId}`,
-  });
+  return await customAxios
+    .request<{ vote: Vote; voteParticipation: VoteParticipation }>({
+      method: "GET",
+      url: `/votes/${voteId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };

@@ -1,4 +1,4 @@
-export type User = {
+export type UserSchema = {
   /** 이메일 */
   email: string;
 
@@ -10,4 +10,11 @@ export type User = {
 
   /** 회원가입 일자 */
   createdAt: string;
+};
+
+export const BlankUser: UserSchema = {
+  email: "",
+  nickname: "",
+  grade: 0,
+  createdAt: "",
 };

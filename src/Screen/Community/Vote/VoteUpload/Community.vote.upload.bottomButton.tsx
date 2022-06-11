@@ -1,20 +1,59 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
+import {
+  StackActions,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import { H2 } from "src/StyledComponents/Text";
+import shallow from "zustand/shallow";
 import { useVoteUploadStore } from "src/Zustand";
 
 export function CommunityVoteUploadBottomButton() {
-  const uploadVote = useVoteUploadStore(state => state.uploadVote);
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "CommunityVoteUploadScreen">>();
+
+  const {
+    uploading: loading,
+    checkInputValidity,
+    uploadVote,
+  } = useVoteUploadStore(
+    state => ({
+      uploading: state.uploading,
+      checkInputValidity: state.checkInputValidity,
+      uploadVote: state.uploadVote,
+    }),
+    shallow,
+  );
+
+  async function inputValidationAndUploadVote() {
+    //* 입력값이 유효하지 않으면 업로드하지 않음
+    if (!checkInputValidity()) return;
+
+    const voteId = await uploadVote();
+    if (voteId !== null) {
+      navigation.dispatch(
+        //TODO: #ScreenOption
+        StackActions.replace("CommunityVoteDetailScreen", { voteId: voteId }),
+      );
+    }
+  }
 
   return (
-    <Container onPress={uploadVote}>
-      <ButtonText>작성 완료!</ButtonText>
+    <Container
+      available={!loading}
+      activeOpacity={!loading ? 0.8 : 1}
+      onPress={!loading ? inputValidationAndUploadVote : undefined}>
+      <ButtonText available={!loading}>
+        {loading ? `업로드 중...` : `작성 완료!`}
+      </ButtonText>
     </Container>
   );
 }
 
-const Container = styled.TouchableOpacity`
+const Container = styled.TouchableOpacity<{ available: boolean }>`
   position: absolute;
   bottom: 0px;
   justify-content: center;
@@ -22,10 +61,14 @@ const Container = styled.TouchableOpacity`
   width: ${`${Dimensions.get("screen").width}px`};
   //* CommunityVoteUploadScreen의 padding-bottom과 같은 값으로 유지해야 합니다.
   height: 60px;
-  background-color: ${({ theme }) => theme.color.purple.main};
+  //TODO: #DESIGN-SYSTEM
+  background-color: ${({ available, theme }) =>
+    available ? theme.color.purple.main : "#eeeeee"};
 `;
 
-const ButtonText = styled(H2)`
-  color: white;
+const ButtonText = styled(H2)<{ available: boolean }>`
+  //TODO: #DESIGN-SYSTEM
+  color: ${({ available, theme }) =>
+    available ? theme.color.grey.white : "#cccccc"};
   font-weight: bold;
 `;

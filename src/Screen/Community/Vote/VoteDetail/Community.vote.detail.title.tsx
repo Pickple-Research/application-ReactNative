@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { useVoteDetailStore } from "src/Zustand";
 import { H2, H3, BodyText, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -8,15 +9,14 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailTitle() {
+  const vote = useVoteDetailStore(state => state.vote);
+
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <VoteCategory>개발</VoteCategory>
-      <VoteTitle>프로그래밍 언어 추천</VoteTitle>
-      <VoteContent>{`by. {이서치}`}</VoteContent>
-      <VoteContentText>
-        개발자분들, 요새 어떤 언어 쓰시나요? 우리는 언어를 추천해드리겠습니다.
-        언어를 추천해드리겠습니다. 정신 나갈 것 같아
-      </VoteContentText>
+      <VoteTitle>{vote.title}</VoteTitle>
+      <VoteAuthor>{`by. {이서치}`}</VoteAuthor>
+      <VoteContentText>{vote.content}</VoteContentText>
     </Container>
   );
 }
@@ -36,7 +36,7 @@ const VoteTitle = styled(H2)`
   margin-bottom: 4px;
 `;
 
-const VoteContent = styled(DetailText)`
+const VoteAuthor = styled(DetailText)`
   color: ${({ theme }) => theme.color.grey.mild};
   margin-bottom: 24px;
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { CheckIcon } from "src/Component/Svg";
-import { VoteOptionProps } from "src/Object/Type";
+import { VoteOptionSchema } from "src/Schema/Vote/Embedded";
 import { H3 } from "src/StyledComponents/Text";
 
 /**
@@ -13,14 +13,14 @@ export function VoteOption({
   selected,
   onPress,
 }: {
-  voteOption: VoteOptionProps;
+  voteOption: VoteOptionSchema;
   selected: boolean;
   onPress: () => void;
 }) {
   return (
     <Container activeOpacity={1} selected={selected} onPress={onPress}>
       <OptionContent>{voteOption.content}</OptionContent>
-      <SelectedIcon />
+      {selected && <SelectedIcon />}
     </Container>
   );
 }
@@ -33,12 +33,12 @@ function SelectedIcon() {
   );
 }
 
-// 해당 디자인에 변화가 생기면 Vote.option.result.component 도 같이 바꿔야 합니다.
+//! 해당 디자인에 변화가 생기면 Vote.option.result.component 도 같이 바꿔야 합니다.
 const Container = styled.TouchableOpacity<{ selected: boolean }>`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
+  padding: 16px 20px;
   margin: 2px 0px;
   border: 1px solid //TODO: #DESIGN-SYSTEM
     ${({ selected, theme }) =>
@@ -49,6 +49,7 @@ const Container = styled.TouchableOpacity<{ selected: boolean }>`
 const OptionContent = styled(H3)`
   flex: 1;
   padding-right: 8px;
+  height: 20px;
 `;
 
 const SelectedIcon__Container = styled.View`

@@ -74,17 +74,17 @@ type ResearchUploadStoreProps = {
   blockExitModalVisible: boolean;
   setBlockExitModalVisible: (status: boolean) => void;
 
+  /** 리서치 업로드 중인지 여부 */
+  uploading: boolean;
+
   /** 리서치 업로드 화면에 입력한 모든 값을 초기화합니다. */
   clearInputs: () => void;
-
-  /** 입력 정보들을 FormData로 묶어서 반환합니다. */
-  getFormData: () => FormData;
 
   /**
    * 리서치 업로드:
    * 입력된 모든 리서치 정보를 formData에 담아 업로드합니다.
    */
-  uploadResearch: () => Promise<void>;
+  uploadResearch: () => Promise<string | null>;
 };
 
 /**
@@ -232,6 +232,8 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       set({ blockExitModalVisible: status });
     },
 
+    uploading: false,
+
     clearInputs: () => {
       set({
         step: 0,
@@ -256,63 +258,32 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
         screeningSexInput: undefined,
         screeningAgeInputs: [],
         blockExitModalVisible: false,
+        uploading: false,
       });
-    },
-
-    getFormData: () => {
-      const formData = new FormData();
-
-      get().gifts.forEach(gift => {
-        if (!gift.deleted) {
-          formData.append("images", {
-            uri: gift.giftImage.uri,
-            type: gift.giftImage.type,
-            name: gift.giftImage.fileName,
-          });
-        }
-      });
-
-      formData.append("title", get().titleInput.trim());
-      formData.append("link", get().linkInput.trim());
-      formData.append("content", get().contentInput.trim());
-      // formData.append("purpose", get().purposeInput);
-      // formData.append("organization", get().organizationInput.trim());
-      formData.append("target", get().targetInput.trim());
-      // formData.append("estimatedTime", get().estimatedTimeInput);
-      // formData.append("", get().creditReceiverNum)
-      // formData.append("", get().extraCredit)
-      // formData.append("", get().screeningSexInput)
-      // formData.append("", get().screeningAgeInputs)
-
-      return formData;
     },
 
     uploadResearch: async () => {
-      const formData = new FormData();
+      set({ uploading: true });
 
-      get().gifts.forEach(gift => {
-        if (!gift.deleted) {
-          formData.append("images", {
-            uri: gift.giftImage.uri,
-            type: gift.giftImage.type,
-            name: gift.giftImage.fileName,
-          });
-        }
+      //! formData를 Zustand 내부에서 생성해서 넘겨주면 동작하지 않습니다.
+      //! 이유는.. 아직 잘 모르겠습니다.
+      const result = await uploadResearch({
+        title: get().titleInput,
+        link: get().linkInput,
+        content: get().contentInput,
+        purpose: get().purposeInput,
+        organization: get().organizationInput,
+        target: get().targetInput,
+        estimatedTime: get().estimatedTimeInput,
+        creditReceiverNum: get().creditReceiverNum,
+        extraCredit: get().extraCredit,
+        screeningSexInput: get().screeningSexInput,
+        screeningAgeInputs: get().screeningAgeInputs,
+        gifts: get().gifts,
       });
 
-      formData.append("title", get().titleInput.trim());
-      formData.append("link", get().linkInput.trim());
-      formData.append("content", get().contentInput.trim());
-      // formData.append("purpose", get().purposeInput);
-      // formData.append("organization", get().organizationInput.trim());
-      formData.append("target", get().targetInput.trim());
-      // formData.append("estimatedTime", get().estimatedTimeInput);
-      // formData.append("", get().creditReceiverNum)
-      // formData.append("", get().extraCredit)
-      // formData.append("", get().screeningSexInput)
-      // formData.append("", get().screeningAgeInputs)
-
-      // await uploadResearch(formData);
+      set({ uploading: false });
+      return result;
     },
   }),
 );

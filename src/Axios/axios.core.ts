@@ -26,21 +26,21 @@ customAxios.interceptors.request.use();
 /**
  * 응답 인터셉터를 추가합니다.
  */
-customAxios.interceptors.response.use(
-  //* 요청이 성공적인 경우, 곧바로 data를 반환합니다.
-  //* 따라서 .then(response => { return response.data }) 를 생략해도 됩니다.
-  response => {
-    return response.data;
-  },
+// customAxios.interceptors.response.use(
+//   //* 요청이 성공적인 경우, 곧바로 data를 반환합니다.
+//   //* 따라서 .then(response => { return response.data }) 를 생략해도 됩니다.
+//   response => {
+//     // return response.data;
+//   },
 
-  //TODO: 에러 인터셉터별 토스트 메세지 지정
-  //* 에러가 발생한 경우 처리합니다.
-  //* 단, 요청별로 return 타입에 따른 반환값은 개별로 지정해주어야 합니다.
-  error => {
-    if (error.response.data.customMessage) {
-      console.log(`커스텀 에러: ${error.response.data.customMessage}`);
-    }
-  },
-);
+//   //TODO: 에러 인터셉터별 토스트 메세지 지정
+//   //* 에러가 발생한 경우 처리합니다.
+//   //* 단, 요청별로 return 타입에 따른 반환값은 개별로 지정해주어야 합니다.
+//   error => {
+//     if (error.response.data.customMessage) {
+//       console.log(`커스텀 에러: ${error.response.data.customMessage}`);
+//     }
+//   },
+// );
 
 export default customAxios;

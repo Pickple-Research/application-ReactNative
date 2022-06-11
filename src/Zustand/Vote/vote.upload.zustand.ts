@@ -1,5 +1,6 @@
 import create from "zustand";
 import { VoteUploadOptionProps } from "src/Object/Type";
+import { uploadVote } from "src/Axios";
 
 type VoteUploadStoreProps = {
   titleInput: string;
@@ -23,10 +24,17 @@ type VoteUploadStoreProps = {
   blockExitModalVisible: boolean;
   setBlockExitModalVisible: (status: boolean) => void;
 
+  /** 업로드 중 여부 */
+  uploading: boolean;
+
   /** 모든 상태값 초기화 */
   clearInput: () => void;
+
+  /** 입력값이 유효한지 확인 */
+  checkInputValidity: () => boolean;
+
   /** 투표 업로드 */
-  uploadVote: () => void;
+  uploadVote: () => Promise<string | null>;
 };
 
 /**
@@ -74,6 +82,8 @@ export const useVoteUploadStore = create<VoteUploadStoreProps>((set, get) => ({
     set({ blockExitModalVisible: status });
   },
 
+  uploading: false,
+
   clearInput: () => {
     set({
       titleInput: "",
@@ -85,8 +95,63 @@ export const useVoteUploadStore = create<VoteUploadStoreProps>((set, get) => ({
       ],
       allowMultiChoice: false,
       blockExitModalVisible: false,
+      uploading: false,
     });
   },
 
-  uploadVote: () => {},
+  checkInputValidity: () => {
+    if (get().titleInput.length === 0) {
+      // "제목을 입력해주세요"
+      return false;
+    }
+    if (get().contentInput.length === 0) {
+      // "내용을 입력해주세요"
+      return false;
+    }
+
+    //* 값이 있는 선택지만 필터링
+    const options = get()
+      .options.filter(option => {
+        return option.content.length !== 0;
+      })
+      .map(option => {
+        return option.content;
+      });
+
+    //* 선택지가 두 개 이하인 경우
+    if (options.length < 2) {
+      // "투표 항목을 2개 이상 입력해주세요"
+      return false;
+    }
+
+    //* 중복된 선택지가 있는 경우
+    if (options.length !== new Set(options).size) {
+      // "투표 항목 내용이 중복되었습니다"
+      return false;
+    }
+
+    return true;
+  },
+
+  uploadVote: async () => {
+    set({ uploading: true });
+
+    //* 선택지 내용을 적절한 형태로 변환
+    const options = get()
+      .options.filter(option => {
+        return option.content.length !== 0;
+      })
+      .map(option => {
+        return { content: option.content };
+      });
+
+    const result = await uploadVote({
+      title: get().titleInput.trim(),
+      content: get().contentInput.trim(),
+      options: options,
+      allowMultiChoice: get().allowMultiChoice,
+    });
+    set({ uploading: false });
+    return result;
+  },
 }));

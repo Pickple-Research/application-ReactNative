@@ -16,7 +16,9 @@ export function VoteRow() {
     <Container
       activeOpacity={1}
       onPress={() => {
-        navigation.navigate("CommunityVoteDetailScreen", {});
+        navigation.navigate("CommunityVoteDetailScreen", {
+          voteId: "62a3008a6c09b783e0fdda09",
+        });
       }}>
       <VoteCategory>자유 토픽</VoteCategory>
       <VoteTitle numberOfLines={1}>

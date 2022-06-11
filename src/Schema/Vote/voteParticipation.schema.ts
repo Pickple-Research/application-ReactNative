@@ -5,10 +5,10 @@
  */
 export type VoteParticipation = {
   /** 조회 수 */
-  viewed: number;
+  viewedNum: number;
 
   /** 스크랩 수 */
-  scrapped: number;
+  scrappedNum: number;
 
   /** 참여자 수 */
   participantNum: number;

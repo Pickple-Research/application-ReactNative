@@ -1,34 +1,33 @@
 import customAxios from "../axios.core";
 import {
-  User,
-  UserActivity,
-  UserCreditHistory,
-  UserPrivacy,
-  UserProperty,
+  UserSchema,
+  UserActivitySchema,
+  UserCreditHistorySchema,
+  UserPrivacySchema,
+  UserPropertySchema,
 } from "src/Schema";
 
 /**
  * 이메일과 비밀번호를 이용해 로그인합니다.
- * @return JWT 토큰
+ * @return JWT 토큰(TODO), 유저 정보
  * @author 현웅
  */
-export const loginWithEmailPassword = async (
-  email: string,
-  password: string,
-) => {
+export const loginWithEmailPassword = async (auth: {
+  email: string;
+  password: string;
+}) => {
   return await customAxios
     .request<{
-      user: User;
-      userActivity: UserActivity;
-      userCreditHistory: UserCreditHistory;
-      userPrivacy: UserPrivacy;
-      userProperty: UserProperty;
+      user: UserSchema;
+      userActivity: UserActivitySchema;
+      userCreditHistory: UserCreditHistorySchema;
+      userPrivacy: UserPrivacySchema;
+      userProperty: UserPropertySchema;
     }>({
       method: "POST",
       url: "/auth/login",
       data: {
-        email,
-        password,
+        ...auth,
       },
     })
     .then(response => {
