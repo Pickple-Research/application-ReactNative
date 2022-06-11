@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { useResearchDetailStore } from "src/Zustand";
 import { BodyText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
@@ -16,12 +17,14 @@ export function ResearchDetailCondition() {
 }
 
 function ConditionsList() {
+  const research = useResearchDetailStore(state => state.research);
+
   return (
     <ConditionsList__Container>
-      <Condition title="소요시간" content="3분" />
-      <Condition title="마감일" content="04.15 12:00" />
-      <Condition title="대상" content="쇼핑몰 이용 경험이 있는 MZ세대 여성" />
-      <Condition title="최소 참여 요건" content="20대 여성" />
+      <Condition title="소요시간" content={`${research.estimatedTime}분`} />
+      <Condition title="마감일" content={`research.deadline`} />
+      <Condition title="대상" content={research.target} />
+      <Condition title="최소 참여 요건" content={`research.eligibility`} />
     </ConditionsList__Container>
   );
 }

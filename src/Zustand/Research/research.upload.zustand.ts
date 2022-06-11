@@ -1,10 +1,9 @@
 import create from "zustand";
-import { uploadResearch } from "src/Axios";
+import { axiosUploadResearch, axiosUploadResearchWithImages } from "src/Axios";
 import { ResearchPurpose } from "src/Object/Enum";
 import { ResearchUploadGiftProps } from "src/Object/Type";
 import { getGalleryPhotoFromAndroid } from "src/Util";
-
-import axios from "axios";
+import { ResearchSchema } from "src/Schema";
 
 type ResearchUploadStoreProps = {
   /** 리서치 업로드 단계: 0/1/2/3 단계 */
@@ -82,9 +81,13 @@ type ResearchUploadStoreProps = {
 
   /**
    * 리서치 업로드:
-   * 입력된 모든 리서치 정보를 formData에 담아 업로드합니다.
+   * 입력된 모든 리서치 정보를 업로드합니다.
+   * 사진이 포함된 경우 FormData 형태로,
+   * 그렇지 않다면 Body에 담아 보냅니다.
+   * @return 생성된 리서치 정보 | null
+   * @author 현웅
    */
-  uploadResearch: () => Promise<string | null>;
+  uploadResearch: () => Promise<ResearchSchema | null>;
 };
 
 /**
@@ -265,23 +268,62 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
     uploadResearch: async () => {
       set({ uploading: true });
 
-      //! formData를 Zustand 내부에서 생성해서 넘겨주면 동작하지 않습니다.
-      //! 이유는.. 아직 잘 모르겠습니다.
-      const result = await uploadResearch({
+      //* 삭제되지 않은 경품 추출
+      const nonDeletedGifts = get().gifts.filter(gift => !gift.deleted);
+
+      //* 그 중 경품명이 입력되었거나 경품 이미지가 등록된 것이 있는지 확인
+      const giftExists = nonDeletedGifts.some(gift => {
+        return Boolean(gift.giftName) || Boolean(gift.giftImage.uri);
+      });
+
+      //* 경품이 존재하는 경우 - formData를 생성하여 요청해야 합니다.
+      if (giftExists) {
+        const formData = new FormData();
+
+        formData.append("title", get().titleInput.trim());
+        formData.append("link", get().linkInput.trim());
+        formData.append("content", get().contentInput.trim());
+        // formData.append("purpose", get().purposeInput);
+        formData.append("organization", get().organizationInput.trim());
+        formData.append("target", get().targetInput.trim());
+        formData.append("estimatedTime", get().estimatedTimeInput);
+        // formData.append("", get().creditReceiverNum)
+        // formData.append("", get().extraCredit)
+        // formData.append("", get().screeningSexInput)
+        // formData.append("", get().screeningAgeInputs)
+
+        nonDeletedGifts.forEach(gift => {
+          formData.append("images", {
+            //! ReactNative 에서 이미지 파일을 포함한 FormData 를 전송할 땐
+            //! 반드시 uri, type, name 속성을 가져야 합니다.
+            //? @see https://github.com/facebook/react-native/blob/main/Libraries/Network/FormData.js
+            uri: gift.giftImage.uri,
+            type: gift.giftImage.type,
+            name: gift.giftImage.fileName,
+          });
+        });
+
+        const result = await axiosUploadResearchWithImages(formData);
+        set({ uploading: false });
+        return result;
+      }
+
+      //* 경품이 존재하지 않는 경우 - 일반적인 요청처럼 Body에 리서치 정보를 넣어 요청합니다.
+      const result = await axiosUploadResearch({
         title: get().titleInput,
         link: get().linkInput,
         content: get().contentInput,
-        purpose: get().purposeInput,
+        // purpose: get().purposeInput,
         organization: get().organizationInput,
         target: get().targetInput,
-        estimatedTime: get().estimatedTimeInput,
-        creditReceiverNum: get().creditReceiverNum,
-        extraCredit: get().extraCredit,
-        screeningSexInput: get().screeningSexInput,
-        screeningAgeInputs: get().screeningAgeInputs,
-        gifts: get().gifts,
+        //! 서버단에서 estimatedTime을 @IsNumberString()으로 받기 때문에
+        //! 여기서는 숫자로 변환하여 전송합니다.
+        estimatedTime: get().estimatedTimeInput.toString(),
+        // creditReceiverNum: get().creditReceiverNum,
+        // extraCredit: get().extraCredit,
+        // screeningSexInput: get().screeningSexInput,
+        // screeningAgeInputs: get().screeningAgeInputs,
       });
-
       set({ uploading: false });
       return result;
     },

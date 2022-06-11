@@ -5,6 +5,9 @@ import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
 import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
 
+import { useResearchStore, useVoteStore } from "src/Zustand";
+import { getRecentResearches, getRecentVotes } from "src/Axios";
+
 /**
  * 앱이 시작되는 곳입니다.
  * @author 현웅
@@ -13,9 +16,21 @@ export default function App() {
   const [initialLoaded, setInitialLoaded] = useState<boolean>(false);
   const [useLightMode, setUseLightMode] = useState<boolean>(true);
 
+  const setResearches = useResearchStore(state => state.setResearches);
+  const setVotes = useVoteStore(state => state.setVotes);
+
+  async function loadInitialData() {
+    const recentResearches = await getRecentResearches();
+    if (recentResearches !== null) setResearches(recentResearches);
+
+    const recentVotes = await getRecentVotes();
+    if (recentVotes !== null) setVotes(recentVotes);
+  }
+
   //? 앱이 시작되면, research 정보와 자신이 팔로우한 기업 소식을 서버에 요청하여 받아옵니다.
   //? 해당 작업이 수행되는 동안 SplashScreen이 보여집니다.
   useEffect(() => {
+    loadInitialData();
     setTimeout(() => {
       setInitialLoaded(true);
     }, 500);

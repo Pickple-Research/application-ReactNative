@@ -2,12 +2,21 @@
  * 리서치 정보
  * @author 현웅
  */
-export type Research = {
+export type ResearchSchema = {
+  /** 리서치 _id */
+  _id: string;
+
   /** 리서치 진행자 타입 (일반 유저 or 파트너) */
   // authorType: string;
 
   /** 리서치 업로더 _id */
   authorId: string;
+
+  /** 리서치 업로더 닉네임 */
+  authorNickname?: string;
+
+  /** 리서치 카테고리 */
+  // categories: Category[];
 
   /** 리서치 제목 */
   title: string;
@@ -27,8 +36,11 @@ export type Research = {
   /** 참여 대상 (줄글 작성) */
   target: string;
 
-  /** 예상 소요시간 */
+  /** 예상 소요시간 (분) */
   estimatedTime: number;
+
+  /** 최소 참여조건 */
+  eligibility: string;
 
   /** 마감일 */
   deadline: string;
@@ -36,11 +48,17 @@ export type Research = {
   /** 생성일 */
   createdAt: string;
 
-  /** 최소 참여조건 */
-  eligibility: string;
+  /** 조회 수 */
+  viewsNum: number;
 
-  /** 리서치 카테고리 */
-  // categories: Category[];
+  /** 스크랩 수 */
+  scrapsNum: number;
+
+  /** 참여자 수 */
+  participantsNum: number;
+
+  /** 댓글 수 */
+  commentsNum: number;
 
   /** 종료 여부. deadline이 지나기 전일지라도 사용자가 종료 가능. */
   closed: boolean;
@@ -53,4 +71,30 @@ export type Research = {
 
   /** (신고 등으로 인한) 블락 여부 */
   blocked: boolean;
+};
+
+export const BlankResearch: ResearchSchema = {
+  _id: "",
+  // authorType: "",
+  authorId: "",
+  authorNickname: "",
+  // categories: [],
+  title: "",
+  link: "",
+  content: "",
+  purpose: "",
+  organization: "",
+  target: "",
+  estimatedTime: 0,
+  eligibility: "",
+  deadline: "",
+  createdAt: "",
+  viewsNum: 0,
+  scrapsNum: 0,
+  participantsNum: 0,
+  commentsNum: 0,
+  closed: false,
+  hidden: false,
+  deleted: false,
+  blocked: false,
 };

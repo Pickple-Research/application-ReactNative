@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { VoteProps } from "src/Object/Type";
+import { VoteSchema } from "src/Schema";
 import { H3, H4, SmallText } from "src/StyledComponents/Text";
 
 /**
  * 투표 리스트의 투표 한 줄 디자인입니다.
  * @author 현웅
  */
-export function VoteListItem({ vote }: { vote: VoteProps }) {
+export function VoteListItem({ vote }: { vote: VoteSchema }) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
 
   return (
@@ -17,14 +17,16 @@ export function VoteListItem({ vote }: { vote: VoteProps }) {
       activeOpacity={1}
       onPress={() => {
         navigation.navigate("CommunityVoteDetailScreen", {
-          voteId: "62a3008a6c09b783e0fdda09",
+          vote,
         });
       }}>
       <TitleTagContainer>
         <TitleText numberOfLines={1}>{vote.title}</TitleText>
-        <TagText>{vote.tag}</TagText>
+        <TagText>{`vote.tag`}</TagText>
       </TitleTagContainer>
-      <NicknameText>익명</NicknameText>
+      <NicknameText>
+        {vote.authorNickname ? `${vote.authorNickname}` : `익명`}
+      </NicknameText>
     </Container>
   );
 }

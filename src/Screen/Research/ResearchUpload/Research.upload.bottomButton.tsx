@@ -103,7 +103,7 @@ function GiftCreditStepButton() {
     shallow,
   );
 
-  const uploadedGifts = gifts.filter(gifts => !gifts.deleted);
+  const uploadedGifts = gifts.filter(gift => !gift.deleted);
 
   //* 삭제되지 않은 모든 경품은 사진과 이름이 모두 있거나, 혹은 모두 없어야 합니다.
   const available = uploadedGifts.every(gift => {
@@ -137,10 +137,12 @@ function ScreeningStepButton() {
   );
 
   async function tryUploadResearch() {
-    const newResearchId = await uploadResearch();
-
-    if (newResearchId === null) return;
-    navigation.dispatch(StackActions.replace("ResearchDetailScreen", {}));
+    const newResearch = await uploadResearch();
+    if (newResearch !== null) {
+      navigation.dispatch(
+        StackActions.replace("ResearchDetailScreen", { research: newResearch }),
+      );
+    }
   }
 
   return (

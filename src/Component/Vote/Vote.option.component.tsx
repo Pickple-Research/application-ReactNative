@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { CheckIcon } from "src/Component/Svg";
-import { VoteOptionSchema } from "src/Schema/Vote/Embedded";
+import { VoteOptionSchema } from "src/Schema";
 import { H3 } from "src/StyledComponents/Text";
 
 /**
@@ -48,8 +48,8 @@ const Container = styled.TouchableOpacity<{ selected: boolean }>`
 
 const OptionContent = styled(H3)`
   flex: 1;
+  min-height: 20px;
   padding-right: 8px;
-  height: 20px;
 `;
 
 const SelectedIcon__Container = styled.View`

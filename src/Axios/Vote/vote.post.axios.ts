@@ -1,9 +1,9 @@
 import customAxios from "../axios.core";
-import { VoteOptionSchema } from "src/Schema/Vote/Embedded";
+import { VoteSchema, VoteOptionSchema } from "src/Schema";
 
 /**
  * 투표를 업로드합니다.
- * @return 생성된 투표 _id
+ * @return 생성된 투표 정보
  * @author 현웅
  */
 export const uploadVote = async (vote: {
@@ -13,10 +13,10 @@ export const uploadVote = async (vote: {
   allowMultiChoice: boolean;
 }) => {
   return await customAxios
-    .request<string>({
+    .request<VoteSchema>({
       method: "POST",
       url: "/votes",
-      data: { ...vote },
+      data: vote,
     })
     .then(response => {
       return response.data;

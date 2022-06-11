@@ -3,10 +3,11 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LandingBottomTabProps } from "src/Navigator";
 import { screenStyles } from "./Home.landing.screen";
-import { VoteRow } from "@Component/Vote";
-import { SectionHeaderText, MoreText } from "@Component/Text";
+import { VoteRow } from "src/Component/Vote";
+import { SectionHeaderText, MoreText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { globalStyles } from "src/Style";
+import { useVoteStore } from "src/Zustand";
 
 /**
  * 홈 랜딩 페이지의 최신 투표 섹션
@@ -38,10 +39,12 @@ function SectionHeader() {
 }
 
 function RecentVotes() {
+  const votes = useVoteStore(state => state.votes);
+
   return (
     <RecentVotes__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <VoteRow />
+      <VoteRow vote={votes[0]} />
     </RecentVotes__Container>
   );
 }

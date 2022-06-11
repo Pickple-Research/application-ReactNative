@@ -1,10 +1,12 @@
-import { VoteOptionSchema } from "./Embedded";
+import { VoteOptionSchema } from "./voteOption.schema";
 
 /**
  * 투표 정보
  * @author 현웅
  */
-export type Vote = {
+export type VoteSchema = {
+  _id: string;
+
   /** 업로더 _id */
   authorId: string;
 
@@ -29,6 +31,21 @@ export type Vote = {
   /** 생성 날짜 */
   createdAt: string;
 
+  /** 조회 수 */
+  viewsNum: number;
+
+  /** 스크랩 수 */
+  scrapsNum: number;
+
+  /** 참여자 수 */
+  participantsNum: number;
+
+  /** 투표 결과. 각 인덱스의 값은 투표 선택지가 얼마나 선택되었는지 알려줍니다. */
+  result: number[];
+
+  /** 댓글 수 */
+  commentsNum: number;
+
   /** 종료 여부. deadline이 지나기 전일지라도 사용자가 종료 가능. */
   closed: boolean;
 
@@ -42,7 +59,8 @@ export type Vote = {
   blocked: boolean;
 };
 
-export const BlankVote: Vote = {
+export const BlankVote: VoteSchema = {
+  _id: "",
   authorId: "",
   title: "",
   content: "",
@@ -50,6 +68,11 @@ export const BlankVote: Vote = {
   allowMultiChoice: false,
   deadline: "",
   createdAt: "",
+  viewsNum: 0,
+  scrapsNum: 0,
+  participantsNum: 0,
+  result: [0, 0],
+  commentsNum: 0,
   closed: false,
   hidden: false,
   deleted: false,

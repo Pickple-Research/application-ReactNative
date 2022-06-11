@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { useResearchDetailStore } from "src/Zustand";
 import { H1, H4 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
@@ -8,10 +9,12 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailParticipant() {
+  const research = useResearchDetailStore(state => state.research);
+
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <Icon__Container />
-      <ParticipantsNum>62</ParticipantsNum>
+      <ParticipantsNum>{research.participantsNum}</ParticipantsNum>
       <ParticipantsText>{` 명이 이 리서치에 참여했어요!`}</ParticipantsText>
     </Container>
   );

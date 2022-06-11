@@ -1,12 +1,9 @@
 import create from "zustand";
-import { Vote, VoteParticipation, BlankVote } from "src/Schema";
-import { getVoteById } from "src/Axios";
+import { VoteSchema, BlankVote } from "src/Schema";
 
 type VoteDetailStoreProps = {
   /** 투표 정보 */
-  vote: Vote;
-  /** 투표 참여 현황 정보 */
-  voteParticipation: VoteParticipation;
+  vote: VoteSchema;
 
   /** 사용자가 선택한 선택지 인덱스(들) */
   selectedOptions: number[];
@@ -20,7 +17,7 @@ type VoteDetailStoreProps = {
   /** 투표에 참여합니다. */
   participateVote: () => Promise<void>;
 
-  getVote: (voteId: string) => void;
+  setVote: (vote: VoteSchema) => void;
 };
 
 /**
@@ -29,12 +26,6 @@ type VoteDetailStoreProps = {
  */
 export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
   vote: BlankVote,
-  voteParticipation: {
-    viewedNum: 0,
-    scrappedNum: 0,
-    participantNum: 0,
-    result: [0, 0],
-  },
 
   selectedOptions: [],
   onPressOption: (index: number) => {
@@ -58,12 +49,6 @@ export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
   clearInfo: () => {
     set({
       vote: BlankVote,
-      voteParticipation: {
-        viewedNum: 0,
-        scrappedNum: 0,
-        participantNum: 0,
-        result: [0, 0],
-      },
       selectedOptions: [],
       loading: false,
     });
@@ -71,16 +56,7 @@ export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
 
   participateVote: async () => {},
 
-  getVote: async (voteId: string) => {
-    set({ loading: true });
-    const result = await getVoteById(voteId);
-    if (result) {
-      set({
-        vote: result.vote,
-        voteParticipation: result.voteParticipation,
-        loading: false,
-      });
-    }
-    set({ loading: false });
+  setVote: async (vote: VoteSchema) => {
+    set({ vote });
   },
 }));

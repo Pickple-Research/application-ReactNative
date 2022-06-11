@@ -29,13 +29,13 @@ function SectionHeader() {
 }
 
 function RecentVotes() {
-  const exampleVotes = useVoteStore(state => state.exampleVotes);
+  const votes = useVoteStore(state => state.votes);
 
   return (
     <RecentVotes__Container style={globalStyles.screen__horizontalPadding}>
       <VoteListContainer>
-        {exampleVotes.map((vote, index) => {
-          return <VoteListItem key={`${index}:${vote.tag}`} vote={vote} />;
+        {votes.map((vote, index) => {
+          return <VoteListItem key={`${index}:${vote.title}`} vote={vote} />;
         })}
       </VoteListContainer>
     </RecentVotes__Container>

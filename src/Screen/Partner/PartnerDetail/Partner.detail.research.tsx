@@ -35,7 +35,7 @@ function SectionHeader() {
 }
 
 function Researches() {
-  const exampleResearch = useResearchStore(state => state.exampleResearch);
+  const researches = useResearchStore(state => state.researches);
 
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "PartnerDetailScreen">>();
@@ -44,10 +44,10 @@ function Researches() {
     <Researches__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
       <ResearchListItem
-        research={exampleResearch}
+        research={researches[0]}
         onPress={() => {
           navigation.navigate("ResearchDetailScreen", {
-            researchId: exampleResearch.id,
+            research: researches[0],
           });
         }}
       />

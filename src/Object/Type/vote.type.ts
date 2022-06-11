@@ -1,22 +1,7 @@
 /**
- * 투표 정보 타입
+ * 투표 업로드 시 선택지 타입
  * @author 현웅
  */
-export type VoteProps = {
-  id: string;
-  title: string;
-  options: VoteOptionProps[];
-  tag: string;
-};
-
-/**
- * 투표 선택지 정보 타입
- * @author 현웅
- */
-export type VoteOptionProps = {
-  content: string;
-};
-
 export type VoteUploadOptionProps = {
   index: number;
   content: string;

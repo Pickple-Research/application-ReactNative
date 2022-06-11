@@ -4,7 +4,7 @@ import { VoteOption } from "src/Component/Vote";
 import { H3, BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useVoteDetailStore } from "src/Zustand";
-import { VoteOptionSchema } from "src/Schema/Vote/Embedded";
+import { VoteOptionSchema } from "src/Schema";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -12,22 +12,19 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailOptions() {
-  const { vote, voteParticipation } = useVoteDetailStore(
-    state => ({
-      vote: state.vote,
-      voteParticipation: state.voteParticipation,
-    }),
-    shallow,
-  );
+  const vote = useVoteDetailStore(state => state.vote);
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <InnerContainer>
         <Options options={vote.options} />
         <VoteButton />
-        <VotedUserNum participantsNum={voteParticipation.participantNum} />
+        <VotedUserNum participantsNum={vote.participantsNum} />
       </InnerContainer>
-      <CommentsScrapNum />
+      <CommentsScrapNum
+        commentsNum={vote.commentsNum}
+        scrapsNum={vote.scrapsNum}
+      />
     </Container>
   );
 }
@@ -71,10 +68,16 @@ function VotedUserNum({ participantsNum }: { participantsNum: number }) {
   return <VotedUserNum__Text>{`${participantsNum}명 투표`}</VotedUserNum__Text>;
 }
 
-function CommentsScrapNum() {
+function CommentsScrapNum({
+  commentsNum,
+  scrapsNum,
+}: {
+  commentsNum: number;
+  scrapsNum: number;
+}) {
   return (
     <CommentsScrapNum__Container>
-      <CommentsScrapNum__Text>{`댓글 10 · 스크랩 6`}</CommentsScrapNum__Text>
+      <CommentsScrapNum__Text>{`댓글 ${commentsNum} · 스크랩 ${scrapsNum}`}</CommentsScrapNum__Text>
     </CommentsScrapNum__Container>
   );
 }

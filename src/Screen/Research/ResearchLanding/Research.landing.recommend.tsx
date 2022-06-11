@@ -17,12 +17,12 @@ export function ResearchLandingRecommend({
   translateY: Animated.AnimatedInterpolation;
 }) {
   const user = useUserStore(state => state.user);
-  const exampleResearches = useResearchStore(state => state.exampleResearches);
+  const researches = useResearchStore(state => state.researches);
 
   return (
     <Container onLayout={onLayout} style={{ transform: [{ translateY }] }}>
       <Greeting username={user.nickname} />
-      <ResearchRecommendCarousel researches={exampleResearches} />
+      <ResearchRecommendCarousel researches={researches} />
     </Container>
   );
 }

@@ -1,54 +1,49 @@
 import customAxios from "../axios.core";
+import { ResearchSchema } from "src/Schema";
 import { ResearchPurpose } from "src/Object/Enum";
-import { ResearchUploadGiftProps } from "src/Object/Type";
 
 /**
- * 리서치를 업로드합니다.
- * @return 새로운 리서치 _id | null
+ * 이미지가 포함되지 않은 리서치를 업로드합니다.
+ * @return 새로운 리서치 정보 | null
  * @author 현웅
  */
-export const uploadResearch = async (research: {
+export const axiosUploadResearch = async (research: {
   title: string;
   link: string;
   content: string;
-  purpose: ResearchPurpose | undefined;
+  // purpose: ResearchPurpose | undefined;
   organization: string;
   target: string;
-  estimatedTime: number;
-  creditReceiverNum: number;
-  extraCredit: number;
-  screeningSexInput: string | undefined;
-  screeningAgeInputs: string[];
-  gifts: ResearchUploadGiftProps[];
+  estimatedTime: string;
+  // creditReceiverNum: number;
+  // extraCredit: number;
+  // screeningSexInput: string | undefined;
+  // screeningAgeInputs: string[];
 }) => {
-  const formData = new FormData();
-
-  formData.append("title", research.title.trim());
-  formData.append("link", research.link.trim());
-  formData.append("content", research.content.trim());
-  // formData.append("purpose", get().purposeInput);
-  formData.append("organization", research.organization.trim());
-  formData.append("target", research.target.trim());
-  formData.append("estimatedTime", research.estimatedTime);
-  // formData.append("", get().creditReceiverNum)
-  // formData.append("", get().extraCredit)
-  // formData.append("", get().screeningSexInput)
-  // formData.append("", get().screeningAgeInputs)
-
-  research.gifts.forEach(gift => {
-    if (!gift.deleted) {
-      formData.append("images", {
-        uri: gift.giftImage.uri,
-        type: gift.giftImage.type,
-        name: gift.giftImage.fileName,
-      });
-    }
-  });
-
   return await customAxios
-    .request<string>({
+    .request<ResearchSchema>({
       method: "POST",
       url: "/researches",
+      data: research,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
+};
+
+/**
+ * 이미지가 포함된 리서치를 업로드합니다.
+ * @return 새로운 리서치 정보 | null
+ * @author 현웅
+ */
+export const axiosUploadResearchWithImages = async (formData: FormData) => {
+  return await customAxios
+    .request<ResearchSchema>({
+      method: "POST",
+      url: "/researches/images",
       headers: { "Content-Type": "multipart/form-data" },
       data: formData,
     })

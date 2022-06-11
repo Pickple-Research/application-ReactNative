@@ -1,5 +1,6 @@
 import create from "zustand";
 import { VoteUploadOptionProps } from "src/Object/Type";
+import { VoteSchema } from "src/Schema";
 import { uploadVote } from "src/Axios";
 
 type VoteUploadStoreProps = {
@@ -34,7 +35,7 @@ type VoteUploadStoreProps = {
   checkInputValidity: () => boolean;
 
   /** 투표 업로드 */
-  uploadVote: () => Promise<string | null>;
+  uploadVote: () => Promise<VoteSchema | null>;
 };
 
 /**

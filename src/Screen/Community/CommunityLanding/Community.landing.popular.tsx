@@ -28,15 +28,15 @@ function SectionHeader() {
 }
 
 function PopularVotes() {
-  const exampleVotes = useVoteStore(state => state.exampleVotes);
+  const votes = useVoteStore(state => state.votes);
 
   return (
     <PopularVotes__Container style={globalStyles.screen__horizontalPadding}>
       <VoteListContainer>
-        {exampleVotes.map(vote => {
+        {votes.map((vote, index) => {
           return (
             <VoteListItem
-              key={`${vote.tag}:${vote.title.slice(0, 10)}`}
+              key={`${index}:${vote.title.slice(0, 10)}`}
               vote={vote}
             />
           );

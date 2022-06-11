@@ -9,7 +9,7 @@ import {
 } from "src/Component/Vote";
 import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { VoteProps } from "src/Object/Type";
+import { VoteSchema } from "src/Schema";
 import { useVoteStore } from "src/Zustand";
 import { H3, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
@@ -19,12 +19,12 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function CommunityLandingHotVote() {
-  const exampleVote = useVoteStore(state => state.exampleVote);
+  const votes = useVoteStore(state => state.votes);
 
   return (
     <Container>
       <SectionHeader />
-      <HotVote vote={exampleVote} />
+      <HotVote vote={votes[0]} />
     </Container>
   );
 }
@@ -37,7 +37,7 @@ function SectionHeader() {
   );
 }
 
-function HotVote({ vote }: { vote: VoteProps }) {
+function HotVote({ vote }: { vote: VoteSchema }) {
   return (
     <HotVote__Container style={globalStyles.screen__horizontalPadding}>
       <VoteListContainer style={styles.votesContainer}>
@@ -64,8 +64,11 @@ function HotVote({ vote }: { vote: VoteProps }) {
           );
         })}
         <HotVote__BottomContainer>
-          <HotVote__Viewed>10명이 이 투표를 읽었습니다.</HotVote__Viewed>
-          <VoteParticipantInfo />
+          <HotVote__Viewed>{`${vote.viewsNum}명이 이 투표를 읽었습니다.`}</HotVote__Viewed>
+          <VoteParticipantInfo
+            participantsNum={vote.participantsNum}
+            commentsNum={vote.commentsNum}
+          />
         </HotVote__BottomContainer>
       </VoteListContainer>
     </HotVote__Container>

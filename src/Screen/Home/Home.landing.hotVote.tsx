@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LandingBottomTabProps } from "src/Navigator";
-import { VoteListContainer, VoteListItem } from "@Component/Vote";
-import { SectionHeaderText, MoreText } from "@Component/Text";
+import { VoteListContainer, VoteListItem } from "src/Component/Vote";
+import { SectionHeaderText, MoreText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useVoteStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
@@ -38,12 +38,12 @@ function SectionHeader() {
 }
 
 function HotVotes() {
-  const exampleVote = useVoteStore(state => state.exampleVote);
+  const votes = useVoteStore(state => state.votes);
 
   return (
     <HotVotes__Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <VoteListContainer>
-        <VoteListItem vote={exampleVote} />
+        <VoteListItem vote={votes[0]} />
       </VoteListContainer>
     </HotVotes__Container>
   );
