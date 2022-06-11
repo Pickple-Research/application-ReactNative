@@ -81,6 +81,7 @@ const ContentsContainer = styled.View`
 const OptionContent = styled(H3)<{ won: boolean }>`
   flex: 1;
   justify-content: flex-start;
+  min-height: 20px;
   color: ${({ won, theme }) =>
     won ? theme.color.purple.deep : theme.color.grey.icon};
   padding-left: 4px;

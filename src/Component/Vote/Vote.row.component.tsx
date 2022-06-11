@@ -2,14 +2,15 @@ import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { VoteParticipantInfo } from "@Component/Vote";
+import { VoteParticipantInfo } from "src/Component/Vote";
 import { H4, BodyText } from "src/StyledComponents/Text";
+import { VoteSchema } from "src/Schema";
 
 /**
  * 얇은 투표 한 줄에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function VoteRow() {
+export function VoteRow({ vote }: { vote: VoteSchema }) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
 
   return (
@@ -17,14 +18,15 @@ export function VoteRow() {
       activeOpacity={1}
       onPress={() => {
         navigation.navigate("CommunityVoteDetailScreen", {
-          voteId: "62a3008a6c09b783e0fdda09",
+          vote,
         });
       }}>
       <VoteCategory>자유 토픽</VoteCategory>
-      <VoteTitle numberOfLines={1}>
-        진짜 변기 물 내릴 때 발로 눌러서 내리나요?
-      </VoteTitle>
-      <VoteParticipantInfo />
+      <VoteTitle numberOfLines={1}>{vote.title}</VoteTitle>
+      <VoteParticipantInfo
+        participantsNum={vote.participantsNum}
+        commentsNum={vote.commentsNum}
+      />
     </Container>
   );
 }

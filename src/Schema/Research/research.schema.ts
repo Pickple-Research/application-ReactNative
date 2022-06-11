@@ -9,6 +9,12 @@ export type Research = {
   /** 리서치 업로더 _id */
   authorId: string;
 
+  /** 리서치 업로더 닉네임 */
+  authorNickname?: string;
+
+  /** 리서치 카테고리 */
+  // categories: Category[];
+
   /** 리서치 제목 */
   title: string;
 
@@ -27,8 +33,11 @@ export type Research = {
   /** 참여 대상 (줄글 작성) */
   target: string;
 
-  /** 예상 소요시간 */
+  /** 예상 소요시간 (분) */
   estimatedTime: number;
+
+  /** 최소 참여조건 */
+  // eligibility: string;
 
   /** 마감일 */
   deadline: string;
@@ -36,11 +45,17 @@ export type Research = {
   /** 생성일 */
   createdAt: string;
 
-  /** 최소 참여조건 */
-  eligibility: string;
+  /** 조회 수 */
+  viewsNum: number;
 
-  /** 리서치 카테고리 */
-  // categories: Category[];
+  /** 스크랩 수 */
+  scrapsNum: number;
+
+  /** 참여자 수 */
+  participantsNum: number;
+
+  /** 댓글 수 */
+  commentsNum: number;
 
   /** 종료 여부. deadline이 지나기 전일지라도 사용자가 종료 가능. */
   closed: boolean;

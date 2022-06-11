@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { StyleProp, ViewStyle } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { VoteProps } from "src/Object/Type";
+import { VoteSchema } from "src/Schema";
 import { H3, H4, DetailText, SmallText } from "src/StyledComponents/Text";
 import MarkedIcon from "src/Resource/svg/marked-icon.svg";
 
@@ -15,7 +15,7 @@ export function VoteVotedItem({
   vote,
   style,
 }: {
-  vote: VoteProps;
+  vote: VoteSchema;
   style?: StyleProp<ViewStyle>;
 }) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
@@ -26,12 +26,12 @@ export function VoteVotedItem({
       activeOpacity={1}
       onPress={() => {
         navigation.navigate("CommunityVoteDetailScreen", {
-          voteId: "62a3008a6c09b783e0fdda09",
+          vote,
         });
       }}>
       <Icon />
       <TitleInfo vote={vote} />
-      <Author />
+      <Author authorNickname={vote.authorNickname} />
     </Container>
   );
 }
@@ -44,7 +44,7 @@ function Icon() {
   );
 }
 
-function TitleInfo({ vote }: { vote: VoteProps }) {
+function TitleInfo({ vote }: { vote: VoteSchema }) {
   return (
     <TitleInfo__Container>
       <TitleInfo__TitleContainer>
@@ -54,16 +54,16 @@ function TitleInfo({ vote }: { vote: VoteProps }) {
       </TitleInfo__TitleContainer>
       <TitleInfo__InfoContainer>
         <TitleInfo__Deadline>2022.05.00</TitleInfo__Deadline>
-        <TitleInfo__Comments>댓글 5</TitleInfo__Comments>
+        <TitleInfo__Comments>{`댓글 ${vote.commentsNum}`}</TitleInfo__Comments>
       </TitleInfo__InfoContainer>
     </TitleInfo__Container>
   );
 }
 
-function Author() {
+function Author({ authorNickname }: { authorNickname?: string }) {
   return (
     <Author__Container>
-      <Author__Text>익명</Author__Text>
+      <Author__Text>{authorNickname ? authorNickname : `익명`}</Author__Text>
     </Author__Container>
   );
 }

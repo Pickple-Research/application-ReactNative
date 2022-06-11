@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { MypageVotedFilter } from "./Mypage.voted.filter";
 import { VoteVotedItem } from "src/Component/Vote";
 import { useVoteStore } from "src/Zustand";
-import { VoteProps } from "src/Object/Type";
+import { VoteSchema } from "src/Schema";
 import { globalStyles } from "src/Style/globalStyles";
 
 export type MypageVotedScreenProps = {};
@@ -13,13 +13,13 @@ export type MypageVotedScreenProps = {};
  * @author 현웅
  */
 export function MypageVotedScreen() {
-  const exampleVotes = useVoteStore(state => state.exampleVotes);
+  const votes = useVoteStore(state => state.votes);
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <VotedItemsList<React.ElementType>
-        data={exampleVotes}
-        renderItem={({ item }: { item: VoteProps }) => (
+        data={votes}
+        renderItem={({ item }: { item: VoteSchema }) => (
           <VoteVotedItem vote={item} style={{ marginVertical: 4 }} />
         )}
         showsVerticalScrollIndicator={false}

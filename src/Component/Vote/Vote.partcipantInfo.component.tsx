@@ -2,22 +2,28 @@ import React from "react";
 import styled from "styled-components/native";
 import { StyleSheet } from "react-native";
 import { DetailText } from "src/StyledComponents/Text";
-import CheckIcon from "@Resource/svg/check-icon.svg";
-import CommentIcon from "@Resource/svg/comment-icon.svg";
+import CheckIcon from "src/Resource/svg/check-icon.svg";
+import CommentIcon from "src/Resource/svg/comment-icon.svg";
 
 /**
  * 투표 참여 인원, 댓글 수 정보를 보여주는 컴포넌트입니다.
  * @author 현웅
  */
-export function VoteParticipantInfo() {
+export function VoteParticipantInfo({
+  participantsNum,
+  commentsNum,
+}: {
+  participantsNum: number;
+  commentsNum: number;
+}) {
   return (
     <Container>
       <CheckIcon__Container>
         <CheckIcon />
       </CheckIcon__Container>
-      <InfoText style={styles.margin}>100</InfoText>
+      <InfoText style={styles.margin}>{participantsNum}</InfoText>
       <CommentIcon style={styles.margin} />
-      <InfoText>100</InfoText>
+      <InfoText>{commentsNum}</InfoText>
     </Container>
   );
 }

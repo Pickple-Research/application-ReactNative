@@ -32,11 +32,11 @@ export function CommunityVoteUploadBottomButton() {
     //* 입력값이 유효하지 않으면 업로드하지 않음
     if (!checkInputValidity()) return;
 
-    const voteId = await uploadVote();
-    if (voteId !== null) {
+    const vote = await uploadVote();
+    if (vote !== null) {
       navigation.dispatch(
         //TODO: #ScreenOption
-        StackActions.replace("CommunityVoteDetailScreen", { voteId: voteId }),
+        StackActions.replace("CommunityVoteDetailScreen", { vote }),
       );
     }
   }
