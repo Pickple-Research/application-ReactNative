@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppStackProps, LandingBottomTabProps } from "src/Navigator";
+import { LandingBottomTabProps } from "src/Navigator";
 import { screenStyles } from "./Home.landing.screen";
 import { ResearchListItem } from "src/Component/Research";
 import { SectionHeaderText, MoreText } from "src/Component/Text";
@@ -39,22 +39,15 @@ function SectionHeader() {
 }
 
 function Researches() {
-  const exampleResearch = useResearchStore(state => state.exampleResearch);
-
-  const navigation =
-    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+  const researches = useResearchStore(state => state.researches);
 
   return (
     <Researches__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <ResearchListItem
-        research={exampleResearch}
-        onPress={() => {
-          navigation.navigate("ResearchDetailScreen", {
-            researchId: exampleResearch.id,
-          });
-        }}
-      />
+      {/*
+        recentResearches.map...
+         */}
+      <ResearchListItem research={researches[0]} />
     </Researches__Container>
   );
 }

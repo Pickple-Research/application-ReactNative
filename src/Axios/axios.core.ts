@@ -21,7 +21,7 @@ const customAxios = axios.create({
 /**
  * TODO: 요청 인터셉터 추가
  */
-customAxios.interceptors.request.use();
+// customAxios.interceptors.request.use();
 
 /**
  * 응답 인터셉터를 추가합니다.

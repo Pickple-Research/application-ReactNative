@@ -1,4 +1,6 @@
 export type UserSchema = {
+  _id: string;
+
   /** 이메일 */
   email: string;
 
@@ -13,6 +15,7 @@ export type UserSchema = {
 };
 
 export const BlankUser: UserSchema = {
+  _id: "",
   email: "",
   nickname: "",
   grade: 0,

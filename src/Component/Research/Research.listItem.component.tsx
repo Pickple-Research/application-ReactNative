@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { ResearchDday } from "./Research.dday.component";
 import { ResearchTarget } from "./Research.target.component";
 import { Chip, HashTags } from "src/Component/Text";
-import { ResearchProps } from "src/Object/Type";
+import { ResearchSchema } from "src/Schema";
 import { H3 } from "src/StyledComponents/Text";
 
 /**
@@ -17,7 +17,7 @@ export function ResearchListItem({
   style,
   onPress,
 }: {
-  research: ResearchProps;
+  research: ResearchSchema;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }) {
@@ -26,8 +26,8 @@ export function ResearchListItem({
       <Thumbnail />
       <ResearchInfo
         title={research.title}
-        tags={research.tags}
-        targets={research.targets}
+        tags={[`research.tags`]}
+        targets={[`research.targets`]}
       />
       <Credit />
     </Container>

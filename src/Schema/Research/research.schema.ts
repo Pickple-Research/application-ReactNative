@@ -2,7 +2,10 @@
  * 리서치 정보
  * @author 현웅
  */
-export type Research = {
+export type ResearchSchema = {
+  /** 리서치 _id */
+  _id: string;
+
   /** 리서치 진행자 타입 (일반 유저 or 파트너) */
   // authorType: string;
 
@@ -37,7 +40,7 @@ export type Research = {
   estimatedTime: number;
 
   /** 최소 참여조건 */
-  // eligibility: string;
+  eligibility: string;
 
   /** 마감일 */
   deadline: string;
@@ -68,4 +71,30 @@ export type Research = {
 
   /** (신고 등으로 인한) 블락 여부 */
   blocked: boolean;
+};
+
+export const BlankResearch: ResearchSchema = {
+  _id: "",
+  // authorType: "",
+  authorId: "",
+  authorNickname: "",
+  // categories: [],
+  title: "",
+  link: "",
+  content: "",
+  purpose: "",
+  organization: "",
+  target: "",
+  estimatedTime: 0,
+  eligibility: "",
+  deadline: "",
+  createdAt: "",
+  viewsNum: 0,
+  scrapsNum: 0,
+  participantsNum: 0,
+  commentsNum: 0,
+  closed: false,
+  hidden: false,
+  deleted: false,
+  blocked: false,
 };

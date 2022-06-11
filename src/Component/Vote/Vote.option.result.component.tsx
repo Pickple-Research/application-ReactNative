@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { VoteOptionProps } from "src/Object/Type";
+import { VoteOptionSchema } from "src/Schema";
 import { H3, H4 } from "src/StyledComponents/Text";
 import { theme } from "src/Theme";
 import { CheckIcon } from "src/Component/Svg";
@@ -19,7 +19,7 @@ export function VoteOptionResult({
   ratio,
   won,
 }: {
-  voteOption: VoteOptionProps;
+  voteOption: VoteOptionSchema;
   selected: boolean;
   ratio: number;
   won: boolean;

@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { ResearchListItem } from "src/Component/Research";
 import { ResearchLandingListFilterHeader } from "./Research.landing.listFilterHeader";
-import { ResearchProps } from "src/Object/Type";
+import { ResearchSchema } from "src/Schema";
 import { useResearchStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 
@@ -20,7 +20,7 @@ export function ResearchLandingList({
   recommendSectionHeight: number;
   onScroll: (event: any) => void;
 }) {
-  const exampleResearches = useResearchStore(state => state.exampleResearches);
+  const researches = useResearchStore(state => state.researches);
 
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
@@ -28,16 +28,16 @@ export function ResearchLandingList({
   return (
     <Container>
       <ResearchList<React.ElementType>
-        data={exampleResearches}
-        renderItem={({ item }: { item: ResearchProps }) => {
+        data={researches}
+        renderItem={({ item }: { item: ResearchSchema }) => {
           return (
             <ResearchListItem
-              key={item.id}
+              key={item._id}
               style={globalStyles.screen__horizontalPadding}
               research={item}
               onPress={() => {
                 navigation.navigate("ResearchDetailScreen", {
-                  researchId: item.id,
+                  research: item,
                 });
               }}
             />

@@ -5,6 +5,8 @@ import { VoteOptionSchema } from "./voteOption.schema";
  * @author 현웅
  */
 export type VoteSchema = {
+  _id: string;
+
   /** 업로더 _id */
   authorId: string;
 
@@ -58,6 +60,7 @@ export type VoteSchema = {
 };
 
 export const BlankVote: VoteSchema = {
+  _id: "",
   authorId: "",
   title: "",
   content: "",

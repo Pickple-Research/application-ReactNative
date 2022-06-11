@@ -18,8 +18,7 @@ export type CommunityVoteDetailScreenProps = { vote: VoteSchema };
  */
 export function CommunityVoteDetailScreen({
   route,
-}: // navigation,
-NativeStackScreenProps<AppStackProps, "CommunityVoteDetailScreen">) {
+}: NativeStackScreenProps<AppStackProps, "CommunityVoteDetailScreen">) {
   const { clearInfo, setVote } = useVoteDetailStore(
     state => ({
       clearInfo: state.clearInfo,

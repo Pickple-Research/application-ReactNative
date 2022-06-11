@@ -5,8 +5,8 @@ import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
 import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
 
-import { useVoteStore } from "src/Zustand";
-import { getRecentVotes } from "src/Axios";
+import { useResearchStore, useVoteStore } from "src/Zustand";
+import { getRecentResearches, getRecentVotes } from "src/Axios";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -16,9 +16,13 @@ export default function App() {
   const [initialLoaded, setInitialLoaded] = useState<boolean>(false);
   const [useLightMode, setUseLightMode] = useState<boolean>(true);
 
+  const setResearches = useResearchStore(state => state.setResearches);
   const setVotes = useVoteStore(state => state.setVotes);
 
   async function loadInitialData() {
+    const recentResearches = await getRecentResearches();
+    if (recentResearches !== null) setResearches(recentResearches);
+
     const recentVotes = await getRecentVotes();
     if (recentVotes !== null) setVotes(recentVotes);
   }

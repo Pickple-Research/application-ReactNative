@@ -3,10 +3,9 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { Carousel } from "@Component/FlatList";
-import { ResearchTarget, ResearchGiftIcons } from "@Component/Research";
-import { Chip, HashTags } from "@Component/Text";
-import { ResearchProps } from "@Object/Type";
+import { ResearchTarget, ResearchGiftIcons } from "src/Component/Research";
+import { Chip, HashTags } from "src/Component/Text";
+import { ResearchSchema } from "src/Schema";
 import { H3 } from "src/StyledComponents/Text";
 
 /**
@@ -16,7 +15,7 @@ import { H3 } from "src/StyledComponents/Text";
 export function ResearchRecommendCarousel({
   researches,
 }: {
-  researches: ResearchProps[];
+  researches: ResearchSchema[];
 }) {
   return (
     // <Carousel data={researches} RenderItem={ResearchRecommendCarouselItem} />
@@ -24,7 +23,7 @@ export function ResearchRecommendCarousel({
       data={researches}
       horizontal
       showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => (
+      renderItem={({ item }: { item: ResearchSchema }) => (
         <ResearchRecommendCarouselItem research={item} />
       )}
     />
@@ -34,7 +33,7 @@ export function ResearchRecommendCarousel({
 export function ResearchRecommendCarouselItem({
   research,
 }: {
-  research: ResearchProps;
+  research: ResearchSchema;
 }) {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
@@ -44,18 +43,18 @@ export function ResearchRecommendCarouselItem({
       activeOpacity={1}
       onPress={() => {
         navigation.navigate("ResearchDetailScreen", {
-          researchId: research.id,
+          research,
         });
       }}>
       <CarouselItem__TagGiftContainer>
         <Chip content="기업" type="PARTNER_TYPE" />
         <ResearchGiftIcons />
       </CarouselItem__TagGiftContainer>
-      <HashTags tags={research.tags} style={{ marginBottom: 3 }} />
+      <HashTags tags={[`research.tags`]} style={{ marginBottom: 3 }} />
       <CarouselItem__ResearchTitle numberOfLines={2}>
         {research.title}
       </CarouselItem__ResearchTitle>
-      <ResearchTarget targets={research.targets} />
+      <ResearchTarget targets={[`research.eligibility`]} />
     </CarouselItem__Container>
   );
 }
