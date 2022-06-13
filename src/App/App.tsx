@@ -6,7 +6,7 @@ import { SplashScreen } from "src/Screen";
 import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
 
 import { useResearchStore, useVoteStore } from "src/Zustand";
-import { getRecentResearches, getRecentVotes } from "src/Axios";
+import { axiosGetRecentResearches, axiosGetRecentVotes } from "src/Axios";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -20,10 +20,10 @@ export default function App() {
   const setVotes = useVoteStore(state => state.setVotes);
 
   async function loadInitialData() {
-    const recentResearches = await getRecentResearches();
+    const recentResearches = await axiosGetRecentResearches();
     if (recentResearches !== null) setResearches(recentResearches);
 
-    const recentVotes = await getRecentVotes();
+    const recentVotes = await axiosGetRecentVotes();
     if (recentVotes !== null) setVotes(recentVotes);
   }
 

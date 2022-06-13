@@ -10,6 +10,7 @@ import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
 import { H1, BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useUserStore, useAuthLoginStore } from "src/Zustand";
+import { getStorage } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
 export type LoginScreenProps = {};
@@ -19,10 +20,11 @@ export type LoginScreenProps = {};
  * @author 현웅
  */
 export function LoginScreen() {
-  const { emailInput, passwordInput, isLoading, clearInputs } =
+  const { emailInput, setEmailInput, passwordInput, isLoading, clearInputs } =
     useAuthLoginStore(
       state => ({
         emailInput: state.emailInput,
+        setEmailInput: state.setEmailInput,
         passwordInput: state.passwordInput,
         isLoading: state.isLoading,
         clearInputs: state.clearInputs,
@@ -33,9 +35,18 @@ export function LoginScreen() {
   const loginable =
     Boolean(emailInput.length) && passwordInput.length >= 6 && !isLoading;
 
-  //* 로그인 창을 벗어나면 입력값을 초기화합니다.
+  /** 이전에 로그인에 성공했던 이메일이 있는지 확인하고, 존재한다면 초기값을 설정합니다. */
+  async function loadPreviousEmailInput() {
+    const email = await getStorage("EMAIL");
+    if (email) {
+      setEmailInput(email);
+    }
+  }
+
   useEffect(() => {
+    loadPreviousEmailInput();
     return () => {
+      //* 로그인 창을 벗어나면 입력값을 초기화합니다.
       clearInputs();
     };
   }, []);
@@ -59,6 +70,10 @@ function Header() {
   );
 }
 
+/**
+ * 이메일 입력란
+ * @author 현웅
+ */
 function Email({ loginable }: { loginable: boolean }) {
   const { emailInput, setEmailInput, isLoading, login } = useAuthLoginStore(
     state => ({
@@ -88,6 +103,10 @@ function Email({ loginable }: { loginable: boolean }) {
   );
 }
 
+/**
+ * 비밀번호 입력란
+ * @author 현웅
+ */
 function Password({ loginable }: { loginable: boolean }) {
   const { passwordInput, setPasswordInput, isLoading, login } =
     useAuthLoginStore(
@@ -118,6 +137,10 @@ function Password({ loginable }: { loginable: boolean }) {
   );
 }
 
+/**
+ * 로그인 버튼
+ * @author 현웅
+ */
 function Button({ loginable }: { loginable: boolean }) {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LoginScreen">>();
@@ -131,6 +154,10 @@ function Button({ loginable }: { loginable: boolean }) {
     shallow,
   );
 
+  /**
+   * 로그인을 시도합니다. 로그인 결과가 성공적인 경우, AsyncStorage에 이메일과 비밀번호를 저장합니다.
+   * @returns
+   */
   async function tryLogin() {
     const result = await login();
     if (!result) return;
@@ -151,7 +178,10 @@ function Button({ loginable }: { loginable: boolean }) {
   );
 }
 
-/** 고객센터 / 비밀번호 분실 */
+/**
+ * 고객센터 / 비밀번호 분실
+ * @author 현웅
+ */
 function Util() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LoginScreen">>();
