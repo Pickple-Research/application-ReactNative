@@ -1,5 +1,5 @@
 import create from "zustand";
-import { loginWithEmailPassword } from "src/Axios";
+import { axiosLoginWithEmailPassword } from "src/Axios";
 import {
   UserSchema,
   UserActivitySchema,
@@ -7,6 +7,8 @@ import {
   UserPrivacySchema,
   UserPropertySchema,
 } from "src/Schema";
+import { UserInfoResponse } from "src/Axios";
+import { setStorage } from "src/Util";
 
 type AuthLoginStoreProps = {
   emailInput: string;
@@ -19,13 +21,7 @@ type AuthLoginStoreProps = {
   isLoading: boolean;
 
   /** 이메일과 비밀번호를 이용해 로그인 */
-  login: () => Promise<{
-    user: UserSchema;
-    userActivity: UserActivitySchema;
-    userCreditHistory: UserCreditHistorySchema;
-    userPrivacy: UserPrivacySchema;
-    userProperty: UserPropertySchema;
-  } | null>;
+  login: () => Promise<UserInfoResponse | null>;
 
   clearInputs: () => void;
 };
@@ -54,10 +50,16 @@ export const useAuthLoginStore = create<AuthLoginStoreProps>((set, get) => ({
   login: async () => {
     set({ isLoading: true });
 
-    const result = await loginWithEmailPassword({
+    const result = await axiosLoginWithEmailPassword({
       email: get().emailInput,
       password: get().passwordInput,
     });
+
+    if (result !== null) {
+      await setStorage("JWT", result.jwt);
+      await setStorage("PASSWORD", get().passwordInput);
+      await setStorage("EMAIL", result.user.email);
+    }
 
     set({ isLoading: false });
     //TODO: JWT 토큰 정보 저장

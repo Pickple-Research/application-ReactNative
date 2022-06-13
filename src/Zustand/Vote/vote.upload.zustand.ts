@@ -1,7 +1,7 @@
 import create from "zustand";
 import { VoteUploadOptionProps } from "src/Object/Type";
 import { VoteSchema } from "src/Schema";
-import { uploadVote } from "src/Axios";
+import { axiosUploadVote } from "src/Axios";
 
 type VoteUploadStoreProps = {
   titleInput: string;
@@ -146,7 +146,7 @@ export const useVoteUploadStore = create<VoteUploadStoreProps>((set, get) => ({
         return { content: option.content };
       });
 
-    const result = await uploadVote({
+    const result = await axiosUploadVote({
       title: get().titleInput.trim(),
       content: get().contentInput.trim(),
       options: options,

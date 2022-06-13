@@ -4,10 +4,10 @@ import customAxios from "../axios.core";
  * 리서치를 조회합니다.
  * @author 현웅
  */
-export const viewResearch = async (researchId: string) => {
+export const axiosViewResearch = async (researchId: string) => {
   return await customAxios.request<void>({
     method: "PATCH",
-    url: `view/${researchId}`,
+    url: `researches/view/${researchId}`,
   });
 };
 
@@ -15,10 +15,10 @@ export const viewResearch = async (researchId: string) => {
  * 리서치를 스크랩합니다.
  * @author 현웅
  */
-export const scrapResearch = async (researchId: string) => {
+export const axiosScrapResearch = async (researchId: string) => {
   return await customAxios.request<void>({
     method: "PATCH",
-    url: `scrap/${researchId}`,
+    url: `researches/scrap/${researchId}`,
   });
 };
 
@@ -26,10 +26,10 @@ export const scrapResearch = async (researchId: string) => {
  * 리서치 스크랩을 취소합니다.
  * @author 현웅
  */
-export const unscrapResearch = async (researchId: string) => {
+export const axiosUnscrapResearch = async (researchId: string) => {
   return await customAxios.request<void>({
     method: "PATCH",
-    url: `unscrap/${researchId}`,
+    url: `researches/unscrap/${researchId}`,
   });
 };
 
@@ -37,10 +37,10 @@ export const unscrapResearch = async (researchId: string) => {
  * 리서치에 참여합니다.
  * @author 현웅
  */
-export const participateResearch = async (researchId: string) => {
+export const axiosParticipateResearch = async (researchId: string) => {
   return await customAxios.request<void>({
     method: "PATCH",
-    url: `participate/${researchId}`,
+    url: `researches/participate/${researchId}`,
   });
 };
 
@@ -48,10 +48,10 @@ export const participateResearch = async (researchId: string) => {
  * 리서치를 연장합니다.
  * @author 현웅
  */
-export const extendResearch = async (researchId: string) => {
+export const axiosExtendResearch = async (researchId: string) => {
   return await customAxios.request<void>({
     method: "PATCH",
-    url: `extend/${researchId}`,
+    url: `researches/extend/${researchId}`,
   });
 };
 
@@ -59,9 +59,9 @@ export const extendResearch = async (researchId: string) => {
  * 리서치를 종료합니다.
  * @author 현웅
  */
-export const closeResearch = async (researchId: string) => {
+export const axiosCloseResearch = async (researchId: string) => {
   return await customAxios.request<void>({
     method: "PATCH",
-    url: `close/${researchId}`,
+    url: `researches/close/${researchId}`,
   });
 };

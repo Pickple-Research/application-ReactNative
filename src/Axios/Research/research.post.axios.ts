@@ -54,3 +54,41 @@ export const axiosUploadResearchWithImages = async (formData: FormData) => {
       return null;
     });
 };
+
+/**
+ * 리서치 댓글을 업로드합니다.
+ * @author 현웅
+ */
+export const axiosUploadResearchComment = async () => {
+  return await customAxios
+    .request({
+      method: "POST",
+      url: "researches/comments",
+      data: null,
+    })
+    .then(response => {
+      return;
+    })
+    .catch(error => {
+      return null;
+    });
+};
+
+/**
+ * 리서치 대댓글을 업로드합니다.
+ * @author 현웅
+ */
+export const axiosUploadResearchReply = async () => {
+  return await customAxios
+    .request({
+      method: "POST",
+      url: "researches/replies",
+      data: null,
+    })
+    .then(response => {
+      return;
+    })
+    .catch(error => {
+      return null;
+    });
+};

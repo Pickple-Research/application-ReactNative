@@ -1,5 +1,5 @@
 import create from "zustand";
-import { signupAsUnauthorizedUser } from "src/Axios";
+import { axiosSignupAsUnauthorizedUser } from "src/Axios";
 
 type AuthSignupStoreProps = {
   /** 성 */
@@ -74,7 +74,7 @@ export const useAuthSignupStore = create<AuthSignupStoreProps>((set, get) => ({
   },
 
   signup: async () => {
-    await signupAsUnauthorizedUser(
+    await axiosSignupAsUnauthorizedUser(
       get().lastNameInput,
       get().nameInput,
       get().emailInput,
