@@ -5,7 +5,10 @@ import { VoteOptionSchema } from "src/Schema";
 import { H3 } from "src/StyledComponents/Text";
 
 /**
- * 투표 선택 선택지 줄입니다.
+ * 투표 선택지 한 줄 컴포넌트입니다.
+ * @param voteOption
+ * @param selected
+ * @param onPress
  * @author 현웅
  */
 export function VoteOption({

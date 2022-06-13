@@ -13,9 +13,11 @@ export function CommunityVoteDetailTitle() {
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
-      <VoteCategory>개발</VoteCategory>
+      <VoteCategory>{`vote.category`}</VoteCategory>
       <VoteTitle>{vote.title}</VoteTitle>
-      <VoteAuthor>{`by. {이서치}`}</VoteAuthor>
+      <VoteAuthor>{`by. ${
+        vote.authorNickname ? vote.authorNickname : `익명`
+      }`}</VoteAuthor>
       <VoteContentText>{vote.content}</VoteContentText>
     </Container>
   );
