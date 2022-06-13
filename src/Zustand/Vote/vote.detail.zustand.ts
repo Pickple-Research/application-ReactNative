@@ -1,12 +1,14 @@
 import create from "zustand";
 import { VoteSchema, BlankVote } from "src/Schema";
+import { axiosParticipateVote } from "src/Axios";
 
 type VoteDetailStoreProps = {
   /** 투표 정보 */
   vote: VoteSchema;
+  setVote: (vote: VoteSchema) => void;
 
   /** 사용자가 선택한 선택지 인덱스(들) */
-  selectedOptions: number[];
+  selectedOptionIndexes: number[];
   /** 선택지 터치 시 호출 함수 */
   onPressOption: (index: number) => void;
 
@@ -16,8 +18,6 @@ type VoteDetailStoreProps = {
 
   /** 투표에 참여합니다. */
   participateVote: () => Promise<void>;
-
-  setVote: (vote: VoteSchema) => void;
 };
 
 /**
@@ -26,22 +26,29 @@ type VoteDetailStoreProps = {
  */
 export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
   vote: BlankVote,
+  setVote: async (vote: VoteSchema) => {
+    set({ vote });
+  },
 
-  selectedOptions: [],
+  selectedOptionIndexes: [],
   onPressOption: (index: number) => {
     //* 중복 선택 허용 투표가 아닌 경우
     if (!get().vote.allowMultiChoice) {
-      set({ selectedOptions: [index] });
+      set({ selectedOptionIndexes: [index] });
       return;
     }
 
     //* 중복 선택 허용 투표인 경우
-    if (get().selectedOptions.includes(index)) {
-      set({ selectedOptions: get().selectedOptions.filter(i => i !== index) });
+    if (get().selectedOptionIndexes.includes(index)) {
+      set({
+        selectedOptionIndexes: get().selectedOptionIndexes.filter(
+          i => i !== index,
+        ),
+      });
       return;
     }
 
-    set({ selectedOptions: [...get().selectedOptions, index] });
+    set({ selectedOptionIndexes: [...get().selectedOptionIndexes, index] });
   },
 
   loading: false,
@@ -49,14 +56,13 @@ export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
   clearInfo: () => {
     set({
       vote: BlankVote,
-      selectedOptions: [],
+      selectedOptionIndexes: [],
       loading: false,
     });
   },
 
-  participateVote: async () => {},
-
-  setVote: async (vote: VoteSchema) => {
-    set({ vote });
+  participateVote: async () => {
+    //* 서버에 참여 요청을 보냅니다
+    await axiosParticipateVote(get().vote._id, get().selectedOptionIndexes);
   },
 }));

@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
-import { VoteOption } from "src/Component/Vote";
+import { VoteOptionsBox, VoteOptionResultsBox } from "src/Component/Vote";
 import { H3, BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useVoteDetailStore } from "src/Zustand";
-import { VoteOptionSchema } from "src/Schema";
+import { useUserStore, useVoteStore, useVoteDetailStore } from "src/Zustand";
+import { getUpdatedVote, getCurrentISOTime, didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -17,7 +17,7 @@ export function CommunityVoteDetailOptions() {
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
       <InnerContainer>
-        <Options options={vote.options} />
+        <Options />
         <VoteButton />
         <VotedUserNum participantsNum={vote.participantsNum} />
       </InnerContainer>
@@ -29,45 +29,149 @@ export function CommunityVoteDetailOptions() {
   );
 }
 
-function Options({ options }: { options: VoteOptionSchema[] }) {
-  const { selectedOptions, onPressOption } = useVoteDetailStore(
+/**
+ * 투표 선택지 (혹은 결과) 줄
+ * @author 현웅
+ */
+function Options() {
+  const userActivity = useUserStore(state => state.userActivity);
+  const { vote, selectedOptionIndexes, onPressOption } = useVoteDetailStore(
     state => ({
-      selectedOptions: state.selectedOptions,
+      vote: state.vote,
+      selectedOptionIndexes: state.selectedOptionIndexes,
       onPressOption: state.onPressOption,
     }),
     shallow,
   );
 
+  //* 유저 활동 정보에서 해당 투표 참여 정보를 추출
+  const participatedInfo = userActivity.participatedVoteInfos.find(voteInfo => {
+    return voteInfo.voteId === vote._id;
+  });
+
+  //* 참여했다면 결과를 보여줌
+  if (participatedInfo) {
+    return (
+      <VoteOptionResultsBox
+        voteOptions={vote.options}
+        selectedOptionIndexes={participatedInfo.selectedOptionIndexes}
+        participantsNum={vote.participantsNum}
+        result={vote.result}
+      />
+    );
+  }
+
+  //* 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
+  if (vote.closed || didDatePassed(vote.deadline)) {
+    return (
+      <VoteOptionResultsBox
+        voteOptions={vote.options}
+        selectedOptionIndexes={[]}
+        participantsNum={vote.participantsNum}
+        result={vote.result}
+      />
+    );
+  }
+
+  //* 그렇지 않은 경우,
   return (
-    <>
-      {options.map((option, index) => {
-        return (
-          <VoteOption
-            key={`${index}: ${option.content}`}
-            voteOption={option}
-            selected={selectedOptions.includes(index)}
-            onPress={() => {
-              onPressOption(index);
-            }}
-          />
-        );
-      })}
-    </>
+    <VoteOptionsBox
+      voteOptions={vote.options}
+      selectedOptionIndexes={selectedOptionIndexes}
+      onPress={onPressOption}
+    />
   );
 }
 
+/**
+ * 투표 참여 버튼
+ * @author 현웅
+ */
 function VoteButton() {
+  const { userActivity, addParticipateVoteInfo } = useUserStore(state => ({
+    userActivity: state.userActivity,
+    addParticipateVoteInfo: state.addParticipateVoteInfo,
+  }));
+  const updateVotes = useVoteStore(state => state.updateVotes);
+  const { vote, setVote, selectedOptionIndexes, participateVote } =
+    useVoteDetailStore(
+      state => ({
+        vote: state.vote,
+        setVote: state.setVote,
+        selectedOptionIndexes: state.selectedOptionIndexes,
+        participateVote: state.participateVote,
+      }),
+      shallow,
+    );
+
+  /**
+   * 투표 참여 버튼을 클릭했을 때 실행되는 함수입니다.
+   * @author 현웅
+   */
+  async function tryParticipateVote() {
+    //* 먼저 투표에 참여한 후의 투표 정보를 만들고 (참여자 수 +1, 결과값 반영)
+    const updatedVote = getUpdatedVote(vote, selectedOptionIndexes);
+    //* 해당 투표 정보를 투표 상세 페이지의 vote 상태와 투표 리스트 상태에 반영합니다.
+    setVote(updatedVote);
+    updateVotes(updatedVote);
+    //* 사용자 활동 정보에 해당 투표 참여 정보를 추가합니다.
+    addParticipateVoteInfo({
+      voteId: vote._id,
+      selectedOptionIndexes,
+      participatedAt: getCurrentISOTime(),
+    });
+    //* 최종적으로 서버에 투표 참여 요청을 보냅니다.
+    await participateVote();
+  }
+
+  //* 마감/종료된 투표인 경우
+  if (vote.closed || didDatePassed(vote.deadline)) {
+    return (
+      <VoteButton__DisabledContainer>
+        <VoteButton__DisabledText>종료된 투표입니다</VoteButton__DisabledText>
+      </VoteButton__DisabledContainer>
+    );
+  }
+
+  //* 이미 참여한 투표인 경우
+  if (
+    userActivity.participatedVoteInfos.some(voteInfo => {
+      return voteInfo.voteId === vote._id;
+    })
+  ) {
+    return (
+      <VoteButton__DisabledContainer>
+        <VoteButton__DisabledText>
+          이미 참여한 투표입니다
+        </VoteButton__DisabledText>
+      </VoteButton__DisabledContainer>
+    );
+  }
+
+  const votable = vote.options.length > 0;
+
   return (
-    <VoteButton__Container disabled={false}>
-      <VoteButton__Content disabled={false}>투표하기</VoteButton__Content>
+    <VoteButton__Container
+      available={votable}
+      activeOpacity={votable ? 0.8 : 1}
+      onPress={votable ? tryParticipateVote : undefined}>
+      <VoteButton__Text available={votable}>투표하기</VoteButton__Text>
     </VoteButton__Container>
   );
 }
 
+/**
+ * '?명 투표' 표시 구간
+ * @author 현웅
+ */
 function VotedUserNum({ participantsNum }: { participantsNum: number }) {
   return <VotedUserNum__Text>{`${participantsNum}명 투표`}</VotedUserNum__Text>;
 }
 
+/**
+ * 댓글, 스크랩 수 표시 구간
+ * @author 현웅
+ */
 function CommentsScrapNum({
   commentsNum,
   scrapsNum,
@@ -94,30 +198,49 @@ const InnerContainer = styled.View`
   border-radius: 12px;
 `;
 
-const VoteButton__Container = styled.TouchableOpacity<{ disabled: boolean }>`
+// VoteButton()
+const VoteButton__Container = styled.TouchableOpacity<{ available: boolean }>`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: ${({ disabled, theme }) =>
-    disabled ? theme.color.purple.mild : theme.color.purple.main};
+  background-color: ${({ available, theme }) =>
+    available ? theme.color.purple.main : theme.color.purple.mild};
   padding: 16px;
   margin-top: 18px;
   margin-bottom: 4px;
   border-radius: 12px;
 `;
 
-const VoteButton__Content = styled(H3)<{ disabled: boolean }>`
-  color: ${({ disabled, theme }) =>
-    disabled ? theme.color.purple.text : theme.color.grey.white};
+const VoteButton__Text = styled(H3)<{ available: boolean }>`
+  color: ${({ available, theme }) =>
+    available ? theme.color.grey.white : theme.color.purple.text};
   font-weight: bold;
 `;
 
+const VoteButton__DisabledContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: ${({ theme }) => theme.color.grey.mild};
+  padding: 16px;
+  margin-top: 18px;
+  margin-bottom: 4px;
+  border-radius: 12px;
+`;
+
+const VoteButton__DisabledText = styled(H3)`
+  color: ${({ theme }) => theme.color.grey.white};
+  font-weight: bold;
+`;
+
+// VotedUserNum()
 const VotedUserNum__Text = styled(BodyText)`
   color: ${({ theme }) => theme.color.grey.mild};
   margin-left: 2px;
   margin-bottom: 10px;
 `;
 
+// CommentsScrapNum()
 const CommentsScrapNum__Container = styled.View`
   flex-direction: row;
   justify-content: flex-end;

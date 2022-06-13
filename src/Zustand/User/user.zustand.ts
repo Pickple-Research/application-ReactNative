@@ -30,9 +30,9 @@ type UserStoreProps = {
   }) => void;
 
   /** 리서치에 참여합니다 (서버 응답이 성공적일 때 로컬 데이터를 업데이트 합니다) */
-  participateResearch: (researchId: string) => Promise<void>;
+  addParticipateResearchId: (researchId: string) => Promise<void>;
   /** 투표에 참여합니다 (로컬 데이터를 먼저 바꿉니다) */
-  participateVote: (voteInfo: ParticipatedVoteInfo) => Promise<void>;
+  addParticipateVoteInfo: (voteInfo: ParticipatedVoteInfo) => Promise<void>;
 };
 
 /**
@@ -63,7 +63,7 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
     return;
   },
 
-  participateResearch: async (researchId: string) => {
+  addParticipateResearchId: async (researchId: string) => {
     const userActivity = get().userActivity;
     const updatedUserActivity = {
       ...userActivity,
@@ -75,7 +75,7 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
     set({ userActivity: updatedUserActivity });
   },
 
-  participateVote: async (voteInfo: ParticipatedVoteInfo) => {
+  addParticipateVoteInfo: async (voteInfo: ParticipatedVoteInfo) => {
     const userActivity = get().userActivity;
     const updatedUserActivity = {
       ...userActivity,
