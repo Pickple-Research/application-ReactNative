@@ -2,8 +2,8 @@ import create from "zustand";
 import { ResearchSchema, BlankResearch } from "src/Schema";
 
 type ResearchDetailStoreProps = {
-  research: ResearchSchema;
-  setResearch: (research: ResearchSchema) => void;
+  researchDetail: ResearchSchema;
+  setResearchDetail: (researchDetail: ResearchSchema) => void;
 
   researchPullupModalVisible: boolean;
   setResearchPullupModalVisible: (status: boolean) => void;
@@ -17,9 +17,9 @@ type ResearchDetailStoreProps = {
  */
 export const useResearchDetailStore = create<ResearchDetailStoreProps>(
   (set, get) => ({
-    research: BlankResearch,
-    setResearch: (research: ResearchSchema) => {
-      set({ research });
+    researchDetail: BlankResearch,
+    setResearchDetail: (researchDetail: ResearchSchema) => {
+      set({ researchDetail });
     },
 
     researchPullupModalVisible: false,
@@ -29,7 +29,7 @@ export const useResearchDetailStore = create<ResearchDetailStoreProps>(
 
     clearInfo: () => {
       set({
-        research: BlankResearch,
+        researchDetail: BlankResearch,
         researchPullupModalVisible: false,
       });
     },

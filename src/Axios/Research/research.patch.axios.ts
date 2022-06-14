@@ -1,4 +1,6 @@
 import customAxios from "../axios.core";
+import { ResearchSchema } from "src/Schema";
+import { ParticipatedResearchInfo } from "src/Schema/User/Embedded";
 
 /**
  * 리서치를 조회합니다.
@@ -35,13 +37,28 @@ export const axiosUnscrapResearch = async (researchId: string) => {
 
 /**
  * 리서치에 참여합니다.
+ * @return 리서치 참여 정보와 참여 정보가 반영된 최신 리서치 정보 | null
  * @author 현웅
  */
-export const axiosParticipateResearch = async (researchId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `researches/participate/${researchId}`,
-  });
+export const axiosParticipateResearch = async (
+  researchId: string,
+  consummedTime: number,
+) => {
+  return await customAxios
+    .request<{
+      participatedResearchInfo: ParticipatedResearchInfo;
+      updatedResearch: ResearchSchema;
+    }>({
+      method: "PATCH",
+      url: `researches/participate/${researchId}`,
+      data: { consummedTime },
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };
 
 /**

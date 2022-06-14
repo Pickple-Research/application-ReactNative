@@ -1,6 +1,7 @@
 export * from "./Auth/auth.axios";
 
 export * from "./Research/research.get.axios";
+export * from "./Research/research.patch.axios";
 export * from "./Research/research.post.axios";
 
 export * from "./User/user.get.axios";

@@ -11,7 +11,10 @@ import {
   BlankUserPrivacy,
   BlankUserProperty,
 } from "src/Schema";
-import { ParticipatedVoteInfo } from "src/Schema/User/Embedded";
+import {
+  ParticipatedResearchInfo,
+  ParticipatedVoteInfo,
+} from "src/Schema/User/Embedded";
 
 type UserStoreProps = {
   user: UserSchema;
@@ -30,9 +33,12 @@ type UserStoreProps = {
   }) => void;
 
   /** 리서치에 참여합니다 (서버 응답이 성공적일 때 로컬 데이터를 업데이트 합니다) */
-  addParticipateResearchId: (researchId: string) => Promise<void>;
-  /** 투표에 참여합니다 (로컬 데이터를 먼저 바꿉니다) */
-  addParticipateVoteInfo: (voteInfo: ParticipatedVoteInfo) => Promise<void>;
+  addParticipatedResearchInfo: (
+    researchInfo: ParticipatedResearchInfo,
+  ) => Promise<void>;
+
+  /** 투표에 참여합니다 (서버 응답이 성공적일 때 로컬 데이터를 업데이트 합니다)  */
+  addParticipatedVoteInfo: (voteInfo: ParticipatedVoteInfo) => Promise<void>;
 };
 
 /**
@@ -63,19 +69,21 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
     return;
   },
 
-  addParticipateResearchId: async (researchId: string) => {
+  addParticipatedResearchInfo: async (
+    researchInfo: ParticipatedResearchInfo,
+  ) => {
     const userActivity = get().userActivity;
     const updatedUserActivity = {
       ...userActivity,
-      participatedResearchIds: [
-        researchId,
-        ...userActivity.participatedResearchIds,
+      participatedResearchInfos: [
+        researchInfo,
+        ...userActivity.participatedResearchInfos,
       ],
     };
     set({ userActivity: updatedUserActivity });
   },
 
-  addParticipateVoteInfo: async (voteInfo: ParticipatedVoteInfo) => {
+  addParticipatedVoteInfo: async (voteInfo: ParticipatedVoteInfo) => {
     const userActivity = get().userActivity;
     const updatedUserActivity = {
       ...userActivity,

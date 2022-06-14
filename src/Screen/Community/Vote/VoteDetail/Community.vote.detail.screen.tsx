@@ -22,7 +22,7 @@ export function CommunityVoteDetailScreen({
   const { clearInfo, setVote } = useVoteDetailStore(
     state => ({
       clearInfo: state.clearInfo,
-      setVote: state.setVote,
+      setVote: state.setVoteDetail,
     }),
     shallow,
   );

@@ -1,16 +1,14 @@
 import create from "zustand";
+import { ResearchSchema } from "src/Schema";
+import { ParticipatedResearchInfo } from "src/Schema/User/Embedded";
+import { axiosParticipateResearch } from "src/Axios";
 
 type ResearchParticipateStoreProps = {
-  /**
-   * 리서치에 참여한 시각
-   * (폼이 로드되었을 때(WebView의 onLoad) resetResearchStartDate를 통하여 한번 더 초기화됩니다.)
-   */
+  /** researchStartDate가 세팅되었는지 여부 */
+  researchStartDateSetted: boolean;
+  /** 리서치에 참여한 시각 */
   researchStartDate: Date;
-  resetResearchStartDate: () => void;
-
-  /** 리서치 참여에 걸린 시각 */
-  consummedTime: number;
-  caculateConsummedTime: () => void;
+  setResearchStartDate: () => void;
 
   /** 외부폼 로딩 중 모달 */
   loadingModalVisible: boolean;
@@ -24,7 +22,28 @@ type ResearchParticipateStoreProps = {
   completeModalVisible: boolean;
   setCompleteModalVisible: (status: boolean) => void;
 
+  /** WebView 내에서 폼이 제출되었는지 여부 */
+  formSubmitted: boolean;
+  setFormSubmitted: (status: boolean) => void;
+
+  /** 서버 응답이 성공한 경우 */
+  participateSuccessed: boolean;
+  setParticipateSuccessed: (status: boolean) => void;
+
+  /** 리서치 참여 요청 응답 대기 상태 */
+  loading: boolean;
+
   clearInputs: () => void;
+
+  /**
+   * 리서치에 참여합니다.
+   * 요청이 성공적인 경우, 리서치 참여 정보와 참여 정보가 반영된 최신 리서치 정보를 반환합니다.
+   * @author 현웅
+   */
+  participateResearch: (researchId: string) => Promise<{
+    participatedResearchInfo: ParticipatedResearchInfo;
+    updatedResearch: ResearchSchema;
+  } | null>;
 };
 
 /**
@@ -33,16 +52,11 @@ type ResearchParticipateStoreProps = {
  */
 export const useResearchParticipateStore =
   create<ResearchParticipateStoreProps>((set, get) => ({
+    researchStartDateSetted: false,
     researchStartDate: new Date(),
-    resetResearchStartDate: () => {
-      set({ researchStartDate: new Date() });
-    },
-
-    consummedTime: 0,
-    caculateConsummedTime: () => {
-      set({
-        consummedTime: new Date().getTime() - get().researchStartDate.getTime(),
-      });
+    setResearchStartDate: () => {
+      //* 리서치 시작 시각을 세팅하고 researchStartDateSetted 플래그를 true로 설정합니다.
+      set({ researchStartDate: new Date(), researchStartDateSetted: true });
     },
 
     loadingModalVisible: true,
@@ -60,12 +74,41 @@ export const useResearchParticipateStore =
       set({ completeModalVisible: status });
     },
 
+    setResearchStartTimeSetted: (status: boolean) => {
+      set({ researchStartDateSetted: status });
+    },
+
+    formSubmitted: false,
+    setFormSubmitted: (status: boolean) => {
+      set({ formSubmitted: status });
+    },
+
+    participateSuccessed: false,
+    setParticipateSuccessed: (status: boolean) => {
+      set({ participateSuccessed: status });
+    },
+
+    loading: false,
+
     clearInputs: () => {
       set({
-        consummedTime: 0,
+        researchStartDateSetted: false,
         loadingModalVisible: true,
         blockExitModalVisible: false,
         completeModalVisible: false,
+        formSubmitted: false,
+        participateSuccessed: false,
+        loading: false,
       });
+    },
+
+    participateResearch: async (researchId: string) => {
+      set({ loading: true });
+      const result = await axiosParticipateResearch(
+        researchId,
+        new Date().getTime() - get().researchStartDate.getTime(),
+      );
+      set({ loading: false });
+      return result;
     },
   }));

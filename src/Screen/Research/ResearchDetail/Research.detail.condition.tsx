@@ -17,14 +17,20 @@ export function ResearchDetailCondition() {
 }
 
 function ConditionsList() {
-  const research = useResearchDetailStore(state => state.research);
+  const researchDetail = useResearchDetailStore(state => state.researchDetail);
 
   return (
     <ConditionsList__Container>
-      <Condition title="소요시간" content={`${research.estimatedTime}분`} />
-      <Condition title="마감일" content={`research.deadline`} />
-      <Condition title="대상" content={research.target} />
-      <Condition title="최소 참여 요건" content={`research.eligibility`} />
+      <Condition
+        title="소요시간"
+        content={`${researchDetail.estimatedTime}분`}
+      />
+      <Condition title="마감일" content={`researchDetail.deadline`} />
+      <Condition title="대상" content={researchDetail.target} />
+      <Condition
+        title="최소 참여 요건"
+        content={`researchDetail.eligibility`}
+      />
     </ConditionsList__Container>
   );
 }

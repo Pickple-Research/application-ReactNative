@@ -9,11 +9,11 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailInfo() {
-  const research = useResearchDetailStore(state => state.research);
+  const researchDetail = useResearchDetailStore(state => state.researchDetail);
 
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>
-      <ResearchListItem research={research} />
+      <ResearchListItem research={researchDetail} />
     </Container>
   );
 }

@@ -6,9 +6,6 @@ export type ParticipatedResearchInfo = {
   /** 참여한 리서치의 _id */
   researchId: string;
 
-  /** 참여한 리서치 제목 */
-  title: string;
-
   /** 참여 시각 */
   participatedAt: string;
 };
