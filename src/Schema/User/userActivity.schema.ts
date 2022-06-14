@@ -1,4 +1,4 @@
-import { ParticipatedVoteInfo } from "./Embedded";
+import { ParticipatedResearchInfo, ParticipatedVoteInfo } from "./Embedded";
 
 /**
  * 유저 활동(리서치나 투표 참여/조회/스크랩) 정보 스키마
@@ -17,8 +17,8 @@ export type UserActivitySchema = {
   /** 스크랩한 투표 _id */
   scrappedVoteIds: string[];
 
-  /** 참여한 리서치 _id */
-  participatedResearchIds: string[];
+  /** 참여한 리서치 정보 */
+  participatedResearchInfos: ParticipatedResearchInfo[];
 
   /** 참여한 투표들 정보 */
   participatedVoteInfos: ParticipatedVoteInfo[];
@@ -35,7 +35,7 @@ export const BlankUserActivity: UserActivitySchema = {
   viewedVoteIds: [],
   scrappedResearchIds: [],
   scrappedVoteIds: [],
-  participatedResearchIds: [],
+  participatedResearchInfos: [],
   participatedVoteInfos: [],
   uploadedResearchIds: [],
   uploadedVoteIds: [],

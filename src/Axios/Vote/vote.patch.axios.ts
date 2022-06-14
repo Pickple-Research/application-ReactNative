@@ -1,4 +1,6 @@
 import customAxios from "../axios.core";
+import { VoteSchema } from "src/Schema";
+import { ParticipatedVoteInfo } from "src/Schema/User/Embedded";
 
 /**
  * 투표를 조회합니다.
@@ -39,6 +41,7 @@ export const axiosUnscrapVote = async (voteId: string) => {
  * @param voteId 투표 _id
  * @param selectedOptionIndexes 선택한 옵션 인덱스
  *
+ * @return 투표 참여 데이터, 업데이트된 투표 정보
  * @author 현웅
  */
 export const axiosParticipateVote = async (
@@ -46,7 +49,10 @@ export const axiosParticipateVote = async (
   selectedOptionIndexes: number[],
 ) => {
   return await customAxios
-    .request<void>({
+    .request<{
+      participatedVoteInfo: ParticipatedVoteInfo;
+      updatedVote: VoteSchema;
+    }>({
       method: "PATCH",
       url: `/votes/participate/${voteId}`,
       data: {
@@ -54,7 +60,7 @@ export const axiosParticipateVote = async (
       },
     })
     .then(response => {
-      return;
+      return response.data;
     })
     .catch(error => {
       //TODO: '투표 참여가 정상적으로 이루어지지 않은 것 같습니다' 처리

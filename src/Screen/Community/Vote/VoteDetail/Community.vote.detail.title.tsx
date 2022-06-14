@@ -9,16 +9,16 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailTitle() {
-  const vote = useVoteDetailStore(state => state.vote);
+  const voteDetail = useVoteDetailStore(state => state.voteDetail);
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
-      <VoteCategory>{`vote.category`}</VoteCategory>
-      <VoteTitle>{vote.title}</VoteTitle>
+      <VoteCategory>{`voteDetail.category`}</VoteCategory>
+      <VoteTitle>{voteDetail.title}</VoteTitle>
       <VoteAuthor>{`by. ${
-        vote.authorNickname ? vote.authorNickname : `익명`
+        voteDetail.authorNickname ? voteDetail.authorNickname : `익명`
       }`}</VoteAuthor>
-      <VoteContentText>{vote.content}</VoteContentText>
+      <VoteContentText>{voteDetail.content}</VoteContentText>
     </Container>
   );
 }

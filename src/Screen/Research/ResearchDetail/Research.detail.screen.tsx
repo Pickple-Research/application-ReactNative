@@ -23,16 +23,16 @@ export type ResearchDetailScreenProps = { research: ResearchSchema };
 export function ResearchDetailScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "ResearchDetailScreen">) {
-  const { setResearch, clearInfo } = useResearchDetailStore(
+  const { setResearchDetail, clearInfo } = useResearchDetailStore(
     state => ({
-      setResearch: state.setResearch,
+      setResearchDetail: state.setResearchDetail,
       clearInfo: state.clearInfo,
     }),
     shallow,
   );
 
   useEffect(() => {
-    setResearch(route.params.research);
+    setResearchDetail(route.params.research);
     return () => {
       clearInfo();
     };

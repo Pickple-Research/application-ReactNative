@@ -9,14 +9,14 @@ type VoteStoreProps = {
    * 투표 리스트에 있는 투표 중 하나를 업데이트합니다.
    * @author 현웅
    */
-  updateVotes: (vote: VoteSchema) => void;
+  updateVoteListItem: (vote: VoteSchema) => void;
 };
 
 export const useVoteStore = create<VoteStoreProps>((set, get) => ({
   votes: [BlankVote],
   setVotes: (votes: VoteSchema[]) => set({ votes }),
 
-  updateVotes: (updatedVote: VoteSchema) => {
+  updateVoteListItem: (updatedVote: VoteSchema) => {
     const updatedVoteIndex = get().votes.findIndex(
       vote => vote._id === updatedVote._id,
     );

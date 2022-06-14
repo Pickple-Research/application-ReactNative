@@ -6,6 +6,9 @@ type ResearchStoreProps = {
   researches: ResearchSchema[];
   setResearches: (researches: ResearchSchema[]) => void;
 
+  /** 리서치 리스트에 있는 리서치 중 하나를 업데이트합니다 */
+  updateResearchListItem: (updatedResearch: ResearchSchema) => void;
+
   /** 리서치 랜딩 페이지에서 보여줄 리서치 타입 */
   selectedType: ResearchType;
   setSelectedType: (type: ResearchType) => void;
@@ -19,6 +22,18 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
   researches: [BlankResearch],
   setResearches: (researches: ResearchSchema[]) => {
     set({ researches });
+  },
+
+  updateResearchListItem: (updatedResearch: ResearchSchema) => {
+    const updatedResearchIndex = get().researches.findIndex(
+      research => research._id === updatedResearch._id,
+    );
+    if (updatedResearchIndex !== -1) {
+      const updatedResearches = [...get().researches];
+      updatedResearches[updatedResearchIndex] = updatedResearch;
+      set({ researches: updatedResearches });
+    }
+    return;
   },
 
   selectedType: ResearchType.ALL,

@@ -11,12 +11,12 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailContent() {
-  const research = useResearchDetailStore(state => state.research);
+  const researchDetail = useResearchDetailStore(state => state.researchDetail);
 
   return (
     <Container>
       <SectionHeader />
-      <Content content={research.content} />
+      <Content content={researchDetail.content} />
     </Container>
   );
 }

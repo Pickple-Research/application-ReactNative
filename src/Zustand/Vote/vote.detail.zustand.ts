@@ -1,11 +1,12 @@
 import create from "zustand";
 import { VoteSchema, BlankVote } from "src/Schema";
+import { ParticipatedVoteInfo } from "src/Schema/User/Embedded";
 import { axiosParticipateVote } from "src/Axios";
 
 type VoteDetailStoreProps = {
   /** 투표 정보 */
-  vote: VoteSchema;
-  setVote: (vote: VoteSchema) => void;
+  voteDetail: VoteSchema;
+  setVoteDetail: (voteDetail: VoteSchema) => void;
 
   /** 사용자가 선택한 선택지 인덱스(들) */
   selectedOptionIndexes: number[];
@@ -16,8 +17,16 @@ type VoteDetailStoreProps = {
 
   clearInfo: () => void;
 
-  /** 투표에 참여합니다. */
-  participateVote: () => Promise<void>;
+  /**
+   * 투표 참여요청을 보냅니다.
+   * 응답이 성공적인 경우, 투표 참여 정보와 최신 투표 정보를 반환합니다.
+   * 그렇지 않은 경우 null을 반환합니다.
+   * @author 현웅
+   */
+  participateVote: () => Promise<{
+    participatedVoteInfo: ParticipatedVoteInfo;
+    updatedVote: VoteSchema;
+  } | null>;
 };
 
 /**
@@ -25,15 +34,15 @@ type VoteDetailStoreProps = {
  * @author 현웅
  */
 export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
-  vote: BlankVote,
-  setVote: async (vote: VoteSchema) => {
-    set({ vote });
+  voteDetail: BlankVote,
+  setVoteDetail: async (voteDetail: VoteSchema) => {
+    set({ voteDetail });
   },
 
   selectedOptionIndexes: [],
   onPressOption: (index: number) => {
     //* 중복 선택 허용 투표가 아닌 경우
-    if (!get().vote.allowMultiChoice) {
+    if (!get().voteDetail.allowMultiChoice) {
       set({ selectedOptionIndexes: [index] });
       return;
     }
@@ -55,14 +64,20 @@ export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
 
   clearInfo: () => {
     set({
-      vote: BlankVote,
+      voteDetail: BlankVote,
       selectedOptionIndexes: [],
       loading: false,
     });
   },
 
   participateVote: async () => {
+    set({ loading: true });
     //* 서버에 참여 요청을 보냅니다
-    await axiosParticipateVote(get().vote._id, get().selectedOptionIndexes);
+    const result = await axiosParticipateVote(
+      get().voteDetail._id,
+      get().selectedOptionIndexes,
+    );
+    set({ loading: false });
+    return result;
   },
 }));

@@ -9,12 +9,12 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailParticipant() {
-  const research = useResearchDetailStore(state => state.research);
+  const researchDetail = useResearchDetailStore(state => state.researchDetail);
 
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <Icon__Container />
-      <ParticipantsNum>{research.participantsNum}</ParticipantsNum>
+      <ParticipantsNum>{researchDetail.participantsNum}</ParticipantsNum>
       <ParticipantsText>{` 명이 이 리서치에 참여했어요!`}</ParticipantsText>
     </Container>
   );
