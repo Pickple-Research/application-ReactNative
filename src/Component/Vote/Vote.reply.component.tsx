@@ -1,41 +1,24 @@
 import React from "react";
 import styled from "styled-components/native";
-import { VoteReply } from "./Vote.reply.component";
 import { BodyText } from "src/StyledComponents/Text";
-import { VoteCommentSchema } from "src/Schema";
-import { globalStyles } from "src/Style/globalStyles";
+import { VoteReplySchema } from "src/Schema";
 import UserIcon from "src/Resource/svg/user-icon.svg";
 import DotsIcon from "src/Resource/svg/dots-icon.svg";
 
 /**
- * 투표 댓글 컴포넌트입니다.
+ * 투표 대댓글 컴포넌트입니다.
+ * 댓글 컴포넌트와 ContentsDotMenu__Container의 배경색만 다릅니다.
  * @author 현웅
  */
-export function VoteComment({
-  comment,
-  index,
-}: {
-  comment: VoteCommentSchema;
-  index: number;
-}) {
+export function VoteReply({ reply }: { reply: VoteReplySchema }) {
   return (
-    <>
-      {index !== 0 && <HorizontalLine />}
-      <Container style={globalStyles.screen__horizontalPadding}>
-        <CommentContainer>
-          <Profile />
-          <ContentsDotMenu__Container>
-            <Contents comment={comment} />
-            <DotMenu />
-          </ContentsDotMenu__Container>
-        </CommentContainer>
-        <Replies__Container>
-          {comment.replies.map(reply => {
-            return <VoteReply key={reply._id} reply={reply} />;
-          })}
-        </Replies__Container>
-      </Container>
-    </>
+    <Container>
+      <Profile />
+      <ContentsDotMenu__Container>
+        <Contents reply={reply} />
+        <DotMenu />
+      </ContentsDotMenu__Container>
+    </Container>
   );
 }
 
@@ -47,14 +30,14 @@ function Profile() {
   );
 }
 
-function Contents({ comment }: { comment: VoteCommentSchema }) {
+function Contents({ reply }: { reply: VoteReplySchema }) {
   return (
     <Contents__Container>
       <Contents__Username isAuthor={false}>
-        {comment.authorNickname ? comment.authorNickname : `익명`}
+        {reply.authorNickname ? reply.authorNickname : `익명`}
       </Contents__Username>
-      <Contents__Content>{comment.content}</Contents__Content>
-      <Contents__Date>{comment.createdAt}</Contents__Date>
+      <Contents__Content>{reply.content}</Contents__Content>
+      <Contents__Date>{reply.createdAt}</Contents__Date>
     </Contents__Container>
   );
 }
@@ -68,29 +51,19 @@ function DotMenu() {
 }
 
 const Container = styled.View`
-  margin-bottom: 8px;
-`;
-
-const CommentContainer = styled.View`
   flex-direction: row;
+  margin-bottom: 8px;
 `;
 
 const ContentsDotMenu__Container = styled.View`
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
-  padding: 2px 6px 12px 8px;
-`;
-
-const HorizontalLine = styled.View`
-  width: 100%;
-  height: 1px;
-  background-color: #e7e7e7;
-  margin-bottom: 16px;
-`;
-
-const Replies__Container = styled.View`
-  padding-left: 16px;
+  //TODO: #DESIGN-SYSTEM
+  background-color: #f3f3f3;
+  padding: 8px;
+  padding-right: 6px;
+  border-radius: 8px;
 `;
 
 // Profile()
