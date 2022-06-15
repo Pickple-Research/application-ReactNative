@@ -148,9 +148,7 @@ function VoteButton() {
   ) {
     return (
       <VoteButton__DisabledContainer>
-        <VoteButton__DisabledText>
-          이미 참여한 투표입니다
-        </VoteButton__DisabledText>
+        <VoteButton__DisabledText>참여한 투표입니다</VoteButton__DisabledText>
       </VoteButton__DisabledContainer>
     );
   }
@@ -230,7 +228,7 @@ const VoteButton__DisabledContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: ${({ theme }) => theme.color.grey.mild};
+  background-color: ${({ theme }) => theme.color.purple.inactive};
   padding: 16px;
   margin-top: 18px;
   margin-bottom: 4px;

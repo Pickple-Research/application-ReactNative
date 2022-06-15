@@ -9,6 +9,7 @@ export * from "./Partner/partnerActivity.schema";
 
 export * from "./Research/research.schema";
 export * from "./Research/researchComment.schema";
+export * from "./Research/researchReply.schema";
 
 export * from "./User/user.schema";
 export * from "./User/userActivity.schema";
@@ -19,3 +20,4 @@ export * from "./User/userProperty.schema";
 export * from "./Vote/vote.schema";
 export * from "./Vote/voteComment.schema";
 export * from "./Vote/voteOption.schema";
+export * from "./Vote/voteReply.schema";
