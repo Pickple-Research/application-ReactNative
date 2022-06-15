@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components/native";
 import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
 import shallow from "zustand/shallow";
-import { useAuthSignupStore } from "src/Zustand";
+import { useSignupScreenStore } from "src/Zustand";
 import { BodyText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
 export function SignupName() {
   const { lastNameInput, setLastNameInput, nameInput, setNameInput } =
-    useAuthSignupStore(
+    useSignupScreenStore(
       state => ({
         lastNameInput: state.lastNameInput,
         setLastNameInput: state.setLastNameInput,

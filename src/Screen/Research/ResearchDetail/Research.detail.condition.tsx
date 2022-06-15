@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { useResearchDetailStore } from "src/Zustand";
+import { useResearchDetailScreenStore } from "src/Zustand";
 import { BodyText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
@@ -17,7 +17,9 @@ export function ResearchDetailCondition() {
 }
 
 function ConditionsList() {
-  const researchDetail = useResearchDetailStore(state => state.researchDetail);
+  const researchDetail = useResearchDetailScreenStore(
+    state => state.researchDetail,
+  );
 
   return (
     <ConditionsList__Container>

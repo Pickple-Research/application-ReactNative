@@ -3,7 +3,7 @@ import { VoteUploadOptionProps } from "src/Object/Type";
 import { VoteSchema } from "src/Schema";
 import { axiosUploadVote } from "src/Axios";
 
-type VoteUploadStoreProps = {
+type VoteUploadScreenStoreProps = {
   titleInput: string;
   setTitleInput: (input: string) => void;
 
@@ -42,117 +42,122 @@ type VoteUploadStoreProps = {
  * 투표 업로드 페이지에서 사용되는 상태/상태관리 함수들을 정의합니다.
  * @author 현웅
  */
-export const useVoteUploadStore = create<VoteUploadStoreProps>((set, get) => ({
-  titleInput: "",
-  setTitleInput: (input: string) => {
-    set({ titleInput: input });
-  },
+export const useVoteUploadScreenStore = create<VoteUploadScreenStoreProps>(
+  (set, get) => ({
+    titleInput: "",
+    setTitleInput: (input: string) => {
+      set({ titleInput: input });
+    },
 
-  contentInput: "",
-  setContentInput: (input: string) => {
-    set({ contentInput: input });
-  },
+    contentInput: "",
+    setContentInput: (input: string) => {
+      set({ contentInput: input });
+    },
 
-  optionIndex: 2,
-  options: [
-    { index: 0, content: "" },
-    { index: 1, content: "" },
-  ],
-  addOption: () => {
-    set({
-      options: [...get().options, { index: get().optionIndex, content: "" }],
-    });
-
-    set(state => {
-      state.optionIndex += 1;
-    });
-  },
-  updateOptionContent: (index: number, content: string) => {
-    set(state => {
-      state.options[index].content = content;
-    });
-  },
-
-  allowMultiChoice: false,
-  toggleAllowMultiChoice: () => {
-    set(state => ({ allowMultiChoice: !state.allowMultiChoice }));
-  },
-
-  blockExitModalVisible: false,
-  setBlockExitModalVisible: (status: boolean) => {
-    set({ blockExitModalVisible: status });
-  },
-
-  uploading: false,
-
-  clearInput: () => {
-    set({
-      titleInput: "",
-      contentInput: "",
-      optionIndex: 2,
-      options: [
-        { index: 0, content: "" },
-        { index: 1, content: "" },
-      ],
-      allowMultiChoice: false,
-      blockExitModalVisible: false,
-      uploading: false,
-    });
-  },
-
-  checkInputValidity: () => {
-    if (get().titleInput.length === 0) {
-      // "제목을 입력해주세요"
-      return false;
-    }
-    if (get().contentInput.length === 0) {
-      // "내용을 입력해주세요"
-      return false;
-    }
-
-    //* 값이 있는 선택지만 필터링
-    const options = get()
-      .options.filter(option => {
-        return option.content.length !== 0;
-      })
-      .map(option => {
-        return option.content;
+    optionIndex: 2,
+    options: [
+      { index: 0, content: "" },
+      { index: 1, content: "" },
+    ],
+    addOption: () => {
+      set({
+        options: [...get().options, { index: get().optionIndex, content: "" }],
       });
 
-    //* 선택지가 두 개 이하인 경우
-    if (options.length < 2) {
-      // "투표 항목을 2개 이상 입력해주세요"
-      return false;
-    }
-
-    //* 중복된 선택지가 있는 경우
-    if (options.length !== new Set(options).size) {
-      // "투표 항목 내용이 중복되었습니다"
-      return false;
-    }
-
-    return true;
-  },
-
-  uploadVote: async () => {
-    set({ uploading: true });
-
-    //* 선택지 내용을 적절한 형태로 변환
-    const options = get()
-      .options.filter(option => {
-        return option.content.length !== 0;
-      })
-      .map(option => {
-        return { content: option.content };
+      set(state => {
+        state.optionIndex += 1;
       });
+    },
+    updateOptionContent: (index: number, content: string) => {
+      set(state => {
+        state.options[index].content = content;
+      });
+    },
 
-    const result = await axiosUploadVote({
-      title: get().titleInput.trim(),
-      content: get().contentInput.trim(),
-      options: options,
-      allowMultiChoice: get().allowMultiChoice,
-    });
-    set({ uploading: false });
-    return result;
-  },
-}));
+    allowMultiChoice: false,
+    toggleAllowMultiChoice: () => {
+      set(state => ({ allowMultiChoice: !state.allowMultiChoice }));
+    },
+
+    blockExitModalVisible: false,
+    setBlockExitModalVisible: (status: boolean) => {
+      set({ blockExitModalVisible: status });
+    },
+
+    uploading: false,
+
+    clearInput: () => {
+      set({
+        titleInput: "",
+        contentInput: "",
+        optionIndex: 2,
+        options: [
+          { index: 0, content: "" },
+          { index: 1, content: "" },
+        ],
+        allowMultiChoice: false,
+        blockExitModalVisible: false,
+        uploading: false,
+      });
+    },
+
+    checkInputValidity: () => {
+      if (get().titleInput.length === 0) {
+        //TODO: "제목을 입력해주세요"
+        return false;
+      }
+      if (get().contentInput.length === 0) {
+        //TODO: "내용을 입력해주세요"
+        return false;
+      }
+
+      //* 값이 있는 선택지만 필터링
+      const options = get()
+        .options.filter(option => {
+          return option.content.trim().length !== 0;
+        })
+        .map(option => {
+          return option.content.trim();
+        });
+
+      //* 선택지가 두 개 이하인 경우
+      if (options.length < 2) {
+        //TODO: "투표 항목을 2개 이상 입력해주세요"
+        return false;
+      }
+
+      //* 중복된 선택지가 있는 경우
+      if (options.length !== new Set(options).size) {
+        //TODO: "투표 항목 내용이 중복되었습니다"
+        return false;
+      }
+
+      return true;
+    },
+
+    uploadVote: async () => {
+      //* 선택지들이 유효한지 확인
+      if (!get().checkInputValidity()) return null;
+
+      set({ uploading: true });
+
+      //* 선택지 내용들을 trim
+      const options = get()
+        .options.filter(option => {
+          return option.content.trim().length !== 0;
+        })
+        .map(option => {
+          return { content: option.content.trim() };
+        });
+
+      const result = await axiosUploadVote({
+        title: get().titleInput.trim(),
+        content: get().contentInput.trim(),
+        options: options,
+        allowMultiChoice: get().allowMultiChoice,
+      });
+      set({ uploading: false });
+      return result;
+    },
+  }),
+);

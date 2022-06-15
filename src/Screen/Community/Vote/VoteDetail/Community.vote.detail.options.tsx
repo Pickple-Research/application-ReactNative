@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { VoteOptionsBox, VoteOptionResultsBox } from "src/Component/Vote";
 import { H3, BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useVoteStore, useVoteDetailStore } from "src/Zustand";
+import { useUserStore, useVoteDetailStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -62,7 +62,7 @@ function Options() {
     );
   }
 
-  //* 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
+  //* 참여하지는 않았지만 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
   if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
     return (
       <VoteOptionResultsBox
@@ -74,7 +74,7 @@ function Options() {
     );
   }
 
-  //* 그렇지 않은 경우,
+  //* 참여하지 않았고, 마감되지도 않은 경우 투표 가능
   return (
     <VoteOptionsBox
       voteOptions={voteDetail.options}
@@ -89,47 +89,17 @@ function Options() {
  * @author 현웅
  */
 function VoteButton() {
-  const { userActivity, addParticipatedVoteInfo } = useUserStore(state => ({
-    userActivity: state.userActivity,
-    addParticipatedVoteInfo: state.addParticipatedVoteInfo,
-  }));
-  const updateVoteListItem = useVoteStore(state => state.updateVoteListItem);
-  const {
-    voteDetail,
-    setVoteDetail,
-    selectedOptionIndexes,
-    loading,
-    participateVote,
-  } = useVoteDetailStore(
-    state => ({
-      voteDetail: state.voteDetail,
-      setVoteDetail: state.setVoteDetail,
-      selectedOptionIndexes: state.selectedOptionIndexes,
-      loading: state.loading,
-      participateVote: state.participateVote,
-    }),
-    shallow,
-  );
-
-  /**
-   * 투표 참여 버튼을 클릭했을 때 실행되는 함수입니다.
-   * @author 현웅
-   */
-  async function tryParticipateVote() {
-    //* 투표 요청을 합니다. 요청이 성공적인 경우,
-    //* 투표 참여 정보와 자신의 참여 정보가 반영된 최신 투표 정보가 반환됩니다.
-    const result = await participateVote();
-
-    //* 요청에 실패한 경우 곧바로 return합니다.
-    if (result === null) return;
-
-    //* 참여 정보가 반영된 투표 정보를
-    //* 투표 상세 페이지의 vote 상태와 투표 리스트 상태에 반영합니다.
-    setVoteDetail(result.updatedVote);
-    updateVoteListItem(result.updatedVote);
-    //* 사용자 활동 정보에 해당 투표 참여 정보를 추가합니다.
-    addParticipatedVoteInfo(result.participatedVoteInfo);
-  }
+  const userActivity = useUserStore(state => state.userActivity);
+  const { voteDetail, selectedOptionIndexes, loading, participateVote } =
+    useVoteDetailStore(
+      state => ({
+        voteDetail: state.voteDetail,
+        selectedOptionIndexes: state.selectedOptionIndexes,
+        loading: state.loading,
+        participateVote: state.participateVote,
+      }),
+      shallow,
+    );
 
   //* 마감/종료된 투표인 경우
   if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
@@ -159,7 +129,7 @@ function VoteButton() {
     <VoteButton__Container
       available={votable}
       activeOpacity={votable ? 0.8 : 1}
-      onPress={votable ? tryParticipateVote : undefined}>
+      onPress={votable ? participateVote : undefined}>
       <VoteButton__Text available={votable}>
         {loading ? `투표 중...` : `투표하기`}
       </VoteButton__Text>

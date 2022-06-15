@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { useResearchDetailStore } from "src/Zustand";
+import { useResearchDetailScreenStore } from "src/Zustand";
 import { H1, H4 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
@@ -9,7 +9,9 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailParticipant() {
-  const researchDetail = useResearchDetailStore(state => state.researchDetail);
+  const researchDetail = useResearchDetailScreenStore(
+    state => state.researchDetail,
+  );
 
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>

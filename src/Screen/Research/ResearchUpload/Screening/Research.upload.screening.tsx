@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUploadSubStepHeader } from "../Research.upload.subStepHeader";
 import { H2, H3, H4 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -44,13 +44,14 @@ function Description() {
  * @author 현웅
  */
 function ChooseSex() {
-  const { screeningSexInput, setScreeningSexInput } = useResearchUploadStore(
-    state => ({
-      screeningSexInput: state.screeningSexInput,
-      setScreeningSexInput: state.setScreeningSexInput,
-    }),
-    shallow,
-  );
+  const { screeningSexInput, setScreeningSexInput } =
+    useResearchUploadScreenStore(
+      state => ({
+        screeningSexInput: state.screeningSexInput,
+        setScreeningSexInput: state.setScreeningSexInput,
+      }),
+      shallow,
+    );
 
   const sexes = [undefined, "남성", "여성"];
 
@@ -85,7 +86,7 @@ function ChooseSex() {
  */
 function ChooseAge() {
   const { screeningAgeInputs, toggleScreeningAgeInputs } =
-    useResearchUploadStore(
+    useResearchUploadScreenStore(
       state => ({
         screeningAgeInputs: state.screeningAgeInputs,
         toggleScreeningAgeInputs: state.toggleScreeningAgeInputs,

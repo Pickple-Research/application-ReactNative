@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { useResearchDetailStore } from "src/Zustand";
+import { useResearchDetailScreenStore } from "src/Zustand";
 import { H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
@@ -11,7 +11,9 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailContent() {
-  const researchDetail = useResearchDetailStore(state => state.researchDetail);
+  const researchDetail = useResearchDetailScreenStore(
+    state => state.researchDetail,
+  );
 
   return (
     <Container>

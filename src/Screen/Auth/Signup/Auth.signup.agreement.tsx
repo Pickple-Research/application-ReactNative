@@ -3,12 +3,12 @@ import styled from "styled-components/native";
 import { CheckIcon } from "src/Component/Svg";
 import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useAuthSignupStore } from "src/Zustand";
+import { useSignupScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 export function SignupAgreement() {
   const { agreeTerms, toggleAgreeTerms, agreeMarketing, toggleAgreeMarketing } =
-    useAuthSignupStore(
+    useSignupScreenStore(
       state => ({
         agreeTerms: state.agreeTerms,
         toggleAgreeTerms: state.toggleAgreeTerms,

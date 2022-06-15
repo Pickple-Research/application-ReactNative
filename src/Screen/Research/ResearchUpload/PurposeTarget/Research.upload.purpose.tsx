@@ -4,7 +4,7 @@ import { ResearchUpload__SectionHeader__Container } from "../Research.upload.com
 import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import { SectionHeaderText } from "src/Component/Text";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { ResearchPurpose } from "src/Object/Enum";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -32,7 +32,7 @@ function SectionHeader() {
 }
 
 function PurposeInput() {
-  const { purposeInput, setPurposeInput } = useResearchUploadStore(
+  const { purposeInput, setPurposeInput } = useResearchUploadScreenStore(
     state => ({
       purposeInput: state.purposeInput,
       setPurposeInput: state.setPurposeInput,

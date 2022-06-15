@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { PillButton } from "src/Component/Button";
 import { H3 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useVoteUploadStore } from "src/Zustand";
+import { useVoteUploadScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 import { CheckIcon } from "src/Component/Svg";
 import DoubleCheckIcon from "src/Resource/svg/double-check-icon.svg";
@@ -29,7 +29,7 @@ export function CommunityVoteUploadInput() {
 
 // 제목 입력란
 function Title() {
-  const setTitleInput = useVoteUploadStore(state => state.setTitleInput);
+  const setTitleInput = useVoteUploadScreenStore(state => state.setTitleInput);
 
   return (
     <Title__Container>
@@ -40,7 +40,9 @@ function Title() {
 
 // 내용 입력란
 function Content() {
-  const setContentInput = useVoteUploadStore(state => state.setContentInput);
+  const setContentInput = useVoteUploadScreenStore(
+    state => state.setContentInput,
+  );
 
   return (
     <Content__Container>
@@ -55,7 +57,7 @@ function Content() {
 
 // 선택지 입력란(들)
 function Options() {
-  const { options, updateOptionContent } = useVoteUploadStore(
+  const { options, updateOptionContent } = useVoteUploadScreenStore(
     state => ({
       options: state.options,
       updateOptionContent: state.updateOptionContent,
@@ -83,7 +85,7 @@ function Options() {
 
 // 선택지 추가 버튼
 function OptionAddButton() {
-  const addOption = useVoteUploadStore(state => state.addOption);
+  const addOption = useVoteUploadScreenStore(state => state.addOption);
 
   return (
     <OptionAddButton__Container>
@@ -102,7 +104,7 @@ function OptionAddButton() {
 
 // 복수 선택 가능 여부 체크란
 function MultiChoice() {
-  const { allowMultiChoice, toggleAllowMultiChoice } = useVoteUploadStore(
+  const { allowMultiChoice, toggleAllowMultiChoice } = useVoteUploadScreenStore(
     state => ({
       allowMultiChoice: state.allowMultiChoice,
       toggleAllowMultiChoice: state.toggleAllowMultiChoice,

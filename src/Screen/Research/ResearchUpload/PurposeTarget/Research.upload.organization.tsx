@@ -4,7 +4,7 @@ import { ResearchUpload__SectionHeader__Container } from "../Research.upload.com
 import { RoundTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -31,13 +31,14 @@ function SectionHeader() {
 }
 
 function OrganizationInput() {
-  const { organizationInput, setOrganizationInput } = useResearchUploadStore(
-    state => ({
-      organizationInput: state.organizationInput,
-      setOrganizationInput: state.setOrganizationInput,
-    }),
-    shallow,
-  );
+  const { organizationInput, setOrganizationInput } =
+    useResearchUploadScreenStore(
+      state => ({
+        organizationInput: state.organizationInput,
+        setOrganizationInput: state.setOrganizationInput,
+      }),
+      shallow,
+    );
 
   return (
     <OrganizationInput__Container

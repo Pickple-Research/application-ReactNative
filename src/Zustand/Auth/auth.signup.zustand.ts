@@ -1,7 +1,7 @@
 import create from "zustand";
 import { axiosSignupAsUnauthorizedUser } from "src/Axios";
 
-type AuthSignupStoreProps = {
+type SignupScreenStoreProps = {
   /** 성 */
   lastNameInput: string;
   setLastNameInput: (lastNameInput: string) => void;
@@ -34,51 +34,53 @@ type AuthSignupStoreProps = {
  * 회원가입 페이지에서 사용되는 값과 함수들을 정의하는 zustand 입니다.
  * @author 현웅
  */
-export const useAuthSignupStore = create<AuthSignupStoreProps>((set, get) => ({
-  lastNameInput: "",
-  setLastNameInput: (lastNameInput: string) => {
-    if (lastNameInput.length < 3) {
-      set({ lastNameInput });
-    }
-  },
+export const useSignupScreenStore = create<SignupScreenStoreProps>(
+  (set, get) => ({
+    lastNameInput: "",
+    setLastNameInput: (lastNameInput: string) => {
+      if (lastNameInput.length < 3) {
+        set({ lastNameInput });
+      }
+    },
 
-  nameInput: "",
-  setNameInput: (nameInput: string) => {
-    if (nameInput.length < 7) {
-      set({ nameInput });
-    }
-  },
+    nameInput: "",
+    setNameInput: (nameInput: string) => {
+      if (nameInput.length < 7) {
+        set({ nameInput });
+      }
+    },
 
-  emailInput: "",
-  setEmailInput: (emailInput: string) => {
-    set({ emailInput });
-  },
+    emailInput: "",
+    setEmailInput: (emailInput: string) => {
+      set({ emailInput });
+    },
 
-  passwordInput: "",
-  setPasswordInput: (passwordInput: string) => {
-    set({ passwordInput });
-  },
+    passwordInput: "",
+    setPasswordInput: (passwordInput: string) => {
+      set({ passwordInput });
+    },
 
-  passwordConfirmInput: "",
-  setPasswordConfirmInput: (passwordConfirmInput: string) => {
-    set({ passwordConfirmInput });
-  },
+    passwordConfirmInput: "",
+    setPasswordConfirmInput: (passwordConfirmInput: string) => {
+      set({ passwordConfirmInput });
+    },
 
-  agreeTerms: false,
-  toggleAgreeTerms: () => {
-    set({ agreeTerms: !get().agreeTerms });
-  },
-  agreeMarketing: false,
-  toggleAgreeMarketing: () => {
-    set({ agreeMarketing: !get().agreeMarketing });
-  },
+    agreeTerms: false,
+    toggleAgreeTerms: () => {
+      set({ agreeTerms: !get().agreeTerms });
+    },
+    agreeMarketing: false,
+    toggleAgreeMarketing: () => {
+      set({ agreeMarketing: !get().agreeMarketing });
+    },
 
-  signup: async () => {
-    await axiosSignupAsUnauthorizedUser(
-      get().lastNameInput,
-      get().nameInput,
-      get().emailInput,
-      get().passwordInput,
-    );
-  },
-}));
+    signup: async () => {
+      await axiosSignupAsUnauthorizedUser(
+        get().lastNameInput,
+        get().nameInput,
+        get().emailInput,
+        get().passwordInput,
+      );
+    },
+  }),
+);

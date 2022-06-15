@@ -5,7 +5,7 @@ import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
 import { BlackBackgroundModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 
 /**
  * 리서치 작성 중 뒤로가기 버튼을 눌렀을 때 나타나는 모달입니다.
@@ -16,7 +16,7 @@ export function ResearchUploadBlockExitModal() {
     useNavigation<NavigationProp<AppStackProps, "ResearchUploadScreen">>();
 
   const { blockExitModalVisible, setBlockExitModalVisible } =
-    useResearchUploadStore(
+    useResearchUploadScreenStore(
       state => ({
         blockExitModalVisible: state.blockExitModalVisible,
         setBlockExitModalVisible: state.setBlockExitModalVisible,

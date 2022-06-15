@@ -4,7 +4,7 @@ import { ResearchUploadSubStepHeader } from "../Research.upload.subStepHeader";
 import { ResearchGiftListItem } from "src/Component/Research";
 import { RadiusButton } from "src/Component/Button";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { H2 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -40,7 +40,7 @@ function StepHeader({
 }
 
 function GiftList() {
-  const { gifts, addNewGift } = useResearchUploadStore(
+  const { gifts, addNewGift } = useResearchUploadScreenStore(
     state => ({ gifts: state.gifts, addNewGift: state.addNewGift }),
     shallow,
   );

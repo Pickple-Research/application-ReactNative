@@ -10,7 +10,7 @@ import { ResearchUploadButtomButton } from "./Research.upload.bottomButton";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import { ResearchUploadBlockExitModal } from "src/Modal";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 
 /**
  * 리서치 작성 페이지 props
@@ -26,7 +26,7 @@ export type ResearchUploadScreenProps = {};
  */
 export function ResearchUploadScreen({ navigation }: any) {
   const { step, setBlockExitModalVisible, clearInputs } =
-    useResearchUploadStore(
+    useResearchUploadScreenStore(
       state => ({
         step: state.step,
         setBlockExitModalVisible: state.setBlockExitModalVisible,

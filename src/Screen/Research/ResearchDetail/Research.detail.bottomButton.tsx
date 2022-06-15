@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { H3 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useResearchDetailStore } from "src/Zustand";
+import { useUserStore, useResearchDetailScreenStore } from "src/Zustand";
 
 /**
  * 리서치 상세정보 페이지 하단 버튼
@@ -20,7 +20,7 @@ export function ResearchDetailBottomButton() {
     userActivity: state.userActivity,
   }));
   const { researchDetail, setResearchPullupModalVisible } =
-    useResearchDetailStore(
+    useResearchDetailScreenStore(
       state => ({
         researchDetail: state.researchDetail,
         setResearchPullupModalVisible: state.setResearchPullupModalVisible,

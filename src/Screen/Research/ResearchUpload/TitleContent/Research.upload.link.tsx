@@ -4,7 +4,7 @@ import { ResearchUpload__SectionHeader__Container } from "../Research.upload.com
 import { LinedTextInput } from "src/Component/TextInput";
 import { SectionHeaderText } from "src/Component/Text";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -29,7 +29,7 @@ function SectionHeader() {
 }
 
 function LinkInput() {
-  const { linkInput, setLinkInput } = useResearchUploadStore(
+  const { linkInput, setLinkInput } = useResearchUploadScreenStore(
     state => ({
       linkInput: state.linkInput,
       setLinkInput: state.setLinkInput,

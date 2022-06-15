@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import shallow from "zustand/shallow";
-import { useAuthSignupStore } from "src/Zustand";
+import { useSignupScreenStore } from "src/Zustand";
 import { H1 } from "src/StyledComponents/Text";
 
 export function SignupBottomButton() {
@@ -12,7 +12,7 @@ export function SignupBottomButton() {
     passwordInput,
     passwordConfirmInput,
     agreeTerms,
-  } = useAuthSignupStore(
+  } = useSignupScreenStore(
     state => ({
       lastNameInput: state.lastNameInput,
       nameInput: state.nameInput,

@@ -4,11 +4,11 @@ import {
   StepScreenHeader,
 } from "src/Component/View";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 
 export function ResearchUploadScreenHeader() {
   const { step, goPreviousStep, setBlockExitModalVisible } =
-    useResearchUploadStore(
+    useResearchUploadScreenStore(
       state => ({
         step: state.step,
         goPreviousStep: state.goPreviousStep,

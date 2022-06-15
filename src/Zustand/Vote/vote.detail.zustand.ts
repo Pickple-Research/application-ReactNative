@@ -1,11 +1,12 @@
 import create from "zustand";
+import { useUserStore } from "../User/user.zustand";
+import { useVoteStore } from "./vote.zustand";
 import {
   VoteSchema,
   VoteCommentSchema,
   VoteReplySchema,
   BlankVote,
 } from "src/Schema";
-import { ParticipatedVoteInfo } from "src/Schema/User/Embedded";
 import {
   axiosGetVoteComments,
   axiosParticipateVote,
@@ -20,6 +21,7 @@ type VoteDetailStoreProps = {
 
   /** 투표 (대)댓글 정보 */
   voteDetailComments: VoteCommentSchema[];
+  /** 투표 (대)댓글 정보를 가져오는 함수 */
   getVoteDetailComments: (votdId: string) => Promise<void>;
 
   /** 사용자가 선택한 선택지 인덱스(들) */
@@ -47,14 +49,10 @@ type VoteDetailStoreProps = {
 
   /**
    * 투표 참여요청을 보냅니다.
-   * 응답이 성공적인 경우, 투표 참여 정보와 최신 투표 정보를 반환합니다.
-   * 그렇지 않은 경우 null을 반환합니다.
+   * 응답이 성공적인 경우, 투표 참여 정보와 최신 투표 정보를 업데이트합니다.
    * @author 현웅
    */
-  participateVote: () => Promise<{
-    participatedVoteInfo: ParticipatedVoteInfo;
-    updatedVote: VoteSchema;
-  } | null>;
+  participateVote: () => Promise<void>;
 
   /** 새로운 댓글 업로드 */
   uploadComment: () => Promise<void>;
@@ -145,8 +143,15 @@ export const useVoteDetailStore = create<VoteDetailStoreProps>((set, get) => ({
       get().voteDetail._id,
       get().selectedOptionIndexes,
     );
+    //* 응답이 성공적인 경우, 유저의 투표 참여 정보와 투표 상세 정보를 업데이트합니다
+    if (result !== null) {
+      useUserStore
+        .getState()
+        .addParticipatedVoteInfo(result.participatedVoteInfo);
+      get().setVoteDetail(result.updatedVote);
+      useVoteStore.getState().updateVoteListItem(result.updatedVote);
+    }
     set({ loading: false });
-    return result;
   },
 
   /**

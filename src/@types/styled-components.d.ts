@@ -1,5 +1,5 @@
 import "styled-components/native";
-import { ThemeColors, ThemeSizes } from "@Object/Type";
+import { ThemeColors, ThemeSizes } from "src/Object/Type";
 
 /**
  * styled-components/native에서 export되는 DefaultTheme을 덮어씌움으로써

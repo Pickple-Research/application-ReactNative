@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { ResearchListItem } from "src/Component/Research";
-import { useResearchDetailStore } from "src/Zustand";
+import { useResearchDetailScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 
 /**
@@ -9,7 +9,9 @@ import { globalStyles } from "src/Style";
  * @author 현웅
  */
 export function ResearchDetailInfo() {
-  const researchDetail = useResearchDetailStore(state => state.researchDetail);
+  const researchDetail = useResearchDetailScreenStore(
+    state => state.researchDetail,
+  );
 
   return (
     <Container style={{ ...globalStyles.screen__horizontalPadding }}>

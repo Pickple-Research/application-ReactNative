@@ -21,17 +21,17 @@ export function ResearchLandingRecommend({
 
   return (
     <Container onLayout={onLayout} style={{ transform: [{ translateY }] }}>
-      <Greeting username={user.nickname} />
+      <Greeting nickname={user.nickname} />
       <ResearchRecommendCarousel researches={researches} />
     </Container>
   );
 }
 
-function Greeting({ username }: { username: string }) {
+function Greeting({ nickname }: { nickname: string }) {
   return (
     <Greeting__Container>
       <Greeting__Text>
-        {`안녕하세요, ${username}님!\n이 리서치 어떠세요?`}
+        {`안녕하세요, ${nickname}님!\n이 리서치 어떠세요?`}
       </Greeting__Text>
       <Greeting__ProfileIcon />
     </Greeting__Container>
