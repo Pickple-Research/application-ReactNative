@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import { SectionHeaderText } from "src/Component/Text";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 import InfoIcon from "src/Resource/svg/Info-icon.svg";
 
@@ -35,13 +35,14 @@ function SectionTitle() {
 }
 
 function EstimatedTimeInput() {
-  const { estimatedTimeInput, setEstimatedTimeInput } = useResearchUploadStore(
-    state => ({
-      estimatedTimeInput: state.estimatedTimeInput,
-      setEstimatedTimeInput: state.setEstimatedTimeInput,
-    }),
-    shallow,
-  );
+  const { estimatedTimeInput, setEstimatedTimeInput } =
+    useResearchUploadScreenStore(
+      state => ({
+        estimatedTimeInput: state.estimatedTimeInput,
+        setEstimatedTimeInput: state.setEstimatedTimeInput,
+      }),
+      shallow,
+    );
 
   const estimatedTimeDropDownData: SimpleDropDownDataType[] = [
     { value: 1, displayName: "1" },

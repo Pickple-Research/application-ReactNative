@@ -5,7 +5,7 @@ import { ResearchUploadGiftProps } from "src/Object/Type";
 import { getGalleryPhotoFromAndroid } from "src/Util";
 import { ResearchSchema } from "src/Schema";
 
-type ResearchUploadStoreProps = {
+type ResearchUploadScreenStoreProps = {
   /** 리서치 업로드 단계: 0/1/2/3 단계 */
   step: number;
   goNextStop: () => void;
@@ -94,8 +94,8 @@ type ResearchUploadStoreProps = {
  * 리서치 업로드 페이지에서 사용되는 상태/상태관리 함수들을 정의합니다.
  * @author 현웅
  */
-export const useResearchUploadStore = create<ResearchUploadStoreProps>(
-  (set, get) => ({
+export const useResearchUploadScreenStore =
+  create<ResearchUploadScreenStoreProps>((set, get) => ({
     step: 0,
     goNextStop: () => {
       set(state => ({ step: state.step + 1 }));
@@ -327,5 +327,4 @@ export const useResearchUploadStore = create<ResearchUploadStoreProps>(
       set({ uploading: false });
       return result;
     },
-  }),
-);
+  }));

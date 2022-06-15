@@ -8,7 +8,7 @@ import {
 import { AppStackProps } from "src/Navigator";
 import { H2 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 
 /**
  * 리서치 업로드 페이지의 하단 버튼입니다.
@@ -16,7 +16,7 @@ import { useResearchUploadStore } from "src/Zustand";
  * @author 현웅
  */
 export function ResearchUploadButtomButton() {
-  const step = useResearchUploadStore(state => state.step);
+  const step = useResearchUploadScreenStore(state => state.step);
 
   switch (step) {
     case 0: // 제목, 내용 입력 단계
@@ -35,7 +35,7 @@ export function ResearchUploadButtomButton() {
 /** 제목, 내용 입력 단계 */
 function TitleContentStepButton() {
   const { goNextStep, titleInput, linkInput, contentInput } =
-    useResearchUploadStore(
+    useResearchUploadScreenStore(
       state => ({
         goNextStep: state.goNextStop,
         titleInput: state.titleInput,
@@ -66,7 +66,7 @@ function PurposeTargetStepButton() {
     organizationInput,
     targetInput,
     estimatedTimeInput,
-  } = useResearchUploadStore(
+  } = useResearchUploadScreenStore(
     state => ({
       goNextStep: state.goNextStop,
       purposeInput: state.purposeInput,
@@ -95,7 +95,7 @@ function PurposeTargetStepButton() {
 
 /** 경품, 기프티콘 입력 단계 */
 function GiftCreditStepButton() {
-  const { goNextStep, gifts } = useResearchUploadStore(
+  const { goNextStep, gifts } = useResearchUploadScreenStore(
     state => ({
       goNextStep: state.goNextStop,
       gifts: state.gifts,
@@ -128,7 +128,7 @@ function ScreeningStepButton() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "ResearchUploadScreen">>();
 
-  const { uploading, uploadResearch } = useResearchUploadStore(
+  const { uploading, uploadResearch } = useResearchUploadScreenStore(
     state => ({
       uploading: state.uploading,
       uploadResearch: state.uploadResearch,

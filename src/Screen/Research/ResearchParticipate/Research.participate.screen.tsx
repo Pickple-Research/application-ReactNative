@@ -5,11 +5,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
 import { ResearchParticipateWebView } from "./Research.participate.webView";
 import {
-  ResearchParticipateLoadingModal,
+  ResearchParticipateFormLoadingModal,
   ResearchParticipateBlockExitModal,
-  ResearchParticipateCompleteModal,
+  ResearchParticipateFormSubmittedModal,
 } from "src/Modal";
-import { useResearchParticipateStore } from "src/Zustand";
+import { useResearchParticipateScreenStore } from "src/Zustand";
 
 export type ResearchParticipateScreenProps = { link: string };
 
@@ -20,12 +20,11 @@ export type ResearchParticipateScreenProps = { link: string };
 export function ResearchParticipateScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "ResearchParticipateScreen">) {
-  const { setBlockExitModalVisible, clearInputs } = useResearchParticipateStore(
-    state => ({
+  const { setBlockExitModalVisible, clearInputs } =
+    useResearchParticipateScreenStore(state => ({
       setBlockExitModalVisible: state.setBlockExitModalVisible,
       clearInputs: state.clearInputs,
-    }),
-  );
+    }));
 
   function showBlockExitModal() {
     setBlockExitModalVisible(true);
@@ -46,9 +45,9 @@ export function ResearchParticipateScreen({
   return (
     <Container>
       <ResearchParticipateWebView link={route.params.link} />
-      <ResearchParticipateLoadingModal />
+      <ResearchParticipateFormLoadingModal />
       <ResearchParticipateBlockExitModal />
-      <ResearchParticipateCompleteModal />
+      <ResearchParticipateFormSubmittedModal />
     </Container>
   );
 }

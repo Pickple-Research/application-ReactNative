@@ -5,7 +5,7 @@ import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
 import { BlackBackgroundModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
-import { useVoteUploadStore } from "src/Zustand";
+import { useVoteUploadScreenStore } from "src/Zustand";
 
 /**
  * 투표 작성 중 뒤로가기 버튼을 눌렀을 때 나타나는 모달입니다.
@@ -16,7 +16,7 @@ export function VoteUploadBlockExitModal() {
     useNavigation<NavigationProp<AppStackProps, "CommunityVoteUploadScreen">>();
 
   const { blockExitModalVisible, setBlockExitModalVisible } =
-    useVoteUploadStore(
+    useVoteUploadScreenStore(
       state => ({
         blockExitModalVisible: state.blockExitModalVisible,
         setBlockExitModalVisible: state.setBlockExitModalVisible,

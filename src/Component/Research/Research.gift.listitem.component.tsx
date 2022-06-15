@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { RoundTextInput } from "src/Component/TextInput";
 import { ResearchUploadGiftProps } from "src/Object/Type";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { H2 } from "src/StyledComponents/Text";
 import CameraIcon from "src/Resource/svg/camera-icon.svg";
 
@@ -30,7 +30,7 @@ export function ResearchGiftListItem({ gift }: ResearchGiftListItemProps) {
 function GiftImage({ index }: { index: number }) {
   const [imageContainerWidth, setImageContainerWidth] = useState<number>(0);
 
-  const { gifts, uploadGiftPhoto } = useResearchUploadStore(
+  const { gifts, uploadGiftPhoto } = useResearchUploadScreenStore(
     state => ({
       gifts: state.gifts,
       uploadGiftPhoto: state.uploadGiftPhoto,
@@ -75,7 +75,7 @@ function GiftImage({ index }: { index: number }) {
 }
 
 function GiftName({ gift }: { gift: ResearchUploadGiftProps }) {
-  const { gifts, updateGiftName } = useResearchUploadStore(
+  const { gifts, updateGiftName } = useResearchUploadScreenStore(
     state => ({ gifts: state.gifts, updateGiftName: state.updateGiftName }),
     shallow,
   );
@@ -97,7 +97,7 @@ function GiftName({ gift }: { gift: ResearchUploadGiftProps }) {
 }
 
 function GiftDeleteButton({ index }: { index: number }) {
-  const removeGift = useResearchUploadStore(state => state.removeGift);
+  const removeGift = useResearchUploadScreenStore(state => state.removeGift);
 
   return (
     <GiftDeleteButton__Container

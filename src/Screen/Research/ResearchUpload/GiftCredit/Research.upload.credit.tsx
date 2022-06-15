@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUploadSubStepHeader } from "../Research.upload.subStepHeader";
 import { SimpleDropDown, SimpleDropDownDataType } from "src/Component/DropDown";
 import shallow from "zustand/shallow";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { H1, H2, H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -45,7 +45,7 @@ function CreditInput() {
     extraCredit,
     setCreditReceiverNum,
     setExtraCredit,
-  } = useResearchUploadStore(
+  } = useResearchUploadScreenStore(
     state => ({
       extraCredit: state.extraCredit,
       creditReceiverNum: state.creditReceiverNum,

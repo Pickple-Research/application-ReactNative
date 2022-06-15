@@ -2,50 +2,24 @@ import React from "react";
 import styled from "styled-components/native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 import shallow from "zustand/shallow";
-import {
-  useUserStore,
-  useResearchStore,
-  useResearchDetailStore,
-  useResearchParticipateStore,
-} from "src/Zustand";
+import { useResearchParticipateScreenStore } from "src/Zustand";
 
 /**
  * 구글/네이버 외부 폼을 보여주는 화면입니다.
  * @author 현웅
  */
 export function ResearchParticipateWebView({ link }: { link: string }) {
-  const addParticipatedResearchInfo = useUserStore(
-    state => state.addParticipatedResearchInfo,
-  );
-  const updateResearchListItem = useResearchStore(
-    state => state.updateResearchListItem,
-  );
-  const { researchDetail, setResearchDetail } = useResearchDetailStore(
-    state => ({
-      researchDetail: state.researchDetail,
-      setResearchDetail: state.setResearchDetail,
-    }),
-    shallow,
-  );
   const {
     researchStartDateSetted,
     setResearchStartDate,
-    setLoadingModalVisible,
-    setCompleteModalVisible,
-    formSubmitted,
-    setFormSubmitted,
+    setFormLoadingModalVisible,
     participateResearch,
-    setParticipateSuccessed,
-  } = useResearchParticipateStore(
+  } = useResearchParticipateScreenStore(
     state => ({
       researchStartDateSetted: state.researchStartDateSetted,
       setResearchStartDate: state.setResearchStartDate,
-      setLoadingModalVisible: state.setLoadingModalVisible,
-      setCompleteModalVisible: state.setCompleteModalVisible,
-      formSubmitted: state.formSubmitted,
-      setFormSubmitted: state.setFormSubmitted,
+      setFormLoadingModalVisible: state.setFormLoadingModalVisible,
       participateResearch: state.participateResearch,
-      setParticipateSuccessed: state.setParticipateSuccessed,
     }),
     shallow,
   );
@@ -149,7 +123,7 @@ export function ResearchParticipateWebView({ link }: { link: string }) {
   const onLoadEnd = () => {
     if (researchStartDateSetted) return;
     setResearchStartDate();
-    setLoadingModalVisible(false);
+    setFormLoadingModalVisible(false);
   };
 
   /**
@@ -161,24 +135,9 @@ export function ResearchParticipateWebView({ link }: { link: string }) {
   const onMessage = async (event: WebViewMessageEvent) => {
     //* 아직 이유는 모르지만, onMessage() 이벤트가 여러번 호출되는 현상이 존재합니다.
     //* (아마 구글 독스가 한 페이지를 로드할 때에도 여러개의 URL을 거치기 때문인 것 같습니다)
-    if (formSubmitted) return;
+    //* 이에 participateResearch() 내부적으로 formSubmitted 플래그를 사용하여 중복 처리를 막아줍니다.
     if (event.nativeEvent.data === "formSubmitted") {
-      setFormSubmitted(true);
-
-      //* 참여 완료 모달을 띄워주고
-      setCompleteModalVisible(true);
-
-      //* 서버에 리서치 참여 요청을 합니다.
-      const result = await participateResearch(researchDetail._id);
-      //TODO: 요청에 실패한 경우, AsyncStorage에 저장해놔야 함
-      if (result === null) return;
-
-      setParticipateSuccessed(true);
-      //* 요청이 성공적인 경우, 리서치 상세보기 페이지 및 리서치 리스트에 최신 리서치 정보를 반영합니다.
-      setResearchDetail(result.updatedResearch);
-      updateResearchListItem(result.updatedResearch);
-      //* 또한 유저의 리서치 참여 정보를 업데이트합니다.
-      addParticipatedResearchInfo(result.participatedResearchInfo);
+      await participateResearch();
     }
   };
 

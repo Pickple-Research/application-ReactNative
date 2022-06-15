@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
-import { useResearchDetailStore } from "src/Zustand";
+import { useResearchDetailScreenStore } from "src/Zustand";
 import { ResearchGiftProps } from "src/Object/Type";
 import { Carousel } from "src/Component/FlatList";
 import { H4, BodyText } from "src/StyledComponents/Text";

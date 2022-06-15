@@ -11,7 +11,7 @@ import { ResearchDetailBottomButton } from "./Research.detail.bottomButton";
 import { ResearchPullupModal } from "src/Modal";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import shallow from "zustand/shallow";
-import { useResearchDetailStore } from "src/Zustand";
+import { useResearchDetailScreenStore } from "src/Zustand";
 import { ResearchSchema } from "src/Schema";
 
 export type ResearchDetailScreenProps = { research: ResearchSchema };
@@ -23,7 +23,7 @@ export type ResearchDetailScreenProps = { research: ResearchSchema };
 export function ResearchDetailScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "ResearchDetailScreen">) {
-  const { setResearchDetail, clearInfo } = useResearchDetailStore(
+  const { setResearchDetail, clearInfo } = useResearchDetailScreenStore(
     state => ({
       setResearchDetail: state.setResearchDetail,
       clearInfo: state.clearInfo,

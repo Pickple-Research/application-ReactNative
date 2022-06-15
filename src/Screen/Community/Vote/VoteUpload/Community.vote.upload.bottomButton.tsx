@@ -9,17 +9,13 @@ import {
 import { AppStackProps } from "src/Navigator";
 import { H2 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useVoteUploadStore } from "src/Zustand";
+import { useVoteUploadScreenStore } from "src/Zustand";
 
 export function CommunityVoteUploadBottomButton() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "CommunityVoteUploadScreen">>();
 
-  const {
-    uploading: loading,
-    checkInputValidity,
-    uploadVote,
-  } = useVoteUploadStore(
+  const { uploading: loading, uploadVote } = useVoteUploadScreenStore(
     state => ({
       uploading: state.uploading,
       checkInputValidity: state.checkInputValidity,
@@ -29,13 +25,9 @@ export function CommunityVoteUploadBottomButton() {
   );
 
   async function inputValidationAndUploadVote() {
-    //* 입력값이 유효하지 않으면 업로드하지 않음
-    if (!checkInputValidity()) return;
-
     const vote = await uploadVote();
     if (vote !== null) {
       navigation.dispatch(
-        //TODO: #ScreenOption
         StackActions.replace("CommunityVoteDetailScreen", { vote }),
       );
     }

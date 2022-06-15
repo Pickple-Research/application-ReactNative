@@ -5,7 +5,7 @@ import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
 import { BlackBackgroundModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
-import { useResearchParticipateStore } from "src/Zustand";
+import { useResearchParticipateScreenStore } from "src/Zustand";
 
 /**
  * 리서치 참여 중 뒤로가기 버튼을 눌렀을 때 나타나는 모달입니다.
@@ -16,7 +16,7 @@ export function ResearchParticipateBlockExitModal() {
     useNavigation<NavigationProp<AppStackProps, "ResearchParticipateScreen">>();
 
   const { blockExitModalVisible, setBlockExitModalVisible } =
-    useResearchParticipateStore(
+    useResearchParticipateScreenStore(
       state => ({
         blockExitModalVisible: state.blockExitModalVisible,
         setBlockExitModalVisible: state.setBlockExitModalVisible,

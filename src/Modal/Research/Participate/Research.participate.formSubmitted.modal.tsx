@@ -8,27 +8,27 @@ import {
   ModalContentContainer,
 } from "src/Component/Modal";
 import shallow from "zustand/shallow";
-import { useResearchParticipateStore } from "src/Zustand";
+import { useResearchParticipateScreenStore } from "src/Zustand";
 import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 구글/네이버 폼 제출 완료 화면이 나타났을 때 나타나는 모달입니다.
  * @author 현웅
  */
-export function ResearchParticipateCompleteModal() {
-  const { completeModalVisible, setCompleteModalVisible } =
-    useResearchParticipateStore(
+export function ResearchParticipateFormSubmittedModal() {
+  const { formSubmittedModalVisible, setFormSubmittedModalVisible } =
+    useResearchParticipateScreenStore(
       state => ({
-        completeModalVisible: state.completeModalVisible,
-        setCompleteModalVisible: state.setCompleteModalVisible,
+        formSubmittedModalVisible: state.formSubmittedModalVisible,
+        setFormSubmittedModalVisible: state.setFormSubmittedModalVisible,
       }),
       shallow,
     );
 
   return (
     <BlackBackgroundModal
-      modalVisible={completeModalVisible}
-      setModalVisible={setCompleteModalVisible}>
+      modalVisible={formSubmittedModalVisible}
+      setModalVisible={setFormSubmittedModalVisible}>
       <ModalContentContainer>
         <ModalContent />
       </ModalContentContainer>
@@ -44,7 +44,7 @@ function ModalContent() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "ResearchParticipateScreen">>();
 
-  const { participateSuccessed, loading } = useResearchParticipateStore(
+  const { participateSuccessed, loading } = useResearchParticipateScreenStore(
     state => ({
       participateSuccessed: state.participateSuccessed,
       loading: state.loading,

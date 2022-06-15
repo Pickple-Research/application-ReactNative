@@ -5,11 +5,11 @@ import {
   StackActions,
   useNavigation,
 } from "@react-navigation/native";
-import { AppStackProps } from "@Navigator/App.stack.navigator";
+import { AppStackProps } from "src/Navigator";
 import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
 import { H1, BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useAuthLoginStore } from "src/Zustand";
+import { useLoginScreenStore } from "src/Zustand";
 import { getStorage } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -21,7 +21,7 @@ export type LoginScreenProps = {};
  */
 export function LoginScreen() {
   const { emailInput, setEmailInput, passwordInput, isLoading, clearInputs } =
-    useAuthLoginStore(
+    useLoginScreenStore(
       state => ({
         emailInput: state.emailInput,
         setEmailInput: state.setEmailInput,
@@ -38,9 +38,7 @@ export function LoginScreen() {
   /** 이전에 로그인에 성공했던 이메일이 있는지 확인하고, 존재한다면 초기값을 설정합니다. */
   async function loadPreviousEmailInput() {
     const email = await getStorage("EMAIL");
-    if (email) {
-      setEmailInput(email);
-    }
+    if (email) setEmailInput(email);
   }
 
   useEffect(() => {
@@ -75,7 +73,7 @@ function Header() {
  * @author 현웅
  */
 function Email({ loginable }: { loginable: boolean }) {
-  const { emailInput, setEmailInput, isLoading, login } = useAuthLoginStore(
+  const { emailInput, setEmailInput, isLoading, login } = useLoginScreenStore(
     state => ({
       emailInput: state.emailInput,
       setEmailInput: state.setEmailInput,
@@ -109,7 +107,7 @@ function Email({ loginable }: { loginable: boolean }) {
  */
 function Password({ loginable }: { loginable: boolean }) {
   const { passwordInput, setPasswordInput, isLoading, login } =
-    useAuthLoginStore(
+    useLoginScreenStore(
       state => ({
         passwordInput: state.passwordInput,
         setPasswordInput: state.setPasswordInput,
@@ -145,8 +143,7 @@ function Button({ loginable }: { loginable: boolean }) {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LoginScreen">>();
 
-  const setUserInfo = useUserStore(state => state.setUserInfo);
-  const { isLoading, login } = useAuthLoginStore(
+  const { isLoading, login } = useLoginScreenStore(
     state => ({
       isLoading: state.isLoading,
       login: state.login,
@@ -161,8 +158,6 @@ function Button({ loginable }: { loginable: boolean }) {
   async function tryLogin() {
     const result = await login();
     if (!result) return;
-
-    setUserInfo(result);
     navigation.dispatch(StackActions.replace("LandingBottomTabNavigator", {}));
   }
 

@@ -2,11 +2,11 @@ import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { Bar } from "react-native-progress";
-import { useResearchUploadStore } from "src/Zustand";
+import { useResearchUploadScreenStore } from "src/Zustand";
 import { theme } from "src/Theme/theme";
 
 export function ResearchUploadProgressBar() {
-  const step = useResearchUploadStore(state => state.step);
+  const step = useResearchUploadScreenStore(state => state.step);
 
   return (
     <Container>

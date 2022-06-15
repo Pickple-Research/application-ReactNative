@@ -6,7 +6,7 @@ import { CommunityVoteUploadBottomButton } from "./Community.vote.upload.bottomB
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import { VoteUploadBlockExitModal } from "src/Modal";
 import shallow from "zustand/shallow";
-import { useVoteUploadStore } from "src/Zustand";
+import { useVoteUploadScreenStore } from "src/Zustand";
 
 export type CommunityVoteUploadScreenProps = {};
 
@@ -15,7 +15,7 @@ export type CommunityVoteUploadScreenProps = {};
  * @author 현웅
  */
 export function CommunityVoteUploadScreen() {
-  const { clearInput, setBlockExitModalVisible } = useVoteUploadStore(
+  const { clearInput, setBlockExitModalVisible } = useVoteUploadScreenStore(
     state => ({
       clearInput: state.clearInput,
       setBlockExitModalVisible: state.setBlockExitModalVisible,
