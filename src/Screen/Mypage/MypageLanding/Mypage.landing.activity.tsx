@@ -8,7 +8,7 @@ import { globalStyles } from "src/Style";
 import ScrapIcon from "src/Resource/svg/scrap-icon.svg";
 import MarkedIcon from "src/Resource/svg/marked-icon.svg";
 import PenIcon from "src/Resource/svg/pen-icon.svg";
-import BlankCommentIcon from "src/Resource/svg/blank-comment-icon.svg";
+import CommentBlankIcon from "src/Resource/svg/comment-blank-icon.svg";
 
 /**
  * 마이페이지 랜딩 페이지 유저 활동 정보 섹션
@@ -79,7 +79,7 @@ function MyCommentButton({
 }) {
   return (
     <Icon__Container activeOpacity={1} onPress={() => {}}>
-      <BlankCommentIcon style={styles.icon__margin} />
+      <CommentBlankIcon style={styles.icon__margin} />
       <Icon__Text>내 댓글</Icon__Text>
     </Icon__Container>
   );

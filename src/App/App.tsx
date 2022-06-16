@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components/native";
+import { MenuProvider } from "react-native-popup-menu";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
@@ -55,11 +56,13 @@ export default function App() {
       //? 그렇지 않다면 darkThemeColor가 됩니다.
       // theme={{ color: useLightMode ? lightThemeColors : darkThemeColors }}>
       theme={{ color: lightThemeColors, size: themeSizes }}>
-      <Container>
-        <NavigationContainer>
-          <AppStackNavigator />
-        </NavigationContainer>
-      </Container>
+      <MenuProvider>
+        <Container>
+          <NavigationContainer>
+            <AppStackNavigator />
+          </NavigationContainer>
+        </Container>
+      </MenuProvider>
     </ThemeProvider>
   );
 }

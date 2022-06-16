@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { ScreenHeader__Container } from "src/StyledComponents/View";
-import BigSearchIcon from "@Resource/svg/big-search-icon.svg";
-import AlarmIcon from "@Resource/svg/alarm-icon.svg";
+import SearchBigIcon from "src/Resource/svg/search-big-icon.svg";
+import AlarmIcon from "src/Resource/svg/alarm-icon.svg";
 
 /**
  * 홈 랜딩 페이지의 스크린 헤더
@@ -16,7 +16,7 @@ export function HomeLandingScreenHeader() {
         <PickpleResearchText>픽플리</PickpleResearchText>
       </Text__Container>
       <Icons__Container>
-        <BigSearchIcon
+        <SearchBigIcon
           style={{ ...styles.icon__margin }}
           width={28}
           height={28}
