@@ -5,7 +5,7 @@ import { BodyText } from "src/StyledComponents/Text";
 import { VoteCommentSchema } from "src/Schema";
 import { globalStyles } from "src/Style/globalStyles";
 import UserIcon from "src/Resource/svg/user-icon.svg";
-import DotsIcon from "src/Resource/svg/dots-icon.svg";
+import VerticalDotsSmallIcon from "src/Resource/svg/vertical-dots-small-icon.svg";
 
 /**
  * 투표 댓글 컴포넌트입니다.
@@ -62,7 +62,7 @@ function Contents({ comment }: { comment: VoteCommentSchema }) {
 function DotMenu() {
   return (
     <DotMenu__Container>
-      <DotsIcon />
+      <VerticalDotsSmallIcon />
     </DotMenu__Container>
   );
 }

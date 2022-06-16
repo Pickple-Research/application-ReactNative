@@ -26,7 +26,6 @@ export function BackButtonAndFunctionScreenHeader({
         <CaretLeftIcon onPress={goBack} />
       </BackButton__Container>
       <HeaderFunction__Container>{rightComponents}</HeaderFunction__Container>
-      <BackButton__Container />
     </Container>
   );
 }
@@ -35,8 +34,6 @@ const Container = styled(ScreenHeader__Container)`
   justify-content: space-between;
 `;
 
-const BackButton__Container = styled.View`
-  flex: 1;
-`;
+const BackButton__Container = styled.View``;
 
 const HeaderFunction__Container = styled.View``;

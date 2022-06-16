@@ -268,16 +268,20 @@ export const useResearchUploadScreenStore =
     uploadResearch: async () => {
       set({ uploading: true });
 
-      //* 삭제되지 않은 경품 추출
-      const nonDeletedGifts = get().gifts.filter(gift => !gift.deleted);
-
-      //* 그 중 경품명이 입력되었거나 경품 이미지가 등록된 것이 있는지 확인
-      const giftExists = nonDeletedGifts.some(gift => {
-        return Boolean(gift.giftName) || Boolean(gift.giftImage.uri);
+      //* 유효한 경품들만 추출합니다.
+      //* (삭제되지 않았고, 경품 이름과 이미지가 모두 입력된 경품들)
+      const validGifts = get().gifts.filter(gift => {
+        if (
+          !gift.deleted &&
+          Boolean(gift.giftName.length) &&
+          Boolean(gift.giftImage.uri)
+        ) {
+          return gift;
+        }
       });
 
       //* 경품이 존재하는 경우 - formData를 생성하여 요청해야 합니다.
-      if (giftExists) {
+      if (validGifts.length > 0) {
         const formData = new FormData();
 
         formData.append("title", get().titleInput.trim());
@@ -292,7 +296,7 @@ export const useResearchUploadScreenStore =
         // formData.append("", get().screeningSexInput)
         // formData.append("", get().screeningAgeInputs)
 
-        nonDeletedGifts.forEach(gift => {
+        validGifts.forEach(gift => {
           formData.append("images", {
             //! ReactNative 에서 이미지 파일을 포함한 FormData 를 전송할 땐
             //! 반드시 uri, type, name 속성을 가져야 합니다.
@@ -317,7 +321,7 @@ export const useResearchUploadScreenStore =
         organization: get().organizationInput,
         target: get().targetInput,
         //! 서버단에서 estimatedTime을 @IsNumberString()으로 받기 때문에
-        //! 여기서는 숫자로 변환하여 전송합니다.
+        //! 여기서는 string으로 변환하여 전송합니다.
         estimatedTime: get().estimatedTimeInput.toString(),
         // creditReceiverNum: get().creditReceiverNum,
         // extraCredit: get().extraCredit,

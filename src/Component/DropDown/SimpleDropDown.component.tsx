@@ -3,7 +3,7 @@ import { StyleProp, ViewStyle, TextStyle } from "react-native";
 import SelectDropdown, {
   SelectDropdownProps,
 } from "react-native-select-dropdown";
-import DownCaretIcon from "src/Resource/svg/down-caret-icon.svg";
+import CaretDownIcon from "src/Resource/svg/caret-down-icon.svg";
 
 /**
  * SelectDropDown 라이브러리에서 제공하는 DropDown 컴포넌트에 데이터를 제공할 때
@@ -93,7 +93,7 @@ export function SimpleDropDown<T>({
         return selectedItem.displayName;
       }}
       renderDropdownIcon={() => {
-        return <DownCaretIcon style={{ marginHorizontal: 5 }} />;
+        return <CaretDownIcon style={{ marginHorizontal: 5 }} />;
       }}
       dropdownIconPosition="right"
       buttonStyle={buttonStyle(type)}
