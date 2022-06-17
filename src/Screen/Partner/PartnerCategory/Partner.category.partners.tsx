@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { PartnerTypeCarousel } from "@Component/Partner";
-import { Chip, HashTags } from "@Component/Text";
-import { PartnerProps } from "@Object/Type";
-import { PartnerType } from "@Object/Enum";
+import { PartnerTypeCarousel } from "src/Component/Partner";
+import { Chip, HashTags } from "src/Component/Text";
+import { PartnerProps } from "src/Object/Type";
+import { PartnerType } from "src/Object/Enum";
 import { usePartnerStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 import { H4, BodyText } from "src/StyledComponents/Text";
-import SortIcon from "@Resource/svg/sort-icon.svg";
+import SortIcon from "src/Resource/svg/sort-icon.svg";
 
 /**
  * 카테고리별 파트너 페이지 파트너 목록 섹션
@@ -112,8 +112,6 @@ const Filter__Container = styled.View`
   padding: 10px 0px;
   padding-right: 20px;
 `;
-
-const FilterHeader__Filter = styled.View``;
 
 const PartnersList__Container = styled.FlatList`
   background-color: ${({ theme }) => theme.color.purple.mild};

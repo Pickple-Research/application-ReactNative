@@ -63,8 +63,8 @@ function ModalContent() {
   if (participateSuccessed) {
     return (
       <RadiusButton
-        content="완료!"
-        type="ADD_GIFT"
+        text="완료!"
+        type="BLACK"
         onPress={() => {
           navigation.goBack();
         }}
@@ -76,8 +76,8 @@ function ModalContent() {
   //TODO: 실패 내역을 어딘가에 저장해야 합니다.
   return (
     <RadiusButton
-      content="서버 통신에 문제가 있었습니다."
-      type="ADD_GIFT"
+      text="서버 통신에 문제가 있었습니다."
+      type="BLACK"
       onPress={() => {
         navigation.goBack();
       }}

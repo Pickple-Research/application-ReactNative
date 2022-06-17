@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal } from "src/Component/Modal";
+import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useVoteUploadScreenStore } from "src/Zustand";
 
@@ -28,15 +28,30 @@ export function VoteUploadBlockExitModal() {
     <BlackBackgroundModal
       modalVisible={blockExitModalVisible}
       setModalVisible={setBlockExitModalVisible}>
-      <Container>
-        <RadiusButton
-          content="확인"
-          type="ADD_GIFT"
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-      </Container>
+      <ModalContent
+        title="작성을 취소하시겠습니까?"
+        content="입력한 내용이 저장되지 않습니다."
+        LeftButton={
+          <RadiusButton
+            text="아니오"
+            type="PURPLE_CONFIRM"
+            styleType="NARROW"
+            onPress={() => {
+              setBlockExitModalVisible(false);
+            }}
+          />
+        }
+        RightButton={
+          <RadiusButton
+            text="예"
+            type="PURPLE_CANCEL"
+            styleType="NARROW"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+        }
+      />
     </BlackBackgroundModal>
   );
 }

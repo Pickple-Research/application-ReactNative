@@ -1,7 +1,9 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { VoteOptionsBox, VoteOptionResultsBox } from "src/Component/Vote";
-import { H3, BodyText } from "src/StyledComponents/Text";
+import { RadiusButton } from "src/Component/Button";
+import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useUserStore, useVoteDetailStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
@@ -104,9 +106,11 @@ function VoteButton() {
   //* 마감/종료된 투표인 경우
   if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
     return (
-      <VoteButton__DisabledContainer>
-        <VoteButton__DisabledText>종료된 투표입니다</VoteButton__DisabledText>
-      </VoteButton__DisabledContainer>
+      <RadiusButton
+        text="종료된 투표입니다"
+        type="GREY"
+        style={voteButtonStyles.container}
+      />
     );
   }
 
@@ -117,23 +121,42 @@ function VoteButton() {
     })
   ) {
     return (
-      <VoteButton__DisabledContainer>
-        <VoteButton__DisabledText>참여한 투표입니다</VoteButton__DisabledText>
-      </VoteButton__DisabledContainer>
+      <RadiusButton
+        text="참여한 투표입니다"
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
     );
   }
 
-  const votable = selectedOptionIndexes.length > 0 && !loading;
+  //* 서버의 투표 참여 요청을 기다리고 있는 경우
+  if (loading)
+    return (
+      <RadiusButton
+        text="투표 중..."
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
+    );
 
+  //* 아무런 선택지도 고르지 않은 경우
+  if (selectedOptionIndexes.length === 0)
+    return (
+      <RadiusButton
+        text="투표하기"
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
+    );
+
+  //* 투표 요청 가능한 경우
   return (
-    <VoteButton__Container
-      available={votable}
-      activeOpacity={votable ? 0.8 : 1}
-      onPress={votable ? participateVote : undefined}>
-      <VoteButton__Text available={votable}>
-        {loading ? `투표 중...` : `투표하기`}
-      </VoteButton__Text>
-    </VoteButton__Container>
+    <RadiusButton
+      text="투표하기"
+      type="PURPLE_CONFIRM"
+      onPress={participateVote}
+      style={voteButtonStyles.container}
+    />
   );
 }
 
@@ -176,39 +199,12 @@ const InnerContainer = styled.View`
 `;
 
 // VoteButton()
-const VoteButton__Container = styled.TouchableOpacity<{ available: boolean }>`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${({ available, theme }) =>
-    available ? theme.color.purple.main : theme.color.purple.mild};
-  padding: 16px;
-  margin-top: 18px;
-  margin-bottom: 4px;
-  border-radius: 12px;
-`;
-
-const VoteButton__Text = styled(H3)<{ available: boolean }>`
-  color: ${({ available, theme }) =>
-    available ? theme.color.grey.white : theme.color.purple.text};
-  font-weight: bold;
-`;
-
-const VoteButton__DisabledContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${({ theme }) => theme.color.purple.inactive};
-  padding: 16px;
-  margin-top: 18px;
-  margin-bottom: 4px;
-  border-radius: 12px;
-`;
-
-const VoteButton__DisabledText = styled(H3)`
-  color: ${({ theme }) => theme.color.grey.white};
-  font-weight: bold;
-`;
+const voteButtonStyles = StyleSheet.create({
+  container: {
+    marginTop: 18,
+    marginBottom: 4,
+  },
+});
 
 // VotedUserNum()
 const VotedUserNum__Text = styled(BodyText)`

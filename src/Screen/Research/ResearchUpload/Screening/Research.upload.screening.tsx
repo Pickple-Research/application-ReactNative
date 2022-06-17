@@ -183,6 +183,7 @@ const ChooseAge__Container = styled.View`
 `;
 
 // SelectButton()
+//TODO: #PILL-BUTTON
 const SelectButton__Container = styled.TouchableOpacity<{ selected: boolean }>`
   padding: 9px 18px;
   margin: 5px 3px;

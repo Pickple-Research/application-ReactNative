@@ -34,11 +34,13 @@ export function CommunityVoteDetailScreen({
   }
 
   //* 페이지가 로드되면 인자로 받아온 투표 정보를 랜더링하도록 상태를 변경하고,
-  //* 투표 (대)댓글 정보를 모두 받아옵니다.
+  //* 투표 수가 0이 아니라면 투표 (대)댓글 정보를 모두 받아옵니다.
   //* 페이지를 벗어나면 정보를 초기화합니다.
   useEffect(() => {
     setVote(route.params.vote);
-    loadVoteDetailComments();
+    if (route.params.vote.commentsNum > 0) {
+      loadVoteDetailComments();
+    }
     return () => {
       clearInfo();
     };

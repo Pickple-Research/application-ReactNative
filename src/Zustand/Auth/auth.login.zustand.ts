@@ -49,7 +49,10 @@ export const useLoginScreenStore = create<LoginScreenStoreProps>(
         password: get().passwordInput,
       });
 
-      if (userInfo === null) return false;
+      if (userInfo === null) {
+        set({ isLoading: false });
+        return false;
+      }
 
       useUserStore.getState().setUserInfo(userInfo);
       await setStorage("JWT", userInfo.jwt);

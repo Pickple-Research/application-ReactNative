@@ -10,8 +10,8 @@ export function ModalContentContainer({ children }: { children: any }) {
 }
 
 const Container = styled.View`
-  width: 70%;
+  width: 80%;
   background-color: ${({ theme }) => theme.color.grey.white};
-  padding: 16px;
+  padding: 10px 20px;
   border-radius: 12px;
 `;

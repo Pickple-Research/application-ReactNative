@@ -11,7 +11,7 @@ import MarkedIcon from "src/Resource/svg/marked-icon.svg";
  * 마이페이지 '투표한 글' 리스트에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function VoteVotedItem({
+export function VoteParticipatedItem({
   vote,
   style,
 }: {
@@ -53,7 +53,7 @@ function TitleInfo({ vote }: { vote: VoteSchema }) {
         </TitleInfo__Title>
       </TitleInfo__TitleContainer>
       <TitleInfo__InfoContainer>
-        <TitleInfo__Deadline>2022.05.00</TitleInfo__Deadline>
+        <TitleInfo__Deadline>{`vote.deadline`}</TitleInfo__Deadline>
         <TitleInfo__Comments>{`댓글 ${vote.commentsNum}`}</TitleInfo__Comments>
       </TitleInfo__InfoContainer>
     </TitleInfo__Container>

@@ -30,8 +30,8 @@ export function ResearchParticipateBlockExitModal() {
       setModalVisible={setBlockExitModalVisible}>
       <Container>
         <RadiusButton
-          content="확인"
-          type="ADD_GIFT"
+          text="확인"
+          type="BLACK"
           onPress={() => {
             navigation.goBack();
           }}
