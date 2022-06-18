@@ -178,7 +178,7 @@ const TabBarIcon__Container = styled.View`
 
 const TabBarIcon__Text = styled(DetailText)<{ focused: boolean }>`
   color: ${({ focused, theme }) =>
-    focused ? theme.color.focused_gray : theme.color.unfocused_gray};
+    focused ? theme.color.grey.focused : theme.color.grey.unfocused};
   margin-top: 3px;
 `;
 

@@ -1,16 +1,10 @@
-import { CommonThemeColors, ThemeColors } from "@Object/Type";
+import { CommonThemeColors, ThemeColors } from "src/Object/Type";
 
 /**
  * 모든 테마에 공통으로 적용되는 색상값들
  * @author 현웅
  */
 const commonThemeColors: CommonThemeColors = {
-  // bottomTabBar에서 사용되는 선택/비선택 회색
-  focused_gray: "#848899",
-  unfocused_gray: "#D3D4D4",
-
-  text_color_bbb: "#BBBBBB",
-
   // 하연이 figma 디자인 시스템 그대로 사용
   blue: {
     main: "#8BBFF5",
@@ -39,6 +33,8 @@ const commonThemeColors: CommonThemeColors = {
     icon: "#666666",
     mild: "#999999",
     white: "#FFFFFF",
+    focused: "#848899",
+    unfocused: "#D3D4D4",
   },
 
   red: {

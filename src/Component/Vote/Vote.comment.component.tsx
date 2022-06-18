@@ -3,12 +3,17 @@ import styled from "styled-components/native";
 import { VoteReply } from "./Vote.reply.component";
 import { BodyText } from "src/StyledComponents/Text";
 import { VoteCommentSchema } from "src/Schema";
+import shallow from "zustand/shallow";
+import { useVoteDetailScreenStore } from "src/Zustand";
+import { convertTimeToMMDDHHMM } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 import UserIcon from "src/Resource/svg/user-icon.svg";
 import VerticalDotsSmallIcon from "src/Resource/svg/vertical-dots-small-icon.svg";
 
 /**
  * 투표 댓글 컴포넌트입니다.
+ * @param comment 댓글 정보
+ * @param index 댓글 순서 (첫번째가 아닌 경우 구분선 표시)
  * @author 현웅
  */
 export function VoteComment({
@@ -48,13 +53,38 @@ function Profile() {
 }
 
 function Contents({ comment }: { comment: VoteCommentSchema }) {
+  const { voteDetail, setTargetCommentId, setTargetCommentAuthorNickname } =
+    useVoteDetailScreenStore(
+      state => ({
+        voteDetail: state.voteDetail,
+        setTargetCommentId: state.setTargetCommentId,
+        setTargetCommentAuthorNickname: state.setTargetCommentAuthorNickname,
+      }),
+      shallow,
+    );
+
+  const isAuthor = voteDetail.authorId === comment.authorId;
+
   return (
     <Contents__Container>
-      <Contents__UserNickname isAuthor={false}>
+      <Contents__UserNickname isAuthor={isAuthor}>
         {comment.authorNickname ? comment.authorNickname : `익명`}
       </Contents__UserNickname>
+
       <Contents__Content>{comment.content}</Contents__Content>
-      <Contents__Date>{comment.createdAt}</Contents__Date>
+
+      <Contents__DateContainer>
+        <Contents__Date>
+          {convertTimeToMMDDHHMM(comment.createdAt)}
+        </Contents__Date>
+        <Contents__AppReply
+          onPress={() => {
+            setTargetCommentId(comment._id);
+            setTargetCommentAuthorNickname(`comment.authorNickname`);
+          }}>
+          답글 달기
+        </Contents__AppReply>
+      </Contents__DateContainer>
     </Contents__Container>
   );
 }
@@ -123,11 +153,18 @@ const Contents__Content = styled(BodyText)`
   margin-bottom: 3px;
 `;
 
+const Contents__DateContainer = styled.View`
+  flex-direction: row;
+`;
+
 const Contents__Date = styled.Text`
   //TODO: #DESIGN-SYSTEM
   font-size: 8px;
   color: ${({ theme }) => theme.color.grey.mild};
+  margin-right: 10px;
 `;
+
+const Contents__AppReply = styled(Contents__Date)``;
 
 // DotMenu()
 const DotMenu__Container = styled.View``;

@@ -30,17 +30,13 @@ export type CommonThemeColors = {
     main: string;
     mild: string;
     white: string;
+    focused: string;
+    unfocused: string;
   };
 
   red: {
     warning: string;
   };
-
-  // bottomTabBar에서 사용되는 선택/비선택 회색
-  focused_gray: string;
-  unfocused_gray: string;
-
-  text_color_bbb: string;
 };
 
 /**

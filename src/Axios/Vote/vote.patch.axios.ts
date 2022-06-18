@@ -15,24 +15,40 @@ export const axiosViewVote = async (voteId: string) => {
 
 /**
  * 투표를 스크랩합니다.
+ * @return 업데이트 된 투표 정보 | null
  * @author 현웅
  */
 export const axiosScrapVote = async (voteId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `votes/scrap/${voteId}`,
-  });
+  return await customAxios
+    .request<VoteSchema>({
+      method: "PATCH",
+      url: `votes/scrap/${voteId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };
 
 /**
  * 투표 스크랩을 취소합니다.
+ * @return 업데이트 된 투표 정보 | null
  * @author 현웅
  */
 export const axiosUnscrapVote = async (voteId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `votes/unscrap/${voteId}`,
-  });
+  return await customAxios
+    .request<VoteSchema>({
+      method: "PATCH",
+      url: `votes/unscrap/${voteId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };
 
 /**
@@ -70,11 +86,19 @@ export const axiosParticipateVote = async (
 
 /**
  * 투표를 마감합니다.
+ * @return 업데이트 된 투표 정보 | null
  * @author 현웅
  */
 export const axiosCloseVote = async (voteId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `votes/close/${voteId}`,
-  });
+  return await customAxios
+    .request<VoteSchema>({
+      method: "PATCH",
+      url: `votes/close/${voteId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };

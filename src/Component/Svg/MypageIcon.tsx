@@ -11,7 +11,7 @@ export function MypageSvgIcon({
   focused = false,
   width = "24",
   height = "24",
-  fill = focused ? theme.color.focused_gray : theme.color.unfocused_gray,
+  fill = focused ? theme.color.grey.focused : theme.color.grey.unfocused,
 }: BottomTabSvgIconProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">

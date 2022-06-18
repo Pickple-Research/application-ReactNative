@@ -21,13 +21,20 @@ type VoteDetailScreenStoreProps = {
 
   /** 투표 (대)댓글 정보 */
   voteDetailComments: VoteCommentSchema[];
-  /** 투표 (대)댓글 정보를 가져오는 함수 */
+  /** 투표 (대)댓글 정보를 가져옵니다 */
   getVoteDetailComments: (votdId: string) => Promise<void>;
 
   /** 사용자가 선택한 선택지 인덱스(들) */
   selectedOptionIndexes: number[];
   /** 선택지 터치 시 호출 함수 */
   onPressOption: (index: number) => void;
+
+  /** 대댓글 대상 댓글 _id */
+  targetCommentId: string;
+  setTargetCommentId: (id: string) => void;
+  /** 대댓글 대상 댓글 작성자 닉네임 */
+  targetCommentAuthorNickname: string;
+  setTargetCommentAuthorNickname: (nickname: string) => void;
 
   /** (대)댓글 입력값 */
   commentInput: string;
@@ -74,7 +81,7 @@ type VoteDetailScreenStoreProps = {
   uploadComment: () => Promise<void>;
 
   /** 새로운 대댓글을 업로드합니다 */
-  uploadReply: (commentId: string) => Promise<void>;
+  uploadReply: () => Promise<void>;
 
   /**
    * 투표 참여요청을 보냅니다.
@@ -124,6 +131,16 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       set({ selectedOptionIndexes: [...get().selectedOptionIndexes, index] });
     },
 
+    targetCommentId: "",
+    setTargetCommentId: (id: string) => {
+      set({ targetCommentId: id });
+    },
+
+    targetCommentAuthorNickname: "",
+    setTargetCommentAuthorNickname: (nickname: string) => {
+      set({ targetCommentAuthorNickname: nickname });
+    },
+
     commentInput: "",
     setCommentInput: (input: string) => {
       set({ commentInput: input });
@@ -169,8 +186,12 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         voteDetail: BlankVote,
         voteDetailComments: [],
         selectedOptionIndexes: [],
+        targetCommentId: "",
+        targetCommentAuthorNickname: "",
         commentInput: "",
         voteCloseModalVisible: false,
+        voteDeleteModalVisible: false,
+        voteReportModalVisible: false,
         loading: false,
         closing: false,
         commentLoading: false,
@@ -249,20 +270,24 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
      * 응답이 성공적인 경우 투표 상태와 새로 생성된 대댓글을 업데이트하고
      * 댓글 입력란을 초기화합니다.
      */
-    uploadReply: async (commentId: string) => {
+    uploadReply: async () => {
       if (get().commentInput.length === 0) return;
 
       set({ commentUploading: true });
 
       const result = await axiosUploadVoteReply({
         voteId: get().voteDetail._id,
-        commentId,
+        commentId: get().targetCommentId,
         content: get().commentInput,
       });
       if (result !== null) {
         get().setVoteDetail(result.updatedVote);
         get().addReply(result.newReply);
-        set({ commentInput: "" });
+        set({
+          commentInput: "",
+          targetCommentId: "",
+          targetCommentAuthorNickname: "",
+        });
       }
 
       set({ commentUploading: false });
