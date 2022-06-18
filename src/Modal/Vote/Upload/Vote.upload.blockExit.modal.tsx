@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
@@ -55,5 +54,3 @@ export function VoteUploadBlockExitModal() {
     </BlackBackgroundModal>
   );
 }
-
-const Container = styled.View``;

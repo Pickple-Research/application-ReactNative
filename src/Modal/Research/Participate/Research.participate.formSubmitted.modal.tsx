@@ -1,18 +1,14 @@
 import React from "react";
-import styled from "styled-components/native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppStackProps } from "src/Navigator";
-import { RadiusButton } from "src/Component/Button";
-import {
-  BlackBackgroundModal,
-  ModalContentContainer,
-} from "src/Component/Modal";
+import { BlackBackgroundModal } from "src/Component/Modal";
+import { ResearchParticipateFormSubmittedLoadingModal } from "./FormSubmitted/Research.participate.formSubmitted.loading.modal";
+import { ResearchParticipateFormSubmittedSuccessModal } from "./FormSubmitted/Research.participate.formSubmitted.success.modal";
+import { ResearchParticipateFormSubmittedFailModal } from "./FormSubmitted/Research.participate.formSubmitted.fail.modal";
 import shallow from "zustand/shallow";
 import { useResearchParticipateScreenStore } from "src/Zustand";
-import { H3 } from "src/StyledComponents/Text";
 
 /**
  * 구글/네이버 폼 제출 완료 화면이 나타났을 때 나타나는 모달입니다.
+ * 로딩(참여완료 요청 응답 대기) 중, 요청 성공, 요청 실패에 따라 내용이 달라집니다.
  * @author 현웅
  */
 export function ResearchParticipateFormSubmittedModal() {
@@ -28,10 +24,9 @@ export function ResearchParticipateFormSubmittedModal() {
   return (
     <BlackBackgroundModal
       modalVisible={formSubmittedModalVisible}
-      setModalVisible={setFormSubmittedModalVisible}>
-      <ModalContentContainer>
-        <ModalContent />
-      </ModalContentContainer>
+      setModalVisible={setFormSubmittedModalVisible}
+      allowIgnore={false}>
+      <ModalContent />
     </BlackBackgroundModal>
   );
 }
@@ -41,48 +36,24 @@ export function ResearchParticipateFormSubmittedModal() {
  * @author 현웅
  */
 function ModalContent() {
-  const navigation =
-    useNavigation<NavigationProp<AppStackProps, "ResearchParticipateScreen">>();
-
-  const { participateSuccessed, loading } = useResearchParticipateScreenStore(
+  const { loading, participateSuccessed } = useResearchParticipateScreenStore(
     state => ({
-      participateSuccessed: state.participateSuccessed,
       loading: state.loading,
+      participateSuccessed: state.participateSuccessed,
     }),
     shallow,
   );
 
-  //* 로딩중 (서버 통신)
+  //* 로딩 중 (서버 통신)
   if (loading) {
-    return (
-      <Loading__Text>제출 중입니다. 잠시만 기다려 주세요...</Loading__Text>
-    );
+    return <ResearchParticipateFormSubmittedLoadingModal />;
   }
 
   //* 참여 성공시
   if (participateSuccessed) {
-    return (
-      <RadiusButton
-        text="완료!"
-        type="BLACK"
-        onPress={() => {
-          navigation.goBack();
-        }}
-      />
-    );
+    return <ResearchParticipateFormSubmittedSuccessModal />;
   }
 
   //* 참여 실패시
-  //TODO: 실패 내역을 어딘가에 저장해야 합니다.
-  return (
-    <RadiusButton
-      text="서버 통신에 문제가 있었습니다."
-      type="BLACK"
-      onPress={() => {
-        navigation.goBack();
-      }}
-    />
-  );
+  return <ResearchParticipateFormSubmittedFailModal />;
 }
-
-const Loading__Text = styled(H3)``;

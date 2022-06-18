@@ -9,11 +9,23 @@ import CaretLeftIcon from "src/Resource/svg/caret-left-icon.svg";
  * 뒤로 가기 버튼만 포함된 스크린 헤더입니다.
  * @author 현웅
  */
-export function BackButtonScreenHeader() {
+export function BackButtonScreenHeader({
+  onPressBackIcon,
+}: {
+  onPressBackIcon?: () => void;
+}) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
 
   function goBack() {
     if (navigation.canGoBack()) navigation.goBack();
+  }
+
+  if (onPressBackIcon) {
+    return (
+      <Container>
+        <CaretLeftIcon onPress={onPressBackIcon} />
+      </Container>
+    );
   }
 
   return (

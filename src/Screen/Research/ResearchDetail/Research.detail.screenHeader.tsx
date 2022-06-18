@@ -8,6 +8,7 @@ import {
 } from "react-native-popup-menu";
 import { BackButtonAndFunctionScreenHeader } from "src/Component/View";
 import { PopupMenuOption } from "src/Component/Popup";
+import shallow from "zustand/shallow";
 import { useUserStore, useResearchDetailScreenStore } from "src/Zustand";
 import { popupStyles } from "src/Style";
 import ShareIcon from "src/Resource/svg/share-icon.svg";
@@ -55,8 +56,17 @@ function ShareButton() {
  */
 function DotsButton() {
   const user = useUserStore(state => state.user);
-  const researchDetail = useResearchDetailScreenStore(
-    state => state.researchDetail,
+  const {
+    researchDetail,
+    setResearchDeleteModalVisible,
+    setResearchReportModalVisible,
+  } = useResearchDetailScreenStore(
+    state => ({
+      researchDetail: state.researchDetail,
+      setResearchDeleteModalVisible: state.setResearchDeleteModalVisible,
+      setResearchReportModalVisible: state.setResearchReportModalVisible,
+    }),
+    shallow,
   );
 
   const isAuthor = user._id === researchDetail.authorId;
@@ -84,7 +94,9 @@ function DotsButton() {
                 <PopupMenuOption
                   Icon={<TrashBinBlankIcon />}
                   content="삭제하기"
-                  onPress={() => {}}
+                  onPress={() => {
+                    setResearchDeleteModalVisible(true);
+                  }}
                 />
               </MenuOption>
             </>
@@ -94,7 +106,9 @@ function DotsButton() {
               <PopupMenuOption
                 Icon={<BellHangingIcon />}
                 content="신고하기"
-                onPress={() => {}}
+                onPress={() => {
+                  setResearchReportModalVisible(true);
+                }}
               />
             </MenuOption>
           )}

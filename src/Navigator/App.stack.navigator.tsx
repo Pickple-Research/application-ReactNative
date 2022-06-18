@@ -29,6 +29,7 @@ import {
   ResearchDetailScreenHeader,
   ResearchDetailScreenProps,
   ResearchParticipateScreen,
+  ResearchParticipateScreenHeader,
   ResearchParticipateScreenProps,
   ResearchUploadScreen,
   ResearchUploadScreenHeader,
@@ -143,6 +144,10 @@ export function AppStackNavigator() {
         <AppStack.Screen
           name={"ResearchParticipateScreen"}
           component={ResearchParticipateScreen}
+          options={{
+            headerShown: true,
+            header: ResearchParticipateScreenHeader,
+          }}
         />
         <AppStack.Screen
           name={"ResearchUploadScreen"}

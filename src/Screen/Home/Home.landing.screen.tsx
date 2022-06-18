@@ -8,7 +8,7 @@ import { HomeLandingPartner } from "./Home.landing.partner";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import { theme } from "src/Theme";
 
-export type HomeLandingScreenProps = {};
+export type HomeLandingScreenProps = { completeFillProfile?: boolean };
 
 export function HomeLandingScreen() {
   return (

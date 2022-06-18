@@ -50,9 +50,9 @@ function Profile() {
 function Contents({ comment }: { comment: VoteCommentSchema }) {
   return (
     <Contents__Container>
-      <Contents__Username isAuthor={false}>
+      <Contents__UserNickname isAuthor={false}>
         {comment.authorNickname ? comment.authorNickname : `익명`}
-      </Contents__Username>
+      </Contents__UserNickname>
       <Contents__Content>{comment.content}</Contents__Content>
       <Contents__Date>{comment.createdAt}</Contents__Date>
     </Contents__Container>
@@ -110,7 +110,7 @@ const Contents__Container = styled.View`
   flex: 1;
 `;
 
-const Contents__Username = styled(BodyText)<{ isAuthor: boolean }>`
+const Contents__UserNickname = styled(BodyText)<{ isAuthor: boolean }>`
   color: ${({ isAuthor, theme }) =>
     isAuthor ? theme.color.blue.text : theme.color.grey.deep};
   font-weight: bold;

@@ -8,3 +8,4 @@ export * from "./ResearchLanding/Research.landing.screen";
 export * from "./ResearchLanding/Research.landing.screenHeader";
 
 export * from "./ResearchParticipate/Research.participate.screen";
+export * from "./ResearchParticipate/Research.participate.screenHeader";

@@ -5,7 +5,7 @@ import { VoteOptionsBox, VoteOptionResultsBox } from "src/Component/Vote";
 import { RadiusButton } from "src/Component/Button";
 import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useVoteDetailStore } from "src/Zustand";
+import { useUserStore, useVoteDetailScreenStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -14,7 +14,7 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailOptions() {
-  const voteDetail = useVoteDetailStore(state => state.voteDetail);
+  const voteDetail = useVoteDetailScreenStore(state => state.voteDetail);
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
@@ -36,9 +36,15 @@ export function CommunityVoteDetailOptions() {
  * @author 현웅
  */
 function Options() {
-  const userActivity = useUserStore(state => state.userActivity);
+  const { user, userActivity } = useUserStore(
+    state => ({
+      user: state.user,
+      userActivity: state.userActivity,
+    }),
+    shallow,
+  );
   const { voteDetail, selectedOptionIndexes, onPressOption } =
-    useVoteDetailStore(
+    useVoteDetailScreenStore(
       state => ({
         voteDetail: state.voteDetail,
         selectedOptionIndexes: state.selectedOptionIndexes,
@@ -47,7 +53,9 @@ function Options() {
       shallow,
     );
 
-  //* 유저 활동 정보에서 해당 투표 참여 정보를 추출
+  //* 투표 작성자인지 확인
+  const isAuthor = user._id === voteDetail.authorId;
+  //* 유저 활동 정보에서 해당 투표 참여 정보를 추출. 참여했는지 여부를 확인함.
   const participatedInfo = userActivity.participatedVoteInfos.find(voteInfo => {
     return voteInfo.voteId === voteDetail._id;
   });
@@ -64,8 +72,8 @@ function Options() {
     );
   }
 
-  //* 참여하지는 않았지만 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
-  if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
+  //* 참여하지는 않았지만 본인이 작성자이거나, 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
+  if (isAuthor || voteDetail.closed || didDatePassed(voteDetail.deadline)) {
     return (
       <VoteOptionResultsBox
         voteOptions={voteDetail.options}
@@ -91,17 +99,33 @@ function Options() {
  * @author 현웅
  */
 function VoteButton() {
-  const userActivity = useUserStore(state => state.userActivity);
-  const { voteDetail, selectedOptionIndexes, loading, participateVote } =
-    useVoteDetailStore(
-      state => ({
-        voteDetail: state.voteDetail,
-        selectedOptionIndexes: state.selectedOptionIndexes,
-        loading: state.loading,
-        participateVote: state.participateVote,
-      }),
-      shallow,
-    );
+  const { user, userActivity } = useUserStore(
+    state => ({
+      user: state.user,
+      userActivity: state.userActivity,
+    }),
+    shallow,
+  );
+  const {
+    voteDetail,
+    selectedOptionIndexes,
+    setVoteCloseModalVisible,
+    loading,
+    closing,
+    participateVote,
+  } = useVoteDetailScreenStore(
+    state => ({
+      voteDetail: state.voteDetail,
+      selectedOptionIndexes: state.selectedOptionIndexes,
+      setVoteCloseModalVisible: state.setVoteCloseModalVisible,
+      loading: state.loading,
+      closing: state.closing,
+      participateVote: state.participateVote,
+    }),
+    shallow,
+  );
+
+  const isAuthor = user._id === voteDetail.authorId;
 
   //* 마감/종료된 투표인 경우
   if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
@@ -109,6 +133,31 @@ function VoteButton() {
       <RadiusButton
         text="종료된 투표입니다"
         type="GREY"
+        style={voteButtonStyles.container}
+      />
+    );
+  }
+
+  //* 마감되지 않은 투표에 대해 본인이 작성자인 경우
+  if (isAuthor) {
+    return (
+      <RadiusButton
+        text="마감하기"
+        type="PURPLE_CONFIRM"
+        style={voteButtonStyles.container}
+        onPress={() => {
+          setVoteCloseModalVisible(true);
+        }}
+      />
+    );
+  }
+
+  //* 서버의 투표 마감 요청을 기다리고 있는 경우
+  if (closing) {
+    return (
+      <RadiusButton
+        text="마감 중..."
+        type="PURPLE_INACTIVE"
         style={voteButtonStyles.container}
       />
     );

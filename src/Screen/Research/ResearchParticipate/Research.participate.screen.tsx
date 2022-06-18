@@ -20,13 +20,23 @@ export type ResearchParticipateScreenProps = { link: string };
 export function ResearchParticipateScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "ResearchParticipateScreen">) {
-  const { setBlockExitModalVisible, clearInputs } =
-    useResearchParticipateScreenStore(state => ({
-      setBlockExitModalVisible: state.setBlockExitModalVisible,
-      clearInputs: state.clearInputs,
-    }));
+  const {
+    formLoadingModalVisible,
+    formSubmittedModalVisible,
+    setBlockExitModalVisible,
+    clearInputs,
+  } = useResearchParticipateScreenStore(state => ({
+    formLoadingModalVisible: state.formLoadingModalVisible,
+    formSubmittedModalVisible: state.formSubmittedModalVisible,
+    setBlockExitModalVisible: state.setBlockExitModalVisible,
+    clearInputs: state.clearInputs,
+  }));
 
   function showBlockExitModal() {
+    //* 뒤로 가기 버튼을 눌렀을 때
+    //* 이미 폼 로딩 중 모달, 혹은 폼 제출 완료 모달이 열려있다면 뒤로 가기 버튼 입력을 무시합니다.
+    if (formLoadingModalVisible || formSubmittedModalVisible) return true;
+    //* 그렇지 않다면 재확인 모달을 띄웁니다.
     setBlockExitModalVisible(true);
     return true;
   }

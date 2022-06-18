@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -30,7 +30,6 @@ import {
   MypageSvgIcon,
 } from "src/Component/Svg";
 import { DetailText } from "src/StyledComponents/Text";
-import { theme } from "src/Theme/theme";
 
 const LandingBottomTab = createBottomTabNavigator<LandingBottomTabProps>();
 

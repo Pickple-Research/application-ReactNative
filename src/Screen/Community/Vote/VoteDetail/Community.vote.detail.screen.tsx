@@ -7,9 +7,14 @@ import { CommunityVoteDetailOptions } from "./Community.vote.detail.options";
 import { CommunityVoteDetailComments } from "./Community.vote.detail.comments";
 import { CommunityVoteDetailCommentInput } from "./Communiti.vote.detail.commentInput";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import {
+  VoteDetailCloseModal,
+  VoteDetailDeleteModal,
+  VoteDetailReportModal,
+} from "src/Modal";
 import { VoteSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useVoteDetailStore } from "src/Zustand";
+import { useVoteDetailScreenStore } from "src/Zustand";
 
 export type CommunityVoteDetailScreenProps = { vote: VoteSchema };
 
@@ -20,14 +25,15 @@ export type CommunityVoteDetailScreenProps = { vote: VoteSchema };
 export function CommunityVoteDetailScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "CommunityVoteDetailScreen">) {
-  const { setVote, getVoteDetailComments, clearInfo } = useVoteDetailStore(
-    state => ({
-      setVote: state.setVoteDetail,
-      getVoteDetailComments: state.getVoteDetailComments,
-      clearInfo: state.clearInfo,
-    }),
-    shallow,
-  );
+  const { setVote, getVoteDetailComments, clearInfo } =
+    useVoteDetailScreenStore(
+      state => ({
+        setVote: state.setVoteDetail,
+        getVoteDetailComments: state.getVoteDetailComments,
+        clearInfo: state.clearInfo,
+      }),
+      shallow,
+    );
 
   async function loadVoteDetailComments() {
     await getVoteDetailComments(route.params.vote._id);
@@ -54,6 +60,9 @@ export function CommunityVoteDetailScreen({
         <CommunityVoteDetailComments />
       </WhiteBackgroundScrollView>
       <CommunityVoteDetailCommentInput />
+      <VoteDetailCloseModal />
+      <VoteDetailDeleteModal />
+      <VoteDetailReportModal />
     </Container>
   );
 }

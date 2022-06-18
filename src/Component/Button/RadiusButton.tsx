@@ -183,7 +183,8 @@ const PurpleConfirmButton__Text = styled(Button__Text)`
 
 // case "PURPLE_CANCEL"
 const PurpleCancelButton__Container = styled(Button__Container)`
-  background-color: ${({ theme }) => theme.color.purple.pastel};
+  //TODO: #DESIGN-SYSTEM
+  background-color: #eeeeee;
 `;
 const PurpleCancelButton__Text = styled(Button__Text)`
   color: ${({ theme }) => theme.color.purple.text};
