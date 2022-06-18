@@ -90,8 +90,8 @@ function OptionAddButton() {
   return (
     <OptionAddButton__Container>
       <PillButton
-        content="+ 항목 추가"
-        type="ADD_OPTION"
+        text="+ 항목 추가"
+        type="ADD_VOTE_OPTION"
         props={{
           onPress: () => {
             addOption();

@@ -1,9 +1,11 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { VoteOptionsBox, VoteOptionResultsBox } from "src/Component/Vote";
-import { H3, BodyText } from "src/StyledComponents/Text";
+import { RadiusButton } from "src/Component/Button";
+import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useVoteDetailStore } from "src/Zustand";
+import { useUserStore, useVoteDetailScreenStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -12,7 +14,7 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailOptions() {
-  const voteDetail = useVoteDetailStore(state => state.voteDetail);
+  const voteDetail = useVoteDetailScreenStore(state => state.voteDetail);
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
@@ -34,9 +36,15 @@ export function CommunityVoteDetailOptions() {
  * @author 현웅
  */
 function Options() {
-  const userActivity = useUserStore(state => state.userActivity);
+  const { user, userActivity } = useUserStore(
+    state => ({
+      user: state.user,
+      userActivity: state.userActivity,
+    }),
+    shallow,
+  );
   const { voteDetail, selectedOptionIndexes, onPressOption } =
-    useVoteDetailStore(
+    useVoteDetailScreenStore(
       state => ({
         voteDetail: state.voteDetail,
         selectedOptionIndexes: state.selectedOptionIndexes,
@@ -45,7 +53,9 @@ function Options() {
       shallow,
     );
 
-  //* 유저 활동 정보에서 해당 투표 참여 정보를 추출
+  //* 투표 작성자인지 확인
+  const isAuthor = user._id === voteDetail.authorId;
+  //* 유저 활동 정보에서 해당 투표 참여 정보를 추출. 참여했는지 여부를 확인함.
   const participatedInfo = userActivity.participatedVoteInfos.find(voteInfo => {
     return voteInfo.voteId === voteDetail._id;
   });
@@ -62,8 +72,8 @@ function Options() {
     );
   }
 
-  //* 참여하지는 않았지만 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
-  if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
+  //* 참여하지는 않았지만 본인이 작성자이거나, 마감된 경우, 혹은 날짜가 지난 경우 결과를 보여줌
+  if (isAuthor || voteDetail.closed || didDatePassed(voteDetail.deadline)) {
     return (
       <VoteOptionResultsBox
         voteOptions={voteDetail.options}
@@ -89,24 +99,67 @@ function Options() {
  * @author 현웅
  */
 function VoteButton() {
-  const userActivity = useUserStore(state => state.userActivity);
-  const { voteDetail, selectedOptionIndexes, loading, participateVote } =
-    useVoteDetailStore(
-      state => ({
-        voteDetail: state.voteDetail,
-        selectedOptionIndexes: state.selectedOptionIndexes,
-        loading: state.loading,
-        participateVote: state.participateVote,
-      }),
-      shallow,
-    );
+  const { user, userActivity } = useUserStore(
+    state => ({
+      user: state.user,
+      userActivity: state.userActivity,
+    }),
+    shallow,
+  );
+  const {
+    voteDetail,
+    selectedOptionIndexes,
+    setVoteCloseModalVisible,
+    loading,
+    closing,
+    participateVote,
+  } = useVoteDetailScreenStore(
+    state => ({
+      voteDetail: state.voteDetail,
+      selectedOptionIndexes: state.selectedOptionIndexes,
+      setVoteCloseModalVisible: state.setVoteCloseModalVisible,
+      loading: state.loading,
+      closing: state.closing,
+      participateVote: state.participateVote,
+    }),
+    shallow,
+  );
+
+  const isAuthor = user._id === voteDetail.authorId;
 
   //* 마감/종료된 투표인 경우
   if (voteDetail.closed || didDatePassed(voteDetail.deadline)) {
     return (
-      <VoteButton__DisabledContainer>
-        <VoteButton__DisabledText>종료된 투표입니다</VoteButton__DisabledText>
-      </VoteButton__DisabledContainer>
+      <RadiusButton
+        text="종료된 투표입니다"
+        type="GREY"
+        style={voteButtonStyles.container}
+      />
+    );
+  }
+
+  //* 마감되지 않은 투표에 대해 본인이 작성자인 경우
+  if (isAuthor) {
+    return (
+      <RadiusButton
+        text="마감하기"
+        type="PURPLE_CONFIRM"
+        style={voteButtonStyles.container}
+        onPress={() => {
+          setVoteCloseModalVisible(true);
+        }}
+      />
+    );
+  }
+
+  //* 서버의 투표 마감 요청을 기다리고 있는 경우
+  if (closing) {
+    return (
+      <RadiusButton
+        text="마감 중..."
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
     );
   }
 
@@ -117,23 +170,42 @@ function VoteButton() {
     })
   ) {
     return (
-      <VoteButton__DisabledContainer>
-        <VoteButton__DisabledText>참여한 투표입니다</VoteButton__DisabledText>
-      </VoteButton__DisabledContainer>
+      <RadiusButton
+        text="참여한 투표입니다"
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
     );
   }
 
-  const votable = selectedOptionIndexes.length > 0 && !loading;
+  //* 서버의 투표 참여 요청을 기다리고 있는 경우
+  if (loading)
+    return (
+      <RadiusButton
+        text="투표 중..."
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
+    );
 
+  //* 아무런 선택지도 고르지 않은 경우
+  if (selectedOptionIndexes.length === 0)
+    return (
+      <RadiusButton
+        text="투표하기"
+        type="PURPLE_INACTIVE"
+        style={voteButtonStyles.container}
+      />
+    );
+
+  //* 투표 요청 가능한 경우
   return (
-    <VoteButton__Container
-      available={votable}
-      activeOpacity={votable ? 0.8 : 1}
-      onPress={votable ? participateVote : undefined}>
-      <VoteButton__Text available={votable}>
-        {loading ? `투표 중...` : `투표하기`}
-      </VoteButton__Text>
-    </VoteButton__Container>
+    <RadiusButton
+      text="투표하기"
+      type="PURPLE_CONFIRM"
+      onPress={participateVote}
+      style={voteButtonStyles.container}
+    />
   );
 }
 
@@ -176,39 +248,12 @@ const InnerContainer = styled.View`
 `;
 
 // VoteButton()
-const VoteButton__Container = styled.TouchableOpacity<{ available: boolean }>`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${({ available, theme }) =>
-    available ? theme.color.purple.main : theme.color.purple.mild};
-  padding: 16px;
-  margin-top: 18px;
-  margin-bottom: 4px;
-  border-radius: 12px;
-`;
-
-const VoteButton__Text = styled(H3)<{ available: boolean }>`
-  color: ${({ available, theme }) =>
-    available ? theme.color.grey.white : theme.color.purple.text};
-  font-weight: bold;
-`;
-
-const VoteButton__DisabledContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${({ theme }) => theme.color.purple.inactive};
-  padding: 16px;
-  margin-top: 18px;
-  margin-bottom: 4px;
-  border-radius: 12px;
-`;
-
-const VoteButton__DisabledText = styled(H3)`
-  color: ${({ theme }) => theme.color.grey.white};
-  font-weight: bold;
-`;
+const voteButtonStyles = StyleSheet.create({
+  container: {
+    marginTop: 18,
+    marginBottom: 4,
+  },
+});
 
 // VotedUserNum()
 const VotedUserNum__Text = styled(BodyText)`

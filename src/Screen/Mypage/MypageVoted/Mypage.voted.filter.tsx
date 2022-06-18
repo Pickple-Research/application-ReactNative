@@ -36,6 +36,7 @@ const Container = styled.View`
   padding: 8px 0px;
 `;
 
+//TODO: #RADIUS-BUTTON
 const FilterButton__Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;

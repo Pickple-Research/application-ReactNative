@@ -8,8 +8,12 @@ import { ResearchDetailParticipant } from "./Research.detail.participant";
 import { ResearchDetailContent } from "./Research.detail.content";
 import { ResearchDetailGift } from "./Research.detail.gift";
 import { ResearchDetailBottomButton } from "./Research.detail.bottomButton";
-import { ResearchPullupModal } from "src/Modal";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import {
+  ResearchDetailDeleteModal,
+  ResearchDetailPullupModal,
+  ResearchDetailReportModal,
+} from "src/Modal";
 import shallow from "zustand/shallow";
 import { useResearchDetailScreenStore } from "src/Zustand";
 import { ResearchSchema } from "src/Schema";
@@ -23,10 +27,10 @@ export type ResearchDetailScreenProps = { research: ResearchSchema };
 export function ResearchDetailScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "ResearchDetailScreen">) {
-  const { setResearchDetail, clearInfo } = useResearchDetailScreenStore(
+  const { setResearchDetail, clearState } = useResearchDetailScreenStore(
     state => ({
       setResearchDetail: state.setResearchDetail,
-      clearInfo: state.clearInfo,
+      clearState: state.clearState,
     }),
     shallow,
   );
@@ -34,7 +38,7 @@ export function ResearchDetailScreen({
   useEffect(() => {
     setResearchDetail(route.params.research);
     return () => {
-      clearInfo();
+      clearState();
     };
   }, []);
 
@@ -48,7 +52,9 @@ export function ResearchDetailScreen({
         <ResearchDetailGift />
       </WhiteBackgroundScrollView>
       <ResearchDetailBottomButton />
-      <ResearchPullupModal />
+      <ResearchDetailDeleteModal />
+      <ResearchDetailPullupModal />
+      <ResearchDetailReportModal />
     </Container>
   );
 }

@@ -4,10 +4,10 @@ import { MenuProvider } from "react-native-popup-menu";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
-import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
-
+import { CompleteFillProfileModal } from "src/Modal";
 import { useResearchStore, useVoteStore } from "src/Zustand";
 import { axiosGetRecentResearches, axiosGetRecentVotes } from "src/Axios";
+import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -60,6 +60,8 @@ export default function App() {
         <Container>
           <NavigationContainer>
             <AppStackNavigator />
+
+            <CompleteFillProfileModal />
           </NavigationContainer>
         </Container>
       </MenuProvider>

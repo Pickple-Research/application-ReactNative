@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { MypageVotedFilter } from "./Mypage.voted.filter";
-import { VoteVotedItem } from "src/Component/Vote";
+import { VoteParticipatedItem } from "src/Component/Vote";
 import { useVoteStore } from "src/Zustand";
 import { VoteSchema } from "src/Schema";
 import { globalStyles } from "src/Style/globalStyles";
@@ -20,7 +20,7 @@ export function MypageVotedScreen() {
       <VotedItemsList<React.ElementType>
         data={votes}
         renderItem={({ item }: { item: VoteSchema }) => (
-          <VoteVotedItem vote={item} style={{ marginVertical: 4 }} />
+          <VoteParticipatedItem vote={item} style={{ marginVertical: 4 }} />
         )}
         showsVerticalScrollIndicator={false}
       />

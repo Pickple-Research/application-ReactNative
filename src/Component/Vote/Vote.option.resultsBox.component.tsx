@@ -29,8 +29,16 @@ export function VoteOptionResultsBox({
             key={`${index}:${option.content}`}
             voteOption={option}
             selected={selectedOptionIndexes.includes(index)}
-            ratio={Math.floor((result[index] / participantsNum) * 100)}
-            won={result[index] === Math.max(...result)}
+            ratio={
+              participantsNum === 0
+                ? 0
+                : Math.floor((result[index] / participantsNum) * 100)
+            }
+            won={
+              participantsNum === 0
+                ? false
+                : result[index] === Math.max(...result)
+            }
           />
         );
       })}

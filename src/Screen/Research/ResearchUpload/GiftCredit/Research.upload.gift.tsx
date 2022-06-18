@@ -51,7 +51,7 @@ function GiftList() {
         if (gift.deleted) return null;
         return <ResearchGiftListItem key={index} gift={gift} />;
       })}
-      <RadiusButton content="+ 경품추가" type="ADD_GIFT" onPress={addNewGift} />
+      <RadiusButton text="+ 경품추가" type="BLACK" onPress={addNewGift} />
     </GiftList__Container>
   );
 }

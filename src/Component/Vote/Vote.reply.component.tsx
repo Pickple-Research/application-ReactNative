@@ -33,9 +33,9 @@ function Profile() {
 function Contents({ reply }: { reply: VoteReplySchema }) {
   return (
     <Contents__Container>
-      <Contents__Username isAuthor={false}>
+      <Contents__UserNickname isAuthor={false}>
         {reply.authorNickname ? reply.authorNickname : `익명`}
-      </Contents__Username>
+      </Contents__UserNickname>
       <Contents__Content>{reply.content}</Contents__Content>
       <Contents__Date>{reply.createdAt}</Contents__Date>
     </Contents__Container>
@@ -83,7 +83,7 @@ const Contents__Container = styled.View`
   flex: 1;
 `;
 
-const Contents__Username = styled(BodyText)<{ isAuthor: boolean }>`
+const Contents__UserNickname = styled(BodyText)<{ isAuthor: boolean }>`
   color: ${({ isAuthor, theme }) =>
     isAuthor ? theme.color.blue.text : theme.color.grey.deep};
   font-weight: bold;

@@ -1,91 +1,216 @@
 import React from "react";
-import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  StyleProp,
+  TextStyle,
+  ViewProps,
+  ViewStyle,
+} from "react-native";
 import styled from "styled-components/native";
 import { H3 } from "src/StyledComponents/Text";
 
 export type RadiusButtonType =
-  | "SHOW_MORE" // 파트너 상세보기 페이지 '서비스/게시글 더보기' 버튼
-  | "ADD_GIFT"; // 리서치 업로드 페이지 '경품 추가' 버튼
+  | "BLUE" // (리서치, 파트너 관련) 파란색 버튼
+  | "BLUE_CONFIRM" // (리서치, 파트너 관련) 확인/취소 중 확인 버튼
+  | "BLUE_CANCEL" // (리서치, 파트너 관련) 확인/취소 중 취소 버튼
+  | "PURPLE" // (투표 관련) 보라색 버튼
+  | "PURPLE_CONFIRM" // (투표 관련) 확인/취소 중 확인 버튼
+  | "PURPLE_CANCEL" // (투표 관련) 확인/취소 중 취소 버튼
+  | "PURPLE_INACTIVE" // (투표 관련) 투표 참여 불가 상태 버튼
+  | "GREY" // 회색 바탕에 흰 글씨 버튼 (ex. 종료/마감됨 버튼)
+  | "BLACK"; // 검은색 바탕에 흰 글씨 버튼 (ex. 리서치 업로드 페이지 '경품 추가' 버튼)
+
+export type RadiusButtonStyleType = "WIDE" | "NARROW";
 
 /**
- * 모서리가 둥근 버튼입니다.
- * @param content 버튼 내용
- * @param type 버튼 타입 (어디에 쓰이는지)
+ * 모서리가 뭉특한 버튼입니다.
+ * @param text 버튼 내용
+ * @param type 버튼 타입 (색상 및 기능)
  * @param onPress 클릭 시 기능
  * @author 현웅
  */
 export function RadiusButton({
-  content,
+  text,
   type,
-  style,
-  fontStyle,
-  activeOpacity,
+  styleType = "WIDE",
   onPress,
-  props,
+  style,
+  textStyle,
+  activeOpacity = 0.8,
+  viewProps,
 }: {
-  content: string;
+  text: string;
   type: RadiusButtonType;
-  style?: StyleProp<ViewStyle>;
-  fontStyle?: StyleProp<TextStyle>;
-  activeOpacity?: number;
+  styleType?: RadiusButtonStyleType;
   onPress?: () => any;
-  props?: ViewProps;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  activeOpacity?: number;
+  viewProps?: ViewProps;
 }) {
-  //TODO: 이렇게 해도 종류가 많아지니까 지저분함. 더 좋은 방식?
-  switch (type) {
-    case "SHOW_MORE":
-      return (
-        <ShowMoreButton__Container<React.ElementType>
-          style={style}
-          activeOpacity={activeOpacity}
-          onPress={onPress}
-          {...props}>
-          <ShowMoreButton__Content style={fontStyle}>
-            {content}
-          </ShowMoreButton__Content>
-        </ShowMoreButton__Container>
-      );
+  const ButtonContainer = ContainerComponent(type);
+  const ButtonText = TextComponent(type);
 
-    case "ADD_GIFT":
-      return (
-        <AddGiftButton__Container<React.ElementType>
-          style={style}
-          activeOpacity={activeOpacity}
-          onPress={onPress}
-          {...props}>
-          <AddGiftButton__Content style={fontStyle}>
-            {content}
-          </AddGiftButton__Content>
-        </AddGiftButton__Container>
-      );
+  return (
+    <ButtonContainer<React.ElementType>
+      style={[ContainerStyle(styleType), style]}
+      activeOpacity={onPress ? activeOpacity : 1}
+      onPress={onPress}
+      {...viewProps}>
+      <ButtonText style={textStyle}>{text}</ButtonText>
+    </ButtonContainer>
+  );
+}
+
+function ContainerComponent(type: RadiusButtonType) {
+  switch (type) {
+    case "BLUE":
+      return BlueButton__Container;
+    case "BLUE_CONFIRM":
+      return BlueConfirmButton__Container;
+    case "BLUE_CANCEL":
+      return BlueCancelButton__Container;
+    case "PURPLE":
+      return PurpleButton__Container;
+    case "PURPLE_CONFIRM":
+      return PurpleConfirmButton__Container;
+    case "PURPLE_CANCEL":
+      return PurpleCancelButton__Container;
+    case "PURPLE_INACTIVE":
+      return PurpleInactiveButton__Container;
+    case "BLACK":
+      return BlackButton__Container;
+    case "GREY":
+      return GreyButton__Container;
 
     default:
-      return null;
+      return BlueButton__Container;
   }
 }
+
+function TextComponent(type: RadiusButtonType) {
+  switch (type) {
+    case "BLUE":
+      return BlueButton__Text;
+    case "BLUE_CONFIRM":
+      return BlueConfirmButton__Text;
+    case "BLUE_CANCEL":
+      return BlueCancelButton__Text;
+    case "PURPLE":
+      return PurpleButton__Text;
+    case "PURPLE_CONFIRM":
+      return PurpleConfirmButton__Text;
+    case "PURPLE_CANCEL":
+      return PurpleCancelButton__Text;
+    case "PURPLE_INACTIVE":
+      return PurpleInactiveButton__Text;
+    case "BLACK":
+      return BlackButton__Text;
+    case "GREY":
+      return GreyButton__Text;
+
+    default:
+      return BlueButton__Text;
+  }
+}
+
+function ContainerStyle(type: RadiusButtonStyleType) {
+  switch (type) {
+    case "WIDE":
+      return styles.wideContainer;
+    case "NARROW":
+      return styles.narrowContainer;
+
+    default:
+      return styles.wideContainer;
+  }
+}
+
+const styles = StyleSheet.create({
+  wideContainer: { paddingVertical: 16 },
+  narrowContainer: { paddingVertical: 12 },
+});
 
 const Button__Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  padding: 12px;
-  border-radius: 12px;
+  border-radius: 6px;
 `;
-const Button__Content = styled(H3)`
+const Button__Text = styled(H3)`
   font-weight: bold;
 `;
 
-// case "SHOW_MORE"
-const ShowMoreButton__Container = styled(Button__Container)`
+// case "BLUE"
+const BlueButton__Container = styled(Button__Container)`
   background-color: ${({ theme }) => theme.color.blue.mild};
 `;
-const ShowMoreButton__Content = styled(Button__Content)`
+const BlueButton__Text = styled(Button__Text)`
   color: ${({ theme }) => theme.color.blue.main};
 `;
 
-// case "ADD_GIFT"
-const AddGiftButton__Container = styled(Button__Container)`
+// case "BLUE_CONFIRM"
+const BlueConfirmButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.blue.main};
+`;
+const BlueConfirmButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
+`;
+
+// case "BLUE_CANCEL"
+const BlueCancelButton__Container = styled(Button__Container)`
+  //TODO: #DESIGN-SYSTEM
+  background-color: #eeeeee;
+`;
+const BlueCancelButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.blue.main};
+`;
+
+// case "PURPLE"
+const PurpleButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.purple.mild};
+`;
+const PurpleButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.purple.main};
+`;
+
+// case "PURPLE_CONFIRM"
+const PurpleConfirmButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.purple.main};
+`;
+const PurpleConfirmButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
+`;
+
+// case "PURPLE_CANCEL"
+const PurpleCancelButton__Container = styled(Button__Container)`
+  //TODO: #DESIGN-SYSTEM
+  background-color: #eeeeee;
+`;
+const PurpleCancelButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.purple.text};
+`;
+
+// case "PURPLE_INACTIVE"
+const PurpleInactiveButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.purple.inactive};
+`;
+const PurpleInactiveButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
+`;
+
+// case "GREY"
+const GreyButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.grey.mild};
+`;
+const GreyButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
+`;
+
+// case "BLACK"
+const BlackButton__Container = styled(Button__Container)`
+  //TODO: #STYLE-SYSTEM
   background-color: #444444;
 `;
-const AddGiftButton__Content = styled(Button__Content)`
-  color: white;
+const BlackButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
 `;

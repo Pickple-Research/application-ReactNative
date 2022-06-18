@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { VoteCommentsBox } from "src/Component/Vote";
 import { SectionHeaderText } from "src/Component/Text";
-import { useVoteDetailStore } from "src/Zustand";
+import { useVoteDetailScreenStore } from "src/Zustand";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 
 /**
@@ -13,7 +13,7 @@ import { SectionHeader__Container } from "src/StyledComponents/View";
  * @author 현웅
  */
 export function CommunityVoteDetailComments() {
-  const voteDetailComments = useVoteDetailStore(
+  const voteDetailComments = useVoteDetailScreenStore(
     state => state.voteDetailComments,
   );
 

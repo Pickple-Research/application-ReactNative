@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import {
   NavigationProp,
@@ -7,7 +8,8 @@ import {
 } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
-import { H1, BodyText } from "src/StyledComponents/Text";
+import { RadiusButton } from "src/Component/Button";
+import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useLoginScreenStore } from "src/Zustand";
 import { getStorage } from "src/Util";
@@ -152,7 +154,8 @@ function Button({ loginable }: { loginable: boolean }) {
   );
 
   /**
-   * 로그인을 시도합니다. 로그인 결과가 성공적인 경우, AsyncStorage에 이메일과 비밀번호를 저장합니다.
+   * 로그인을 시도합니다. 로그인 결과가 성공적인 경우,
+   * AsyncStorage에 이메일과 비밀번호를 저장하고 홈화면으로 이동합니다.
    * @returns
    */
   async function tryLogin() {
@@ -161,14 +164,39 @@ function Button({ loginable }: { loginable: boolean }) {
     navigation.dispatch(StackActions.replace("LandingBottomTabNavigator", {}));
   }
 
+  if (!loginable)
+    return (
+      <Button__Container style={globalStyles.authScreen__horizontalPadding}>
+        <RadiusButton
+          text="로그인"
+          type="PURPLE_INACTIVE"
+          styleType="NARROW"
+          textStyle={buttonStyles.text}
+        />
+      </Button__Container>
+    );
+
+  if (isLoading)
+    return (
+      <Button__Container style={globalStyles.authScreen__horizontalPadding}>
+        <RadiusButton
+          text="로그인 중..."
+          type="PURPLE_INACTIVE"
+          styleType="NARROW"
+          textStyle={buttonStyles.text}
+        />
+      </Button__Container>
+    );
+
   return (
     <Button__Container style={globalStyles.authScreen__horizontalPadding}>
-      <Button__Layout
-        loginable={loginable}
-        activeOpacity={loginable ? 0.6 : 1}
-        onPress={loginable ? tryLogin : undefined}>
-        <Button__Text>{isLoading ? `로그인 중...` : `로그인`}</Button__Text>
-      </Button__Layout>
+      <RadiusButton
+        text="로그인"
+        type="PURPLE_CONFIRM"
+        styleType="NARROW"
+        onPress={tryLogin}
+        textStyle={buttonStyles.text}
+      />
     </Button__Container>
   );
 }
@@ -230,18 +258,9 @@ const Button__Container = styled.View`
   margin-bottom: 16px;
 `;
 
-const Button__Layout = styled.TouchableOpacity<{ loginable: boolean }>`
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ loginable, theme }) =>
-    loginable ? theme.color.purple.text : theme.color.purple.inactive};
-  padding: 12px;
-  border-radius: 10px;
-`;
-
-const Button__Text = styled(H1)`
-  color: ${({ theme }) => theme.color.grey.white};
-`;
+const buttonStyles = StyleSheet.create({
+  text: { fontSize: 15 },
+});
 
 // Util()
 const Util__Container = styled.View`

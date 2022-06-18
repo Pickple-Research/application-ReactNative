@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { useVoteDetailStore } from "src/Zustand";
+import { useVoteDetailScreenStore } from "src/Zustand";
 import { H2, H3, BodyText, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -9,7 +9,7 @@ import { globalStyles } from "src/Style/globalStyles";
  * @author 현웅
  */
 export function CommunityVoteDetailTitle() {
-  const voteDetail = useVoteDetailStore(state => state.voteDetail);
+  const voteDetail = useVoteDetailScreenStore(state => state.voteDetail);
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>

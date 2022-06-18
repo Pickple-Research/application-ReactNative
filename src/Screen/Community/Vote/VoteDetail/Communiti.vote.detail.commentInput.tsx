@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { DetailText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useVoteDetailStore } from "src/Zustand";
+import { useVoteDetailScreenStore } from "src/Zustand";
 
 /**
  * 투표 상세 페이지 밑부분의 댓글 작성 컴포넌트입니다.
@@ -15,7 +15,7 @@ export function CommunityVoteDetailCommentInput() {
     commentUploading,
     uploadComment,
     uploadReply,
-  } = useVoteDetailStore(
+  } = useVoteDetailScreenStore(
     state => ({
       commentInput: state.commentInput,
       setCommentInput: state.setCommentInput,
