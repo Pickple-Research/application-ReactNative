@@ -87,15 +87,18 @@ function DotsButton() {
                   onPress={() => {}}
                 />
               </MenuOption>
-              <MenuOption>
-                <PopupMenuOption
-                  Icon={<TrashBinBlankIcon />}
-                  content="삭제하기"
-                  onPress={() => {
-                    setVoteDeleteModalVisible(true);
-                  }}
-                />
-              </MenuOption>
+              {voteDetail.participantsNum < 10 && (
+                //* 참여자가 10명 미만인 경우에만 삭제 메뉴 표시
+                <MenuOption>
+                  <PopupMenuOption
+                    Icon={<TrashBinBlankIcon />}
+                    content="삭제하기"
+                    onPress={() => {
+                      setVoteDeleteModalVisible(true);
+                    }}
+                  />
+                </MenuOption>
+              )}
             </>
           ) : (
             //* 일반 참여자인 경우

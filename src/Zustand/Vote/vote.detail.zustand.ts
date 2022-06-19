@@ -13,6 +13,8 @@ import {
   axiosUnscrapVote,
   axiosUploadVoteComment,
   axiosUploadVoteReply,
+  axiosCloseVote,
+  axiosDeleteVote,
   axiosParticipateVote,
 } from "src/Axios";
 
@@ -63,6 +65,8 @@ type VoteDetailScreenStoreProps = {
   loading: boolean;
   /** 투표 마감 중 여부 */
   closing: boolean;
+  /** 투표 삭제 중 여부 */
+  deleting: boolean;
   /** 스크랩 처리 중 여부 */
   scrapping: boolean;
   /** 댓글 로드 중 여부 */
@@ -75,8 +79,11 @@ type VoteDetailScreenStoreProps = {
   /** 투표를 마감합니다 */
   closeVote: () => Promise<void>;
 
-  /** 투표를 삭제합니다 */
-  deleteVote: () => Promise<void>;
+  /**
+   * 투표를 삭제합니다
+   * @return 성공시 true, 실패시 false
+   */
+  deleteVote: () => Promise<boolean>;
 
   /** 투표를 신고합니다 */
   reportVote: () => Promise<void>;
@@ -188,6 +195,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
 
     loading: false,
     closing: false,
+    deleting: false,
     scrapping: false,
     commentLoading: false,
     commentUploading: false,
@@ -205,6 +213,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         voteReportModalVisible: false,
         loading: false,
         closing: false,
+        deleting: false,
         scrapping: false,
         commentLoading: false,
         commentUploading: false,
@@ -213,22 +222,32 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
 
     closeVote: async () => {
       set({ voteCloseModalVisible: false, closing: true });
-      // const updatedVote = await axiosCloseVote(get().voteDetail._id);
-      // if(updatedVote !== null){
-      //   set({voteDetail:updatedVote});
-      // }
 
-      // TODO: 내가 업로드한 투표 정보를 변경하는 로직 필요
-      // useMypageStore.getState(). ...
-      // get().setVoteDetail(updatedVote);
-      // useVoteStore.getState().updateVoteListItem(updatedVote);
+      const updatedVote = await axiosCloseVote(get().voteDetail._id);
+      if (updatedVote !== null) {
+        set({ voteDetail: updatedVote });
+        // TODO: 내가 업로드한 투표 정보를 변경하는 로직 필요
+        // useMypageStore.getState(). ...
+        get().setVoteDetail(updatedVote);
+        useVoteStore.getState().updateVoteListItem(updatedVote);
+      }
+
       set({ closing: false });
-
       return;
     },
 
+    // TODO: 내가 업로드한 투표 정보를 변경하는 로직 필요
     deleteVote: async () => {
-      return;
+      set({ deleting: true });
+      const result = await axiosDeleteVote(get().voteDetail._id);
+      if (result) {
+        //* 성공적으로 삭제된 경우, 투표 리스트에서 해당 투표를 삭제
+        // useUserStore.getState().removeUploadedVoteId(get().voteDetail._id);
+        // useMypageStore.getState().removeUploadedVoteInfo(get().voteDetail._id);
+        useVoteStore.getState().removeVoteListItem(get().voteDetail._id);
+      }
+      set({ deleting: false });
+      return result;
     },
 
     reportVote: async () => {
