@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/FlatList";
-import { PartnerType } from "@Object/Enum";
+import { Carousel } from "src/Component/FlatList";
+import { PartnerType } from "src/Object/Enum";
 import { allPartnerTypes } from "src/Object/Enum";
 import { H4 } from "src/StyledComponents/Text";
 
@@ -97,6 +97,7 @@ const Item__Container = styled.TouchableOpacity<{ selected: boolean }>`
 
 const Item__Text = styled(H4)<{ selected: boolean }>`
   color: ${({ selected, theme }) =>
-    selected ? theme.color.blue.text : theme.color.text_color_bbb};
+    //TODO: #DESIGN-SYSTEM
+    selected ? theme.color.blue.text : "#bbbbbb"};
   font-weight: bold;
 `;

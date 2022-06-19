@@ -15,24 +15,40 @@ export const axiosViewResearch = async (researchId: string) => {
 
 /**
  * 리서치를 스크랩합니다.
+ * @return 업데이트 된 리서치 정보 | null
  * @author 현웅
  */
 export const axiosScrapResearch = async (researchId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `researches/scrap/${researchId}`,
-  });
+  return await customAxios
+    .request<ResearchSchema>({
+      method: "PATCH",
+      url: `researches/scrap/${researchId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };
 
 /**
  * 리서치 스크랩을 취소합니다.
+ * @return 업데이트 된 리서치 정보 | null
  * @author 현웅
  */
 export const axiosUnscrapResearch = async (researchId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `researches/unscrap/${researchId}`,
-  });
+  return await customAxios
+    .request<ResearchSchema>({
+      method: "PATCH",
+      url: `researches/unscrap/${researchId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };
 
 /**
@@ -62,14 +78,22 @@ export const axiosParticipateResearch = async (
 };
 
 /**
- * 리서치를 연장합니다.
+ * 리서치를 끌올합니다.
+ * @return 업데이트된 리서치 정보 | null
  * @author 현웅
  */
-export const axiosExtendResearch = async (researchId: string) => {
-  return await customAxios.request<void>({
-    method: "PATCH",
-    url: `researches/extend/${researchId}`,
-  });
+export const axiosPullupResearch = async (researchId: string) => {
+  return await customAxios
+    .request<ResearchSchema>({
+      method: "PATCH",
+      url: `researches/pullup/${researchId}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return null;
+    });
 };
 
 /**

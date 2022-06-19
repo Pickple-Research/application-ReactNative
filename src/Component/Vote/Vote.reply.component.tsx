@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components/native";
 import { BodyText } from "src/StyledComponents/Text";
 import { VoteReplySchema } from "src/Schema";
+import shallow from "zustand/shallow";
+import { useVoteDetailScreenStore } from "src/Zustand";
+import { convertTimeToMMDDHHMM } from "src/Util";
 import UserIcon from "src/Resource/svg/user-icon.svg";
 import VerticalDotsSmallIcon from "src/Resource/svg/vertical-dots-small-icon.svg";
 
@@ -31,13 +34,38 @@ function Profile() {
 }
 
 function Contents({ reply }: { reply: VoteReplySchema }) {
+  const { voteDetail, setTargetCommentId, setTargetCommentAuthorNickname } =
+    useVoteDetailScreenStore(
+      state => ({
+        voteDetail: state.voteDetail,
+        setTargetCommentId: state.setTargetCommentId,
+        setTargetCommentAuthorNickname: state.setTargetCommentAuthorNickname,
+      }),
+      shallow,
+    );
+
+  const isAuthor = voteDetail.authorId === reply.authorId;
+
   return (
     <Contents__Container>
-      <Contents__UserNickname isAuthor={false}>
+      <Contents__UserNickname isAuthor={isAuthor}>
         {reply.authorNickname ? reply.authorNickname : `익명`}
       </Contents__UserNickname>
+
       <Contents__Content>{reply.content}</Contents__Content>
-      <Contents__Date>{reply.createdAt}</Contents__Date>
+
+      <Contents__DateContainer>
+        <Contents__Date>
+          {convertTimeToMMDDHHMM(reply.createdAt)}
+        </Contents__Date>
+        <Contents__AppReply
+          onPress={() => {
+            setTargetCommentId(reply.commentId);
+            setTargetCommentAuthorNickname(`reply.authorNickname`);
+          }}>
+          답글 달기
+        </Contents__AppReply>
+      </Contents__DateContainer>
     </Contents__Container>
   );
 }
@@ -96,11 +124,18 @@ const Contents__Content = styled(BodyText)`
   margin-bottom: 3px;
 `;
 
+const Contents__DateContainer = styled.View`
+  flex-direction: row;
+`;
+
 const Contents__Date = styled.Text`
   //TODO: #DESIGN-SYSTEM
   font-size: 8px;
   color: ${({ theme }) => theme.color.grey.mild};
+  margin-right: 10px;
 `;
+
+const Contents__AppReply = styled(Contents__Date)``;
 
 // DotMenu()
 const DotMenu__Container = styled.View``;

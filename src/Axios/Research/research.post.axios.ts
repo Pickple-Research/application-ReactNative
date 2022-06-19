@@ -1,5 +1,9 @@
 import customAxios from "../axios.core";
-import { ResearchSchema } from "src/Schema";
+import {
+  ResearchSchema,
+  ResearchCommentSchema,
+  ResearchReplySchema,
+} from "src/Schema";
 import { ResearchPurpose } from "src/Object/Enum";
 
 /**
@@ -57,17 +61,24 @@ export const axiosUploadResearchWithImages = async (formData: FormData) => {
 
 /**
  * 리서치 댓글을 업로드합니다.
+ * @return 업데이트 된 리서치 정보와 생성된 댓글 정보
  * @author 현웅
  */
-export const axiosUploadResearchComment = async () => {
+export const axiosUploadResearchComment = async (param: {
+  researchId: string;
+  content: string;
+}) => {
   return await customAxios
-    .request({
+    .request<{
+      updatedResearch: ResearchSchema;
+      newComment: ResearchCommentSchema;
+    }>({
       method: "POST",
       url: "researches/comments",
-      data: null,
+      data: { ...param },
     })
     .then(response => {
-      return;
+      return response.data;
     })
     .catch(error => {
       return null;
@@ -76,17 +87,25 @@ export const axiosUploadResearchComment = async () => {
 
 /**
  * 리서치 대댓글을 업로드합니다.
+ * @return 업데이트 된 리서치 정보와 생성된 대댓글 정보
  * @author 현웅
  */
-export const axiosUploadResearchReply = async () => {
+export const axiosUploadResearchReply = async (param: {
+  researchId: string;
+  commentId: string;
+  content: string;
+}) => {
   return await customAxios
-    .request({
+    .request<{
+      updatedResearch: ResearchSchema;
+      newReply: ResearchReplySchema;
+    }>({
       method: "POST",
       url: "researches/replies",
-      data: null,
+      data: { ...param },
     })
     .then(response => {
-      return;
+      return response.data;
     })
     .catch(error => {
       return null;

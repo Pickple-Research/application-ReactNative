@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
-import ScrapIcon from "src/Resource/svg/scrap-icon.svg";
+import ScrapIcon from "src/Resource/svg/scrap-short-icon.svg";
 import MarkedIcon from "src/Resource/svg/marked-icon.svg";
 import PenIcon from "src/Resource/svg/pen-icon.svg";
 import CommentBlankIcon from "src/Resource/svg/comment-blank-icon.svg";

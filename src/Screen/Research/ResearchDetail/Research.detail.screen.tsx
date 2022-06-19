@@ -46,6 +46,11 @@ export function ResearchDetailScreen({
     <Container>
       <WhiteBackgroundScrollView>
         <ResearchDetailInfo />
+        <Image
+          source={{
+            uri: "https://pickple-research.s3.ap-northeast-2.amazonaws.com/image1",
+          }}
+        />
         <ResearchDetailCondition />
         <ResearchDetailParticipant />
         <ResearchDetailContent />
@@ -58,6 +63,11 @@ export function ResearchDetailScreen({
     </Container>
   );
 }
+
+const Image = styled.Image`
+  width: 100px;
+  height: 100px;
+`;
 
 const Container = styled.SafeAreaView`
   position: relative;

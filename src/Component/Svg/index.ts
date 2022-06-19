@@ -30,3 +30,4 @@ export * from "./HomeIcon";
 export * from "./MypageIcon";
 export * from "./PartnerIcon";
 export * from "./ResearchIcon";
+export * from "./ScrapIcon";

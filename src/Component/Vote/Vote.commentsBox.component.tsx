@@ -31,7 +31,3 @@ export function VoteCommentsBox({
 const Container = styled.View`
   margin-bottom: 12px;
 `;
-
-const Replies__Container = styled.View`
-  padding-left: 16px;
-`;

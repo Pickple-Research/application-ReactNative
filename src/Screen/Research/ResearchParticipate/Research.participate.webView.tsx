@@ -127,6 +127,18 @@ export function ResearchParticipateWebView({ link }: { link: string }) {
   };
 
   /**
+   * TODO: 이것도 에러 핸들링 해야할까?
+   * TODO: 기본 에러 핸들링 방식을 overlap 하기 때문에 제대로 동작하지 않습니다.
+   * 웹뷰 로드 중 문제가 생겼을 때 호출되는 함수입니다. (유효하지 않은 폼 링크 등)
+   * 뒤로 가기 버튼을 눌렀을 때 blockExitModal이 활성화될 수 있도록 (Research.participate.screen 내용을 참고하세요)
+   * formLoadingModalVisible 플래그를 false로 바꿔줍니다.
+   * @author 현웅
+   */
+  const onError = () => {
+    setFormLoadingModalVisible(false);
+  };
+
+  /**
    * 웹뷰로부터 전달받은 이벤트를 처리하는 이벤트 리스너입니다.
    * 제출 버튼이 눌려 postMessage를 통해 'formSubmitted' 메세지가 전송된 경우,
    * formSubmitted 플래그를 true로 설정하고 리서치 참여 시간을 계산합니다.
@@ -147,6 +159,7 @@ export function ResearchParticipateWebView({ link }: { link: string }) {
         source={{ uri: link }}
         injectedJavaScript={injectedJavaScript()} // JS 코드를 각 화면마다 삽입합니다.
         onLoadEnd={onLoadEnd}
+        // onError={onError}
         onMessage={onMessage} // window.ReactNativeWebView.postMessage() 를 통해 웹뷰에서 전달된 이벤트를 처리합니다.
       />
     </Container>
