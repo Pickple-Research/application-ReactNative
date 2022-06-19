@@ -8,6 +8,11 @@ type MyScrapVoteListitemProps = {
     vote: VoteSchema,
 }
 
+/**
+ * 마이페이지 스크랩 투표 페이지 리스트 아이템입니다
+ * @author 원제
+ */
+
 export function MyScrapVoteListitem({
     vote,
 }: MyScrapVoteListitemProps) {

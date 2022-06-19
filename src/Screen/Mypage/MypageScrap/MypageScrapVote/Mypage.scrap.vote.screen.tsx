@@ -7,6 +7,11 @@ import { MypageScrapScreenHeader } from '../Mypage.scrap.screenHeader';
 
 export type MypageScrapVoteScreenProps = {};
 
+/**
+ * 마이페이지 스크랩 리서치 페이지입니다
+ * @author 원제
+ */
+
 export function MypageScrapVoteScreen() {
     return (
         <Container style={{backgroundColor: "#F5F5FC"}}>
