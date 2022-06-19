@@ -43,7 +43,7 @@ export type ResearchSchema = {
   eligibility: string;
 
   /** 마감일 */
-  deadline: string;
+  deadline: string | Date;
 
   /** 생성일 */
   createdAt: string;

@@ -1,5 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
 // 랜딩 페이지 Bottom tab navigator
 import {
   LandingBottomTabNavigator,
@@ -45,10 +47,12 @@ import {
 } from "src/Screen/Community";
 // 마이페이지 관련 Screen
 import {
+  MypageScrapScreenHeader,
   MypageVotedScreen,
   MypageVotedScreenHeader,
   MypageVotedScreenProps,
 } from "src/Screen/Mypage";
+import { MypageScrapTopNavigator, MypageScrapTopTabProps } from "./MypageScrap.topTab.navigator";
 
 /**
  * 앱에서 사용되는 모든 스크린의 속성들을 정의합니다.
@@ -72,7 +76,13 @@ export type AppStackProps = {
   CommunityVoteUploadScreen: CommunityVoteUploadScreenProps;
   // 마이페이지 관련 Screen
   MypageVotedScreen: MypageVotedScreenProps;
+  MypageScrapTopNavigator: MypageScrapTopTabProps;
+  
 };
+
+export type MypageScrapStackProps = {
+
+}
 
 const AppStack = createNativeStackNavigator<AppStackProps>();
 
@@ -182,6 +192,14 @@ export function AppStackNavigator() {
           options={{
             headerShown: true,
             header: MypageVotedScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          name={"MypageScrapTopNavigator"}
+          component={MypageScrapTopNavigator}
+          options={{
+            headerShown: true,
+            header: MypageScrapScreenHeader,
           }}
         />
       </AppStack.Group>

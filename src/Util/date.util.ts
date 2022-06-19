@@ -19,3 +19,10 @@ export function didDatePassed(deadline: string | Date) {
   currentTime.setHours(currentTime.getHours() + 9);
   return new Date(deadline) < currentTime;
 }
+
+export function getDateDifference(deadline: string | Date) {
+
+  const currentTime = new Date();
+  return Math.floor((new Date(deadline).getTime() - currentTime.getTime()) / 1000 / 60 / 60 / 24);
+  
+}

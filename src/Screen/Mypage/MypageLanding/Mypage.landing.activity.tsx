@@ -35,7 +35,9 @@ function ScrapButton({
   navigation: NavigationProp<AppStackProps>;
 }) {
   return (
-    <Icon__Container activeOpacity={1} onPress={() => {}}>
+    <Icon__Container activeOpacity={1} onPress={() => {
+      navigation.navigate("MypageScrapTopNavigator");
+    }}>
       <ScrapIcon style={styles.icon__margin} />
       <Icon__Text>스크랩</Icon__Text>
     </Icon__Container>
