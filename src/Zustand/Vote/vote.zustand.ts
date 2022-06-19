@@ -10,6 +10,11 @@ type VoteStoreProps = {
    * @author 현웅
    */
   updateVoteListItem: (vote: VoteSchema) => void;
+
+  /**
+   * 투표 리스트에 있는 투표 중 하나를 삭제합니다.
+   */
+  removeVoteListItem: (voteId: string) => void;
 };
 
 export const useVoteStore = create<VoteStoreProps>((set, get) => ({
@@ -26,5 +31,13 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
       set({ votes: updatedVotes });
     }
     return;
+  },
+
+  removeVoteListItem: (voteId: string) => {
+    set({
+      votes: get().votes.filter(vote => {
+        return vote._id !== voteId;
+      }),
+    });
   },
 }));

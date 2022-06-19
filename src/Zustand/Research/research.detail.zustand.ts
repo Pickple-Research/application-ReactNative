@@ -9,6 +9,7 @@ import {
 } from "src/Schema";
 import {
   axiosGetResearchComments,
+  axiosDeleteResearch,
   axiosScrapResearch,
   axiosUnscrapResearch,
   axiosUploadResearchComment,
@@ -53,6 +54,8 @@ type ResearchDetailScreenStoreProps = {
   researchReportModalVisible: boolean;
   setResearchReportModalVisible: (status: boolean) => void;
 
+  /** 리서치 삭제 중 여부 */
+  deleting: boolean;
   /** 스크랩 처리 중 여부 */
   scrapping: boolean;
   /** 댓글 로드 중 여부 */
@@ -64,10 +67,10 @@ type ResearchDetailScreenStoreProps = {
 
   /**
    * 리서치를 삭제합니다.
-   * 응답이 성공적인 경우, 리서치 정보를 업데이트 합니다.
+   * @return 성공시 true, 실패시 false
    * @author 현웅
    */
-  deleteResearch: () => Promise<void>;
+  deleteResearch: () => Promise<boolean>;
 
   /**
    * 리서치를 끌올합니다.
@@ -155,6 +158,7 @@ export const useResearchDetailScreenStore =
       set({ researchReportModalVisible: status });
     },
 
+    deleting: false,
     scrapping: false,
     commentLoading: false,
     commentUploading: false,
@@ -169,6 +173,7 @@ export const useResearchDetailScreenStore =
         researchDeleteModalVisible: false,
         researchPullupModalVisible: false,
         researchReportModalVisible: false,
+        deleting: false,
         scrapping: false,
         commentLoading: false,
         commentUploading: false,
@@ -176,7 +181,16 @@ export const useResearchDetailScreenStore =
     },
 
     deleteResearch: async () => {
-      return;
+      set({ deleting: true });
+      const result = await axiosDeleteResearch(get().researchDetail._id);
+      if (result) {
+        //* 성공적으로 삭제된 경우, 리서치 리스트에서 해당 리서치를 삭제
+        useResearchStore
+          .getState()
+          .removeResarchListItem(get().researchDetail._id);
+      }
+      set({ deleting: false });
+      return result;
     },
 
     pullupResearch: async () => {
