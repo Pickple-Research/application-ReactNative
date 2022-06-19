@@ -78,15 +78,15 @@ export const axiosParticipateResearch = async (
 };
 
 /**
- * 리서치를 연장합니다.
+ * 리서치를 끌올합니다.
  * @return 업데이트된 리서치 정보 | null
  * @author 현웅
  */
-export const axiosExtendResearch = async (researchId: string) => {
+export const axiosPullupResearch = async (researchId: string) => {
   return await customAxios
     .request<ResearchSchema>({
       method: "PATCH",
-      url: `researches/extend/${researchId}`,
+      url: `researches/pullup/${researchId}`,
     })
     .then(response => {
       return response.data;

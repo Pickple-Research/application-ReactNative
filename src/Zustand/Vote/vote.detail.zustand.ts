@@ -9,9 +9,11 @@ import {
 } from "src/Schema";
 import {
   axiosGetVoteComments,
-  axiosParticipateVote,
+  axiosScrapVote,
+  axiosUnscrapVote,
   axiosUploadVoteComment,
   axiosUploadVoteReply,
+  axiosParticipateVote,
 } from "src/Axios";
 
 type VoteDetailScreenStoreProps = {
@@ -61,6 +63,8 @@ type VoteDetailScreenStoreProps = {
   loading: boolean;
   /** 투표 마감 중 여부 */
   closing: boolean;
+  /** 스크랩 처리 중 여부 */
+  scrapping: boolean;
   /** 댓글 로드 중 여부 */
   commentLoading: boolean;
   /** 댓글 업로드 중 여부 */
@@ -76,6 +80,12 @@ type VoteDetailScreenStoreProps = {
 
   /** 투표를 신고합니다 */
   reportVote: () => Promise<void>;
+
+  /** 투표를 스크랩합니다 */
+  scrapVote: () => Promise<void>;
+
+  /** 투표 스크랩을 취소합니다 */
+  unscrapVote: () => Promise<void>;
 
   /** 새로운 댓글을 업로드합니다 */
   uploadComment: () => Promise<void>;
@@ -178,6 +188,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
 
     loading: false,
     closing: false,
+    scrapping: false,
     commentLoading: false,
     commentUploading: false,
 
@@ -194,6 +205,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         voteReportModalVisible: false,
         loading: false,
         closing: false,
+        scrapping: false,
         commentLoading: false,
         commentUploading: false,
       });
@@ -221,6 +233,28 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
 
     reportVote: async () => {
       return;
+    },
+
+    scrapVote: async () => {
+      set({ scrapping: true });
+      const updatedVote = await axiosScrapVote(get().voteDetail._id);
+      if (updatedVote !== null) {
+        useUserStore.getState().addScrappedVoteId(get().voteDetail._id);
+        set({ voteDetail: updatedVote });
+        useVoteStore.getState().updateVoteListItem(updatedVote);
+      }
+      set({ scrapping: false });
+    },
+
+    unscrapVote: async () => {
+      set({ scrapping: true });
+      const updatedVote = await axiosUnscrapVote(get().voteDetail._id);
+      if (updatedVote !== null) {
+        useUserStore.getState().removeScrappedVoteId(get().voteDetail._id);
+        set({ voteDetail: updatedVote });
+        useVoteStore.getState().updateVoteListItem(updatedVote);
+      }
+      set({ scrapping: false });
     },
 
     participateVote: async () => {

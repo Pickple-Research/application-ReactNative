@@ -1,4 +1,6 @@
 import create from "zustand";
+import { useUserStore } from "../User/user.zustand";
+import { useResearchStore } from "./research.zustand";
 import {
   ResearchSchema,
   ResearchCommentSchema,
@@ -7,6 +9,8 @@ import {
 } from "src/Schema";
 import {
   axiosGetResearchComments,
+  axiosScrapResearch,
+  axiosUnscrapResearch,
   axiosUploadResearchComment,
   axiosUploadResearchReply,
 } from "src/Axios";
@@ -49,6 +53,8 @@ type ResearchDetailScreenStoreProps = {
   researchReportModalVisible: boolean;
   setResearchReportModalVisible: (status: boolean) => void;
 
+  /** 스크랩 처리 중 여부 */
+  scrapping: boolean;
   /** 댓글 로드 중 여부 */
   commentLoading: boolean;
   /** 댓글 업로드 중 여부 */
@@ -78,6 +84,12 @@ type ResearchDetailScreenStoreProps = {
 
   /** 새로운 대댓글을 업로드합니다 */
   uploadReply: () => Promise<void>;
+
+  /** 리서치를 스크랩합니다. */
+  scrapResearch: () => Promise<void>;
+
+  /** 리서치를 스크랩을 취소합니다. */
+  unscrapResearch: () => Promise<void>;
 };
 
 /**
@@ -143,6 +155,7 @@ export const useResearchDetailScreenStore =
       set({ researchReportModalVisible: status });
     },
 
+    scrapping: false,
     commentLoading: false,
     commentUploading: false,
 
@@ -156,6 +169,7 @@ export const useResearchDetailScreenStore =
         researchDeleteModalVisible: false,
         researchPullupModalVisible: false,
         researchReportModalVisible: false,
+        scrapping: false,
         commentLoading: false,
         commentUploading: false,
       });
@@ -223,6 +237,36 @@ export const useResearchDetailScreenStore =
       }
 
       set({ commentUploading: false });
+      return;
+    },
+
+    scrapResearch: async () => {
+      set({ scrapping: true });
+      const updatedResearch = await axiosScrapResearch(
+        get().researchDetail._id,
+      );
+      if (updatedResearch !== null) {
+        useUserStore.getState().addScrappedResearchId(get().researchDetail._id);
+        get().setResearchDetail(updatedResearch);
+        useResearchStore.getState().updateResearchListItem(updatedResearch);
+      }
+      set({ scrapping: false });
+      return;
+    },
+
+    unscrapResearch: async () => {
+      set({ scrapping: true });
+      const updatedResearch = await axiosUnscrapResearch(
+        get().researchDetail._id,
+      );
+      if (updatedResearch !== null) {
+        useUserStore
+          .getState()
+          .removeScrappedResearchId(get().researchDetail._id);
+        get().setResearchDetail(updatedResearch);
+        useResearchStore.getState().updateResearchListItem(updatedResearch);
+      }
+      set({ scrapping: false });
       return;
     },
   }));

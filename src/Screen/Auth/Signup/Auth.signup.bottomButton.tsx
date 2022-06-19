@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
+import {
+  BottomButton__Container,
+  BottomButton__ButtonContainer,
+} from "src/StyledComponents/View";
+import { H1 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useSignupScreenStore } from "src/Zustand";
-import { H1 } from "src/StyledComponents/Text";
 
 export function SignupBottomButton() {
   const {
@@ -41,21 +45,14 @@ export function SignupBottomButton() {
   );
 }
 
-const Container = styled.View`
-  position: absolute;
-  bottom: 0px;
-  flex-direction: row;
-  width: 100%;
-  height: 60px;
-`;
+const Container = styled(BottomButton__Container)``;
 
-const Button__Container = styled.TouchableOpacity<{ signupable: boolean }>`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+const Button__Container = styled(BottomButton__ButtonContainer)<{
+  signupable: boolean;
+}>`
   //TODO: #DESIGN-SYSTEM
   background-color: ${({ signupable, theme }) =>
-    signupable ? theme.color.purple.text : "#eeeeee"};
+    signupable ? theme.color.purple.main : "#eeeeee"};
 `;
 
 const Button__Text = styled(H1)<{ signupable: boolean }>`

@@ -42,7 +42,7 @@ export function ResearchParticipateScreen({
   }
 
   useEffect(() => {
-    //* 리서치 참여 중 뒤로가기 버튼을 눌렀을 때 재확인 모달을 띄우도록 이벤트 리스너를 추가합니다.
+    //* 리서치 참여 중 뒤로가기 버튼을 눌렀을 때 행동을 처리할 이벤트 리스너를 추가합니다.
     BackHandler.addEventListener("hardwareBackPress", showBlockExitModal);
 
     //* 리서치 참여 페이지를 벗어나면 이벤트 리스너를 삭제하고 모든 상태값을 초기화합니다.

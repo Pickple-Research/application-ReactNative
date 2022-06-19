@@ -6,6 +6,10 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
+import {
+  BottomButton__Container,
+  BottomButton__ButtonContainer,
+} from "src/StyledComponents/View";
 import { H2 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useResearchUploadScreenStore } from "src/Zustand";
@@ -19,13 +23,13 @@ export function ResearchUploadButtomButton() {
   const step = useResearchUploadScreenStore(state => state.step);
 
   switch (step) {
-    case 0: // 제목, 내용 입력 단계
+    case 0: //* 제목, 내용 입력 단계
       return <TitleContentStepButton />;
-    case 1: // 제목, 내용 입력 단계
+    case 1: //* 목적, 참여대상 입력 단계
       return <PurposeTargetStepButton />;
-    case 2: // 제목, 내용 입력 단계
+    case 2: //* 경품, 기프티콘 입력 단계
       return <GiftCreditStepButton />;
-    case 3: // 제목, 내용 입력 단계
+    case 3: //* 스크리닝, 목표 인원 보장 입력 단계
       return <ScreeningStepButton />;
     default:
       return null;
@@ -49,11 +53,13 @@ function TitleContentStepButton() {
     Boolean(titleInput) && Boolean(linkInput) && Boolean(contentInput);
 
   return (
-    <Container
-      activeOpacity={available ? 0.6 : 1}
-      onPress={available ? goNextStep : undefined}
-      available={available}>
-      <ButtonText available={available}>다음 단계로 이동</ButtonText>
+    <Container>
+      <Button__Container
+        activeOpacity={available ? 0.8 : 1}
+        onPress={available ? goNextStep : undefined}
+        available={available}>
+        <Button__Text available={available}>다음 단계로 이동</Button__Text>
+      </Button__Container>
     </Container>
   );
 }
@@ -84,11 +90,13 @@ function PurposeTargetStepButton() {
     Boolean(estimatedTimeInput);
 
   return (
-    <Container
-      activeOpacity={available ? 0.6 : 1}
-      onPress={available ? goNextStep : undefined}
-      available={available}>
-      <ButtonText available={available}>다음 단계로 이동</ButtonText>
+    <Container>
+      <Button__Container
+        activeOpacity={available ? 0.8 : 1}
+        onPress={available ? goNextStep : undefined}
+        available={available}>
+        <Button__Text available={available}>다음 단계로 이동</Button__Text>
+      </Button__Container>
     </Container>
   );
 }
@@ -114,11 +122,13 @@ function GiftCreditStepButton() {
   });
 
   return (
-    <Container
-      activeOpacity={available ? 0.6 : 1}
-      onPress={available ? goNextStep : undefined}
-      available={available}>
-      <ButtonText available={available}>다음 단계로 이동</ButtonText>
+    <Container>
+      <Button__Container
+        activeOpacity={available ? 0.8 : 1}
+        onPress={available ? goNextStep : undefined}
+        available={available}>
+        <Button__Text available={available}>다음 단계로 이동</Button__Text>
+      </Button__Container>
     </Container>
   );
 }
@@ -146,31 +156,30 @@ function ScreeningStepButton() {
   }
 
   return (
-    <Container
-      activeOpacity={!uploading ? 0.6 : 1}
-      onPress={!uploading ? tryUploadResearch : undefined}
-      available={!uploading}>
-      <ButtonText available={!uploading}>
-        {!uploading ? "작성 완료!" : "업로드 중..."}
-      </ButtonText>
+    <Container>
+      <Button__Container
+        activeOpacity={!uploading ? 0.8 : 1}
+        onPress={!uploading ? tryUploadResearch : undefined}
+        available={!uploading}>
+        <Button__Text available={!uploading}>
+          {!uploading ? "작성 완료!" : "업로드 중..."}
+        </Button__Text>
+      </Button__Container>
     </Container>
   );
 }
 
-const Container = styled.TouchableOpacity<{ available: boolean }>`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  //* ResearchUploadScreen의 padding-bottom과 같은 값으로 유지해야 합니다.
-  height: 60px;
+const Container = styled(BottomButton__Container)``;
+
+const Button__Container = styled(BottomButton__ButtonContainer)<{
+  available: boolean;
+}>`
   //TODO: #DESIGN-SYSTEM
   background-color: ${({ available, theme }) =>
     available ? theme.color.blue.main : "#eeeeee"};
-  justify-content: center;
-  align-items: center;
 `;
 
-const ButtonText = styled(H2)<{ available: boolean }>`
+const Button__Text = styled(H2)<{ available: boolean }>`
   //TODO: #DESIGN-SYSTEM
   color: ${({ available, theme }) =>
     available ? theme.color.grey.white : "#cccccc"};

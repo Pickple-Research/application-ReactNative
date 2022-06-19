@@ -31,7 +31,9 @@ function Greeting({ nickname }: { nickname: string }) {
   return (
     <Greeting__Container>
       <Greeting__Text>
-        {`안녕하세요, ${nickname}님!\n이 리서치 어떠세요?`}
+        {`안녕하세요, ${
+          nickname ? nickname : "예비 픽플러"
+        }님!\n이 리서치 어떠세요?`}
       </Greeting__Text>
       <Greeting__ProfileIcon />
     </Greeting__Container>
