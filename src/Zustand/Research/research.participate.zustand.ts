@@ -5,6 +5,9 @@ import { useResearchDetailScreenStore } from "./research.detail.zustand";
 import { axiosParticipateResearch } from "src/Axios";
 
 type ResearchParticipateScreenStoreProps = {
+  /** 리서치 참여 페이지에서 뒤로 가기 버튼을 눌렀을 때 행동을 지정합니다 */
+  handleBackPress: () => boolean;
+
   /** researchStartDate가 세팅되었는지 여부 */
   researchStartDateSetted: boolean;
   /** 리서치에 참여한 시각 */
@@ -50,6 +53,17 @@ type ResearchParticipateScreenStoreProps = {
  */
 export const useResearchParticipateScreenStore =
   create<ResearchParticipateScreenStoreProps>((set, get) => ({
+    handleBackPress: () => {
+      //* 뒤로 가기 버튼을 눌렀을 때 폼 로딩 모달, 혹은 폼 제출 완료 모달이 열려있다면
+      //* 뒤로 가기 버튼 입력을 무시합니다.
+      if (get().formLoadingModalVisible || get().formSubmittedModalVisible) {
+        return true;
+      }
+      //* 그렇지 않다면 재확인 모달을 띄웁니다.
+      get().setBlockExitModalVisible(true);
+      return true;
+    },
+
     researchStartDateSetted: false,
     researchStartDate: new Date(),
     setResearchStartDate: () => {
