@@ -9,6 +9,7 @@ import {
 } from "src/Schema";
 import {
   axiosGetVoteComments,
+  axiosReportVote,
   axiosScrapVote,
   axiosUnscrapVote,
   axiosUploadVoteComment,
@@ -17,11 +18,23 @@ import {
   axiosDeleteVote,
   axiosParticipateVote,
 } from "src/Axios";
+import { VoteReportOptions } from "src/Constant";
 
 type VoteDetailScreenStoreProps = {
   /** 투표 정보 */
   voteDetail: VoteSchema;
   setVoteDetail: (voteDetail: VoteSchema) => void;
+
+  /** 투표 신고 옵션들 */
+  voteReportOptions: string[];
+  /** 선택된 투표 신고 옵션 인덱스들 */
+  selectedReportOptionIndexes: number[];
+  /** 투표 신고 옵션 터치시 실행 함수 */
+  onPressReportOption: (index: number) => void;
+
+  /** 투표 신고 옵션 중 '기타' 항목 입력값 */
+  reportEtcOptionInput: string;
+  setReportEtcOptionInput: (input: string) => void;
 
   /** 투표 (대)댓글 정보 */
   voteDetailComments: VoteCommentSchema[];
@@ -67,6 +80,8 @@ type VoteDetailScreenStoreProps = {
   closing: boolean;
   /** 투표 삭제 중 여부 */
   deleting: boolean;
+  /** 투표 신고 중 여부 */
+  reporting: boolean;
   /** 스크랩 처리 중 여부 */
   scrapping: boolean;
   /** 댓글 로드 중 여부 */
@@ -117,6 +132,21 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     voteDetail: BlankVote,
     setVoteDetail: async (voteDetail: VoteSchema) => {
       set({ voteDetail });
+    },
+
+    /** 투표 신고 옵션들 */
+    voteReportOptions: VoteReportOptions,
+    /** 선택된 투표 신고 옵션 인덱스들 */
+    selectedReportOptionIndexes: [],
+    /** 투표 신고 옵션 터치시 실행 함수 */
+    onPressReportOption: (index: number) => {
+      set({ selectedReportOptionIndexes: [index] });
+    },
+
+    /** 투표 신고 옵션 중 '기타' 항목 입력값 */
+    reportEtcOptionInput: "",
+    setReportEtcOptionInput: (input: string) => {
+      set({ reportEtcOptionInput: input });
     },
 
     voteDetailComments: [],
@@ -196,6 +226,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     loading: false,
     closing: false,
     deleting: false,
+    reporting: false,
     scrapping: false,
     commentLoading: false,
     commentUploading: false,
@@ -203,6 +234,8 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     clearInfo: () => {
       set({
         voteDetail: BlankVote,
+        selectedReportOptionIndexes: [],
+        reportEtcOptionInput: "",
         voteDetailComments: [],
         selectedOptionIndexes: [],
         targetCommentId: "",
@@ -214,6 +247,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         loading: false,
         closing: false,
         deleting: false,
+        reporting: false,
         scrapping: false,
         commentLoading: false,
         commentUploading: false,
@@ -251,6 +285,36 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     },
 
     reportVote: async () => {
+      //* 신고 사유 선택이 되지 않았거나 이미 신고 중인 경우
+      //* 곧바로 return 합니다.
+      if (get().selectedReportOptionIndexes.length === 0) {
+        //TODO: 토스트 메세지
+        return;
+      }
+      if (get().reporting) return;
+
+      set({ reporting: true });
+
+      const result = await axiosReportVote({
+        voteId: get().voteDetail._id,
+        //* 신고 사유로 '기타'를 선택한 경우, 사용자가 입력한 내용을 사용합니다.
+        reportContent: get().selectedReportOptionIndexes.includes(
+          VoteReportOptions.length - 1,
+        )
+          ? `기타: ${get().reportEtcOptionInput}`
+          : VoteReportOptions[get().selectedReportOptionIndexes[0]],
+      });
+      //* 신고가 성공적으로 이뤄진 경우,
+      //* 신고 모달을 닫고 관련 상태값을 모두 초기화합니다.
+      if (result) {
+        set({
+          voteReportModalVisible: false,
+          selectedReportOptionIndexes: [],
+          reportEtcOptionInput: "",
+        });
+      }
+
+      set({ reporting: false });
       return;
     },
 

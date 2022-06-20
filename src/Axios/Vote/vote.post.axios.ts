@@ -83,3 +83,29 @@ export const axiosUploadVoteReply = async (param: {
       return null;
     });
 };
+
+/**
+ * 투표를 신고합니다.
+ * @return 성공 시 true | 실패 시 false
+ * @author 현웅
+ */
+export const axiosReportVote = async (param: {
+  voteId: string;
+  reportContent: string;
+}) => {
+  return await customAxios
+    .request<void>({
+      method: "POST",
+      url: "/votes/report",
+      data: {
+        voteId: param.voteId,
+        content: param.reportContent,
+      },
+    })
+    .then(response => {
+      return true;
+    })
+    .catch(error => {
+      return false;
+    });
+};

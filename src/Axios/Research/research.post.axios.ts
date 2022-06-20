@@ -111,3 +111,29 @@ export const axiosUploadResearchReply = async (param: {
       return null;
     });
 };
+
+/**
+ * 리서치를 신고합니다.
+ * @return 성공 시 true | 실패 시 false
+ * @author 현웅
+ */
+export const axiosReportResearch = async (param: {
+  researchId: string;
+  reportContent: string;
+}) => {
+  return await customAxios
+    .request<void>({
+      method: "POST",
+      url: "/researches/report",
+      data: {
+        researchId: param.researchId,
+        content: param.reportContent,
+      },
+    })
+    .then(response => {
+      return true;
+    })
+    .catch(error => {
+      return false;
+    });
+};

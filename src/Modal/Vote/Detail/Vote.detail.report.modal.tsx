@@ -4,8 +4,10 @@ import {
   BlackBackgroundModal,
   ModalContentContainer,
 } from "src/Component/Modal";
+import { RadioButtonGroup } from "src/Component/Radio";
 import { RadiusButton } from "src/Component/Button";
-import { H2 } from "src/StyledComponents/Text";
+import { LinedTextInput } from "src/Component/TextInput";
+import { H1, H2 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useVoteDetailScreenStore } from "src/Zustand";
 import CloseIcon from "src/Resource/svg/close-icon.svg";
@@ -15,15 +17,30 @@ import CloseIcon from "src/Resource/svg/close-icon.svg";
  * @author 현웅
  */
 export function VoteDetailReportModal() {
-  const { voteReportModalVisible, setVoteReportModalVisible, reportVote } =
-    useVoteDetailScreenStore(
-      state => ({
-        voteReportModalVisible: state.voteReportModalVisible,
-        setVoteReportModalVisible: state.setVoteReportModalVisible,
-        reportVote: state.reportVote,
-      }),
-      shallow,
-    );
+  const {
+    voteReportModalVisible,
+    setVoteReportModalVisible,
+    voteReportOptions,
+    selectedReportOptionIndexes,
+    onPressReportOption,
+    reportEtcOptionInput,
+    setReportEtcOptionInput,
+    reporting,
+    reportVote,
+  } = useVoteDetailScreenStore(
+    state => ({
+      voteReportModalVisible: state.voteReportModalVisible,
+      setVoteReportModalVisible: state.setVoteReportModalVisible,
+      voteReportOptions: state.voteReportOptions,
+      selectedReportOptionIndexes: state.selectedReportOptionIndexes,
+      onPressReportOption: state.onPressReportOption,
+      reportEtcOptionInput: state.reportEtcOptionInput,
+      setReportEtcOptionInput: state.setReportEtcOptionInput,
+      reporting: state.reporting,
+      reportVote: state.reportVote,
+    }),
+    shallow,
+  );
 
   return (
     <BlackBackgroundModal
@@ -36,7 +53,14 @@ export function VoteDetailReportModal() {
           }}
         />
         <Content />
-        <Button onPress={reportVote} />
+        <ReportOptions
+          voteReportOptions={voteReportOptions}
+          selectedReportOptionIndexes={selectedReportOptionIndexes}
+          onPressReportOption={onPressReportOption}
+          reportEtcOptionInput={reportEtcOptionInput}
+          setReportEtcOptionInput={setReportEtcOptionInput}
+        />
+        <Button reporting={reporting} onPress={reportVote} />
       </ModalContentContainer>
     </BlackBackgroundModal>
   );
@@ -59,10 +83,60 @@ function Content() {
   );
 }
 
-function Button({ onPress }: { onPress: () => void }) {
+function ReportOptions({
+  voteReportOptions,
+  selectedReportOptionIndexes,
+  onPressReportOption,
+  reportEtcOptionInput,
+  setReportEtcOptionInput,
+}: {
+  voteReportOptions: string[];
+  selectedReportOptionIndexes: number[];
+  onPressReportOption: (index: number) => void;
+  reportEtcOptionInput: string;
+  setReportEtcOptionInput: (input: string) => void;
+}) {
+  const editable = selectedReportOptionIndexes.includes(
+    voteReportOptions.length - 1,
+  );
+
+  return (
+    <ReportOptions__Container>
+      <RadioButtonGroup
+        options={voteReportOptions}
+        selectedOptionIndexes={selectedReportOptionIndexes}
+        onPress={onPressReportOption}
+      />
+      <EtcInput__Container>
+        <LinedTextInput
+          style={{ fontSize: 11, paddingBottom: 0 }}
+          props={{
+            maxLength: 240,
+            editable: editable,
+            placeholder: "기타 신고 사유를 입력해주세요",
+            value: reportEtcOptionInput,
+            onChangeText: setReportEtcOptionInput,
+          }}
+        />
+      </EtcInput__Container>
+    </ReportOptions__Container>
+  );
+}
+
+function Button({
+  reporting,
+  onPress,
+}: {
+  reporting: boolean;
+  onPress: () => void;
+}) {
   return (
     <Button__Container>
-      <RadiusButton text="확인" type="PURPLE" onPress={onPress} />
+      <RadiusButton
+        text={reporting ? "신고하는 중.." : "확인"}
+        type={reporting ? "PURPLE_CANCEL" : "PURPLE"}
+        onPress={onPress}
+      />
     </Button__Container>
   );
 }
@@ -72,7 +146,7 @@ const Title__Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding-left: 8px;
-  margin-top: 5px;
+  margin-top: 12px;
   margin-bottom: 12px;
 `;
 
@@ -91,5 +165,18 @@ const Content__Text = styled(H2)`
   color: ${({ theme }) => theme.color.grey.mild};
 `;
 
+// ReportOptions__Container()
+const ReportOptions__Container = styled.View`
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 32px;
+`;
+
+const EtcInput__Container = styled.View`
+  padding-left: 24px;
+`;
+
 // Button()
-const Button__Container = styled.View``;
+const Button__Container = styled.View`
+  margin-bottom: 8px;
+`;
