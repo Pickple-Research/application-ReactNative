@@ -9,3 +9,4 @@ export * from "./Vote.optionsBox.component";
 export * from "./Vote.partcipantInfo.component";
 export * from "./Vote.participatedItem.component";
 export * from "./Vote.row.component";
+export * from "./Vote.scrapped.component";

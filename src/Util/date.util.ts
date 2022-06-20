@@ -40,3 +40,14 @@ export function didDatePassed(deadline: string | Date) {
   currentTime.setHours(currentTime.getHours() + 9);
   return new Date(deadline) < currentTime;
 }
+
+/**
+ * 해당 시간이 현재 시간 보다 며칠 뒤에 있는지 계산하여 값으로 전달합니다.
+ * @author 원제
+ */
+export function getDateDifference(deadline: string | Date) {
+
+  const currentTime = new Date();
+  return Math.floor((new Date(deadline).getTime() - currentTime.getTime()) / 1000 / 60 / 60 / 24);
+  
+}
