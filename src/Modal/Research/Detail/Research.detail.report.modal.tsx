@@ -4,8 +4,10 @@ import {
   BlackBackgroundModal,
   ModalContentContainer,
 } from "src/Component/Modal";
+import { RadioButtonGroup } from "src/Component/Radio";
 import { RadiusButton } from "src/Component/Button";
-import { H2 } from "src/StyledComponents/Text";
+import { LinedTextInput } from "src/Component/TextInput";
+import { H1, H2 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useResearchDetailScreenStore } from "src/Zustand";
 import CloseIcon from "src/Resource/svg/close-icon.svg";
@@ -18,11 +20,23 @@ export function ResearchDetailReportModal() {
   const {
     researchReportModalVisible,
     setResearchReportModalVisible,
+    researchReportOptions,
+    selectedReportOptionIndexes,
+    onPressReportOption,
+    reportEtcOptionInput,
+    setReportEtcOptionInput,
+    reporting,
     reportReserach,
   } = useResearchDetailScreenStore(
     state => ({
       researchReportModalVisible: state.researchReportModalVisible,
       setResearchReportModalVisible: state.setResearchReportModalVisible,
+      researchReportOptions: state.researchReportOptions,
+      selectedReportOptionIndexes: state.selectedReportOptionIndexes,
+      onPressReportOption: state.onPressReportOption,
+      reportEtcOptionInput: state.reportEtcOptionInput,
+      setReportEtcOptionInput: state.setReportEtcOptionInput,
+      reporting: state.reporting,
       reportReserach: state.reportReserach,
     }),
     shallow,
@@ -39,7 +53,14 @@ export function ResearchDetailReportModal() {
           }}
         />
         <Content />
-        <Button onPress={reportReserach} />
+        <ReportOptions
+          researchReportOptions={researchReportOptions}
+          selectedReportOptionIndexes={selectedReportOptionIndexes}
+          onPressReportOption={onPressReportOption}
+          reportEtcOptionInput={reportEtcOptionInput}
+          setReportEtcOptionInput={setReportEtcOptionInput}
+        />
+        <Button reporting={reporting} onPress={reportReserach} />
       </ModalContentContainer>
     </BlackBackgroundModal>
   );
@@ -62,10 +83,60 @@ function Content() {
   );
 }
 
-function Button({ onPress }: { onPress: () => void }) {
+function ReportOptions({
+  researchReportOptions,
+  selectedReportOptionIndexes,
+  onPressReportOption,
+  reportEtcOptionInput,
+  setReportEtcOptionInput,
+}: {
+  researchReportOptions: string[];
+  selectedReportOptionIndexes: number[];
+  onPressReportOption: (index: number) => void;
+  reportEtcOptionInput: string;
+  setReportEtcOptionInput: (input: string) => void;
+}) {
+  const editable = selectedReportOptionIndexes.includes(
+    researchReportOptions.length - 1,
+  );
+
+  return (
+    <ReportOptions__Container>
+      <RadioButtonGroup
+        options={researchReportOptions}
+        selectedOptionIndexes={selectedReportOptionIndexes}
+        onPress={onPressReportOption}
+      />
+      <EtcInput__Container>
+        <LinedTextInput
+          style={{ fontSize: 11, paddingBottom: 0 }}
+          props={{
+            maxLength: 240,
+            editable: editable,
+            placeholder: "기타 신고 사유를 입력해주세요",
+            value: reportEtcOptionInput,
+            onChangeText: setReportEtcOptionInput,
+          }}
+        />
+      </EtcInput__Container>
+    </ReportOptions__Container>
+  );
+}
+
+function Button({
+  reporting,
+  onPress,
+}: {
+  reporting: boolean;
+  onPress: () => void;
+}) {
   return (
     <Button__Container>
-      <RadiusButton text="확인" type="BLUE" onPress={onPress} />
+      <RadiusButton
+        text={reporting ? "신고하는 중.." : "확인"}
+        type={reporting ? "BLUE_CANCEL" : "BLUE"}
+        onPress={onPress}
+      />
     </Button__Container>
   );
 }
@@ -75,11 +146,11 @@ const Title__Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding-left: 8px;
-  margin-top: 5px;
+  margin-top: 12px;
   margin-bottom: 12px;
 `;
 
-const Title__Text = styled.Text`
+const Title__Text = styled(H1)`
   color: ${({ theme }) => theme.color.grey.black};
   font-weight: bold;
 `;
@@ -94,5 +165,18 @@ const Content__Text = styled(H2)`
   color: ${({ theme }) => theme.color.grey.mild};
 `;
 
+// ReportOptions__Container()
+const ReportOptions__Container = styled.View`
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 32px;
+`;
+
+const EtcInput__Container = styled.View`
+  padding-left: 24px;
+`;
+
 // Button()
-const Button__Container = styled.View``;
+const Button__Container = styled.View`
+  margin-bottom: 8px;
+`;

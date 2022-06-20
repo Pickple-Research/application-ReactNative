@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInputProps } from "react-native";
+import { StyleProp, TextStyle, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 
 /**
@@ -9,7 +9,13 @@ import styled from "styled-components/native";
  * @author 정원제
  * @modify 현웅
  */
-export function LinedTextInput({ props }: { props?: Partial<TextInputProps> }) {
+export function LinedTextInput({
+  style,
+  props,
+}: {
+  style?: StyleProp<TextStyle>;
+  props?: Partial<TextInputProps>;
+}) {
   const [focused, setFocused] = useState<boolean>(false);
   return (
     <TextInput<React.ElementType>
@@ -17,16 +23,17 @@ export function LinedTextInput({ props }: { props?: Partial<TextInputProps> }) {
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       underlineColorAndroid="transparent"
+      style={style}
       {...props}
     />
   );
 }
 
 const TextInput = styled.TextInput<{ focused: boolean }>`
-  flex: 1;
   padding-top: 0px;
   padding-bottom: 5px;
   //TODO: DESIGN-SYSTEM
   border-bottom-color: ${({ focused }) => (focused ? "#8BBFF5" : "gray")};
   border-bottom-width: 1.5px;
+  font-size: ${({ theme }) => theme.size.header2};
 `;

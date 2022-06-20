@@ -6,10 +6,10 @@ import styled from "styled-components/native";
  * @author 현웅
  */
 export function ModalContentContainer({ children }: { children: any }) {
-  return <Container>{children}</Container>;
+  return <Container activeOpacity={1}>{children}</Container>;
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   width: 80%;
   background-color: ${({ theme }) => theme.color.grey.white};
   padding: 10px 20px;
