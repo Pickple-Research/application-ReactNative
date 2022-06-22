@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, ViewStyle, ScrollViewProps } from "react-native";
 import styled from "styled-components/native";
-import { ThemeColors } from "@Object/Type";
+import { ThemeColorsType } from "src/Object/Type";
 
 type BackgroundColor = "WHITE" | "PURPLE";
 
@@ -39,7 +39,7 @@ export function WhiteBackgroundScrollView({
 
 const scrollViewBackgroundColor = (
   backgroundColor: BackgroundColor,
-  color: ThemeColors,
+  color: ThemeColorsType,
 ) => {
   switch (backgroundColor) {
     case "WHITE":

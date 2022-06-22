@@ -1,9 +1,17 @@
 import create from "zustand";
 import { VoteSchema, BlankVote } from "src/Schema";
+import {
+  addVoteListItem,
+  updateVoteListItem,
+  removeVoteListItem,
+} from "src/Util";
 
 type VoteStoreProps = {
   votes: VoteSchema[];
   setVotes: (votes: VoteSchema[]) => void;
+
+  /** 새로운 투표를 투표 리스트에 추가합니다. */
+  addVoteListItem: (newVote: VoteSchema | VoteSchema[]) => void;
 
   /**
    * 투표 리스트에 있는 투표 중 하나를 업데이트합니다.
@@ -21,23 +29,15 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
   votes: [BlankVote],
   setVotes: (votes: VoteSchema[]) => set({ votes }),
 
+  addVoteListItem: (newVote: VoteSchema | VoteSchema[]) => {
+    set({ votes: addVoteListItem(newVote, get().votes) });
+  },
+
   updateVoteListItem: (updatedVote: VoteSchema) => {
-    const updatedVoteIndex = get().votes.findIndex(
-      vote => vote._id === updatedVote._id,
-    );
-    if (updatedVoteIndex !== -1) {
-      const updatedVotes = [...get().votes];
-      updatedVotes[updatedVoteIndex] = updatedVote;
-      set({ votes: updatedVotes });
-    }
-    return;
+    set({ votes: updateVoteListItem(updatedVote, get().votes) });
   },
 
   removeVoteListItem: (voteId: string) => {
-    set({
-      votes: get().votes.filter(vote => {
-        return vote._id !== voteId;
-      }),
-    });
+    set({ votes: removeVoteListItem(voteId, get().votes) });
   },
 }));

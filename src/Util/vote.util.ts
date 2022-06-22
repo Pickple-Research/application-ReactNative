@@ -1,19 +1,39 @@
 import { VoteSchema } from "src/Schema";
 
 /**
- * @deprecated
- * 주어진 투표에 참여한 후의 투표 정보를 반환합니다.
- * 투표 리스트 정보와 투표 상세 페이지 정보를 모두 같은 값으로 바꿔야하기 때문에 사용합니다.
+ * 새로운 투표(들)를 기존의 투표 리스트 맨 앞에 추가하고 반환합니다.
  * @author 현웅
  */
-export function getUpdatedVote(
-  vote: VoteSchema,
-  selectedOptionIndexes: number[],
+export function addVoteListItem(
+  newVote: VoteSchema | VoteSchema[],
+  voteList: VoteSchema[],
 ) {
-  const updatedVote = { ...vote };
-  updatedVote.participantsNum += 1; // 참여자 수 증가
-  selectedOptionIndexes.forEach(index => {
-    updatedVote.result[index] += 1; // 결과값 증가
+  return [newVote, ...voteList].flat();
+}
+
+/**
+ * 업데이트된 투표를 기존의 투표 리스트에서 찾고 교체한 후 반환합니다.
+ * @author 현웅
+ */
+export function updateVoteListItem(
+  updatedVote: VoteSchema,
+  voteList: VoteSchema[],
+) {
+  const updatedVoteIndex = voteList.findIndex(vote => {
+    vote._id === updatedVote._id;
   });
-  return updatedVote;
+  if (updatedVoteIndex !== -1) {
+    return voteList.splice(updatedVoteIndex, 1, updatedVote);
+  }
+  return voteList;
+}
+
+/**
+ * 투표 리스트에서 특정 투표를 찾아 삭제하고 반환합니다.
+ * @author 현웅
+ */
+export function removeVoteListItem(voteId: string, voteList: VoteSchema[]) {
+  return voteList.filter(vote => {
+    return vote._id !== voteId;
+  });
 }

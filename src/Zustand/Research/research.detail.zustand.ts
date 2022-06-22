@@ -217,7 +217,7 @@ export const useResearchDetailScreenStore =
         //* 성공적으로 삭제된 경우, 리서치 리스트에서 해당 리서치를 삭제
         useResearchStore
           .getState()
-          .removeResarchListItem(get().researchDetail._id);
+          .removeResearchListItem(get().researchDetail._id);
       }
       set({ deleting: false });
       return result;

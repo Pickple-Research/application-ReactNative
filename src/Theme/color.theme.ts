@@ -1,10 +1,10 @@
-import { CommonThemeColors, ThemeColors } from "src/Object/Type";
+import { CommonThemeColorsType, ThemeColorsType } from "src/Object/Type";
 
 /**
  * 모든 테마에 공통으로 적용되는 색상값들
  * @author 현웅
  */
-const commonThemeColors: CommonThemeColors = {
+const commonThemeColors: CommonThemeColorsType = {
   // 하연이 figma 디자인 시스템 그대로 사용
   blue: {
     main: "#8BBFF5",
@@ -47,7 +47,7 @@ const commonThemeColors: CommonThemeColors = {
  * !색상을 추가하려면 ThemeColors에 정의를 추가해줘야 합니다.
  * @author 현웅
  */
-export const lightThemeColors: ThemeColors = {
+export const lightThemeColors: ThemeColorsType = {
   ...commonThemeColors,
   background: "white",
 };
@@ -57,7 +57,7 @@ export const lightThemeColors: ThemeColors = {
  * !색상을 추가하려면 ThemeColors에 정의를 추가해줘야 합니다.
  * @author 현웅
  */
-export const darkThemeColors: ThemeColors = {
+export const darkThemeColors: ThemeColorsType = {
   ...commonThemeColors,
   background: "black",
 };

@@ -119,6 +119,7 @@ export const useResearchParticipateScreenStore =
       get().setFormSubmitted(true);
       get().setFormSubmittedModalVisible(true);
 
+      //* 참여 정보를 추출하고 서버에 리서치 참여 요청을 보냅니다.
       const researchId =
         useResearchDetailScreenStore.getState().researchDetail._id;
       const consummedTime =
