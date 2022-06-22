@@ -2,6 +2,7 @@ import create from "zustand";
 import { VoteUploadOptionProps } from "src/Object/Type";
 import { VoteSchema } from "src/Schema";
 import { axiosUploadVote } from "src/Axios";
+import { showBlackToast } from "src/Util";
 
 type VoteUploadScreenStoreProps = {
   titleInput: string;
@@ -103,11 +104,11 @@ export const useVoteUploadScreenStore = create<VoteUploadScreenStoreProps>(
 
     checkInputValidity: () => {
       if (get().titleInput.length === 0) {
-        //TODO: "제목을 입력해주세요"
+        showBlackToast({ text1: "제목을 입력해주세요" });
         return false;
       }
       if (get().contentInput.length === 0) {
-        //TODO: "내용을 입력해주세요"
+        showBlackToast({ text1: "내용을 입력해주세요" });
         return false;
       }
 
@@ -122,13 +123,13 @@ export const useVoteUploadScreenStore = create<VoteUploadScreenStoreProps>(
 
       //* 선택지가 두 개 이하인 경우
       if (options.length < 2) {
-        //TODO: "투표 항목을 2개 이상 입력해주세요"
+        showBlackToast({ text1: "투표 항목을 2개 이상 입력해주세요" });
         return false;
       }
 
       //* 중복된 선택지가 있는 경우
       if (options.length !== new Set(options).size) {
-        //TODO: "투표 항목 내용이 중복되었습니다"
+        showBlackToast({ text1: "투표 항목 내용이 중복되었습니다" });
         return false;
       }
 

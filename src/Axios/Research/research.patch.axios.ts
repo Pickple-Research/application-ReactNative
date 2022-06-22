@@ -1,6 +1,7 @@
 import customAxios from "../axios.core";
 import { ResearchSchema } from "src/Schema";
 import { ParticipatedResearchInfo } from "src/Schema/User/Embedded";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 리서치를 조회합니다.
@@ -28,6 +29,10 @@ export const axiosScrapResearch = async (researchId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "리서치 스크랩이 정상적으로 처리되지 못했습니다",
+      });
       return null;
     });
 };
@@ -47,6 +52,10 @@ export const axiosUnscrapResearch = async (researchId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "리서치 스크랩 취소가 정상적으로 처리되지 못했습니다",
+      });
       return null;
     });
 };
@@ -73,6 +82,7 @@ export const axiosParticipateResearch = async (
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error });
       return null;
     });
 };
@@ -92,6 +102,10 @@ export const axiosPullupResearch = async (researchId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "리서치 끌올 처리가 정상적으로 처리되지 않았습니다",
+      });
       return null;
     });
 };

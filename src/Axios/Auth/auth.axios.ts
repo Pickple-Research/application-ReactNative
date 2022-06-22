@@ -6,6 +6,7 @@ import {
   UserPrivacySchema,
   UserPropertySchema,
 } from "src/Schema";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 로그인이 정상적으로 이루어졌을 때 서버가 주는 유저 정보입니다.
@@ -39,6 +40,7 @@ export const axiosLoginWithEmailPassword = async (auth: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "로그인에 실패하였습니다" });
       return null;
     });
 };
@@ -58,6 +60,10 @@ export const axiosLoginWithJWT = async () => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "자동 로그인에 실패하였습니다\n다시 로그인 해 주세요",
+      });
       return null;
     });
 };
@@ -66,17 +72,17 @@ export const axiosLoginWithJWT = async () => {
  * 이메일과 인증코드를 받아 이메일을 인증합니다.
  * @author 현웅
  */
-export const axiosVerifyEmail = async (email: string, code: string) => {
+export const axiosVerifyEmail = async (param: {
+  email: string;
+  code: string;
+}) => {
   return await customAxios
     .request<boolean>({
       method: "POST",
       url: "/auth/verify",
-      data: {
-        email,
-        code,
-      },
+      data: param,
     })
-    .catch(() => {
+    .catch(error => {
       return false;
     });
 };
