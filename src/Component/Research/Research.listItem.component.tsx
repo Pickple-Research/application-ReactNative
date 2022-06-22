@@ -26,6 +26,7 @@ export function ResearchListItem({
       <Thumbnail />
       <ResearchInfo
         title={research.title}
+        deadline={research.deadline}
         tags={[`research.tags`]}
         targets={[`research.targets`]}
       />
@@ -40,17 +41,19 @@ function Thumbnail() {
 
 function ResearchInfo({
   title,
+  deadline,
   tags,
   targets,
 }: {
   title: string;
+  deadline: string | Date;
   tags: string[];
   targets: string[];
 }) {
   return (
     <ResearchInfo__Container>
       <ResearchInfo__TagsContainer>
-        <ResearchDday content="D-6" style={{ marginRight: 6 }} />
+        <ResearchDday deadline={deadline} style={{ marginRight: 6 }} />
         <HashTags tags={tags} />
       </ResearchInfo__TagsContainer>
       <ResearchInfo__TitleText numberOfLines={2}>

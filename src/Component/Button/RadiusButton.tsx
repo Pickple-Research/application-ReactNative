@@ -13,10 +13,14 @@ export type RadiusButtonType =
   | "BLUE" // (리서치, 파트너 관련) 파란색 버튼
   | "BLUE_CONFIRM" // (리서치, 파트너 관련) 확인/취소 중 확인 버튼
   | "BLUE_CANCEL" // (리서치, 파트너 관련) 확인/취소 중 취소 버튼
+  | "BLUE_SMALL_FILL" // (리서치, 파트너 관련) 리스트 필터 선택 버튼 (선택됨)
+  | "BLUE_SMALL_HOLLOW" // (리서치, 파트너 관련) 리스트 필터 선택 버튼 (선택되지 않음)
   | "PURPLE" // (투표 관련) 보라색 버튼
   | "PURPLE_CONFIRM" // (투표 관련) 확인/취소 중 확인 버튼
   | "PURPLE_CANCEL" // (투표 관련) 확인/취소 중 취소 버튼
   | "PURPLE_INACTIVE" // (투표 관련) 투표 참여 불가 상태 버튼
+  | "PURPLE_SMALL_FILL" // (투표 관련) 리스트 필터 선택 버튼 (선택됨)
+  | "PURPLE_SMALL_HOLLOW" // (투표 관련) 리스트 필터 선택 버튼 (선택되지 않음)
   | "GREY" // 회색 바탕에 흰 글씨 버튼 (ex. 종료/마감됨 버튼)
   | "BLACK"; // 검은색 바탕에 흰 글씨 버튼 (ex. 리서치 업로드 페이지 '경품 추가' 버튼)
 
@@ -70,6 +74,10 @@ function ContainerComponent(type: RadiusButtonType) {
       return BlueConfirmButton__Container;
     case "BLUE_CANCEL":
       return BlueCancelButton__Container;
+    case "BLUE_SMALL_FILL":
+      return BlueSmallFillButton__Container;
+    case "BLUE_SMALL_HOLLOW":
+      return BlueSmallHollowButton__Container;
     case "PURPLE":
       return PurpleButton__Container;
     case "PURPLE_CONFIRM":
@@ -78,6 +86,10 @@ function ContainerComponent(type: RadiusButtonType) {
       return PurpleCancelButton__Container;
     case "PURPLE_INACTIVE":
       return PurpleInactiveButton__Container;
+    case "PURPLE_SMALL_FILL":
+      return PurpleSmallFillButton__Container;
+    case "PURPLE_SMALL_HOLLOW":
+      return PurpleSmallHollowButton__Container;
     case "BLACK":
       return BlackButton__Container;
     case "GREY":
@@ -96,6 +108,10 @@ function TextComponent(type: RadiusButtonType) {
       return BlueConfirmButton__Text;
     case "BLUE_CANCEL":
       return BlueCancelButton__Text;
+    case "BLUE_SMALL_FILL":
+      return BlueSmallFillButton__Text;
+    case "BLUE_SMALL_HOLLOW":
+      return BlueSmallHollowButton__Text;
     case "PURPLE":
       return PurpleButton__Text;
     case "PURPLE_CONFIRM":
@@ -104,6 +120,10 @@ function TextComponent(type: RadiusButtonType) {
       return PurpleCancelButton__Text;
     case "PURPLE_INACTIVE":
       return PurpleInactiveButton__Text;
+    case "PURPLE_SMALL_FILL":
+      return PurpleSmallFillButton__Text;
+    case "PURPLE_SMALL_HOLLOW":
+      return PurpleSmallHollowButton__Text;
     case "BLACK":
       return BlackButton__Text;
     case "GREY":
@@ -165,6 +185,27 @@ const BlueCancelButton__Text = styled(Button__Text)`
   color: ${({ theme }) => theme.color.blue.main};
 `;
 
+// case "BLUE_SMALL_FILL"
+const BlueSmallFillButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.blue.text};
+  padding: 4px 8px;
+  border: 1.5px solid ${({ theme }) => theme.color.blue.text};
+`;
+const BlueSmallFillButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
+  font-size: ${({ theme }) => theme.size.body};
+`;
+
+// case "BLUE_SMALL_HOLLOW"
+const BlueSmallHollowButton__Container = styled(Button__Container)`
+  padding: 4px 8px;
+  border: 1.5px solid ${({ theme }) => theme.color.blue.main};
+`;
+const BlueSmallHollowButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.mild};
+  font-size: ${({ theme }) => theme.size.body};
+`;
+
 // case "PURPLE"
 const PurpleButton__Container = styled(Button__Container)`
   background-color: ${({ theme }) => theme.color.purple.mild};
@@ -196,6 +237,27 @@ const PurpleInactiveButton__Container = styled(Button__Container)`
 `;
 const PurpleInactiveButton__Text = styled(Button__Text)`
   color: ${({ theme }) => theme.color.grey.white};
+`;
+
+// case "PURPLE_SMALL_FILL"
+const PurpleSmallFillButton__Container = styled(Button__Container)`
+  background-color: ${({ theme }) => theme.color.purple.text};
+  padding: 4px 8px;
+  border: 1.5px solid ${({ theme }) => theme.color.purple.text};
+`;
+const PurpleSmallFillButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.white};
+  font-size: ${({ theme }) => theme.size.body};
+`;
+
+// case "PURPLE_SMALL_HOLLOW"
+const PurpleSmallHollowButton__Container = styled(Button__Container)`
+  padding: 4px 8px;
+  border: 1.5px solid ${({ theme }) => theme.color.purple.main};
+`;
+const PurpleSmallHollowButton__Text = styled(Button__Text)`
+  color: ${({ theme }) => theme.color.grey.mild};
+  font-size: ${({ theme }) => theme.size.body};
 `;
 
 // case "GREY"

@@ -1,5 +1,5 @@
 import "styled-components/native";
-import { ThemeColors, ThemeSizes } from "src/Object/Type";
+import { ThemeColorsType, ThemeSizes } from "src/Object/Type";
 
 /**
  * styled-components/native에서 export되는 DefaultTheme을 덮어씌움으로써
@@ -9,7 +9,7 @@ import { ThemeColors, ThemeSizes } from "src/Object/Type";
  */
 declare module "styled-components/native" {
   export interface DefaultTheme {
-    color: ThemeColors;
+    color: ThemeColorsType;
     size: ThemeSizes;
   }
 }

@@ -3,9 +3,10 @@
  * @author 현웅
  */
 export function getCurrentISOTime() {
-  const KOREA_GMT = new Date();
-  KOREA_GMT.setHours(KOREA_GMT.getHours() + 9);
-  return KOREA_GMT.toISOString();
+  // const KOREA_GMT = new Date();
+  // KOREA_GMT.setHours(KOREA_GMT.getHours() + 9);
+  // return new KOREA_GMT.toISOString();
+  return new Date().toISOString();
 }
 
 /**
@@ -36,18 +37,15 @@ export function convertTimeToMMDDHHMM(time: string | Date) {
  * @author 현웅
  */
 export function didDatePassed(deadline: string | Date) {
-  const currentTime = new Date();
-  currentTime.setHours(currentTime.getHours() + 9);
-  return new Date(deadline) < currentTime;
+  return new Date(deadline) < new Date();
 }
 
 /**
  * 해당 시간이 현재 시간 보다 며칠 뒤에 있는지 계산하여 값으로 전달합니다.
  * @author 원제
  */
-export function getDateDifference(deadline: string | Date) {
-
-  const currentTime = new Date();
-  return Math.floor((new Date(deadline).getTime() - currentTime.getTime()) / 1000 / 60 / 60 / 24);
-  
+export function getRemainedDays(deadline: string | Date) {
+  return Math.floor(
+    (new Date(deadline).getTime() - new Date().getTime()) / 1000 / 60 / 60 / 24,
+  );
 }

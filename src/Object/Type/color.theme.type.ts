@@ -2,7 +2,7 @@
  * LightTheme, DarkTheme에 상관없이 공통으로 쓰이는 색상 타입
  * @author 현웅
  */
-export type CommonThemeColors = {
+export type CommonThemeColorsType = {
   blue: {
     main: string;
     mild: string;
@@ -45,6 +45,6 @@ export type CommonThemeColors = {
  * @types/styled-components.d.ts 에서 import하여 사용합니다.
  * @author 현웅
  */
-export type ThemeColors = CommonThemeColors & {
+export type ThemeColorsType = CommonThemeColorsType & {
   background: string;
 };

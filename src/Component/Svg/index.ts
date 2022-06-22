@@ -27,7 +27,9 @@ export type BottomTabSvgIconProps = SvgProps & {
 export * from "./CheckIcon";
 export * from "./CommunityIcon";
 export * from "./HomeIcon";
+export * from "./MarkedBookIcon";
 export * from "./MypageIcon";
 export * from "./PartnerIcon";
+export * from "./PickpleResearchIcon";
 export * from "./ResearchIcon";
 export * from "./ScrapIcon";
