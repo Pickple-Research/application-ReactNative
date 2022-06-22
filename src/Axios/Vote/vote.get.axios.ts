@@ -1,5 +1,6 @@
 import customAxios from "../axios.core";
 import { VoteSchema, VoteCommentSchema } from "src/Schema";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 최신 투표를 가져옵니다
@@ -15,6 +16,7 @@ export const axiosGetRecentVotes = async () => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "투표를 불러오지 못했습니다" });
       return null;
     });
 };
@@ -33,6 +35,7 @@ export const axiosGetVoteById = async (voteId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "투표를 불러오지 못했습니다" });
       return null;
     });
 };
@@ -51,6 +54,7 @@ export const axiosGetVoteComments = async (voteId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "댓글을 불러오지 못했습니다" });
       return null;
     });
 };

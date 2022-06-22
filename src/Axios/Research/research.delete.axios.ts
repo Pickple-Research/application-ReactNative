@@ -1,4 +1,5 @@
 import customAxios from "../axios.core";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 리서치를 삭제합니다.
@@ -16,6 +17,7 @@ export const axiosDeleteResearch = async (researchId: string) => {
       return true;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "리서치 삭제에 실패하였습니다" });
       return false;
     });
 };

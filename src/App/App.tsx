@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
 import { CompleteFillProfileModal } from "src/Modal";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "src/Config";
 import { useResearchStore, useVoteStore } from "src/Zustand";
 import { axiosGetRecentResearches, axiosGetRecentVotes } from "src/Axios";
 import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
@@ -62,6 +64,7 @@ export default function App() {
             <AppStackNavigator />
 
             <CompleteFillProfileModal />
+            <Toast config={toastConfig} />
           </NavigationContainer>
         </Container>
       </MenuProvider>

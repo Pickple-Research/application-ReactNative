@@ -1,4 +1,5 @@
 import customAxios from "../axios.core";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 투표를 삭제합니다.
@@ -16,6 +17,7 @@ export const axiosDeleteVote = async (voteId: string) => {
       return true;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "투표 삭제에 실패하였습니다" });
       return false;
     });
 };

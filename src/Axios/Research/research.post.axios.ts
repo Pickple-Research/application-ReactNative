@@ -5,6 +5,7 @@ import {
   ResearchReplySchema,
 } from "src/Schema";
 import { ResearchPurpose } from "src/Object/Enum";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 이미지가 포함되지 않은 리서치를 업로드합니다.
@@ -34,6 +35,7 @@ export const axiosUploadResearch = async (research: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "리서치 업로드에 실패했습니다" });
       return null;
     });
 };
@@ -55,6 +57,7 @@ export const axiosUploadResearchWithImages = async (formData: FormData) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "리서치 업로드에 실패했습니다" });
       return null;
     });
 };
@@ -81,6 +84,10 @@ export const axiosUploadResearchComment = async (param: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "리서치 댓글 등록에 실패했습니다",
+      });
       return null;
     });
 };
@@ -108,6 +115,10 @@ export const axiosUploadResearchReply = async (param: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "리서치 대댓글 등록에 실패했습니다",
+      });
       return null;
     });
 };
@@ -134,6 +145,10 @@ export const axiosReportResearch = async (param: {
       return true;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "리서치 신고가 정상적으로 처리되지 못했습니다",
+      });
       return false;
     });
 };

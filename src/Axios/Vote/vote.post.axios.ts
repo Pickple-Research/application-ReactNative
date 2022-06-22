@@ -5,6 +5,7 @@ import {
   VoteCommentSchema,
   VoteReplySchema,
 } from "src/Schema";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 투표를 업로드합니다.
@@ -27,6 +28,7 @@ export const axiosUploadVote = async (vote: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "투표 업로드에 실패했습니다" });
       return null;
     });
 };
@@ -53,6 +55,10 @@ export const axiosUploadVoteComment = async (param: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "투표 댓글 등록에 실패했습니다",
+      });
       return null;
     });
 };
@@ -80,6 +86,10 @@ export const axiosUploadVoteReply = async (param: {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "투표 대댓글 등록에 실패했습니다",
+      });
       return null;
     });
 };
@@ -106,6 +116,10 @@ export const axiosReportVote = async (param: {
       return true;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "투표 신고가 정상적으로 처리되지 못했습니다",
+      });
       return false;
     });
 };

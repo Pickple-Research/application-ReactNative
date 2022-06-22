@@ -1,4 +1,5 @@
 import customAxios from "../axios.core";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 회원을 탈퇴합니다.
@@ -16,6 +17,7 @@ export const axiosDeleteUser = async (userId: string) => {
       return true;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "회원 탈퇴에 실패했습니다" });
       return false;
     });
 };

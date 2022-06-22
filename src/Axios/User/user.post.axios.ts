@@ -1,4 +1,5 @@
 import customAxios from "../axios.core";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 이름 / 이메일 / 비밀번호를 이용해 미인증 사용자를 생성합니다.
@@ -26,6 +27,7 @@ export const axiosSignupAsUnauthorizedUser = async (
       return true;
     })
     .catch(error => {
+      handleAxiosError({ error, errorMessage: "회원가입에 실패했습니다" });
       return false;
     });
 };

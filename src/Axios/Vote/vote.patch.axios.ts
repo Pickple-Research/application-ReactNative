@@ -1,6 +1,7 @@
 import customAxios from "../axios.core";
 import { VoteSchema } from "src/Schema";
 import { ParticipatedVoteInfo } from "src/Schema/User/Embedded";
+import { handleAxiosError } from "src/Util";
 
 /**
  * 투표를 조회합니다.
@@ -28,6 +29,10 @@ export const axiosScrapVote = async (voteId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "투표 스크랩이 정상적으로 처리되지 못했습니다",
+      });
       return null;
     });
 };
@@ -47,6 +52,10 @@ export const axiosUnscrapVote = async (voteId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "투표 스크랩 취소가 정상적으로 처리되지 못했습니다",
+      });
       return null;
     });
 };
@@ -79,7 +88,10 @@ export const axiosParticipateVote = async (
       return response.data;
     })
     .catch(error => {
-      //TODO: '투표 참여가 정상적으로 이루어지지 않은 것 같습니다' 처리
+      handleAxiosError({
+        error,
+        errorMessage: "투표 참여에 실패했습니다",
+      });
       return null;
     });
 };
@@ -99,6 +111,10 @@ export const axiosCloseVote = async (voteId: string) => {
       return response.data;
     })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "투표 마감에 실패했습니다",
+      });
       return null;
     });
 };
