@@ -7,5 +7,5 @@ export * from "./Vote.option.component";
 export * from "./Vote.option.result.component";
 export * from "./Vote.option.resultsBox.component";
 export * from "./Vote.optionsBox.component";
-export * from "./Vote.partcipantInfo.component";
+export * from "./Vote.partcipationInfo.component";
 export * from "./Vote.row.component";

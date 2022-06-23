@@ -1,32 +1,36 @@
 import React from "react";
+import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppStackProps } from "src/Navigator";
+import { VoteParticipationInfo } from "./Vote.partcipationInfo.component";
 import { VoteSchema } from "src/Schema";
-import { H3, H4, SmallText } from "src/StyledComponents/Text";
+import { H3, SmallText } from "src/StyledComponents/Text";
 
 /**
  * 투표 리스트의 투표 한 줄 디자인입니다.
  * @author 현웅
  */
-export function VoteListItem({ vote }: { vote: VoteSchema }) {
-  const navigation = useNavigation<NavigationProp<AppStackProps>>();
-
+export function VoteListItem({
+  vote,
+  participated,
+  style,
+  onPress,
+}: {
+  vote: VoteSchema;
+  participated: boolean;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
+}) {
   return (
-    <Container
-      activeOpacity={1}
-      onPress={() => {
-        navigation.navigate("CommunityVoteDetailScreen", {
-          vote,
-        });
-      }}>
+    <Container style={style} activeOpacity={1} onPress={onPress}>
       <TitleTagContainer>
         <TitleText numberOfLines={1}>{vote.title}</TitleText>
         <TagText>{`vote.tag`}</TagText>
       </TitleTagContainer>
-      <NicknameText>
-        {vote.authorNickname ? `${vote.authorNickname}` : `익명`}
-      </NicknameText>
+      <VoteParticipationInfo
+        participated={participated}
+        participantsNum={vote.participantsNum}
+        commentsNum={vote.commentsNum}
+      />
     </Container>
   );
 }
@@ -34,7 +38,8 @@ export function VoteListItem({ vote }: { vote: VoteSchema }) {
 const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  padding: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 `;
 
 const TitleTagContainer = styled.View`
@@ -43,11 +48,10 @@ const TitleTagContainer = styled.View`
 `;
 
 const TitleText = styled(H3)`
-  margin-bottom: 8px;
+  color: ${({ theme }) => theme.color.grey.main};
+  margin-bottom: 4px;
 `;
 
 const TagText = styled(SmallText)`
   color: ${({ theme }) => theme.color.grey.mild};
 `;
-
-const NicknameText = styled(H4)``;

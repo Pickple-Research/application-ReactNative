@@ -14,6 +14,7 @@ import {
 import { HomeLandingScreen, HomeLandingScreenProps } from "src/Screen/Home";
 import {
   CommunityLandingScreen,
+  CommunityLandingScreenHeader,
   CommunityLandingScreenProps,
 } from "src/Screen/Community";
 import {
@@ -103,6 +104,8 @@ export function LandingBottomTabNavigator() {
         name={"CommunityLandingScreen"}
         component={CommunityLandingScreen}
         options={({ route }) => ({
+          headerShown: true,
+          header: CommunityLandingScreenHeader,
           tabBarIcon: ({ focused }) => (
             <TabBarIcon label="커뮤니티" focused={focused} />
           ),

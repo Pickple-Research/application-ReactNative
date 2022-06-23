@@ -9,7 +9,7 @@ import Toast from "react-native-toast-message";
 import { toastConfig } from "src/Config";
 import { useResearchStore, useVoteStore } from "src/Zustand";
 import { axiosGetRecentResearches, axiosGetRecentVotes } from "src/Axios";
-import { lightThemeColors, darkThemeColors, themeSizes } from "src/Theme";
+import { themeColors, themeSizes } from "src/Theme";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -43,7 +43,7 @@ export default function App() {
 
   if (!initialLoaded) {
     return (
-      <ThemeProvider theme={{ color: lightThemeColors, size: themeSizes }}>
+      <ThemeProvider theme={{ color: themeColors(), size: themeSizes }}>
         <Container>
           <SplashScreen />
         </Container>
@@ -56,8 +56,7 @@ export default function App() {
       //? styled-components의 ThemeProvider를 이용하여 theme을 배포합니다.
       //? useLightMode가 참이라면 theme.color의 값은 lightThemeColors가 되고,
       //? 그렇지 않다면 darkThemeColor가 됩니다.
-      // theme={{ color: useLightMode ? lightThemeColors : darkThemeColors }}>
-      theme={{ color: lightThemeColors, size: themeSizes }}>
+      theme={{ color: themeColors(), size: themeSizes }}>
       <MenuProvider>
         <Container>
           <NavigationContainer>

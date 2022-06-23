@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import {
   VoteListContainer,
-  VoteParticipantInfo,
+  VoteParticipationInfo,
   VoteOption,
   VoteOptionResult,
 } from "src/Component/Vote";
@@ -15,6 +15,7 @@ import { H3, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
 
 /**
+ * @deprecated
  * 커뮤니티 랜딩 페이지 '지금 핫한 투표는' 섹션
  * @author 현웅
  */
@@ -65,7 +66,7 @@ function HotVote({ vote }: { vote: VoteSchema }) {
         })}
         <HotVote__BottomContainer>
           <HotVote__Viewed>{`${vote.viewsNum}명이 이 투표를 읽었습니다.`}</HotVote__Viewed>
-          <VoteParticipantInfo
+          <VoteParticipationInfo
             participantsNum={vote.participantsNum}
             commentsNum={vote.commentsNum}
           />

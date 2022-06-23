@@ -2,10 +2,21 @@ import create from "zustand";
 import { useResearchStore } from "./research.zustand";
 import { ResearchType } from "src/Object/Enum";
 
+export type ResearchSortStandard =
+  | "RECENT"
+  | "GIFT"
+  | "PARTICIPANT"
+  | "CLOSE"
+  | "CREDIT";
+
 type ResearchLandingScreenStoreProps = {
-  /** 리서치 랜딩 페이지에서 보여줄 리서치 타입 */
-  selectedType: ResearchType;
-  setSelectedType: (type: ResearchType) => void;
+  /** 리서치 랜딩 페이지 리서치 리스트 정렬 기준 */
+  researchSortStandard: ResearchSortStandard;
+  setResearchSortStandard: (standard: ResearchSortStandard) => void;
+
+  /** 리서치 랜딩 페이지 리서치 리스트에서 보여줄 리서치 타입 */
+  selectedResearchType: ResearchType;
+  setSelectedResearchType: (researchType: ResearchType) => void;
 
   /** 리서치 로드 중 여부 */
   loading: boolean;
@@ -21,9 +32,15 @@ type ResearchLandingScreenStoreProps = {
  */
 export const useResearchLandingScreenStore =
   create<ResearchLandingScreenStoreProps>((set, get) => ({
-    selectedType: ResearchType.ALL,
-    setSelectedType: (type: ResearchType) => {
-      set({ selectedType: type });
+    researchSortStandard: "RECENT",
+    setResearchSortStandard: (standard: ResearchSortStandard) => {
+      //TODO: 정렬 후 보여지는 리서치도 정렬해줘야 합니다.
+      set({ researchSortStandard: standard });
+    },
+
+    selectedResearchType: ResearchType.ALL,
+    setSelectedResearchType: (researchType: ResearchType) => {
+      set({ selectedResearchType: researchType });
     },
 
     loading: false,
@@ -36,7 +53,8 @@ export const useResearchLandingScreenStore =
 
     clearState: () => {
       set({
-        selectedType: ResearchType.ALL,
+        researchSortStandard: "RECENT",
+        selectedResearchType: ResearchType.ALL,
         loading: false,
       });
     },

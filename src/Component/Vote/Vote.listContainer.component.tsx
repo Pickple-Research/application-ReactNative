@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 
 /**
  * 핫투표, 인기투표, 최신투표 등
- * 투표 콘텐츠를 감쌀 때 사용되는,
+ * 투표 리스트 콘텐츠를 감쌀 때 사용되는,
  * 그림자 이펙트가 있는 Container입니다.
  * @author 현웅
  */
@@ -29,6 +29,8 @@ export function VoteListContainer({
 }
 
 const Container = styled.View`
+  padding-left: 12px;
+  padding-right: 12px;
   border: 1px solid ${({ theme }) => theme.color.purple.mild};
   border-radius: 10px;
 `;

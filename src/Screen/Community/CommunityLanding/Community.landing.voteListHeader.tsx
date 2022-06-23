@@ -6,49 +6,69 @@ import {
   MenuOptions,
   MenuOption,
 } from "react-native-popup-menu";
-import { ResearchTypeCarousel } from "src/Component/Research";
 import { PopupMenuOption } from "src/Component/Popup";
 import shallow from "zustand/shallow";
-import { useResearchLandingScreenStore } from "src/Zustand";
+import { useCommunityLandingScreenStore, VoteSortStandard } from "src/Zustand";
 import { BodyText } from "src/StyledComponents/Text";
 import { globalStyles, popupStyles } from "src/Style";
 import SortArrowIcon from "src/Resource/svg/sort-arrow-icon.svg";
 
 /**
- * 리서치 랜딩 페이지의 리서치 리스트의 필터 헤더입니다.
+ * 커뮤니티 랜딩 페이지 투표 리스트의 필터 헤더입니다.
  * @author 현웅
  */
-export function ResearchLandingListFilterHeader() {
-  const { selectedType, setSelectedType } = useResearchLandingScreenStore(
+export function CommunityLandingVoteListHeader() {
+  const {
+    voteSortStandard,
+    setVoteSortStandard,
+    //  selectedType,
+    //  setSelectedType
+  } = useCommunityLandingScreenStore(
     state => ({
-      selectedType: state.selectedType,
-      setSelectedType: state.setSelectedType,
+      voteSortStandard: state.voteSortStandard,
+      setVoteSortStandard: state.setVoteSortStandard,
+      //   selectedType: state.selectedType,
+      //   setSelectedType: state.setSelectedType,
     }),
     shallow,
   );
 
   return (
     <Container>
-      <SortBy />
-      <ResearchTypeCarousel
-        selectedType={selectedType}
-        setSelectedType={setSelectedType}
+      <SortBy
+        voteSortStandard={voteSortStandard}
+        setVoteSortStandard={setVoteSortStandard}
       />
     </Container>
   );
 }
 
 /**
- * 리서치 정렬 기준 선택 팝업 메뉴
+ * 투표 정렬 기준 선택 팝업 메뉴
  * @author 현웅
  */
-function SortBy() {
+function SortBy({
+  voteSortStandard,
+  setVoteSortStandard,
+}: {
+  voteSortStandard: VoteSortStandard;
+  setVoteSortStandard: (standard: VoteSortStandard) => void;
+}) {
+  const popupMenuTriggerText = (standard: VoteSortStandard) => {
+    switch (standard) {
+      case "RECENT":
+        return "최신순";
+    }
+  };
+
   return (
     <SortBy__Container style={globalStyles.screen__horizontalPadding}>
       <Menu>
         <MenuTrigger>
           <PopupMenuTrigger__Container>
-            <SortBy__Text>최신순</SortBy__Text>
+            <SortBy__Text>
+              {popupMenuTriggerText(voteSortStandard)}
+            </SortBy__Text>
             <SortArrowIcon />
           </PopupMenuTrigger__Container>
         </MenuTrigger>
@@ -57,21 +77,11 @@ function SortBy() {
           <MenuOption>
             <PopupMenuOption
               content="최신순"
-              onPress={() => {}}
-              selected={true}
+              onPress={() => {
+                setVoteSortStandard("RECENT");
+              }}
+              // selected={voteSortStandard === "RECENT"}
             />
-          </MenuOption>
-          <MenuOption>
-            <PopupMenuOption content="경품 많은 순" onPress={() => {}} />
-          </MenuOption>
-          <MenuOption>
-            <PopupMenuOption content="참여자 많은 순" onPress={() => {}} />
-          </MenuOption>
-          <MenuOption>
-            <PopupMenuOption content="마감 임박순" onPress={() => {}} />
-          </MenuOption>
-          <MenuOption>
-            <PopupMenuOption content="크레딧순" onPress={() => {}} />
           </MenuOption>
         </MenuOptions>
       </Menu>
@@ -82,7 +92,6 @@ function SortBy() {
 const Container = styled.View`
   background-color: ${({ theme }) => theme.color.grey.white};
   padding-bottom: 8px;
-  /* border: 1px solid black; */
 `;
 
 const SortBy__Container = styled.View`

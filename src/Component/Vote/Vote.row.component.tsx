@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { VoteParticipantInfo } from "src/Component/Vote";
+import { VoteParticipationInfo } from "src/Component/Vote";
 import { H4, BodyText } from "src/StyledComponents/Text";
 import { VoteSchema } from "src/Schema";
 
@@ -23,7 +23,7 @@ export function VoteRow({ vote }: { vote: VoteSchema }) {
       }}>
       <VoteCategory>자유 토픽</VoteCategory>
       <VoteTitle numberOfLines={1}>{vote.title}</VoteTitle>
-      <VoteParticipantInfo
+      <VoteParticipationInfo
         participantsNum={vote.participantsNum}
         commentsNum={vote.commentsNum}
       />
