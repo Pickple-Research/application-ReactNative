@@ -11,8 +11,7 @@ import {
   MypageUploadedVoteScreenProps,
 } from "./Mypage.uploaded.vote.screen";
 import { H1 } from "src/StyledComponents/Text";
-//TODO: 추후, 선택된 테마에 따라 색상 변경
-import { lightThemeColors, darkThemeColors } from "src/Theme";
+import { themeColors } from "src/Theme";
 
 export type MypageUploadedScreenProps = {};
 
@@ -88,9 +87,9 @@ const TabBarLabel__Purple = styled(TabBarLabel__Unfocused)`
 `;
 
 const styles = StyleSheet.create({
-  blueIndicator: { height: 3, backgroundColor: lightThemeColors.blue.text },
+  blueIndicator: { height: 3, backgroundColor: themeColors().blue.text },
   purpleIndicator: {
     height: 3,
-    backgroundColor: lightThemeColors.purple.text,
+    backgroundColor: themeColors().purple.text,
   },
 });

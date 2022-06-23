@@ -6,7 +6,7 @@ import { AppStackProps } from "src/Navigator";
 import { VoteSchema } from "src/Schema";
 import { MarkedBookIcon } from "src/Component/Svg";
 import { H3 } from "src/StyledComponents/Text";
-import { lightThemeColors, darkThemeColors } from "src/Theme";
+import { themeColors } from "src/Theme";
 
 /**
  * 마이페이지에서 사용되는 투표 리스트 아이템입니다 (참여, 스크랩, 작성한 투표 컴포넌트)
@@ -40,9 +40,7 @@ export function VoteMypageListItem({
 function Icon({ closed }: { closed: boolean }) {
   return (
     <Icon__Container closed={closed}>
-      <MarkedBookIcon
-        color={closed ? undefined : lightThemeColors.purple.text}
-      />
+      <MarkedBookIcon color={closed ? undefined : themeColors().purple.text} />
     </Icon__Container>
   );
 }

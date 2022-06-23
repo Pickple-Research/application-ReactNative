@@ -18,12 +18,12 @@ import { H4 } from "src/StyledComponents/Text";
  * import { ResearchType } from "@Object/Enum"
  *
  * function ResearchTypes(){
- *  const [selectedType, setSelectedType] = useState<ResearchType>(ResearchType.ALL)
+ *  const [selectedResearchType, setSelectedResearchType] = useState<ResearchType>(ResearchType.ALL)
  *
  *  return(
  *    <ResearchTypeCarousel
- *      selectedType={selectedType}
- *      setSelectedType={setSelectedType}
+ *      selectedResearchType={selectedResearchType}
+ *      setSelectedResearchType={setSelectedResearchType}
  *    />
  *  )
  * }
@@ -31,11 +31,11 @@ import { H4 } from "src/StyledComponents/Text";
  * @author 현웅
  */
 export function ResearchTypeCarousel({
-  selectedType,
-  setSelectedType,
+  selectedResearchType,
+  setSelectedResearchType,
 }: {
-  selectedType: ResearchType;
-  setSelectedType: (type: ResearchType) => void;
+  selectedResearchType: ResearchType;
+  setSelectedResearchType: (type: ResearchType) => void;
 }) {
   /**
    * 리서치 타입 캐러샐 컴포넌트입니다.
@@ -44,13 +44,13 @@ export function ResearchTypeCarousel({
    * @author 현웅
    */
   function ResearchTypeCarouselItem({ item }: { item: ResearchType }) {
-    if (item === selectedType) {
+    if (item === selectedResearchType) {
       return <Chip content={item} type="RESEARCH_TYPE" />;
     }
     return (
       <Type__Text
         onPress={() => {
-          setSelectedType(item);
+          setSelectedResearchType(item);
         }}>
         {item}
       </Type__Text>

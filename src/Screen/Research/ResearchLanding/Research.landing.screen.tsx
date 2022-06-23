@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
 import { ResearchLandingRecommend } from "./Research.landing.recommend";
-import { ResearchLandingList } from "./Research.landing.list";
+import { ResearchLandingResearchList } from "./Research.landing.researchList";
 import { CreateIcon } from "src/Component/Icon";
 
 /**
@@ -25,7 +25,7 @@ export type ResearchLandingScreenProps = {};
  *
  *  3. 애니메이션 효과(Y축으로 이동)를 일으킬 때 사용할 값을 scrollY 로 설정합니다.
  *
- *  4. ResearchList 를 구성하는 FlatList 에서 Scroll 이벤트가 일어났을 때 호출할 함수 onResearchFlatListScroll 를 정의합니다.
+ *  4. ResearchList 를 구성하는 FlatList 에서 Scroll 이벤트가 일어났을 때 호출할 함수 onResearchListScroll 를 정의합니다.
  *    해당 함수는 스크롤 이벤트의 y 값을 3.단계에서 정의한 scrollY 에 넘겨줍니다.
  *
  *  5. 이벤트 발생 시 scrollY 가 반환할 값을 지정합니다. scrollY.current.interpolate 를 recommendSectionTranslateY 에 정의하고
@@ -66,7 +66,7 @@ export function ResearchLandingScreen({
    * FlatList에서 Scroll 이벤트가 일어났을 때 호출할 함수입니다.
    * Y축 방향으로 일어난 스크롤 값을 scrollY.current에 넘겨줍니다.
    */
-  const onResearchFlatListScroll = Animated.event(
+  const onResearchListScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY.current } } }],
     { useNativeDriver: true },
   );
@@ -105,9 +105,9 @@ export function ResearchLandingScreen({
 
   return (
     <Container>
-      <ResearchLandingList
+      <ResearchLandingResearchList
         recommendSectionHeight={recommendSectionHeight}
-        onScroll={onResearchFlatListScroll}
+        onScroll={onResearchListScroll}
       />
       {/*
         //! 디자인상 ResearchLandingRecommend가 제일 위에 있지만

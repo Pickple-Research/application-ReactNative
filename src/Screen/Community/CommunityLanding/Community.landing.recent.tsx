@@ -7,6 +7,7 @@ import { useVoteStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 
 /**
+ * @deprecated
  * 커뮤니티 랜딩 페이지 최신 투표 섹션
  * @author 현웅
  */

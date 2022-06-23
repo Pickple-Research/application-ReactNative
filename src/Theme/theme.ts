@@ -1,4 +1,4 @@
-import { lightThemeColors, darkThemeColors } from "./color.theme";
+import { themeColors } from "./color.theme";
 import { themeSizes } from "./size.theme";
 
 /**
@@ -6,31 +6,6 @@ import { themeSizes } from "./size.theme";
  * @author 현웅
  */
 export const theme = {
-  color: lightThemeColors,
+  color: themeColors(),
   size: themeSizes,
 };
-
-//TODO: Platform과 Appearance에 따라 theme을 다르게 배포해주어야 합니다.
-// function getTheme(){
-//   if(Platform.OS === "android"){
-//     if(Appearance.getColorScheme() === "light"){
-//       return lightThemeColors
-//     } else {
-//       return darkThemeColors
-//     }
-//   }
-
-//   if(Platform.OS === "ios"){
-//     if(Appearance.getColorScheme() === "light"){
-//       return lightThemeColors
-//     } else {
-//       return darkThemeColors
-//     }
-//   }
-
-//   if(Appearance.getColorScheme() === "light"){
-//     return lightThemeColors
-//   } else {
-//     return darkThemeColors
-//   }
-// }

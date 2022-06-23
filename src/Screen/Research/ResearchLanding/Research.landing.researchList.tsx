@@ -3,8 +3,8 @@ import { Animated } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
+import { ResearchLandingResearchListHeader } from "./Research.landing.researchListHeader";
 import { ResearchListItem } from "src/Component/Research";
-import { ResearchLandingListFilterHeader } from "./Research.landing.listFilterHeader";
 import { ResearchSchema } from "src/Schema";
 import shallow from "zustand/shallow";
 import { useResearchStore, useResearchLandingScreenStore } from "src/Zustand";
@@ -14,7 +14,7 @@ import { globalStyles } from "src/Style";
  * 리서치 랜딩 페이지 리서치 리스트 섹션
  * @author 현웅
  */
-export function ResearchLandingList({
+export function ResearchLandingResearchList({
   recommendSectionHeight,
   onScroll,
 }: {
@@ -51,11 +51,14 @@ export function ResearchLandingList({
             />
           );
         }}
-        contentContainerStyle={{ paddingTop: recommendSectionHeight }}
+        contentContainerStyle={{
+          paddingTop: recommendSectionHeight,
+          paddingBottom: 40,
+        }}
         onScroll={onScroll}
         //? 스크롤 이벤트를 일으키는 간극을 조정합니다. iOS에서 버벅이는 현상을 방지합니다.
         scrollEventThrottle={16}
-        ListHeaderComponent={ResearchLandingListFilterHeader}
+        ListHeaderComponent={ResearchLandingResearchListHeader}
         //? FlatList 헤더가 최상단에 sticky하도록 설정합니다.
         stickyHeaderIndices={[0]}
         onEndReached={getOlderResearches}

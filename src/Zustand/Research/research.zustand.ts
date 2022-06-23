@@ -61,7 +61,9 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
   },
 
   appendResearchListItem: (newResearch: ResearchSchema | ResearchSchema[]) => {
-    set({ researches: appendResearchListItem(newResearch, get().researches) });
+    set({
+      researches: appendResearchListItem(newResearch, get().researches),
+    });
   },
 
   updateResearchListItem: (updatedResearch: ResearchSchema) => {
@@ -82,6 +84,9 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
     const newerResearches = await axiosGetNewerResearches(
       get().researches[0].pulledupAt,
     );
+    if (newerResearches !== null) {
+      get().addResearchListItem(newerResearches);
+    }
     return;
   },
 
@@ -114,7 +119,7 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
 
   clearState: () => {
     set({
-      researches: [],
+      researches: [BlankResearch],
       noMoreOlderResearches: false,
     });
   },

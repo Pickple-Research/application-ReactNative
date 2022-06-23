@@ -1,39 +1,53 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import { Animated, LayoutChangeEvent } from "react-native";
 import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
-import { CommunityLandingSearch } from "./Community.landing.search";
-import { CommunityLandingInterest } from "./Community.landing.interest";
-import { CommunityLandingHotVote } from "./Community.landing.hotVote";
-import { CommunityLandingPopular } from "./Community.landing.popular";
-import { CommunityLandingRecent } from "./Community.landing.recent";
-import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import { CommunityLandingRecommend } from "./Community.landing.recommend";
+import { CommunityLandingVoteList } from "./Community.landing.voteList";
 import { CreateIcon } from "src/Component/Icon";
 
 export type CommunityLandingScreenProps = {};
 
-type AppStackCommunityLandingScreenProps = NativeStackScreenProps<
-  AppStackProps,
-  "LandingBottomTabNavigator"
->;
-
 /**
- * 커뮤니티 랜딩 페이지
+ * 커뮤니티 랜딩 페이지. Collapsible Header 구현 방식은
+ * Research.landing.screen.tsx 와 동일합니다.
  * @author 현웅
  */
 export function CommunityLandingScreen({
   route,
   navigation,
-}: AppStackCommunityLandingScreenProps) {
+}: NativeStackScreenProps<AppStackProps, "LandingBottomTabNavigator">) {
+  const [recommendSectionHeight, setRecommendSectionHeight] =
+    useState<number>(0);
+
+  function onRecommendSectionLayout(event: LayoutChangeEvent) {
+    setRecommendSectionHeight(event.nativeEvent.layout.height);
+  }
+
+  const scrollY = useRef(new Animated.Value(0));
+
+  const onVoteListScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { y: scrollY.current } } }],
+    { useNativeDriver: true },
+  );
+
+  const recommendSectionTranslateY = scrollY.current.interpolate({
+    inputRange: [0, recommendSectionHeight],
+    outputRange: [0, -recommendSectionHeight],
+    extrapolate: "clamp",
+  });
+
   return (
     <Container>
-      <WhiteBackgroundScrollView>
-        <CommunityLandingSearch />
-        <CommunityLandingInterest />
-        <CommunityLandingHotVote />
-        <CommunityLandingPopular />
-        <CommunityLandingRecent />
-      </WhiteBackgroundScrollView>
+      <CommunityLandingVoteList
+        recommendSectionHeight={recommendSectionHeight}
+        onScroll={onVoteListScroll}
+      />
+      <CommunityLandingRecommend
+        onLayout={onRecommendSectionLayout}
+        translateY={recommendSectionTranslateY}
+      />
       <CreateIcon
         onPress={() => {
           navigation.navigate("CommunityVoteUploadScreen", {});
@@ -44,6 +58,7 @@ export function CommunityLandingScreen({
 }
 
 const Container = styled.SafeAreaView`
-  flex: 1;
   position: relative;
+  flex: 1;
+  background-color: ${({ theme }) => theme.color.grey.white};
 `;

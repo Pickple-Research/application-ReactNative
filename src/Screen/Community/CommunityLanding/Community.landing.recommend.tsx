@@ -1,43 +1,35 @@
 import React from "react";
 import { Animated, LayoutChangeEvent } from "react-native";
 import styled from "styled-components/native";
-import { ResearchRecommendCarousel } from "src/Component/Research";
-import { useUserStore, useResearchStore } from "src/Zustand";
 import { H1 } from "src/StyledComponents/Text";
 
 /**
- * 리서치 랜딩 페이지 리서치 추천 섹션
+ * 커뮤니티 랜딩 페이지 투표 추천 섹션
  * @author 현웅
  */
-export function ResearchLandingRecommend({
+export function CommunityLandingRecommend({
   onLayout,
   translateY,
 }: {
   onLayout: (event: LayoutChangeEvent) => void;
   translateY: Animated.AnimatedInterpolation;
 }) {
-  const user = useUserStore(state => state.user);
-  const researches = useResearchStore(state => state.researches);
-
   return (
     <Container onLayout={onLayout} style={{ transform: [{ translateY }] }}>
-      <Greeting nickname={user.nickname} />
-      <ResearchRecommendCarousel researches={researches} />
+      <Greeting />
     </Container>
   );
-}
 
-function Greeting({ nickname }: { nickname: string }) {
-  return (
-    <Greeting__Container>
-      <Greeting__Text>
-        {`안녕하세요, ${
-          nickname ? nickname : "예비 픽플러"
-        }님!\n이 리서치 어떠세요?`}
-      </Greeting__Text>
-      <Greeting__ProfileIcon />
-    </Greeting__Container>
-  );
+  function Greeting() {
+    return (
+      <Greeting__Container>
+        <Greeting__Text>
+          {`지금 뜨거운 감자는 뭘까?\n핫한 투표는`}
+        </Greeting__Text>
+        <Greeting__ProfileIcon />
+      </Greeting__Container>
+    );
+  }
 }
 
 const Container = styled(Animated.View)`

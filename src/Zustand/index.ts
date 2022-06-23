@@ -19,6 +19,7 @@ export * from "./Research/research.upload.zustand";
 
 export * from "./User/user.zustand";
 
+export * from "./Vote/community.landing.zustand";
 export * from "./Vote/vote.zustand";
 export * from "./Vote/vote.detail.zustand";
 export * from "./Vote/vote.upload.zustand";

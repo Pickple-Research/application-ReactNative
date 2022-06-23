@@ -61,3 +61,39 @@ export const darkThemeColors: ThemeColorsType = {
   ...commonThemeColors,
   background: "black",
 };
+
+/**
+ * 사용자가 선택한 테마에 따른 테마 색상을 반환합니다.
+ * @author 현웅
+ */
+export const themeColors = (theme: "LIGHT" | "DARK" = "LIGHT") => {
+  if (theme === "LIGHT") {
+    return lightThemeColors;
+  }
+  return darkThemeColors;
+};
+
+//TODO: Platform과 Appearance에 따라 theme을 다르게 배포해주어야 합니다.
+// function getTheme(){
+//   if(Platform.OS === "android"){
+//     if(Appearance.getColorScheme() === "light"){
+//       return lightThemeColors
+//     } else {
+//       return darkThemeColors
+//     }
+//   }
+
+//   if(Platform.OS === "ios"){
+//     if(Appearance.getColorScheme() === "light"){
+//       return lightThemeColors
+//     } else {
+//       return darkThemeColors
+//     }
+//   }
+
+//   if(Appearance.getColorScheme() === "light"){
+//     return lightThemeColors
+//   } else {
+//     return darkThemeColors
+//   }
+// }
