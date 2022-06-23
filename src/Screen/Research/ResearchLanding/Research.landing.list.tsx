@@ -6,7 +6,8 @@ import { AppStackProps } from "src/Navigator";
 import { ResearchListItem } from "src/Component/Research";
 import { ResearchLandingListFilterHeader } from "./Research.landing.listFilterHeader";
 import { ResearchSchema } from "src/Schema";
-import { useResearchStore } from "src/Zustand";
+import shallow from "zustand/shallow";
+import { useResearchStore, useResearchLandingScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 
 /**
@@ -21,6 +22,13 @@ export function ResearchLandingList({
   onScroll: (event: any) => void;
 }) {
   const researches = useResearchStore(state => state.researches);
+  const { loading, getOlderResearches } = useResearchLandingScreenStore(
+    state => ({
+      loading: state.loading,
+      getOlderResearches: state.getOlderResearches,
+    }),
+    shallow,
+  );
 
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
@@ -50,6 +58,7 @@ export function ResearchLandingList({
         ListHeaderComponent={ResearchLandingListFilterHeader}
         //? FlatList 헤더가 최상단에 sticky하도록 설정합니다.
         stickyHeaderIndices={[0]}
+        onEndReached={getOlderResearches}
       />
     </Container>
   );

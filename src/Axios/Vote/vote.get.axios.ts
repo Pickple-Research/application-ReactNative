@@ -58,3 +58,41 @@ export const axiosGetVoteComments = async (voteId: string) => {
       return null;
     });
 };
+
+/**
+ * 인자로 받은 voteId 을 기준으로 더 최신의 투표를 모두 찾고 가져옵니다.
+ * @author 현웅
+ */
+export const axiosGetNewerVotes = async (voteId: string) => {
+  return await customAxios
+    .request<VoteSchema[]>({
+      method: "GET",
+      url: `/votes/newer/${voteId}`,
+    })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch(error => {
+      handleAxiosError({ error, errorMessage: "투표를 불러오지 못했습니다" });
+      return null;
+    });
+};
+
+/**
+ * 인자로 받은 voteId 을 기준으로 더 오래된 투표를 10개 찾고 가져옵니다.
+ * @author 현웅
+ */
+export const axiosGetOlderVotes = async (voteId: string) => {
+  return await customAxios
+    .request<VoteSchema[]>({
+      method: "GET",
+      url: `/votes/older/${voteId}`,
+    })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch(error => {
+      handleAxiosError({ error, errorMessage: "투표를 불러오지 못했습니다" });
+      return null;
+    });
+};

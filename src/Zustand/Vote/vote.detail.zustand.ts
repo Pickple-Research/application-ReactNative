@@ -275,6 +275,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       set({ deleting: true });
       const result = await axiosDeleteVote(get().voteDetail._id);
       if (result) {
+        //TODO: #SPREAD
         //* 성공적으로 삭제된 경우, 투표 리스트에서 해당 투표를 삭제
         // useUserStore.getState().removeUploadedVoteId(get().voteDetail._id);
         // useMypageStore.getState().removeUploadedVoteInfo(get().voteDetail._id);

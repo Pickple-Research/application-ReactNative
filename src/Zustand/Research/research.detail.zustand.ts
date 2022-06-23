@@ -214,7 +214,8 @@ export const useResearchDetailScreenStore =
       set({ deleting: true });
       const result = await axiosDeleteResearch(get().researchDetail._id);
       if (result) {
-        //* 성공적으로 삭제된 경우, 리서치 리스트에서 해당 리서치를 삭제
+        //TODO: #SPREAD
+        //* 성공적으로 삭제된 경우, 리서치 리스트에서 해당 리서치를 삭제합니다.
         useResearchStore
           .getState()
           .removeResearchListItem(get().researchDetail._id);

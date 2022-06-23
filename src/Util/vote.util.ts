@@ -12,6 +12,17 @@ export function addVoteListItem(
 }
 
 /**
+ * 새로운 투표(들)를 기존의 투표 리스트 맨 뒤에 추가하고 반환합니다.
+ * @author 현웅
+ */
+export function appendVoteListItem(
+  newVote: VoteSchema | VoteSchema[],
+  voteList: VoteSchema[],
+) {
+  return [...voteList, newVote].flat();
+}
+
+/**
  * 업데이트된 투표를 기존의 투표 리스트에서 찾고 교체한 후 반환합니다.
  * @author 현웅
  */

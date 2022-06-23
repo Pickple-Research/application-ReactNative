@@ -9,7 +9,7 @@ import {
 import { ResearchTypeCarousel } from "src/Component/Research";
 import { PopupMenuOption } from "src/Component/Popup";
 import shallow from "zustand/shallow";
-import { useResearchStore } from "src/Zustand";
+import { useResearchLandingScreenStore } from "src/Zustand";
 import { BodyText } from "src/StyledComponents/Text";
 import { globalStyles, popupStyles } from "src/Style";
 import SortArrowIcon from "src/Resource/svg/sort-arrow-icon.svg";
@@ -19,7 +19,7 @@ import SortArrowIcon from "src/Resource/svg/sort-arrow-icon.svg";
  * @author 현웅
  */
 export function ResearchLandingListFilterHeader() {
-  const { selectedType, setSelectedType } = useResearchStore(
+  const { selectedType, setSelectedType } = useResearchLandingScreenStore(
     state => ({
       selectedType: state.selectedType,
       setSelectedType: state.setSelectedType,
@@ -38,6 +38,10 @@ export function ResearchLandingListFilterHeader() {
   );
 }
 
+/**
+ * 리서치 정렬 기준 선택 팝업 메뉴
+ * @author 현웅
+ */
 function SortBy() {
   return (
     <SortBy__Container style={globalStyles.screen__horizontalPadding}>
