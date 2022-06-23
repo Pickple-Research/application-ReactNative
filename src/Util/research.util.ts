@@ -12,6 +12,17 @@ export function addResearchListItem(
 }
 
 /**
+ * 새로운 리서치(들)를 기존의 리서치 리스트 맨 뒤에 추가하고 반환합니다.
+ * @author 현웅
+ */
+export function appendResearchListItem(
+  newResearch: ResearchSchema | ResearchSchema[],
+  researchList: ResearchSchema[],
+) {
+  return [...researchList, newResearch].flat();
+}
+
+/**
  * 업데이트된 리서치를 기존의 리서치 리스트에서 찾고 교체한 후 반환합니다.
  * @author 현웅
  */

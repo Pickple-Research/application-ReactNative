@@ -1,14 +1,16 @@
 import create from "zustand";
+import { useResearchStore } from "./research.zustand";
 import { ResearchType } from "src/Object/Enum";
 
 type ResearchLandingScreenStoreProps = {
-  /** 리서치 정렬 팝업 메뉴 표시 여부 */
-  researchSortPopupMenuVisible: boolean;
-  setResearchSortPopupMenuVisible: (status: boolean) => void;
-
   /** 리서치 랜딩 페이지에서 보여줄 리서치 타입 */
   selectedType: ResearchType;
   setSelectedType: (type: ResearchType) => void;
+
+  /** 리서치 로드 중 여부 */
+  loading: boolean;
+  /** 더 오래 전의 리서치를 가져옵니다 */
+  getOlderResearches: () => Promise<void>;
 
   clearState: () => void;
 };
@@ -19,20 +21,23 @@ type ResearchLandingScreenStoreProps = {
  */
 export const useResearchLandingScreenStore =
   create<ResearchLandingScreenStoreProps>((set, get) => ({
-    researchSortPopupMenuVisible: false,
-    setResearchSortPopupMenuVisible: (status: boolean) => {
-      set({ researchSortPopupMenuVisible: status });
-    },
-
     selectedType: ResearchType.ALL,
     setSelectedType: (type: ResearchType) => {
       set({ selectedType: type });
     },
 
+    loading: false,
+    getOlderResearches: async () => {
+      set({ loading: true });
+      await useResearchStore.getState().getOlderResearches();
+      set({ loading: false });
+      return;
+    },
+
     clearState: () => {
       set({
-        researchSortPopupMenuVisible: false,
         selectedType: ResearchType.ALL,
+        loading: false,
       });
     },
   }));

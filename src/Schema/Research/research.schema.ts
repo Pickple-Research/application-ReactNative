@@ -45,6 +45,9 @@ export type ResearchSchema = {
   /** 마감일 */
   deadline: string | Date;
 
+  /** 끌올한 날짜 (노출 기준일) */
+  pulledupAt: string | Date;
+
   /** 생성일 */
   createdAt: string;
 
@@ -88,6 +91,7 @@ export const BlankResearch: ResearchSchema = {
   estimatedTime: 0,
   eligibility: "",
   deadline: "",
+  pulledupAt: "",
   createdAt: "",
   viewsNum: 0,
   scrapsNum: 0,
