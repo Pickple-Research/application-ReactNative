@@ -1,3 +1,4 @@
+import { VoteUser } from "./voteUser.schema";
 import { VoteOptionSchema } from "./voteOption.schema";
 
 /**
@@ -7,11 +8,11 @@ import { VoteOptionSchema } from "./voteOption.schema";
 export type VoteSchema = {
   _id: string;
 
-  /** 업로더 _id */
-  authorId: string;
+  /** 작성자 정보 */
+  author?: VoteUser | null;
 
-  /** 업로더 닉네임 */
-  authorNickname?: string;
+  /** 작성자 _id */
+  authorId: string;
 
   /** 투표 제목 */
   title: string;

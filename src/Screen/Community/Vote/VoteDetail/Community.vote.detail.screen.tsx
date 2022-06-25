@@ -5,7 +5,7 @@ import { AppStackProps } from "src/Navigator";
 import { CommunityVoteDetailTitle } from "./Community.vote.detail.title";
 import { CommunityVoteDetailOptions } from "./Community.vote.detail.options";
 import { CommunityVoteDetailComments } from "./Community.vote.detail.comments";
-import { CommunityVoteDetailCommentInput } from "./Communiti.vote.detail.commentInput";
+import { CommunityVoteDetailCommentInput } from "./Community.vote.detail.commentInput";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import {
   VoteDetailCloseModal,

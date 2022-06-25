@@ -49,7 +49,7 @@ function Contents({ reply }: { reply: VoteReplySchema }) {
   return (
     <Contents__Container>
       <Contents__UserNickname isAuthor={isAuthor}>
-        {reply.authorNickname ? reply.authorNickname : `익명`}
+        {reply.author?.nickname ? reply.author.nickname : `(삭제된 사용자)`}
       </Contents__UserNickname>
 
       <Contents__Content>{reply.content}</Contents__Content>
