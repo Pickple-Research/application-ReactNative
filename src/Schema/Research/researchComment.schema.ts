@@ -1,3 +1,4 @@
+import { ResearchUser } from "./researchUser.schema";
 import { ResearchReplySchema } from "./researchReply.schema";
 
 /**
@@ -10,11 +11,11 @@ export type ResearchCommentSchema = {
   // 리서치 _id
   researchId: string;
 
+  /** 작성자 정보 */
+  author?: ResearchUser | null;
+
   // 작성자 _id
   authorId: string;
-
-  // 작성자 닉네임
-  authorNickname?: string;
 
   // 댓글 내용
   content: string;

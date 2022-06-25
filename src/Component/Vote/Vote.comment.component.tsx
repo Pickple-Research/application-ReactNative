@@ -68,7 +68,7 @@ function Contents({ comment }: { comment: VoteCommentSchema }) {
   return (
     <Contents__Container>
       <Contents__UserNickname isAuthor={isAuthor}>
-        {comment.authorNickname ? comment.authorNickname : `익명`}
+        {comment.author?.nickname ? comment.author.nickname : `(삭제된 사용자)`}
       </Contents__UserNickname>
 
       <Contents__Content>{comment.content}</Contents__Content>

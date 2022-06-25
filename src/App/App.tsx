@@ -24,10 +24,12 @@ export default function App() {
 
   async function loadInitialData() {
     const recentResearches = await axiosGetRecentResearches();
-    if (recentResearches !== null) setResearches(recentResearches);
-
+    if (recentResearches !== null && recentResearches.length !== 0)
+      setResearches(recentResearches);
     const recentVotes = await axiosGetRecentVotes();
-    if (recentVotes !== null) setVotes(recentVotes);
+    if (recentVotes !== null && recentVotes.length !== 0) {
+      setVotes(recentVotes);
+    }
   }
 
   //? 앱이 시작되면, research 정보와 자신이 팔로우한 기업 소식을 서버에 요청하여 받아옵니다.

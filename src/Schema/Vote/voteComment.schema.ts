@@ -1,3 +1,4 @@
+import { VoteUser } from "./voteUser.schema";
 import { VoteReplySchema } from "./voteReply.schema";
 
 /**
@@ -10,11 +11,11 @@ export type VoteCommentSchema = {
   // 투표 _id
   voteId: string;
 
+  // 작성자 정보
+  author?: VoteUser | null;
+
   // 작성자 _id
   authorId: string;
-
-  // 작성자 닉네임
-  authorNickname?: string;
 
   // 댓글 내용
   content: string;

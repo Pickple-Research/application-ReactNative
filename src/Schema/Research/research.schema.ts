@@ -1,3 +1,5 @@
+import { ResearchUser } from "./researchUser.schema";
+
 /**
  * 리서치 정보
  * @author 현웅
@@ -6,14 +8,11 @@ export type ResearchSchema = {
   /** 리서치 _id */
   _id: string;
 
-  /** 리서치 진행자 타입 (일반 유저 or 파트너) */
-  // authorType: string;
+  /** 작성자 정보 */
+  author?: ResearchUser | null;
 
   /** 리서치 업로더 _id */
   authorId: string;
-
-  /** 리서치 업로더 닉네임 */
-  authorNickname?: string;
 
   /** 리서치 카테고리 */
   // categories: Category[];
@@ -78,9 +77,7 @@ export type ResearchSchema = {
 
 export const BlankResearch: ResearchSchema = {
   _id: "",
-  // authorType: "",
   authorId: "",
-  authorNickname: "",
   // categories: [],
   title: "",
   link: "",

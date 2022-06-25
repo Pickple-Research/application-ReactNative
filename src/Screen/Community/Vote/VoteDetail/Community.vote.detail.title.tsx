@@ -16,7 +16,7 @@ export function CommunityVoteDetailTitle() {
       <VoteCategory>{`voteDetail.category`}</VoteCategory>
       <VoteTitle>{voteDetail.title}</VoteTitle>
       <VoteAuthor>{`by. ${
-        voteDetail.authorNickname ? voteDetail.authorNickname : `익명`
+        voteDetail.author?.nickname ? voteDetail.author.nickname : `익명`
       }`}</VoteAuthor>
       <VoteContentText>{voteDetail.content}</VoteContentText>
     </Container>
