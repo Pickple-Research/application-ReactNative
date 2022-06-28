@@ -44,18 +44,20 @@ export const useLoginScreenStore = create<LoginScreenStoreProps>(
     login: async () => {
       set({ isLoading: true });
 
-      const userInfo = await axiosLoginWithEmailPassword({
+      const result = await axiosLoginWithEmailPassword({
         email: get().emailInput,
         password: get().passwordInput,
       });
 
-      if (userInfo === null) {
+      if (result === null) {
         set({ isLoading: false });
         return false;
       }
 
+      const { jwt, ...userInfo } = result;
+
       useUserStore.getState().setUserInfo(userInfo);
-      await setStorage("JWT", userInfo.jwt);
+      await setStorage("JWT", jwt);
       await setStorage("PASSWORD", get().passwordInput);
       await setStorage("EMAIL", userInfo.user.email);
 

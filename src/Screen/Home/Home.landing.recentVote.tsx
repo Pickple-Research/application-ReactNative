@@ -44,7 +44,7 @@ function RecentVotes() {
   return (
     <RecentVotes__Container
       style={{ ...globalStyles.screen__horizontalPadding }}>
-      <VoteRow vote={votes[0]} />
+      <VoteRow vote={votes[0]} participated={false} />
     </RecentVotes__Container>
   );
 }

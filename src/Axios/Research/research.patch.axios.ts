@@ -62,7 +62,7 @@ export const axiosUnscrapResearch = async (researchId: string) => {
 
 /**
  * 리서치에 참여합니다.
- * @return 리서치 참여 정보와 참여 정보가 반영된 최신 리서치 정보 | null
+ * @return 리서치 참여 정보, 크레딧 변경 내역 정보, 참여 정보가 반영된 최신 리서치 정보 | null
  * @author 현웅
  */
 export const axiosParticipateResearch = async (

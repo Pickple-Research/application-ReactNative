@@ -11,11 +11,13 @@ export * from "./Research/research.schema";
 export * from "./Research/researchComment.schema";
 export * from "./Research/researchReply.schema";
 
+export * from "./User/creditHistory.schema";
 export * from "./User/user.schema";
-export * from "./User/userActivity.schema";
-export * from "./User/userCreditHistory.schema";
+export * from "./User/userCredit.schema";
 export * from "./User/userPrivacy.schema";
 export * from "./User/userProperty.schema";
+export * from "./User/userResearch.schema";
+export * from "./User/userVote.schema";
 
 export * from "./Vote/vote.schema";
 export * from "./Vote/voteComment.schema";

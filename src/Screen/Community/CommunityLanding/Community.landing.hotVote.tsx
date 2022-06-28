@@ -67,6 +67,7 @@ function HotVote({ vote }: { vote: VoteSchema }) {
         <HotVote__BottomContainer>
           <HotVote__Viewed>{`${vote.viewsNum}명이 이 투표를 읽었습니다.`}</HotVote__Viewed>
           <VoteParticipationInfo
+            participated={true}
             participantsNum={vote.participantsNum}
             commentsNum={vote.commentsNum}
           />

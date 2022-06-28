@@ -1,15 +1,17 @@
 import create from "zustand";
 import {
   UserSchema,
-  UserActivitySchema,
-  UserCreditHistorySchema,
+  UserCreditSchema,
   UserPrivacySchema,
   UserPropertySchema,
+  UserResearchSchema,
+  UserVoteSchema,
   BlankUser,
-  BlankUserActivity,
-  BlankUserCreditHistory,
+  BlankUserCredit,
   BlankUserPrivacy,
   BlankUserProperty,
+  BlankUserResearch,
+  BlankUserVote,
 } from "src/Schema";
 import {
   ParticipatedResearchInfo,
@@ -18,18 +20,22 @@ import {
 
 type UserStoreProps = {
   user: UserSchema;
-  userActivity: UserActivitySchema;
-  userCreditHistory: UserCreditHistorySchema;
+  userCredit: UserCreditSchema;
   userPrivacy: UserPrivacySchema;
   userProperty: UserPropertySchema;
+  userResearch: UserResearchSchema;
+  userVote: UserVoteSchema;
 
-  /** 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다 */
+  /**
+   * 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다
+   * @caution UserPrivacy는 얻어오지 않습니다!
+   */
   setUserInfo: (userInfo: {
     user: UserSchema;
-    userActivity: UserActivitySchema;
-    userCreditHistory: UserCreditHistorySchema;
-    userPrivacy: UserPrivacySchema;
+    userCredit: UserCreditSchema;
     userProperty: UserPropertySchema;
+    userResearch: UserResearchSchema;
+    userVote: UserVoteSchema;
   }) => void;
 
   /** 조회한 리서치 _id 를 유저 활동 정보에 추가합니다. */
@@ -62,115 +68,115 @@ type UserStoreProps = {
  */
 export const useUserStore = create<UserStoreProps>((set, get) => ({
   user: BlankUser,
-  userActivity: BlankUserActivity,
-  userCreditHistory: BlankUserCreditHistory,
+  userCredit: BlankUserCredit,
   userPrivacy: BlankUserPrivacy,
   userProperty: BlankUserProperty,
+  userResearch: BlankUserResearch,
+  userVote: BlankUserVote,
 
   setUserInfo: (userInfo: {
     user: UserSchema;
-    userActivity: UserActivitySchema;
-    userCreditHistory: UserCreditHistorySchema;
-    userPrivacy: UserPrivacySchema;
+    userCredit: UserCreditSchema;
     userProperty: UserPropertySchema;
+    userResearch: UserResearchSchema;
+    userVote: UserVoteSchema;
   }) => {
     set({
       user: userInfo.user,
-      userActivity: userInfo.userActivity,
-      userCreditHistory: userInfo.userCreditHistory,
-      userPrivacy: userInfo.userPrivacy,
+      userCredit: userInfo.userCredit,
       userProperty: userInfo.userProperty,
+      userResearch: userInfo.userResearch,
+      userVote: userInfo.userVote,
     });
     return;
   },
 
   addViewedResearchId: (researchId: string) => {
-    const userActivity = get().userActivity;
+    const userResearch = get().userResearch;
     set({
-      userActivity: {
-        ...userActivity,
-        viewedResearchIds: [researchId, ...userActivity.viewedResearchIds],
+      userResearch: {
+        ...userResearch,
+        viewedResearchIds: [researchId, ...userResearch.viewedResearchIds],
       },
     });
   },
-  addViewedVoteId: (voteId: string) => {
-    const userActivity = get().userActivity;
-    set({
-      userActivity: {
-        ...userActivity,
-        viewedVoteIds: [voteId, ...userActivity.viewedVoteIds],
-      },
-    });
-  },
-
   addScrappedResearchId: (researchId: string) => {
-    const userActivity = get().userActivity;
+    const userResearch = get().userResearch;
     set({
-      userActivity: {
-        ...userActivity,
-        scrappedResearchIds: [researchId, ...userActivity.scrappedResearchIds],
+      userResearch: {
+        ...userResearch,
+        scrappedResearchIds: [researchId, ...userResearch.scrappedResearchIds],
       },
     });
   },
   removeScrappedResearchId: (researchId: string) => {
-    const userActivity = get().userActivity;
-    const updatedScrappedResearchId = userActivity.scrappedResearchIds.filter(
+    const userResearch = get().userResearch;
+    const updatedScrappedResearchId = userResearch.scrappedResearchIds.filter(
       scrappedResearchId => {
         return scrappedResearchId !== researchId;
       },
     );
     set({
-      userActivity: {
-        ...userActivity,
+      userResearch: {
+        ...userResearch,
         scrappedResearchIds: updatedScrappedResearchId,
+      },
+    });
+  },
+  addParticipatedResearchInfo: async (
+    researchInfo: ParticipatedResearchInfo,
+  ) => {
+    const userResearch = get().userResearch;
+    const updatedUserResearch = {
+      ...userResearch,
+      participatedResearchInfos: [
+        researchInfo,
+        ...userResearch.participatedResearchInfos,
+      ],
+    };
+    set({ userResearch: updatedUserResearch });
+  },
+
+  addViewedVoteId: (voteId: string) => {
+    const userVote = get().userVote;
+    set({
+      userVote: {
+        ...userVote,
+        viewedVoteIds: [voteId, ...userVote.viewedVoteIds],
       },
     });
   },
 
   addScrappedVoteId: (voteId: string) => {
-    const userActivity = get().userActivity;
+    const userVote = get().userVote;
     set({
-      userActivity: {
-        ...userActivity,
-        scrappedVoteIds: [voteId, ...userActivity.scrappedVoteIds],
+      userVote: {
+        ...userVote,
+        scrappedVoteIds: [voteId, ...userVote.scrappedVoteIds],
       },
     });
   },
   removeScrappedVoteId: (voteId: string) => {
-    const userActivity = get().userActivity;
-    const updatedScrappedVoteId = userActivity.scrappedVoteIds.filter(
+    const userVote = get().userVote;
+    const updatedScrappedVoteId = userVote.scrappedVoteIds.filter(
       scrappedVoteId => {
         return scrappedVoteId !== voteId;
       },
     );
     set({
-      userActivity: {
-        ...userActivity,
+      userVote: {
+        ...userVote,
         scrappedVoteIds: updatedScrappedVoteId,
       },
     });
   },
 
-  addParticipatedResearchInfo: async (
-    researchInfo: ParticipatedResearchInfo,
-  ) => {
-    const userActivity = get().userActivity;
-    const updatedUserActivity = {
-      ...userActivity,
-      participatedResearchInfos: [
-        researchInfo,
-        ...userActivity.participatedResearchInfos,
-      ],
-    };
-    set({ userActivity: updatedUserActivity });
-  },
-
   addParticipatedVoteInfo: async (voteInfo: ParticipatedVoteInfo) => {
-    const userActivity = get().userActivity;
-    const updatedUserActivity = {
-      ...userActivity,
-      participatedVoteInfos: [voteInfo, ...userActivity.participatedVoteInfos],
+    const userVote = get().userVote;
+    const updatedUserVote = {
+      ...userVote,
+      participatedVoteInfos: [voteInfo, ...userVote.participatedVoteInfos],
     };
-    set({ userActivity: updatedUserActivity });
+    set({ userVote: updatedUserVote });
   },
 }));

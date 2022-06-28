@@ -10,7 +10,13 @@ import { VoteSchema } from "src/Schema";
  * 얇은 투표 한 줄에 사용되는 컴포넌트입니다.
  * @author 현웅
  */
-export function VoteRow({ vote }: { vote: VoteSchema }) {
+export function VoteRow({
+  vote,
+  participated,
+}: {
+  vote: VoteSchema;
+  participated: boolean;
+}) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
 
   return (
@@ -24,6 +30,7 @@ export function VoteRow({ vote }: { vote: VoteSchema }) {
       <VoteCategory>자유 토픽</VoteCategory>
       <VoteTitle numberOfLines={1}>{vote.title}</VoteTitle>
       <VoteParticipationInfo
+        participated={participated}
         participantsNum={vote.participantsNum}
         commentsNum={vote.commentsNum}
       />
