@@ -43,7 +43,7 @@ function HotVotes() {
   return (
     <HotVotes__Container style={{ ...globalStyles.screen__horizontalPadding }}>
       <VoteListContainer>
-        <VoteListItem vote={votes[0]} />
+        <VoteListItem vote={votes[0]} participated={false} />
       </VoteListContainer>
     </HotVotes__Container>
   );

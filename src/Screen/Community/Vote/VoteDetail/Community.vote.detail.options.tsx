@@ -36,10 +36,10 @@ export function CommunityVoteDetailOptions() {
  * @author 현웅
  */
 function Options() {
-  const { user, userActivity } = useUserStore(
+  const { user, userVote } = useUserStore(
     state => ({
       user: state.user,
-      userActivity: state.userActivity,
+      userVote: state.userVote,
     }),
     shallow,
   );
@@ -56,7 +56,7 @@ function Options() {
   //* 투표 작성자인지 확인
   const isAuthor = user._id === voteDetail.authorId;
   //* 유저 활동 정보에서 해당 투표 참여 정보를 추출. 참여했는지 여부를 확인함.
-  const participatedInfo = userActivity.participatedVoteInfos.find(voteInfo => {
+  const participatedInfo = userVote.participatedVoteInfos.find(voteInfo => {
     return voteInfo.voteId === voteDetail._id;
   });
 
@@ -99,10 +99,10 @@ function Options() {
  * @author 현웅
  */
 function VoteButton() {
-  const { user, userActivity } = useUserStore(
+  const { user, userVote } = useUserStore(
     state => ({
       user: state.user,
-      userActivity: state.userActivity,
+      userVote: state.userVote,
     }),
     shallow,
   );
@@ -165,7 +165,7 @@ function VoteButton() {
 
   //* 이미 참여한 투표인 경우
   if (
-    userActivity.participatedVoteInfos.some(voteInfo => {
+    userVote.participatedVoteInfos.some(voteInfo => {
       return voteInfo.voteId === voteDetail._id;
     })
   ) {

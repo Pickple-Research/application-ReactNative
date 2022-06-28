@@ -36,7 +36,13 @@ function RecentVotes() {
     <RecentVotes__Container style={globalStyles.screen__horizontalPadding}>
       <VoteListContainer>
         {votes.map((vote, index) => {
-          return <VoteListItem key={`${index}:${vote.title}`} vote={vote} />;
+          return (
+            <VoteListItem
+              key={`${index}:${vote.title}`}
+              vote={vote}
+              participated={false}
+            />
+          );
         })}
       </VoteListContainer>
     </RecentVotes__Container>

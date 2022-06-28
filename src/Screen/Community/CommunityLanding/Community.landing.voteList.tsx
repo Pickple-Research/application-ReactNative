@@ -26,7 +26,7 @@ export function CommunityLandingVoteList({
   recommendSectionHeight: number;
   onScroll: (event: any) => void;
 }) {
-  const userActivity = useUserStore(state => state.userActivity);
+  const userVote = useUserStore(state => state.userVote);
   const votes = useVoteStore(state => state.votes);
   const { loading, getOlderVotes } = useCommunityLandingScreenStore(
     state => ({
@@ -47,11 +47,9 @@ export function CommunityLandingVoteList({
           return (
             <VoteListItem
               key={item._id}
-              participated={userActivity.participatedVoteInfos.some(
-                voteInfo => {
-                  return voteInfo.voteId === item._id;
-                },
-              )}
+              participated={userVote.participatedVoteInfos.some(voteInfo => {
+                return voteInfo.voteId === item._id;
+              })}
               vote={item}
               onPress={() => {
                 navigation.navigate("CommunityVoteDetailScreen", {

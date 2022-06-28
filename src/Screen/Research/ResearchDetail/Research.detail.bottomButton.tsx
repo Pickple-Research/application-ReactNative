@@ -19,9 +19,9 @@ export function ResearchDetailBottomButton() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "ResearchDetailScreen">>();
 
-  const { user, userActivity } = useUserStore(state => ({
+  const { user, userResearch } = useUserStore(state => ({
     user: state.user,
-    userActivity: state.userActivity,
+    userResearch: state.userResearch,
   }));
   const {
     researchDetail,
@@ -42,13 +42,13 @@ export function ResearchDetailBottomButton() {
 
   const isAuthor = user._id === researchDetail.authorId;
 
-  const participated = userActivity.participatedResearchInfos.some(
+  const participated = userResearch.participatedResearchInfos.some(
     researchInfo => {
       return researchInfo.researchId === researchDetail._id;
     },
   );
 
-  const scrapped = userActivity.scrappedResearchIds.some(researchId => {
+  const scrapped = userResearch.scrappedResearchIds.some(researchId => {
     return researchId === researchDetail._id;
   });
 
