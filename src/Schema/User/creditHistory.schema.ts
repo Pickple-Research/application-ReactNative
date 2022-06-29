@@ -13,8 +13,8 @@ export type CreditHistorySchema = {
   scale: number;
 
   /** 변동 일시 */
-  createdAt?: string;
+  createdAt: string | Date;
 
   /** 변동 이후 잔여 크레딧 */
-  balance?: number;
+  balance: number;
 };

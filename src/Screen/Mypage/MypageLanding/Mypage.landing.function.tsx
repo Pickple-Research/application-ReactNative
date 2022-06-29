@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Mypage.landing.screen";
+import { mypageLandingScreenStyles } from "./Mypage.landing.screen";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { H3, H4 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";
@@ -11,7 +11,7 @@ import { globalStyles } from "src/Style";
  */
 export function MypageLandingFunction() {
   return (
-    <Container style={screenStyles.boundary}>
+    <Container style={mypageLandingScreenStyles.boundary}>
       <SectionHeader />
       <FunctionsList />
     </Container>

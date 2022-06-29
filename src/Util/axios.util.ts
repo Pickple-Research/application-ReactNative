@@ -17,6 +17,14 @@ export async function handleAxiosError(param: {
   if (axios.isAxiosError(param.error)) {
     //* response가 있다면, 서버에서 customMessage 인자를 data에 담아 보내주었는지 확인합니다.
     if (param.error.response !== undefined) {
+      if (param.error.response.status === 500) {
+        //! 서버측에서 잡아내지 못한 에러인 경우 (최악의 상황)
+        showBlackToast({
+          ...param.toastShowParams,
+          text1: `서버 에러입니다. 문제가 지속되는 경우, 고객센터에 문의해주세요`,
+        });
+        return;
+      }
       const response = param.error.response as {
         data: { customMessage?: string };
       };

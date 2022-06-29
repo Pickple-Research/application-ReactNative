@@ -76,10 +76,10 @@ function FlatListHeader({ style }: { style?: StyleProp<ViewStyle> }) {
       <RadiusButton
         text={`진행중`}
         type={
-          researchFilter === "OPEN" ? "BLUE_SMALL_FILL" : "BLUE_SMALL_HOLLOW"
+          researchFilter === "OPENED" ? "BLUE_SMALL_FILL" : "BLUE_SMALL_HOLLOW"
         }
         onPress={() => {
-          setResearchFilter("OPEN");
+          setResearchFilter("OPENED");
         }}
         style={styles.filterButton}
       />
@@ -106,7 +106,7 @@ function FilteredResearchItem({ research }: { research: ResearchSchema }) {
     state => state.researchFilter,
   );
 
-  if (researchFilter === "OPEN") {
+  if (researchFilter === "OPENED") {
     if (research.closed || didDatePassed(research.deadline)) return null;
     return <ResearchMypageListItem research={research} />;
   }

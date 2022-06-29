@@ -23,22 +23,27 @@ export function VoteParticipationInfo({
       <CheckIcon__Container participated={participated}>
         <CheckIcon color={participated ? undefined : "white"} />
       </CheckIcon__Container>
-      <InfoText style={styles.margin}>{participantsNum}</InfoText>
-      <CommentIcon style={styles.margin} />
+      <InfoText>{participantsNum}</InfoText>
+      <Icon__Splitter />
+      <CommentIcon style={styles.iconMargin} />
       <InfoText>{commentsNum}</InfoText>
     </Container>
   );
 }
 
 const styles = StyleSheet.create({
-  margin: {
-    marginRight: 8,
+  iconMargin: {
+    marginRight: 4,
   },
 });
 
 const Container = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+const Icon__Splitter = styled.View`
+  width: 10px;
 `;
 
 const CheckIcon__Container = styled.View<{ participated: boolean }>`

@@ -17,7 +17,7 @@ export function MoreText({
 }) {
   return (
     <More__Text<React.ElementType> onPress={onPress} {...props}>
-      more
+      MORE
     </More__Text>
   );
 }

@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components/native";
-import { screenStyles } from "./Mypage.landing.screen";
+import { mypageLandingScreenStyles } from "./Mypage.landing.screen";
 import { InterestCategoryCarousel } from "@Component/Category";
 import { SectionHeaderText } from "@Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { exampleInterestingCategories } from "src/Object/Type";
 
 /**
+ * @deprecated
  * 마이페이지 랜딩 페이지 관심 카테고리 섹션
  * @author 현웅
  */
 export function MypageLandingInterest() {
   return (
-    <Container style={{ ...screenStyles.boundary }}>
+    <Container style={{ ...mypageLandingScreenStyles.boundary }}>
       <SectionHeader />
       <InterestCategoryCarousel categories={exampleInterestingCategories} />
     </Container>

@@ -97,7 +97,6 @@ const Item__Container = styled.TouchableOpacity<{ selected: boolean }>`
 
 const Item__Text = styled(H4)<{ selected: boolean }>`
   color: ${({ selected, theme }) =>
-    //TODO: #DESIGN-SYSTEM
-    selected ? theme.color.blue.text : "#bbbbbb"};
+    selected ? theme.color.blue.text : theme.color.grey.unselected};
   font-weight: bold;
 `;

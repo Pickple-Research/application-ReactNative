@@ -18,6 +18,17 @@ export function digitStandizer(num: number) {
 }
 
 /**
+ * 인자로 받은 시간을 MM.DD 형식으로 변환합니다.
+ * @author 현웅
+ */
+export function convertTimeToMMDD(time: string | Date) {
+  const date = new Date(time);
+  const month = digitStandizer(date.getMonth() + 1);
+  const day = digitStandizer(date.getDate());
+  return `${month}.${day}`;
+}
+
+/**
  * 인자로 받은 시간을 MM/DD HH:MM 형식으로 변환합니다.
  * @author 현웅
  */

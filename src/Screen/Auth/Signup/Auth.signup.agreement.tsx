@@ -4,6 +4,7 @@ import { CheckIcon } from "src/Component/Svg";
 import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useSignupScreenStore } from "src/Zustand";
+import { themeColors } from "src/Theme";
 import { globalStyles } from "src/Style/globalStyles";
 
 export function SignupAgreement() {
@@ -22,7 +23,9 @@ export function SignupAgreement() {
     <Container style={globalStyles.authScreen__horizontalPadding}>
       <Row>
         <Checkbox checked={agreeTerms} onPress={toggleAgreeTerms}>
-          <CheckIcon color={agreeTerms ? "white" : "#bbbbbb"} />
+          <CheckIcon
+            color={agreeTerms ? "white" : themeColors().grey.unselected}
+          />
         </Checkbox>
         <AgreementOption__Text>{`[필수]`}</AgreementOption__Text>
 
@@ -32,7 +35,9 @@ export function SignupAgreement() {
 
       <Row>
         <Checkbox checked={agreeMarketing} onPress={toggleAgreeMarketing}>
-          <CheckIcon color={agreeMarketing ? "white" : "#bbbbbb"} />
+          <CheckIcon
+            color={agreeMarketing ? "white" : themeColors().grey.unselected}
+          />
         </Checkbox>
         <AgreementOption__Text>{`[선택]`}</AgreementOption__Text>
         <Agreement__Text>{`서비스 정보 수신에 동의합니다. `}</Agreement__Text>
@@ -58,7 +63,8 @@ const Checkbox = styled.TouchableOpacity<{ checked: boolean }>`
   height: 16px;
   background-color: ${({ checked, theme }) =>
     checked ? theme.color.purple.text : theme.color.grey.white};
-  border: ${({ checked }) => (checked ? `none` : `1.2px solid #bbbbbb`)};
+  border: ${({ checked, theme }) =>
+    checked ? `none` : `1.2px solid ${theme.color.grey.unselected}`};
   border-radius: 3px;
 `;
 

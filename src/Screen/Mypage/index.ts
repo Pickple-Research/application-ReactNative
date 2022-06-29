@@ -1,5 +1,8 @@
 export * from "./MypageLanding/Mypage.landing.screen";
 
+//* 크레딧 사용내역
+export * from "./MypageCreditHistory/Mypage.creditHistory.screen";
+export * from "./MypageCreditHistory/Mypage.creditHistory.screenHeader";
 //* 참여한 리서치
 export * from "./MypageParticipated/Mypage.participated.research.screen";
 export * from "./MypageParticipated/Mypage.participated.research.screenHeader";

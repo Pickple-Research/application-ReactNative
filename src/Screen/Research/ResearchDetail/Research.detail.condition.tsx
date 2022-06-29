@@ -41,7 +41,7 @@ function Condition({ title, content }: { title: string; content: string }) {
   return (
     <Condition__Container>
       <Condition__Title>{title}</Condition__Title>
-      <Condition__Spliter>|</Condition__Spliter>
+      <Condition__Splitter>|</Condition__Splitter>
       <Condition__Content>{content}</Condition__Content>
     </Condition__Container>
   );
@@ -72,7 +72,7 @@ const Condition__Title = styled(BodyText)`
   color: ${({ theme }) => theme.color.blue.text};
 `;
 
-const Condition__Spliter = styled.Text`
+const Condition__Splitter = styled.Text`
   width: 16px;
   color: ${({ theme }) => theme.color.blue.text};
   font-size: 4px;

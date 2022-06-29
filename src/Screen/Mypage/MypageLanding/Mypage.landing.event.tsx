@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { screenStyles } from "./Mypage.landing.screen";
+import { mypageLandingScreenStyles } from "./Mypage.landing.screen";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { Carousel } from "src/Component/FlatList";
 import { H4, DetailText } from "src/StyledComponents/Text";
@@ -12,7 +12,7 @@ import { H4, DetailText } from "src/StyledComponents/Text";
  */
 export function MypageLandingEvent() {
   return (
-    <Container style={{ ...screenStyles.boundary }}>
+    <Container style={{ ...mypageLandingScreenStyles.boundary }}>
       <SectionHeader />
       <EventCarousel />
     </Container>
