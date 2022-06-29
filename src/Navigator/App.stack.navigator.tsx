@@ -46,6 +46,9 @@ import {
 } from "src/Screen/Community";
 // 마이페이지 관련 Screen
 import {
+  MypageCreditHistoryScreen,
+  MypageCreditHistoryScreenHeader,
+  MypageCreditHistoryScreenProps,
   MypageParticipatedResearchScreen,
   MypageParticipatedResearchScreenHeader,
   MypageParticipatedResearchScreenProps,
@@ -81,6 +84,7 @@ export type AppStackProps = {
   CommunityVoteDetailScreen: CommunityVoteDetailScreenProps;
   CommunityVoteUploadScreen: CommunityVoteUploadScreenProps;
   // 마이페이지 관련 Screen
+  MypageCreditHistoryScreen: MypageCreditHistoryScreenProps;
   MypageParticipatedResearchScreen: MypageParticipatedResearchScreenProps;
   MypageParticipatedVoteScreen: MypageParticipatedVoteScreenProps;
   MypageUploadedScreen: MypageUploadedScreenProps;
@@ -195,6 +199,15 @@ export function AppStackNavigator() {
 
       {/* 마이페이지 관련 Screen 그룹 */}
       <AppStack.Group>
+        <AppStack.Screen
+          //* 크레딧 사용내역 페이지
+          name={"MypageCreditHistoryScreen"}
+          component={MypageCreditHistoryScreen}
+          options={{
+            headerShown: true,
+            header: MypageCreditHistoryScreenHeader,
+          }}
+        />
         <AppStack.Screen
           //* 내가 참여한 리서치 페이지
           name={"MypageParticipatedResearchScreen"}

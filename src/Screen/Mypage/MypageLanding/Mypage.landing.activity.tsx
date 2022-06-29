@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { H3 } from "src/StyledComponents/Text";
-import { globalStyles } from "src/Style";
 import MarkedBagIcon from "src/Resource/svg/marked-bag-icon.svg";
 import { MarkedBookIcon } from "src/Component/Svg";
 import ScrapIcon from "src/Resource/svg/scrap-short-icon.svg";
@@ -20,7 +19,7 @@ export function MypageLandingActivity() {
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
 
   return (
-    <Container style={globalStyles.screen__horizontalPadding}>
+    <Container>
       <ResearchButton navigation={navigation} />
       <VoteButton navigation={navigation} />
       <ScrapButton navigation={navigation} />
@@ -42,7 +41,7 @@ function ResearchButton({
           navigation.navigate("MypageParticipatedResearchScreen", {});
         }}>
         <MarkedBagIcon style={styles.icon} />
-        <Icon__Text>참여한 리서치</Icon__Text>
+        <Icon__Text>참여 리서치</Icon__Text>
       </Icon__Container>
     </Button__Container>
   );
@@ -109,6 +108,7 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  padding: 0px 30px;
   margin-bottom: 40px;
 `;
 

@@ -151,11 +151,14 @@ const styles = StyleSheet.create({
   narrowContainer: { paddingVertical: 12 },
 });
 
+/** 공통 적용되는 버튼 콘테이너 스타일 */
 const Button__Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
+  width: 100%;
   border-radius: 6px;
 `;
+/** 공통 적용되는 버튼 텍스트 스타일 */
 const Button__Text = styled(H3)`
   font-weight: bold;
 `;

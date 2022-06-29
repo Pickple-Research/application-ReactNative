@@ -32,6 +32,7 @@ export type CommonThemeColorsType = {
     white: string;
     focused: string;
     unfocused: string;
+    unselected: string;
   };
 
   red: {

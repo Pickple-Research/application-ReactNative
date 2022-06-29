@@ -99,7 +99,7 @@ function Buttons({
           onPress={onLeftButtonPress}
         />
       </LeftButton__Container>
-      <ButtonSpliter />
+      <ButtonSplitter />
       <RightButton__Container>
         <RadiusButton
           text="설문 계속하기"
@@ -187,6 +187,6 @@ const RightButton__Container = styled.View`
   flex: 8;
 `;
 
-const ButtonSpliter = styled.View`
+const ButtonSplitter = styled.View`
   width: 12px;
 `;

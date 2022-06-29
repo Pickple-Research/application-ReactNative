@@ -35,6 +35,7 @@ const commonThemeColors: CommonThemeColorsType = {
     white: "#FFFFFF",
     focused: "#848899",
     unfocused: "#D3D4D4",
+    unselected: "#BBBBBB",
   },
 
   red: {

@@ -45,16 +45,10 @@ export function ModalContent({
 }
 
 /**
- * 모달 제목. 없을 수도 있습니다. 추가 내용이 있는 경우 스타일이 달라집니다.
+ * 모달 제목. 없을 수도 있습니다.
  * @author 현웅
  */
-function Title({
-  title,
-  furtherInfo,
-}: {
-  title?: string;
-  furtherInfo?: string;
-}) {
+function Title({ title }: { title?: string }) {
   //* 제목이 없는 모달인 경우
   if (!title) return null;
 
@@ -106,7 +100,7 @@ function Buttons({
       <LeftButton__Container buttonSymmetric={buttonSymmetric}>
         {LeftButton}
       </LeftButton__Container>
-      <ButtonSpliter />
+      <ButtonSplitter />
       <RightButton__Container buttonSymmetric={buttonSymmetric}>
         {RightButton}
       </RightButton__Container>
@@ -121,8 +115,6 @@ const Title__Container = styled.View`
   margin-top: 24px;
   margin-bottom: 15px;
 `;
-
-const Title__NarrowContainer = styled.View``;
 
 const Title__Text = styled(H1)`
   font-weight: bold;
@@ -165,6 +157,6 @@ const RightButton__Container = styled.View<{ buttonSymmetric: boolean }>`
   flex: ${({ buttonSymmetric }) => (buttonSymmetric ? 1 : 8)};
 `;
 
-const ButtonSpliter = styled.View`
+const ButtonSplitter = styled.View`
   width: 12px;
 `;

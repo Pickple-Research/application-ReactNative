@@ -9,7 +9,7 @@ import {
   removeVoteListItem,
 } from "src/Util";
 
-type Filter = "ALL" | "OPEN" | "CLOSED";
+type Filter = "ALL" | "OPENED" | "CLOSED";
 
 /**
  * 마이페이지 - 업로드 한 리서치 및 투표 페이지에서 사용되는 상태값과 함수들을 사용할 수 있습니다.

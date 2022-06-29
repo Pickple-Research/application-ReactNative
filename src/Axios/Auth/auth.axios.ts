@@ -46,6 +46,29 @@ export const axiosLoginWithEmailPassword = async (auth: {
 };
 
 /**
+ * SurBay DB 의 유저 정보에 로그인합니다.
+ * @author 현웅
+ */
+export const axiosSurBayLogin = async (auth: {
+  email: string;
+  password: string;
+}) => {
+  return await customAxios
+    .request<UserInfoResponse>({
+      method: "POST",
+      url: "/auth/login/surbay",
+      data: auth,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      handleAxiosError({ error, errorMessage: "로그인에 실패하였습니다" });
+      return null;
+    });
+};
+
+/**
  * 저장된 JWT를 이용하여 로그인합니다.
  * JWT 헤더는 인터셉터에서 지정해주므로 여기서는 따로 Header 설정을 하지 않아도 됩니다.
  * @author 현웅
@@ -77,12 +100,19 @@ export const axiosVerifyEmail = async (param: {
   code: string;
 }) => {
   return await customAxios
-    .request<boolean>({
+    .request<void>({
       method: "POST",
       url: "/auth/verify",
       data: param,
     })
+    .then(response => {
+      return true;
+    })
     .catch(error => {
+      handleAxiosError({
+        error,
+        errorMessage: "이메일 인증에 실패했습니다",
+      });
       return false;
     });
 };

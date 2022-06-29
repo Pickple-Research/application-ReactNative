@@ -74,10 +74,10 @@ function FlatListHeader({ style }: { style?: StyleProp<ViewStyle> }) {
       <RadiusButton
         text={`진행중`}
         type={
-          voteFilter === "OPEN" ? "PURPLE_SMALL_FILL" : "PURPLE_SMALL_HOLLOW"
+          voteFilter === "OPENED" ? "PURPLE_SMALL_FILL" : "PURPLE_SMALL_HOLLOW"
         }
         onPress={() => {
-          setVoteFilter("OPEN");
+          setVoteFilter("OPENED");
         }}
         style={styles.filterButton}
       />
@@ -104,7 +104,7 @@ function FilteredVoteItem({ vote }: { vote: VoteSchema }) {
     state => state.voteFilter,
   );
 
-  if (voteFilter === "OPEN") {
+  if (voteFilter === "OPENED") {
     if (vote.closed) return null;
     return <VoteMypageListItem vote={vote} />;
   }

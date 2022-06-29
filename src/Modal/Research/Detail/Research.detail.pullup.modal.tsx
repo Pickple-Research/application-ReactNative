@@ -91,7 +91,7 @@ function Buttons({
           onPress={onPressLeftButton}
         />
       </LeftButton__Container>
-      <ButtonSpliter />
+      <ButtonSplitter />
       <RightButton__Container>
         <RadiusButton
           text="끌어올리기"
@@ -160,6 +160,6 @@ const RightButton__Container = styled.View`
   flex: 8;
 `;
 
-const ButtonSpliter = styled.View`
+const ButtonSplitter = styled.View`
   width: 12px;
 `;
