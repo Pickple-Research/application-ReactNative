@@ -19,7 +19,7 @@ export function CommunityLandingScreen({
   navigation,
 }: NativeStackScreenProps<AppStackProps, "LandingBottomTabNavigator">) {
   const [recommendSectionHeight, setRecommendSectionHeight] =
-    useState<number>(0);
+    useState<number>(139);
 
   function onRecommendSectionLayout(event: LayoutChangeEvent) {
     setRecommendSectionHeight(event.nativeEvent.layout.height);

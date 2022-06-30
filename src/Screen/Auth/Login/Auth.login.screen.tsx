@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import {
-  NavigationProp,
-  StackActions,
-  useNavigation,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
 import { RadiusButton } from "src/Component/Button";
 import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useLoginScreenStore } from "src/Zustand";
+import { useLoginScreenStore, useMypageStore } from "src/Zustand";
 import { getStorage } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -54,8 +50,8 @@ export function LoginScreen() {
   return (
     <Container>
       <Header />
-      <Email loginable={loginable} />
-      <Password loginable={loginable} />
+      <Email />
+      <Password />
       <Button loginable={loginable} />
       <Util />
     </Container>
@@ -74,13 +70,12 @@ function Header() {
  * 이메일 입력란
  * @author 현웅
  */
-function Email({ loginable }: { loginable: boolean }) {
-  const { emailInput, setEmailInput, isLoading, login } = useLoginScreenStore(
+function Email() {
+  const { emailInput, setEmailInput, isLoading } = useLoginScreenStore(
     state => ({
       emailInput: state.emailInput,
       setEmailInput: state.setEmailInput,
       isLoading: state.isLoading,
-      login: state.login,
     }),
     shallow,
   );
@@ -96,7 +91,6 @@ function Email({ loginable }: { loginable: boolean }) {
           value: emailInput,
           editable: !isLoading,
           onChangeText: setEmailInput,
-          onSubmitEditing: loginable ? login : undefined,
         }}
       />
     </Email__Container>
@@ -107,17 +101,15 @@ function Email({ loginable }: { loginable: boolean }) {
  * 비밀번호 입력란
  * @author 현웅
  */
-function Password({ loginable }: { loginable: boolean }) {
-  const { passwordInput, setPasswordInput, isLoading, login } =
-    useLoginScreenStore(
-      state => ({
-        passwordInput: state.passwordInput,
-        setPasswordInput: state.setPasswordInput,
-        isLoading: state.isLoading,
-        login: state.login,
-      }),
-      shallow,
-    );
+function Password() {
+  const { passwordInput, setPasswordInput, isLoading } = useLoginScreenStore(
+    state => ({
+      passwordInput: state.passwordInput,
+      setPasswordInput: state.setPasswordInput,
+      isLoading: state.isLoading,
+    }),
+    shallow,
+  );
 
   return (
     <Password__Container style={globalStyles.authScreen__horizontalPadding}>
@@ -130,7 +122,6 @@ function Password({ loginable }: { loginable: boolean }) {
           value: passwordInput,
           editable: !isLoading,
           onChangeText: setPasswordInput,
-          onSubmitEditing: loginable ? login : undefined,
         }}
       />
     </Password__Container>
@@ -152,16 +143,19 @@ function Button({ loginable }: { loginable: boolean }) {
     }),
     shallow,
   );
+  const getUserActivities = useMypageStore(state => state.getUserActivities);
 
   /**
    * 로그인을 시도합니다. 로그인 결과가 성공적인 경우,
-   * AsyncStorage에 이메일과 비밀번호를 저장하고 홈화면으로 이동합니다.
+   * AsyncStorage에 이메일과 비밀번호를 저장하고 유저 활동 정보에 대한 요청을 보내며,
+   * 이전 화면으로 이동합니다.
    * @returns
    */
   async function tryLogin() {
     const result = await login();
     if (!result) return;
-    navigation.dispatch(StackActions.replace("LandingBottomTabNavigator", {}));
+    getUserActivities();
+    navigation.goBack();
   }
 
   if (!loginable)

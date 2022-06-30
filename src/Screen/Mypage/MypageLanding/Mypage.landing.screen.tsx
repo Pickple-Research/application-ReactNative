@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { MypageLandingHeader } from "./Mypage.landing.header";
 import { MypageLandingProfile } from "./Mypage.landing.profile";
@@ -9,6 +9,7 @@ import { MypageLandingFunction } from "./Mypage.landing.function";
 import { MypageLandingEvent } from "./Mypage.landing.event";
 import { MypageLandingAbout } from "./Mypage.landing.about";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import { useMypageStore } from "src/Zustand";
 import { theme } from "src/Theme";
 
 /**
@@ -22,6 +23,15 @@ export type MypageLandingScreenProps = {};
  * @author 현웅
  */
 export function MypageLandingScreen() {
+  const getUserActivities = useMypageStore(state => state.getUserActivities);
+
+  useEffect(() => {
+    //* 마이페이지에 랜딩 페이지에 들어올 때마다
+    //* 유저의 활동 목록이 정상적으로 로드된 적 있는지 확인하고, 그렇지 않다면 활동내역을 가져옵니다.
+    getUserActivities();
+    return;
+  }, []);
+
   return (
     <WhiteBackgroundScrollView>
       <MypageLandingHeader />

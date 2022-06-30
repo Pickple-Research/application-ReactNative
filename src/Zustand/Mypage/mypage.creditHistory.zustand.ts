@@ -1,20 +1,12 @@
 import create from "zustand";
-import { CreditHistorySchema } from "src/Schema";
 import { showBlackToast } from "src/Util";
 
 type Filter = "ALL" | "INCOME" | "EXPENDITURE";
 
 type MypageCreditHistoryScreenStoreProps = {
-  /** 크레딧 사용내역들 */
-  creditHistories: CreditHistorySchema[];
-  setCreditHistories: (creditHistories: CreditHistorySchema[]) => void;
-
   /** 크레딧 사용내역 최신순 | 사용한 크레딧 | 받은 크레딧 필터 */
   creditHistoryFilter: Filter;
   setCreditHistoryFilter: (filter: Filter) => void;
-
-  /** 크레딧 사용내역 맨 앞에 새로운 크레딧 사용내역을 추가합니다 */
-  addCreditHistory: (creditHistory: CreditHistorySchema) => void;
 
   noMoreCreditHistories: boolean;
   loadCreditHistories: () => void;
@@ -32,20 +24,9 @@ type MypageCreditHistoryScreenStoreProps = {
  */
 export const useMypageCreditHistoryScreenStore =
   create<MypageCreditHistoryScreenStoreProps>((set, get) => ({
-    creditHistories: [],
-    setCreditHistories: (creditHistories: CreditHistorySchema[]) => {
-      set({ creditHistories });
-    },
-
     creditHistoryFilter: "ALL",
     setCreditHistoryFilter: (filter: Filter) => {
       set({ creditHistoryFilter: filter });
-    },
-
-    addCreditHistory: (creditHistory: CreditHistorySchema) => {
-      set({
-        creditHistories: [creditHistory, ...get().creditHistories],
-      });
     },
 
     noMoreCreditHistories: false,
@@ -63,7 +44,6 @@ export const useMypageCreditHistoryScreenStore =
 
     clearState: () => {
       set({
-        creditHistories: [],
         creditHistoryFilter: "ALL",
         noMoreCreditHistories: false,
         serviceGettingReadyModalVisible: false,

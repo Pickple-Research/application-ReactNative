@@ -93,7 +93,13 @@ function Buttons({
 }) {
   //* 우측 버튼이 없는 경우 좌측 버튼만 보여줍니다.
   if (!RightButton) {
-    return <Buttons__Container>{LeftButton}</Buttons__Container>;
+    return (
+      <Buttons__Container>
+        <LeftButton__Container buttonSymmetric>
+          {LeftButton}
+        </LeftButton__Container>
+      </Buttons__Container>
+    );
   }
   return (
     <Buttons__Container>

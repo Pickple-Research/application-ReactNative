@@ -60,6 +60,7 @@ const Container = styled.TouchableOpacity<{ closed: boolean }>`
   align-items: center;
   height: 72px;
   padding: 6px 18px;
+  margin-bottom: 6px;
   border: 1.2px solid
     ${({ closed, theme }) =>
       closed ? theme.color.purple.inactive : theme.color.purple.text};

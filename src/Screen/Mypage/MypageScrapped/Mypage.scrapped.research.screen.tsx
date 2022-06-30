@@ -6,7 +6,7 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { ResearchSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageScrappedScreenStore } from "src/Zustand";
+import { useMypageStore, useMypageScrappedScreenStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -17,9 +17,7 @@ export type MypageScrappedResearchScreenProps = {};
  * @author 원제
  */
 export function MypageScrappedResearchScreen() {
-  const scrappedResearches = useMypageScrappedScreenStore(
-    state => state.scrappedResearches,
-  );
+  const scrappedResearches = useMypageStore(state => state.scrappedResearches);
 
   if (scrappedResearches.length === 0) {
     return (
@@ -40,7 +38,6 @@ export function MypageScrappedResearchScreen() {
         renderItem={({ item }: { item: ResearchSchema }) => (
           <FilteredResearchItem research={item} />
         )}
-        ItemSeparatorComponent={FlatlistItemSeparator}
         showsVerticalScrollIndicator={false}
       />
     </Container>
@@ -116,10 +113,6 @@ function FilteredResearchItem({ research }: { research: ResearchSchema }) {
   return <ResearchMypageListItem research={research} />;
 }
 
-function FlatlistItemSeparator() {
-  return <FlatlistItemSeparator__Container />;
-}
-
 /**
  * 스크랩한 리서치가 없을 때 보여지는 화면입니다.
  * @author 현웅
@@ -149,10 +142,6 @@ const FlatListHeader__Container = styled.View`
 const styles = StyleSheet.create({
   filterButton: { marginRight: 4 },
 });
-
-const FlatlistItemSeparator__Container = styled.View`
-  height: 8px;
-`;
 
 const EmptyScreen__Container = styled.View`
   flex: 1;
