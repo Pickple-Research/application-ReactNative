@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
 const Button__Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  width: 100%;
   border-radius: 6px;
 `;
 /** 공통 적용되는 버튼 텍스트 스타일 */

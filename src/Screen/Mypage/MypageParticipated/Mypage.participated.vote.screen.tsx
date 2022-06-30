@@ -6,7 +6,7 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { VoteSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageParticipatedScreenStore } from "src/Zustand";
+import { useMypageStore, useMypageParticipatedScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 export type MypageParticipatedVoteScreenProps = {};
@@ -16,9 +16,7 @@ export type MypageParticipatedVoteScreenProps = {};
  * @author 현웅
  */
 export function MypageParticipatedVoteScreen() {
-  const participatedVotes = useMypageParticipatedScreenStore(
-    state => state.participatedVotes,
-  );
+  const participatedVotes = useMypageStore(state => state.participatedVotes);
 
   if (participatedVotes.length === 0) {
     return (
@@ -39,7 +37,6 @@ export function MypageParticipatedVoteScreen() {
         renderItem={({ item }: { item: VoteSchema }) => (
           <FilteredVoteItem vote={item} />
         )}
-        ItemSeparatorComponent={FlatlistItemSeparator}
         showsVerticalScrollIndicator={false}
       />
     </Container>
@@ -115,10 +112,6 @@ function FilteredVoteItem({ vote }: { vote: VoteSchema }) {
   return <VoteMypageListItem vote={vote} />;
 }
 
-function FlatlistItemSeparator() {
-  return <FlatlistItemSeparator__Container />;
-}
-
 /**
  * 참여한 투표가 없을 때 보여지는 화면입니다.
  * @author 현웅
@@ -148,10 +141,6 @@ const FlatListHeader__Container = styled.View`
 const styles = StyleSheet.create({
   filterButton: { marginRight: 4 },
 });
-
-const FlatlistItemSeparator__Container = styled.View`
-  height: 8px;
-`;
 
 const EmptyScreen__Container = styled.View`
   flex: 1;

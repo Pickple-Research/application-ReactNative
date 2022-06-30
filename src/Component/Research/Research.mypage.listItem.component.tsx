@@ -93,6 +93,7 @@ const Container = styled.TouchableOpacity<{ closed: boolean }>`
   align-items: center;
   height: 90px;
   padding: 6px 18px;
+  margin-bottom: 6px;
   //TODO: DESING-SYSTEM
   border: 1.5px solid ${({ closed }) => (closed ? "#c4c4c4" : "#8BBFF5")};
   border-radius: 10px;

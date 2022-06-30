@@ -27,16 +27,12 @@ export const useLoginScreenStore = create<LoginScreenStoreProps>(
   (set, get) => ({
     emailInput: "",
     setEmailInput: (emailInput: string) => {
-      if (emailInput.length < 36) {
-        set({ emailInput });
-      }
+      set({ emailInput });
     },
 
     passwordInput: "",
     setPasswordInput: (passwordInput: string) => {
-      if (passwordInput.length < 36) {
-        set({ passwordInput });
-      }
+      set({ passwordInput });
     },
 
     isLoading: false,

@@ -44,11 +44,12 @@ export function ResearchLandingScreen({
   navigation,
 }: NativeStackScreenProps<AppStackProps, "LandingBottomTabNavigator">) {
   /**
-   * 리서치 추천 섹션의 높이입니다. 초기값은 0이지만,
+   * 리서치 추천 섹션의 높이입니다. 초기값은 270이지만
+   * (최초 랜더링 시 리서치 리스트가 위로 올라와있는 현상을 방지하기 위해 0 말고 실제 초기 높이로 설정),
    * onRecommendSectionLayout 함수가 호출됨에 따라 변경됩니다.
    */
   const [recommendSectionHeight, setRecommendSectionHeight] =
-    useState<number>(0);
+    useState<number>(270);
 
   /**
    * 리서치 추천 섹션의 레이아웃에 변화가 생겼을 때 호출할 함수입니다.

@@ -4,6 +4,7 @@ export * from "./Auth/auth.fillProfile.zustand";
 export * from "./Auth/auth.login.zustand";
 export * from "./Auth/auth.signup.zustand";
 
+export * from "./Mypage/mypage.zustand";
 export * from "./Mypage/mypage.creditHistory.zustand";
 export * from "./Mypage/mypage.participated.zustand";
 export * from "./Mypage/mypage.scrapped.zustand";

@@ -1,4 +1,5 @@
 import customAxios from "../axios.core";
+import { CreditHistorySchema, ResearchSchema, VoteSchema } from "src/Schema";
 import { handleAxiosError } from "src/Util";
 import { UserInfoResponse } from "../Auth/auth.axios";
 
@@ -58,17 +59,25 @@ export const axiosSignupAsEmailUser = async () => {
  * @author 현웅
  */
 export const axiosGetUserActivity = async (param: {
+  creditHistoryIds: string[];
   scrappedResearchIds: string[];
   participatedResearchIds: string[];
   uploadedResearchIds: string[];
   scrappedVoteIds: string[];
   participatedVoteIds: string[];
   uploadedVoteIds: string[];
-  creditHistoryIds: string[];
 }) => {
   return await customAxios
-    .request<void>({
-      method: "GET",
+    .request<{
+      creditHistories: CreditHistorySchema[];
+      scrappedResearches: ResearchSchema[];
+      participatedResearches: ResearchSchema[];
+      uploadedResearches: ResearchSchema[];
+      scrappedVotes: VoteSchema[];
+      participatedVotes: VoteSchema[];
+      uploadedVotes: VoteSchema[];
+    }>({
+      method: "POST",
       url: "/users/activity",
       data: param,
     })
@@ -76,10 +85,10 @@ export const axiosGetUserActivity = async (param: {
       return response.data;
     })
     .catch(error => {
-      handleAxiosError({
-        error,
-        errorMessage: "유저 활동 정보를 가져오는데 실패했습니다",
-      });
+      // handleAxiosError({
+      //   error,
+      //   errorMessage: "유저 활동 정보를 가져오는데 실패했습니다",
+      // });
       return null;
     });
 };
