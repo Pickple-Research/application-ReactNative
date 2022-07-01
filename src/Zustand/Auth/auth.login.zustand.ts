@@ -1,5 +1,6 @@
 import create from "zustand";
 import { useUserStore } from "../User/user.zustand";
+import { useMypageStore } from "../Mypage/mypage.zustand";
 import { axiosLoginWithEmailPassword } from "src/Axios";
 import { setStorage } from "src/Util";
 
@@ -56,6 +57,8 @@ export const useLoginScreenStore = create<LoginScreenStoreProps>(
       await setStorage("JWT", jwt);
       await setStorage("PASSWORD", get().passwordInput);
       await setStorage("EMAIL", userInfo.user.email);
+
+      await useMypageStore.getState().getUserActivities();
 
       set({ isLoading: false });
       return true;

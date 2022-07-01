@@ -1,5 +1,12 @@
 import customAxios from "../axios.core";
-import { CreditHistorySchema, ResearchSchema, VoteSchema } from "src/Schema";
+import {
+  CreditHistorySchema,
+  ResearchSchema,
+  VoteSchema,
+  UserCreditSchema,
+  UserResearchSchema,
+  UserVoteSchema,
+} from "src/Schema";
 import { handleAxiosError } from "src/Util";
 import { UserInfoResponse } from "../Auth/auth.axios";
 
@@ -59,13 +66,9 @@ export const axiosSignupAsEmailUser = async () => {
  * @author 현웅
  */
 export const axiosGetUserActivity = async (param: {
-  creditHistoryIds: string[];
-  scrappedResearchIds: string[];
-  participatedResearchIds: string[];
-  uploadedResearchIds: string[];
-  scrappedVoteIds: string[];
-  participatedVoteIds: string[];
-  uploadedVoteIds: string[];
+  userCredit: UserCreditSchema;
+  userResearch: UserResearchSchema;
+  userVote: UserVoteSchema;
 }) => {
   return await customAxios
     .request<{
@@ -79,7 +82,25 @@ export const axiosGetUserActivity = async (param: {
     }>({
       method: "POST",
       url: "/users/activity",
-      data: param,
+      data: {
+        creditHistoryIds: param.userCredit.creditHistoryIds.slice(0, 15),
+        scrappedResearchIds: param.userResearch.scrappedResearchIds.slice(
+          0,
+          15,
+        ),
+        participatedResearchIds: param.userResearch.participatedResearchInfos
+          .slice(0, 15)
+          .map(info => info.researchId),
+        uploadedResearchIds: param.userResearch.uploadedResearchIds.slice(
+          0,
+          15,
+        ),
+        scrappedVoteIds: param.userVote.scrappedVoteIds.slice(0, 15),
+        participatedVoteIds: param.userVote.participatedVoteInfos
+          .slice(0, 15)
+          .map(info => info.voteId),
+        uploadedVoteIds: param.userVote.uploadedVoteIds.slice(0, 15),
+      },
     })
     .then(response => {
       return response.data;

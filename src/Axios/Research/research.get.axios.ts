@@ -3,25 +3,6 @@ import { ResearchSchema, ResearchCommentSchema } from "src/Schema";
 import { handleAxiosError } from "src/Util";
 
 /**
- * 최신 리서치를 가져옵니다
- * @author 현웅
- */
-export const axiosGetRecentResearches = async () => {
-  return await customAxios
-    .request<ResearchSchema[]>({
-      method: "GET",
-      url: "/researches",
-    })
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      handleAxiosError({ error, errorMessage: "리서치를 불러오지 못했습니다" });
-      return null;
-    });
-};
-
-/**
  * 리서치 _id 로 리서치를 찾고 가져옵니다
  * @author 현웅
  */

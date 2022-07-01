@@ -14,9 +14,6 @@ export type ResearchSchema = {
   /** 리서치 업로더 _id */
   authorId: string;
 
-  /** 리서치 카테고리 */
-  // categories: Category[];
-
   /** 리서치 제목 */
   title: string;
 
@@ -38,17 +35,33 @@ export type ResearchSchema = {
   /** 예상 소요시간 (분) */
   estimatedTime: number;
 
+  /** 마감일 */
+  deadline: string | Date;
+
   /** 최소 참여조건 */
   eligibility: string;
 
-  /** 마감일 */
-  deadline: string | Date;
+  /** 참여 성별 조건 */
+  genderCondition?: string;
+
+  /** 참여 나이 조건 */
+  ageCondition?: string;
 
   /** 끌올한 날짜 (노출 기준일) */
   pulledupAt: string | Date;
 
   /** 생성일 */
   createdAt: string;
+
+  /** 리서치 카테고리 */
+  // categories: Category[];
+
+  /** 참여시 제공 크레딧 */
+  credit: number;
+  /** 참여시 추가 제공 크레딧 (추첨자에게만 제공) */
+  extraCredit?: number;
+  /** 추가 제공 크레딧 추첨 수령자 수 */
+  extraCreditRecieverNum?: number;
 
   /** 조회 수 */
   viewsNum: number;
@@ -78,7 +91,6 @@ export type ResearchSchema = {
 export const BlankResearch: ResearchSchema = {
   _id: "",
   authorId: "",
-  // categories: [],
   title: "",
   link: "",
   content: "",
@@ -87,9 +99,15 @@ export const BlankResearch: ResearchSchema = {
   target: "",
   estimatedTime: 0,
   eligibility: "",
+  genderCondition: "",
+  ageCondition: "",
   deadline: "",
   pulledupAt: "",
   createdAt: "",
+  // categories: [],
+  credit: 0,
+  extraCredit: 0,
+  extraCreditRecieverNum: 0,
   viewsNum: 0,
   scrapsNum: 0,
   participantsNum: 0,

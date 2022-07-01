@@ -1,5 +1,6 @@
 import customAxios from "../axios.core";
 import {
+  CreditHistorySchema,
   ResearchSchema,
   ResearchCommentSchema,
   ResearchReplySchema,
@@ -9,24 +10,28 @@ import { handleAxiosError } from "src/Util";
 
 /**
  * 이미지가 포함되지 않은 리서치를 업로드합니다.
- * @return 새로운 리서치 정보 | null
+ * @return 새로운 리서치 정보와 CreditHistory | null
  * @author 현웅
  */
 export const axiosUploadResearch = async (research: {
   title: string;
   link: string;
   content: string;
-  // purpose: ResearchPurpose | undefined;
+  purpose: ResearchPurpose | undefined;
   organization: string;
   target: string;
   estimatedTime: string;
+  deadline: string;
   // creditReceiverNum: number;
   // extraCredit: number;
-  // screeningSexInput: string | undefined;
-  // screeningAgeInputs: string[];
+  // genderCondition: string | undefined;
+  // ageCondition: string[];
 }) => {
   return await customAxios
-    .request<ResearchSchema>({
+    .request<{
+      newResearch: ResearchSchema;
+      newCreditHistory: CreditHistorySchema;
+    }>({
       method: "POST",
       url: "/researches",
       data: research,
@@ -42,12 +47,15 @@ export const axiosUploadResearch = async (research: {
 
 /**
  * 이미지가 포함된 리서치를 업로드합니다.
- * @return 새로운 리서치 정보 | null
+ * @return 새로운 리서치 정보와 CreditHistory | null
  * @author 현웅
  */
 export const axiosUploadResearchWithImages = async (formData: FormData) => {
   return await customAxios
-    .request<ResearchSchema>({
+    .request<{
+      newResearch: ResearchSchema;
+      newCreditHistory: CreditHistorySchema;
+    }>({
       method: "POST",
       url: "/researches/images",
       headers: { "Content-Type": "multipart/form-data" },

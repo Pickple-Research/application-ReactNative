@@ -1,7 +1,8 @@
 import create from "zustand";
-import { VoteUploadOptionProps } from "src/Object/Type";
+import { useVoteStore } from "./vote.zustand";
 import { VoteSchema } from "src/Schema";
 import { axiosUploadVote } from "src/Axios";
+import { VoteUploadOptionProps } from "src/Object/Type";
 import { showBlackToast } from "src/Util";
 
 type VoteUploadScreenStoreProps = {
@@ -61,6 +62,12 @@ export const useVoteUploadScreenStore = create<VoteUploadScreenStoreProps>(
       { index: 1, content: "" },
     ],
     addOption: () => {
+      //* 투표 선지는 최대 20개 까지
+      if (get().optionIndex >= 20) {
+        showBlackToast({ text1: "선택지는 20개까지 가능합니다" });
+        return;
+      }
+
       set({
         options: [...get().options, { index: get().optionIndex, content: "" }],
       });
@@ -69,6 +76,7 @@ export const useVoteUploadScreenStore = create<VoteUploadScreenStoreProps>(
         state.optionIndex += 1;
       });
     },
+
     updateOptionContent: (index: number, content: string) => {
       set(state => {
         state.options[index].content = content;
@@ -151,14 +159,18 @@ export const useVoteUploadScreenStore = create<VoteUploadScreenStoreProps>(
           return { content: option.content.trim() };
         });
 
-      const result = await axiosUploadVote({
+      const newVote = await axiosUploadVote({
         title: get().titleInput.trim(),
         content: get().contentInput.trim(),
         options: options,
         allowMultiChoice: get().allowMultiChoice,
       });
+      //* 성공적으로 업로드 된 경우, 업로드 된 투표 정보 전파
+      if (newVote !== null) {
+        useVoteStore.getState().spreadVoteUploaded({ vote: newVote });
+      }
       set({ uploading: false });
-      return result;
+      return newVote;
     },
   }),
 );

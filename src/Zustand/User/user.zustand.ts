@@ -12,11 +12,15 @@ import {
   BlankUserProperty,
   BlankUserResearch,
   BlankUserVote,
+  CreditHistorySchema,
 } from "src/Schema";
+import { useMypageStore } from "../Mypage/mypage.zustand";
 import {
   ParticipatedResearchInfo,
   ParticipatedVoteInfo,
 } from "src/Schema/User/Embedded";
+
+type ChangeTarget = "VIEW" | "SCRAP" | "UPLOAD";
 
 type UserStoreProps = {
   user: UserSchema;
@@ -25,6 +29,8 @@ type UserStoreProps = {
   userProperty: UserPropertySchema;
   userResearch: UserResearchSchema;
   userVote: UserVoteSchema;
+
+  logout: () => void;
 
   /**
    * 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다
@@ -38,28 +44,33 @@ type UserStoreProps = {
     userVote: UserVoteSchema;
   }) => void;
 
-  /** 조회한 리서치 _id 를 유저 활동 정보에 추가합니다. */
-  addViewedResearchId: (researchId: string) => void;
-  /** 조회한 투표 _id 를 유저 활동 정보에 추가합니다. */
-  addViewedVoteId: (voteId: string) => void;
+  /**
+   * 새로운 크레딧 사용내역 _id 를 userCredit 에 추가하고,
+   * credit 총액을 업데이트합니다.
+   */
+  updateUserCredit: (creditHistory: CreditHistorySchema) => void;
 
-  /** 스크랩한 리서치 _id 를 유저 활동 정보에 추가합니다. */
-  addScrappedResearchId: (researchId: string) => void;
-  /** 스크랩 취소한 리서치 _id 를 유저 활동 정보에서 제거합니다. */
-  removeScrappedResearchId: (researchId: string) => void;
-
-  /** 스크랩한 투표 _id 를 유저 활동 정보에 추가합니다. */
-  addScrappedVoteId: (voteId: string) => void;
-  /** 스크랩 취소한 투표 _id 를 유저 활동 정보에서 제거합니다. */
-  removeScrappedVoteId: (voteId: string) => void;
-
-  /** 참여한 리서치 정보를 유저 활동 정보에 추가합니다. */
+  addResearchIdToUserResearch: (param: {
+    changeTarget: ChangeTarget;
+    researchId: string;
+  }) => void;
   addParticipatedResearchInfo: (
-    researchInfo: ParticipatedResearchInfo,
-  ) => Promise<void>;
+    participatedResearchInfo: ParticipatedResearchInfo,
+  ) => void;
+  removeResearchIdFromUserResearch: (param: {
+    researchId: string;
+    unscrap: boolean;
+  }) => void;
 
-  /** 참여한 투표 정보를 유저 활동 정보에 추가합니다. */
-  addParticipatedVoteInfo: (voteInfo: ParticipatedVoteInfo) => Promise<void>;
+  addVoteIdToUserVote: (param: {
+    changeTarget: ChangeTarget;
+    voteId: string;
+  }) => void;
+  addParticipatedVoteInfo: (participatedVoteInfo: ParticipatedVoteInfo) => void;
+  removeVoteIdFromUserVote: (param: {
+    voteId: string;
+    unscrap: boolean;
+  }) => void;
 };
 
 /**
@@ -73,6 +84,18 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
   userProperty: BlankUserProperty,
   userResearch: BlankUserResearch,
   userVote: BlankUserVote,
+
+  logout: () => {
+    set({
+      user: BlankUser,
+      userCredit: BlankUserCredit,
+      userPrivacy: BlankUserPrivacy,
+      userProperty: BlankUserProperty,
+      userResearch: BlankUserResearch,
+      userVote: BlankUserVote,
+    });
+    useMypageStore.getState().clearState();
+  },
 
   setUserInfo: (userInfo: {
     user: UserSchema;
@@ -91,92 +114,129 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
     return;
   },
 
-  addViewedResearchId: (researchId: string) => {
-    const userResearch = get().userResearch;
+  //* Credit
+  updateUserCredit: (creditHistory: CreditHistorySchema) => {
+    const userCredit = get().userCredit;
     set({
-      userResearch: {
-        ...userResearch,
-        viewedResearchIds: [researchId, ...userResearch.viewedResearchIds],
+      userCredit: {
+        credit: userCredit.credit + creditHistory.scale,
+        creditHistoryIds: [creditHistory._id, ...userCredit.creditHistoryIds],
       },
     });
   },
-  addScrappedResearchId: (researchId: string) => {
+
+  //* Research
+  addResearchIdToUserResearch: (param: {
+    changeTarget: ChangeTarget;
+    researchId: string;
+  }) => {
     const userResearch = get().userResearch;
-    set({
-      userResearch: {
-        ...userResearch,
-        scrappedResearchIds: [researchId, ...userResearch.scrappedResearchIds],
-      },
-    });
+    switch (param.changeTarget) {
+      case "VIEW":
+        userResearch.viewedResearchIds = [
+          param.researchId,
+          ...userResearch.viewedResearchIds,
+        ];
+        break;
+      case "SCRAP":
+        userResearch.scrappedResearchIds = [
+          param.researchId,
+          ...userResearch.scrappedResearchIds,
+        ];
+        break;
+      case "UPLOAD":
+        userResearch.uploadedResearchIds = [
+          param.researchId,
+          ...userResearch.uploadedResearchIds,
+        ];
+        break;
+    }
+    set({ userResearch });
   },
-  removeScrappedResearchId: (researchId: string) => {
-    const userResearch = get().userResearch;
-    const updatedScrappedResearchId = userResearch.scrappedResearchIds.filter(
-      scrappedResearchId => {
-        return scrappedResearchId !== researchId;
-      },
-    );
-    set({
-      userResearch: {
-        ...userResearch,
-        scrappedResearchIds: updatedScrappedResearchId,
-      },
-    });
-  },
-  addParticipatedResearchInfo: async (
-    researchInfo: ParticipatedResearchInfo,
+  addParticipatedResearchInfo: (
+    participatedResearchInfo: ParticipatedResearchInfo,
   ) => {
     const userResearch = get().userResearch;
-    const updatedUserResearch = {
-      ...userResearch,
-      participatedResearchInfos: [
-        researchInfo,
-        ...userResearch.participatedResearchInfos,
-      ],
-    };
-    set({ userResearch: updatedUserResearch });
+    userResearch.participatedResearchInfos = [
+      participatedResearchInfo,
+      ...userResearch.participatedResearchInfos,
+    ];
+    set({ userResearch });
   },
-
-  addViewedVoteId: (voteId: string) => {
-    const userVote = get().userVote;
-    set({
-      userVote: {
-        ...userVote,
-        viewedVoteIds: [voteId, ...userVote.viewedVoteIds],
-      },
-    });
-  },
-
-  addScrappedVoteId: (voteId: string) => {
-    const userVote = get().userVote;
-    set({
-      userVote: {
-        ...userVote,
-        scrappedVoteIds: [voteId, ...userVote.scrappedVoteIds],
-      },
-    });
-  },
-  removeScrappedVoteId: (voteId: string) => {
-    const userVote = get().userVote;
-    const updatedScrappedVoteId = userVote.scrappedVoteIds.filter(
-      scrappedVoteId => {
-        return scrappedVoteId !== voteId;
-      },
+  removeResearchIdFromUserResearch: (param: {
+    researchId: string;
+    unscrap: boolean;
+  }) => {
+    const userResearch = get().userResearch;
+    userResearch.scrappedResearchIds = userResearch.scrappedResearchIds.filter(
+      id => id !== param.researchId,
     );
+    //* 스크랩 취소가 아니라 리서치가 삭제된 경우
+    if (!param.unscrap) {
+      userResearch.viewedResearchIds = userResearch.viewedResearchIds.filter(
+        id => id !== param.researchId,
+      );
+      userResearch.participatedResearchInfos =
+        userResearch.participatedResearchInfos.filter(
+          info => info.researchId !== param.researchId,
+        );
+      userResearch.uploadedResearchIds =
+        userResearch.uploadedResearchIds.filter(id => id !== param.researchId);
+    }
+    set({ userResearch });
+  },
+
+  //* Vote
+  addVoteIdToUserVote: (param: {
+    changeTarget: ChangeTarget;
+    voteId: string;
+  }) => {
+    const userVote = get().userVote;
+    switch (param.changeTarget) {
+      //TODO: . 으로 property 접근하지 말고 객체 정의해서 넣는 방식으로
+      case "VIEW":
+        userVote.viewedVoteIds = [param.voteId, ...userVote.viewedVoteIds];
+        break;
+      case "SCRAP":
+        userVote.scrappedVoteIds = [param.voteId, ...userVote.scrappedVoteIds];
+        break;
+      case "UPLOAD":
+        userVote.uploadedVoteIds = [param.voteId, ...userVote.uploadedVoteIds];
+        break;
+    }
+    set({ userVote });
+  },
+  //TODO: . 으로 property 접근하지 말고 객체 정의해서 넣는 방식으로
+  addParticipatedVoteInfo: (participatedVoteInfo: ParticipatedVoteInfo) => {
+    const userVote = get().userVote;
     set({
       userVote: {
         ...userVote,
-        scrappedVoteIds: updatedScrappedVoteId,
+        participatedVoteInfos: [
+          participatedVoteInfo,
+          ...userVote.participatedVoteInfos,
+        ],
       },
     });
   },
-
-  addParticipatedVoteInfo: async (voteInfo: ParticipatedVoteInfo) => {
+  //TODO: . 으로 property 접근하지 말고 객체 정의해서 넣는 방식으로
+  removeVoteIdFromUserVote: (param: { voteId: string; unscrap: boolean }) => {
     const userVote = get().userVote;
-    const updatedUserVote = {
-      ...userVote,
-      participatedVoteInfos: [voteInfo, ...userVote.participatedVoteInfos],
-    };
-    set({ userVote: updatedUserVote });
+    userVote.scrappedVoteIds = userVote.scrappedVoteIds.filter(
+      id => id !== param.voteId,
+    );
+    //* 스크랩 취소가 아니라 투표가 삭제된 경우
+    if (!param.unscrap) {
+      userVote.viewedVoteIds = userVote.viewedVoteIds.filter(
+        id => id !== param.voteId,
+      );
+      userVote.participatedVoteInfos = userVote.participatedVoteInfos.filter(
+        info => info.voteId !== param.voteId,
+      );
+      userVote.uploadedVoteIds = userVote.uploadedVoteIds.filter(
+        id => id !== param.voteId,
+      );
+    }
+    set({ userVote });
   },
 }));

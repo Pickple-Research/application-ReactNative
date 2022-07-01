@@ -18,6 +18,7 @@ export * from "./User/userPrivacy.schema";
 export * from "./User/userProperty.schema";
 export * from "./User/userResearch.schema";
 export * from "./User/userVote.schema";
+export * from "./User/Embedded";
 
 export * from "./Vote/vote.schema";
 export * from "./Vote/voteComment.schema";

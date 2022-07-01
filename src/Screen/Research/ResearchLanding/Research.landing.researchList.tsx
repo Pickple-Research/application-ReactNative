@@ -1,5 +1,5 @@
-import React from "react";
-import { Animated } from "react-native";
+import React, { useRef } from "react";
+import { Animated, FlatList } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
@@ -30,12 +30,15 @@ export function ResearchLandingResearchList({
     shallow,
   );
 
+  const flatListRef = useRef<FlatList>();
+
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
 
   return (
     <Container>
       <ResearchList<React.ElementType>
+        ref={flatListRef}
         data={researches}
         renderItem={({ item }: { item: ResearchSchema }) => {
           return (
@@ -47,6 +50,10 @@ export function ResearchLandingResearchList({
                 navigation.navigate("ResearchDetailScreen", {
                   research: item,
                 });
+                // flatListRef.current?.scrollToOffset({
+                //   animated: true,
+                //   offset: 270,
+                // });
               }}
             />
           );
