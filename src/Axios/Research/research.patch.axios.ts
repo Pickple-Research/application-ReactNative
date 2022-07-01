@@ -1,5 +1,5 @@
 import customAxios from "../axios.core";
-import { ResearchSchema } from "src/Schema";
+import { CreditHistorySchema, ResearchSchema } from "src/Schema";
 import { ParticipatedResearchInfo } from "src/Schema/User/Embedded";
 import { handleAxiosError } from "src/Util";
 
@@ -72,6 +72,7 @@ export const axiosParticipateResearch = async (
   return await customAxios
     .request<{
       participatedResearchInfo: ParticipatedResearchInfo;
+      newCreditHitory: CreditHistorySchema;
       updatedResearch: ResearchSchema;
     }>({
       method: "PATCH",

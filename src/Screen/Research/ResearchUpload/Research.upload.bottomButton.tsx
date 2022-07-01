@@ -146,6 +146,11 @@ function ScreeningStepButton() {
     shallow,
   );
 
+  /**
+   * 리서치 업로드를 시도합니다.
+   * 성공적으로 업로드된 경우, 생성된 리서치 상세 페이지로 이동합니다.
+   * @author 현웅
+   */
   async function tryUploadResearch() {
     const newResearch = await uploadResearch();
     if (newResearch !== null) {

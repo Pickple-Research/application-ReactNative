@@ -3,6 +3,8 @@
  * @author 현웅
  */
 export type CreditHistorySchema = {
+  _id: string;
+
   /** 변동 사유 (줄글) */
   reason: string;
 

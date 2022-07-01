@@ -34,7 +34,9 @@ export function MypageLandingProfile() {
 }
 
 function ProfileThumbnail() {
-  return <Thumbnail__Container></Thumbnail__Container>;
+  const logout = useUserStore(state => state.logout);
+
+  return <Thumbnail__Container activeOpacity={1} onPress={logout} />;
 }
 
 function NicknameEmail({
@@ -84,7 +86,7 @@ const Container = styled.View`
 `;
 
 // ProfileThumbnail()
-const Thumbnail__Container = styled.View`
+const Thumbnail__Container = styled.TouchableOpacity`
   width: 70px;
   height: 70px;
   background-color: gray;

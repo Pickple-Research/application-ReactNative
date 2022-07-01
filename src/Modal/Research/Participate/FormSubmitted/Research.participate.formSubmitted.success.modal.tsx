@@ -6,7 +6,7 @@ import { ModalContentContainer } from "src/Component/Modal";
 import { RadiusButton } from "src/Component/Button";
 import { H2 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore } from "src/Zustand";
+import { useUserStore, useResearchDetailScreenStore } from "src/Zustand";
 
 /**
  * 리서치 참여 완료 후 성공 모달입니다.
@@ -17,11 +17,14 @@ export function ResearchParticipateFormSubmittedSuccessModal() {
     useNavigation<NavigationProp<AppStackProps, "ResearchParticipateScreen">>();
 
   const user = useUserStore(state => state.user);
+  const researchDetail = useResearchDetailScreenStore(
+    state => state.researchDetail,
+  );
 
   return (
     <ModalContentContainer>
       <TitleContent />
-      <Credit credit={3} />
+      <Credit credit={researchDetail.credit} />
       <Messages userNickname={`userNickname`} />
       <Button
         onPress={() => {

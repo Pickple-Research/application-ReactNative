@@ -1,5 +1,4 @@
 import create from "zustand";
-import { useUserStore } from "../User/user.zustand";
 import { useResearchStore } from "./research.zustand";
 import { useResearchDetailScreenStore } from "./research.detail.zustand";
 import { axiosParticipateResearch } from "src/Axios";
@@ -130,21 +129,18 @@ export const useResearchParticipateScreenStore =
       //* 응답이 실패한 경우, participatedSuccessed 플래그를 false로 설정하고 리턴합니다.
       if (result === null) {
         get().setParticipateSuccessed(false);
+        set({ loading: false });
         return;
       }
 
       //* 응답이 성공적인 경우, participatedSuccessed 플래그를 true로 설정하고
-      //* 유저의 참여 정보, 리서치 상세보기 페이지 정보 및 리서치 리스트 아이템을 업데이트합니다.
+      //* 리서치 참여 정보를 전파합니다.
       get().setParticipateSuccessed(true);
-      useUserStore
-        .getState()
-        .addParticipatedResearchInfo(result.participatedResearchInfo);
-      useResearchStore
-        .getState()
-        .updateResearchListItem(result.updatedResearch);
-      useResearchDetailScreenStore
-        .getState()
-        .setResearchDetail(result.updatedResearch);
+      useResearchStore.getState().spreadResearchParticipated({
+        participationResearchInfo: result.participatedResearchInfo,
+        research: result.updatedResearch,
+        creditHistory: result.newCreditHitory,
+      });
 
       set({ loading: false });
       return;

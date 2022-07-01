@@ -1,5 +1,4 @@
 import create from "zustand";
-import { useUserStore } from "../User/user.zustand";
 import { useVoteStore } from "./vote.zustand";
 import {
   VoteSchema,
@@ -24,6 +23,7 @@ type VoteDetailScreenStoreProps = {
   /** 투표 정보 */
   voteDetail: VoteSchema;
   setVoteDetail: (voteDetail: VoteSchema) => void;
+  updateVoteDetail: (voteDetail: VoteSchema) => void;
 
   /** 투표 신고 옵션들 */
   voteReportOptions: string[];
@@ -36,15 +36,15 @@ type VoteDetailScreenStoreProps = {
   reportEtcOptionInput: string;
   setReportEtcOptionInput: (input: string) => void;
 
-  /** 투표 (대)댓글 정보 */
-  voteDetailComments: VoteCommentSchema[];
-  /** 투표 (대)댓글 정보를 가져옵니다 */
-  getVoteDetailComments: (votdId: string) => Promise<void>;
-
   /** 사용자가 선택한 선택지 인덱스(들) */
   selectedOptionIndexes: number[];
   /** 선택지 터치 시 호출 함수 */
   onPressOption: (index: number) => void;
+
+  /** 투표 (대)댓글 정보 */
+  voteDetailComments: VoteCommentSchema[];
+  /** 투표 (대)댓글 정보를 가져옵니다 */
+  getVoteDetailComments: (votdId: string) => Promise<void>;
 
   /** 대댓글 대상 댓글 _id */
   targetCommentId: string;
@@ -62,43 +62,34 @@ type VoteDetailScreenStoreProps = {
   /** 새로운 대댓글을 로컬 데이터에 반영 */
   addReply: (newReply: VoteReplySchema) => void;
 
-  /** 투표 마감 모달 표시 여부 */
-  voteCloseModalVisible: boolean;
-  setVoteCloseModalVisible: (status: boolean) => void;
+  /** 투표 신고 모달 표시 여부 */
+  voteReportModalVisible: boolean;
+  setVoteReportModalVisible: (status: boolean) => void;
 
   /** 투표 삭제 모달 표시 여부 */
   voteDeleteModalVisible: boolean;
   setVoteDeleteModalVisible: (status: boolean) => void;
 
-  /** 투표 신고 모달 표시 여부 */
-  voteReportModalVisible: boolean;
-  setVoteReportModalVisible: (status: boolean) => void;
+  /** 투표 마감 모달 표시 여부 */
+  voteCloseModalVisible: boolean;
+  setVoteCloseModalVisible: (status: boolean) => void;
 
-  /** 투표 참여 중 여부 */
-  loading: boolean;
-  /** 투표 마감 중 여부 */
-  closing: boolean;
-  /** 투표 삭제 중 여부 */
-  deleting: boolean;
+  /** 댓글 로드 중 여부 */
+  commentLoading: boolean;
   /** 투표 신고 중 여부 */
   reporting: boolean;
   /** 스크랩 처리 중 여부 */
   scrapping: boolean;
-  /** 댓글 로드 중 여부 */
-  commentLoading: boolean;
+  /** 투표 참여 중 여부 */
+  loading: boolean;
   /** 댓글 업로드 중 여부 */
   commentUploading: boolean;
+  /** 투표 삭제 중 여부 */
+  deleting: boolean;
+  /** 투표 마감 중 여부 */
+  closing: boolean;
 
   clearInfo: () => void;
-
-  /** 투표를 마감합니다 */
-  closeVote: () => Promise<void>;
-
-  /**
-   * 투표를 삭제합니다
-   * @return 성공시 true, 실패시 false
-   */
-  deleteVote: () => Promise<boolean>;
 
   /** 투표를 신고합니다 */
   reportVote: () => Promise<void>;
@@ -109,6 +100,13 @@ type VoteDetailScreenStoreProps = {
   /** 투표 스크랩을 취소합니다 */
   unscrapVote: () => Promise<void>;
 
+  /**
+   * 투표 참여요청을 보냅니다.
+   * 응답이 성공적인 경우, 투표 참여 정보와 최신 투표 정보를 업데이트합니다.
+   * @author 현웅
+   */
+  participateVote: () => Promise<void>;
+
   /** 새로운 댓글을 업로드합니다 */
   uploadComment: () => Promise<void>;
 
@@ -116,11 +114,13 @@ type VoteDetailScreenStoreProps = {
   uploadReply: () => Promise<void>;
 
   /**
-   * 투표 참여요청을 보냅니다.
-   * 응답이 성공적인 경우, 투표 참여 정보와 최신 투표 정보를 업데이트합니다.
-   * @author 현웅
+   * 투표를 삭제합니다
+   * @return 성공시 true, 실패시 false
    */
-  participateVote: () => Promise<void>;
+  deleteVote: () => Promise<boolean>;
+
+  /** 투표를 마감합니다 */
+  closeVote: () => Promise<void>;
 };
 
 /**
@@ -131,6 +131,10 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
   (set, get) => ({
     voteDetail: BlankVote,
     setVoteDetail: async (voteDetail: VoteSchema) => {
+      set({ voteDetail });
+    },
+    updateVoteDetail: async (voteDetail: VoteSchema) => {
+      if (get().voteDetail._id === "") return;
       set({ voteDetail });
     },
 
@@ -147,14 +151,6 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     reportEtcOptionInput: "",
     setReportEtcOptionInput: (input: string) => {
       set({ reportEtcOptionInput: input });
-    },
-
-    voteDetailComments: [],
-    getVoteDetailComments: async (voteId: string) => {
-      set({ commentLoading: true });
-      const comments = await axiosGetVoteComments(voteId);
-      if (comments !== null) set({ voteDetailComments: comments });
-      set({ commentLoading: false });
     },
 
     selectedOptionIndexes: [],
@@ -176,6 +172,14 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       }
 
       set({ selectedOptionIndexes: [...get().selectedOptionIndexes, index] });
+    },
+
+    voteDetailComments: [],
+    getVoteDetailComments: async (voteId: string) => {
+      set({ commentLoading: true });
+      const comments = await axiosGetVoteComments(voteId);
+      if (comments !== null) set({ voteDetailComments: comments });
+      set({ commentLoading: false });
     },
 
     targetCommentId: "",
@@ -223,66 +227,35 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       set({ voteReportModalVisible: status });
     },
 
-    loading: false,
-    closing: false,
-    deleting: false,
+    commentLoading: false,
     reporting: false,
     scrapping: false,
-    commentLoading: false,
+    loading: false,
     commentUploading: false,
+    deleting: false,
+    closing: false,
 
     clearInfo: () => {
       set({
         voteDetail: BlankVote,
         selectedReportOptionIndexes: [],
         reportEtcOptionInput: "",
-        voteDetailComments: [],
         selectedOptionIndexes: [],
+        voteDetailComments: [],
         targetCommentId: "",
         targetCommentAuthorNickname: "",
         commentInput: "",
-        voteCloseModalVisible: false,
-        voteDeleteModalVisible: false,
         voteReportModalVisible: false,
-        loading: false,
-        closing: false,
-        deleting: false,
+        voteDeleteModalVisible: false,
+        voteCloseModalVisible: false,
+        commentLoading: false,
         reporting: false,
         scrapping: false,
-        commentLoading: false,
+        loading: false,
         commentUploading: false,
+        deleting: false,
+        closing: false,
       });
-    },
-
-    closeVote: async () => {
-      set({ voteCloseModalVisible: false, closing: true });
-
-      const updatedVote = await axiosCloseVote(get().voteDetail._id);
-      if (updatedVote !== null) {
-        set({ voteDetail: updatedVote });
-        // TODO: 내가 업로드한 투표 정보를 변경하는 로직 필요
-        // useMypageStore.getState(). ...
-        get().setVoteDetail(updatedVote);
-        useVoteStore.getState().updateVoteListItem(updatedVote);
-      }
-
-      set({ closing: false });
-      return;
-    },
-
-    // TODO: 내가 업로드한 투표 정보를 변경하는 로직 필요
-    deleteVote: async () => {
-      set({ deleting: true });
-      const result = await axiosDeleteVote(get().voteDetail._id);
-      if (result) {
-        //TODO: #SPREAD
-        //* 성공적으로 삭제된 경우, 투표 리스트에서 해당 투표를 삭제
-        // useUserStore.getState().removeUploadedVoteId(get().voteDetail._id);
-        // useMypageStore.getState().removeUploadedVoteInfo(get().voteDetail._id);
-        useVoteStore.getState().removeVoteListItem(get().voteDetail._id);
-      }
-      set({ deleting: false });
-      return result;
     },
 
     reportVote: async () => {
@@ -323,9 +296,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       set({ scrapping: true });
       const updatedVote = await axiosScrapVote(get().voteDetail._id);
       if (updatedVote !== null) {
-        useUserStore.getState().addScrappedVoteId(get().voteDetail._id);
-        set({ voteDetail: updatedVote });
-        useVoteStore.getState().updateVoteListItem(updatedVote);
+        useVoteStore.getState().spreadVoteScrapped(updatedVote);
       }
       set({ scrapping: false });
     },
@@ -334,9 +305,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       set({ scrapping: true });
       const updatedVote = await axiosUnscrapVote(get().voteDetail._id);
       if (updatedVote !== null) {
-        useUserStore.getState().removeScrappedVoteId(get().voteDetail._id);
-        set({ voteDetail: updatedVote });
-        useVoteStore.getState().updateVoteListItem(updatedVote);
+        useVoteStore.getState().spreadVoteUnscrapped(updatedVote);
       }
       set({ scrapping: false });
     },
@@ -350,11 +319,10 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       );
       //* 응답이 성공적인 경우, 유저의 투표 참여 정보와 투표 상세 정보를 업데이트합니다
       if (result !== null) {
-        useUserStore
-          .getState()
-          .addParticipatedVoteInfo(result.participatedVoteInfo);
-        get().setVoteDetail(result.updatedVote);
-        useVoteStore.getState().updateVoteListItem(result.updatedVote);
+        useVoteStore.getState().spreadVoteParticipated({
+          participationVoteInfo: result.participatedVoteInfo,
+          vote: result.updatedVote,
+        });
       }
       set({ loading: false });
     },
@@ -409,6 +377,26 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       }
 
       set({ commentUploading: false });
+      return;
+    },
+
+    deleteVote: async () => {
+      set({ deleting: true });
+      const result = await axiosDeleteVote(get().voteDetail._id);
+      if (result) {
+      }
+      set({ deleting: false });
+      return result;
+    },
+
+    closeVote: async () => {
+      set({ voteCloseModalVisible: false, closing: true });
+
+      const updatedVote = await axiosCloseVote(get().voteDetail._id);
+      if (updatedVote !== null) {
+      }
+
+      set({ closing: false });
       return;
     },
   }),

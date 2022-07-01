@@ -1,3 +1,5 @@
+export * from "./App/app.axios";
+
 export * from "./Auth/auth.axios";
 
 export * from "./Research/research.delete.axios";

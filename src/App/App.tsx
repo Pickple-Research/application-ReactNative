@@ -8,7 +8,7 @@ import { CompleteFillProfileModal } from "src/Modal";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "src/Config";
 import { useResearchStore, useVoteStore } from "src/Zustand";
-import { axiosGetRecentResearches, axiosGetRecentVotes } from "src/Axios";
+import { axiosBootstrap } from "src/Axios";
 import { themeColors, themeSizes } from "src/Theme";
 
 /**
@@ -23,23 +23,20 @@ export default function App() {
   const setVotes = useVoteStore(state => state.setVotes);
 
   async function loadInitialData() {
-    const recentResearches = await axiosGetRecentResearches();
-    if (recentResearches !== null && recentResearches.length !== 0)
-      setResearches(recentResearches);
-    const recentVotes = await axiosGetRecentVotes();
-    if (recentVotes !== null && recentVotes.length !== 0) {
-      setVotes(recentVotes);
+    const result = await axiosBootstrap();
+    if (result !== null) {
+      setResearches(result.researches);
+      setVotes(result.votes);
+      setInitialLoaded(true);
     }
+    //TODO: 최초 정보 로드 실패 시 한번 더 핸들링
+    setInitialLoaded(true);
   }
 
   //? 앱이 시작되면, research 정보와 자신이 팔로우한 기업 소식을 서버에 요청하여 받아옵니다.
   //? 해당 작업이 수행되는 동안 SplashScreen이 보여집니다.
   useEffect(() => {
     loadInitialData();
-    setTimeout(() => {
-      setInitialLoaded(true);
-    }, 500);
-
     return;
   }, []);
 

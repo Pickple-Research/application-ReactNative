@@ -1,5 +1,4 @@
 import create from "zustand";
-import { useUserStore } from "../User/user.zustand";
 import { useResearchStore } from "./research.zustand";
 import {
   ResearchSchema,
@@ -22,6 +21,7 @@ type ResearchDetailScreenStoreProps = {
   /** 화면에 보여지는 리서치 정보 */
   researchDetail: ResearchSchema;
   setResearchDetail: (researchDetail: ResearchSchema) => void;
+  updateResearchDetail: (researchDetail: ResearchSchema) => void;
 
   /** 리서치 신고 옵션들 */
   researchReportOptions: string[];
@@ -55,6 +55,10 @@ type ResearchDetailScreenStoreProps = {
   /** 새로운 대댓글을 로컬 데이터에 반영 */
   addReply: (newReply: ResearchReplySchema) => void;
 
+  /** 리서치 신고 모달 표시 여부 */
+  researchReportModalVisible: boolean;
+  setResearchReportModalVisible: (status: boolean) => void;
+
   /** 리서치 삭제 모달 표시 여부 */
   researchDeleteModalVisible: boolean;
   setResearchDeleteModalVisible: (status: boolean) => void;
@@ -63,36 +67,18 @@ type ResearchDetailScreenStoreProps = {
   researchPullupModalVisible: boolean;
   setResearchPullupModalVisible: (status: boolean) => void;
 
-  /** 리서치 신고 모달 표시 여부 */
-  researchReportModalVisible: boolean;
-  setResearchReportModalVisible: (status: boolean) => void;
-
-  /** 리서치 삭제 중 여부 */
-  deleting: boolean;
+  /** (대)댓글 로드 중 여부 */
+  commentLoading: boolean;
   /** 리서치 신고 중 여부 */
   reporting: boolean;
+  /** (대)댓글 업로드 중 여부 */
+  commentUploading: boolean;
   /** 스크랩 처리 중 여부 */
   scrapping: boolean;
-  /** 댓글 로드 중 여부 */
-  commentLoading: boolean;
-  /** 댓글 업로드 중 여부 */
-  commentUploading: boolean;
+  /** 리서치 삭제 중 여부 */
+  deleting: boolean;
 
   clearState: () => void;
-
-  /**
-   * 리서치를 삭제합니다.
-   * @return 성공시 true, 실패시 false
-   * @author 현웅
-   */
-  deleteResearch: () => Promise<boolean>;
-
-  /**
-   * 리서치를 끌올합니다.
-   * 응답이 성공적인 경우, 리서치 정보를 업데이트 합니다.
-   * @author 현웅
-   */
-  pullupResearch: () => Promise<void>;
 
   /** 리서치를 신고합니다. */
   reportReserach: () => Promise<void>;
@@ -108,6 +94,20 @@ type ResearchDetailScreenStoreProps = {
 
   /** 리서치를 스크랩을 취소합니다. */
   unscrapResearch: () => Promise<void>;
+
+  /**
+   * 리서치를 삭제합니다.
+   * @return 성공시 true, 실패시 false
+   * @author 현웅
+   */
+  deleteResearch: () => Promise<boolean>;
+
+  /**
+   * 리서치를 끌올합니다.
+   * 응답이 성공적인 경우, 리서치 정보를 업데이트 합니다.
+   * @author 현웅
+   */
+  pullupResearch: () => Promise<void>;
 };
 
 /**
@@ -118,6 +118,11 @@ export const useResearchDetailScreenStore =
   create<ResearchDetailScreenStoreProps>((set, get) => ({
     researchDetail: BlankResearch,
     setResearchDetail: (researchDetail: ResearchSchema) => {
+      set({ researchDetail });
+    },
+    updateResearchDetail: (researchDetail: ResearchSchema) => {
+      //* updateResearchDetail 의 경우, 유저가 현재 리서치 상세페이지를 보고 있지 않다면 상태를 변화시키지 않습니다.
+      if (get().researchDetail._id === "") return;
       set({ researchDetail });
     },
 
@@ -152,6 +157,7 @@ export const useResearchDetailScreenStore =
     setCommentInput: (input: string) => {
       set({ commentInput: input });
     },
+
     addComment: (newComment: ResearchCommentSchema) => {
       set({
         researchDetailComments: [...get().researchDetailComments, newComment],
@@ -169,6 +175,11 @@ export const useResearchDetailScreenStore =
       }
     },
 
+    researchReportModalVisible: false,
+    setResearchReportModalVisible: (status: boolean) => {
+      set({ researchReportModalVisible: status });
+    },
+
     researchDeleteModalVisible: false,
     setResearchDeleteModalVisible: (status: boolean) => {
       set({ researchDeleteModalVisible: status });
@@ -179,16 +190,11 @@ export const useResearchDetailScreenStore =
       set({ researchPullupModalVisible: status });
     },
 
-    researchReportModalVisible: false,
-    setResearchReportModalVisible: (status: boolean) => {
-      set({ researchReportModalVisible: status });
-    },
-
-    deleting: false,
-    reporting: false,
-    scrapping: false,
     commentLoading: false,
+    reporting: false,
     commentUploading: false,
+    scrapping: false,
+    deleting: false,
 
     clearState: () => {
       set({
@@ -199,31 +205,36 @@ export const useResearchDetailScreenStore =
         targetCommentId: "",
         targetCommentAuthorNickname: "",
         commentInput: "",
+        researchReportModalVisible: false,
         researchDeleteModalVisible: false,
         researchPullupModalVisible: false,
-        researchReportModalVisible: false,
-        deleting: false,
-        reporting: false,
-        scrapping: false,
         commentLoading: false,
+        reporting: false,
         commentUploading: false,
+        scrapping: false,
+        deleting: false,
       });
     },
 
+    /**
+     * 리서치를 삭제합니다.
+     * 성공적으로 삭제된 경우, 해당 내용을 전파합니다.
+     * @author 현웅
+     */
     deleteResearch: async () => {
       set({ deleting: true });
       const result = await axiosDeleteResearch(get().researchDetail._id);
       if (result) {
-        //TODO: #SPREAD
-        //* 성공적으로 삭제된 경우, 리서치 리스트에서 해당 리서치를 삭제합니다.
+        //* 성공적으로 삭제된 경우, 해당 내용을 전파합니다.
         useResearchStore
           .getState()
-          .removeResearchListItem(get().researchDetail._id);
+          .spreadResearchDeleted(get().researchDetail._id);
       }
       set({ deleting: false });
       return result;
     },
 
+    //TODO: Research 끌올
     //LOGIC: 업데이트 된 리서치를 researchDetail에 설정하고,
     //      현재 리서치를 ResearchList에서 지운 후 getNewerResearch를 해야합니다.
     pullupResearch: async () => {
@@ -265,6 +276,7 @@ export const useResearchDetailScreenStore =
     },
 
     /**
+     * TODO: (대)댓글도 Spread?
      * 댓글을 업로드합니다.
      * 응답이 성공적인 경우 투표 상태와 새로 생성된 댓글을 업데이트하고
      * 댓글 입력란을 초기화합니다.
@@ -317,31 +329,29 @@ export const useResearchDetailScreenStore =
       return;
     },
 
+    //* 리서치를 스크랩합니다.
+    //* 응답이 성공적인 경우, 해당 내용을 전파합니다.
     scrapResearch: async () => {
       set({ scrapping: true });
       const updatedResearch = await axiosScrapResearch(
         get().researchDetail._id,
       );
       if (updatedResearch !== null) {
-        useUserStore.getState().addScrappedResearchId(get().researchDetail._id);
-        get().setResearchDetail(updatedResearch);
-        useResearchStore.getState().updateResearchListItem(updatedResearch);
+        useResearchStore.getState().spreadResearchScrapped(updatedResearch);
       }
       set({ scrapping: false });
       return;
     },
 
+    //* 리서치 스크랩을 취소합니다.
+    //* 응답이 성공적인 경우, 해당 내용을 전파합니다.
     unscrapResearch: async () => {
       set({ scrapping: true });
       const updatedResearch = await axiosUnscrapResearch(
         get().researchDetail._id,
       );
       if (updatedResearch !== null) {
-        useUserStore
-          .getState()
-          .removeScrappedResearchId(get().researchDetail._id);
-        get().setResearchDetail(updatedResearch);
-        useResearchStore.getState().updateResearchListItem(updatedResearch);
+        useResearchStore.getState().spreadResearchUnscrapped(updatedResearch);
       }
       set({ scrapping: false });
       return;

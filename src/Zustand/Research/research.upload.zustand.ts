@@ -1,9 +1,12 @@
 import create from "zustand";
 import { axiosUploadResearch, axiosUploadResearchWithImages } from "src/Axios";
-import { ResearchPurpose } from "src/Object/Enum";
-import { ResearchUploadGiftProps } from "src/Object/Type";
-import { getGalleryPhotoFromAndroid } from "src/Util";
+import { useUserStore } from "../User/user.zustand";
+import { useResearchStore } from "./research.zustand";
 import { ResearchSchema } from "src/Schema";
+import { CREDIT_PER_MINUTE } from "src/Constant";
+import { ResearchUploadGiftProps } from "src/Object/Type";
+import { ResearchPurpose } from "src/Object/Enum";
+import { getGalleryPhotoFromAndroid, showBlackToast } from "src/Util";
 
 type ResearchUploadScreenStoreProps = {
   /** 리서치 업로드 단계: 0/1/2/3 단계 */
@@ -11,6 +14,7 @@ type ResearchUploadScreenStoreProps = {
   goNextStop: () => void;
   goPreviousStep: () => void;
 
+  //* 0 단계
   /** 리서치 제목 */
   titleInput: string;
   setTitleInput: (input: string) => void;
@@ -23,6 +27,7 @@ type ResearchUploadScreenStoreProps = {
   contentInput: string;
   setContentInput: (input: string) => void;
 
+  //* 1 단계
   /** 리서치 목적 */
   purposeInput: ResearchPurpose | undefined;
   setPurposeInput: (input: ResearchPurpose) => void;
@@ -39,6 +44,10 @@ type ResearchUploadScreenStoreProps = {
   estimatedTimeInput: number;
   setEstimatedTimeInput: (input: number) => void;
 
+  deadlineInput: string;
+  setDeadlineInput: (input: string) => void;
+
+  //* 2 단계
   /** 업로드할 리서치 경품의 index. 경품이 추가될 때마다 1씩 증가. */
   giftIndex: number;
   /** 업로드할 리서치에 걸 경품 */
@@ -61,6 +70,7 @@ type ResearchUploadScreenStoreProps = {
   extraCredit: number;
   setExtraCredit: (credit: number) => void;
 
+  //* 3 단계
   /** 스크리닝: 성별 선택 */
   screeningSexInput: string | undefined;
   setScreeningSexInput: (input: string | undefined) => void;
@@ -104,6 +114,7 @@ export const useResearchUploadScreenStore =
       set(state => ({ step: state.step - 1 }));
     },
 
+    //* 0 단계
     titleInput: "",
     setTitleInput: (input: string) => {
       set({ titleInput: input });
@@ -119,6 +130,7 @@ export const useResearchUploadScreenStore =
       set({ contentInput: input });
     },
 
+    //* 1 단계
     purposeInput: undefined,
     setPurposeInput: (input: ResearchPurpose) => {
       set({ purposeInput: input });
@@ -139,6 +151,12 @@ export const useResearchUploadScreenStore =
       set({ estimatedTimeInput: input });
     },
 
+    deadlineInput: new Date().toISOString(),
+    setDeadlineInput: (input: string) => {
+      set({ deadlineInput: input });
+    },
+
+    //* 2 단계
     giftIndex: 1,
     gifts: [
       {
@@ -205,6 +223,7 @@ export const useResearchUploadScreenStore =
       set({ extraCredit: credit });
     },
 
+    //* 3 단계
     screeningSexInput: undefined,
     setScreeningSexInput: (input: string | undefined) => {
       set({ screeningSexInput: input });
@@ -268,6 +287,16 @@ export const useResearchUploadScreenStore =
     uploadResearch: async () => {
       set({ uploading: true });
 
+      //* 리서치 업로드를 위한 크레딧이 부족한 경우
+      if (
+        useUserStore.getState().userCredit.credit <
+        get().estimatedTimeInput * CREDIT_PER_MINUTE
+      ) {
+        showBlackToast({ text1: "크레딧이 부족합니다" });
+        set({ uploading: false });
+        return null;
+      }
+
       //* 유효한 경품들만 추출합니다.
       //* (삭제되지 않았고, 경품 이름과 이미지가 모두 입력된 경품들)
       const validGifts = get().gifts.filter(gift => {
@@ -280,17 +309,18 @@ export const useResearchUploadScreenStore =
         }
       });
 
-      //* 경품이 존재하는 경우 - formData를 생성하여 요청해야 합니다.
+      //* 유효한 경품이 존재하는 경우 - formData를 생성하여 요청해야 합니다.
       if (validGifts.length > 0) {
         const formData = new FormData();
 
         formData.append("title", get().titleInput.trim());
         formData.append("link", get().linkInput.trim());
         formData.append("content", get().contentInput.trim());
-        // formData.append("purpose", get().purposeInput);
+        formData.append("purpose", get().purposeInput);
         formData.append("organization", get().organizationInput.trim());
         formData.append("target", get().targetInput.trim());
         formData.append("estimatedTime", get().estimatedTimeInput);
+        formData.append("deadline", get().deadlineInput);
         // formData.append("", get().creditReceiverNum)
         // formData.append("", get().extraCredit)
         // formData.append("", get().screeningSexInput)
@@ -308,8 +338,19 @@ export const useResearchUploadScreenStore =
         });
 
         const result = await axiosUploadResearchWithImages(formData);
+
+        //* 응답이 성공적인 경우,
+        //* 업로드된 리서치 내용을 전파하고 새로운 리서치를 반환합니다.
+        if (result !== null) {
+          useResearchStore.getState().spreadResearchUploaded({
+            research: result.newResearch,
+            creditHistory: result.newCreditHistory,
+          });
+          return result.newResearch;
+        }
+
         set({ uploading: false });
-        return result;
+        return null;
       }
 
       //* 경품이 존재하지 않는 경우 - 일반적인 요청처럼 Body에 리서치 정보를 넣어 요청합니다.
@@ -317,18 +358,30 @@ export const useResearchUploadScreenStore =
         title: get().titleInput,
         link: get().linkInput,
         content: get().contentInput,
-        // purpose: get().purposeInput,
+        purpose: get().purposeInput,
         organization: get().organizationInput,
         target: get().targetInput,
-        //! 서버단에서 estimatedTime을 @IsNumberString()으로 받기 때문에
-        //! 여기서는 string으로 변환하여 전송합니다.
+        //! 서버단에서 estimatedTime 을 @IsNumberString() 으로 받기 때문에
+        //! estimatedTimeInput 를 string으로 변환하여 전송합니다.
         estimatedTime: get().estimatedTimeInput.toString(),
+        deadline: get().deadlineInput,
         // creditReceiverNum: get().creditReceiverNum,
         // extraCredit: get().extraCredit,
         // screeningSexInput: get().screeningSexInput,
         // screeningAgeInputs: get().screeningAgeInputs,
       });
+
+      //* 응답이 성공적인 경우,
+      //* 업로드된 리서치 내용을 전파하고 새로운 리서치를 반환합니다.
+      if (result !== null) {
+        useResearchStore.getState().spreadResearchUploaded({
+          research: result.newResearch,
+          creditHistory: result.newCreditHistory,
+        });
+        return result.newResearch;
+      }
+
       set({ uploading: false });
-      return result;
+      return null;
     },
   }));
