@@ -11,7 +11,7 @@ import { getGalleryPhotoFromAndroid, showBlackToast } from "src/Util";
 type ResearchUploadScreenStoreProps = {
   /** 리서치 업로드 단계: 0/1/2/3 단계 */
   step: number;
-  goNextStop: () => void;
+  goNextStep: () => void;
   goPreviousStep: () => void;
 
   //* 0 단계
@@ -107,7 +107,7 @@ type ResearchUploadScreenStoreProps = {
 export const useResearchUploadScreenStore =
   create<ResearchUploadScreenStoreProps>((set, get) => ({
     step: 0,
-    goNextStop: () => {
+    goNextStep: () => {
       set(state => ({ step: state.step + 1 }));
     },
     goPreviousStep: () => {

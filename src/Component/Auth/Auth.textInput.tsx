@@ -22,7 +22,6 @@ export function AuthTextInput({
 const Input = styled.TextInput`
   font-size: ${({ theme }) => theme.size.header3};
   padding: 6px 12px;
-  //TODO: #DESIGN-SYSTEM
   border: 1px solid ${({ theme }) => theme.color.purple.text};
   border-radius: 10px;
 `;

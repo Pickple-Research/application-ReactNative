@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
-import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
+import {
+  AuthTextInputName,
+  AuthTextInput,
+  AuthCautionText,
+} from "src/Component/Auth";
 import shallow from "zustand/shallow";
 import { useSignupScreenStore } from "src/Zustand";
-import { BodyText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
 export function SignupPassword() {
@@ -39,10 +42,11 @@ export function SignupPassword() {
           onChangeText: setPasswordInput,
         }}
       />
-      <Caution__Text
-        style={{ opacity: isPasswordValid ? 0 : 1, marginBottom: 12 }}>
-        {`*6자 이상의 영문/숫자/특수문자 조합으로 입력해주세요.`}
-      </Caution__Text>
+      <AuthCautionText
+        text={`*6자 이상의 영문/숫자/특수문자 조합으로 입력해주세요.`}
+        visible={!isPasswordValid}
+        style={{ marginBottom: 12 }}
+      />
 
       <AuthTextInputName name="비밀번호 확인" />
       <AuthTextInput
@@ -54,19 +58,14 @@ export function SignupPassword() {
           onChangeText: setPasswordConfirmInput,
         }}
       />
-      <Caution__Text
-        style={{
-          opacity: isPasswordConfirmValid ? 0 : 1,
-        }}>{`*비밀번호가 일치하지 않습니다.`}</Caution__Text>
+      <AuthCautionText
+        text={`*비밀번호가 일치하지 않습니다.`}
+        visible={!isPasswordConfirmValid}
+      />
     </Container>
   );
 }
 
 const Container = styled.View`
   margin-bottom: 28px;
-`;
-
-const Caution__Text = styled(BodyText)`
-  color: ${({ theme }) => theme.color.red.warning};
-  margin-top: 4px;
 `;

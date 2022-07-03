@@ -74,5 +74,5 @@ const Container = styled.View`
   padding-top: 6px;
   //* ResearchUploadBottomButton의 height과 같은 값으로 유지해야 합니다.
   padding-bottom: 60px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.color.grey.white};
 `;

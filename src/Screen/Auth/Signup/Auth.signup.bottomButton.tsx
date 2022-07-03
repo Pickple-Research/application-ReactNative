@@ -9,7 +9,48 @@ import shallow from "zustand/shallow";
 import { useSignupScreenStore } from "src/Zustand";
 
 export function SignupBottomButton() {
+  const step = useSignupScreenStore(state => state.step);
+
+  switch (step) {
+    case 0: //* 이메일 인증 단계
+      return <EmailVerifyStepButton />;
+    case 1: //* 이름 비밀번호 입력 단계
+      return <NamePasswordStepButton />;
+    case 2: //* 닉네임 생일 입력 단계
+      return <NicknameBirthdayStepButton />;
+    default:
+      return null;
+  }
+}
+
+/** 이메일 인증 단계 */
+function EmailVerifyStepButton() {
+  const { goNextStep, emailVerified } = useSignupScreenStore(
+    state => ({
+      goNextStep: state.goNextStep,
+      emailVerified: state.emailVerified,
+    }),
+    shallow,
+  );
+
+  const available = emailVerified;
+
+  return (
+    <Container>
+      <Button__Container
+        activeOpacity={available ? 0.8 : 1}
+        onPress={available ? goNextStep : undefined}
+        available={available}>
+        <Button__Text available={available}>다음</Button__Text>
+      </Button__Container>
+    </Container>
+  );
+}
+
+/** 이름 비밀번호 입력 단계 */
+function NamePasswordStepButton() {
   const {
+    goNextStep,
     lastNameInput,
     nameInput,
     emailInput,
@@ -18,6 +59,7 @@ export function SignupBottomButton() {
     agreeTerms,
   } = useSignupScreenStore(
     state => ({
+      goNextStep: state.goNextStep,
       lastNameInput: state.lastNameInput,
       nameInput: state.nameInput,
       emailInput: state.emailInput,
@@ -28,18 +70,43 @@ export function SignupBottomButton() {
     shallow,
   );
 
-  const signupable: boolean =
+  const available: boolean =
     Boolean(lastNameInput.length) &&
     Boolean(nameInput.length) &&
-    Boolean(emailInput.length) &&
     passwordInput.length > 5 &&
     passwordInput === passwordConfirmInput &&
     agreeTerms;
 
   return (
     <Container>
-      <Button__Container signupable={signupable}>
-        <Button__Text signupable={signupable}>다음</Button__Text>
+      <Button__Container
+        activeOpacity={available ? 0.8 : 1}
+        onPress={available ? goNextStep : undefined}
+        available={available}>
+        <Button__Text available={available}>다음</Button__Text>
+      </Button__Container>
+    </Container>
+  );
+}
+
+/** 닉네임 생일 입력 단계 */
+function NicknameBirthdayStepButton() {
+  const { signup } = useSignupScreenStore(
+    state => ({
+      signup: state.signup,
+    }),
+    shallow,
+  );
+
+  const available = true;
+
+  return (
+    <Container>
+      <Button__Container
+        activeOpacity={available ? 0.8 : 1}
+        // onPress={available ? signup : undefined}
+        available={available}>
+        <Button__Text available={available}>완료</Button__Text>
       </Button__Container>
     </Container>
   );
@@ -48,15 +115,15 @@ export function SignupBottomButton() {
 const Container = styled(BottomButton__Container)``;
 
 const Button__Container = styled(BottomButton__ButtonContainer)<{
-  signupable: boolean;
+  available: boolean;
 }>`
   //TODO: #DESIGN-SYSTEM
-  background-color: ${({ signupable, theme }) =>
-    signupable ? theme.color.purple.main : "#eeeeee"};
+  background-color: ${({ available, theme }) =>
+    available ? theme.color.purple.main : "#eeeeee"};
 `;
 
-const Button__Text = styled(H1)<{ signupable: boolean }>`
+const Button__Text = styled(H1)<{ available: boolean }>`
   //TODO: #DESIGN-SYSTEM
-  color: ${({ signupable, theme }) =>
-    signupable ? theme.color.grey.white : "#cccccc"};
+  color: ${({ available, theme }) =>
+    available ? theme.color.grey.white : "#cccccc"};
 `;

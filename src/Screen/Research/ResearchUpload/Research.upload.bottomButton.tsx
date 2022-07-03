@@ -41,7 +41,7 @@ function TitleContentStepButton() {
   const { goNextStep, titleInput, linkInput, contentInput } =
     useResearchUploadScreenStore(
       state => ({
-        goNextStep: state.goNextStop,
+        goNextStep: state.goNextStep,
         titleInput: state.titleInput,
         linkInput: state.linkInput,
         contentInput: state.contentInput,
@@ -74,7 +74,7 @@ function PurposeTargetStepButton() {
     estimatedTimeInput,
   } = useResearchUploadScreenStore(
     state => ({
-      goNextStep: state.goNextStop,
+      goNextStep: state.goNextStep,
       purposeInput: state.purposeInput,
       organizationInput: state.organizationInput,
       targetInput: state.targetInput,
@@ -105,7 +105,7 @@ function PurposeTargetStepButton() {
 function GiftCreditStepButton() {
   const { goNextStep, gifts } = useResearchUploadScreenStore(
     state => ({
-      goNextStep: state.goNextStop,
+      goNextStep: state.goNextStep,
       gifts: state.gifts,
     }),
     shallow,
