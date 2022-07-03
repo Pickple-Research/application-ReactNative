@@ -1,27 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { SignupHeader } from "./Auth.signup.header";
-import { SignupGuideToLogin } from "./Auth.signup.guideToLogin";
-import { SignupName } from "./Auth.signup.name";
-import { SignupEmail } from "./Auth.signup.email";
-import { SignupPassword } from "./Auth.signup.password";
-import { SignupAgreement } from "./Auth.signup.agreement";
+import { SignupEmailVerifyScreen } from "./EmailVerify/Auth.signup.emailVerify.screen";
+import { SignupNamePasswordScreen } from "./NamePassword/Auth.signup.namePassword.screen";
+import { SignupNicknameUserInfoScreen } from "./NicknameUserInfo/Auth.signup.nicknameUserInfo.screen";
 import { SignupBottomButton } from "./Auth.signup.bottomButton";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
+import shallow from "zustand/shallow";
+import { useSignupScreenStore } from "src/Zustand";
 
 export type SignupScreenProps = {};
 
 export function SignupScreen() {
+  const { step, clearState } = useSignupScreenStore(
+    state => ({
+      step: state.step,
+      clearState: state.clearState,
+    }),
+    shallow,
+  );
+
+  useEffect(() => {
+    return () => {
+      clearState();
+    };
+  }, []);
+
+  const pages = [
+    <SignupEmailVerifyScreen />,
+    <SignupNamePasswordScreen />,
+    <SignupNicknameUserInfoScreen />,
+  ];
+
   return (
     <Container>
-      <WhiteBackgroundScrollView>
-        <SignupHeader />
-        <SignupGuideToLogin />
-        <SignupName />
-        <SignupEmail />
-        <SignupPassword />
-        <SignupAgreement />
-      </WhiteBackgroundScrollView>
+      <SignupHeader />
+      <WhiteBackgroundScrollView>{pages[step]}</WhiteBackgroundScrollView>
       <SignupBottomButton />
     </Container>
   );
@@ -30,5 +44,6 @@ export function SignupScreen() {
 const Container = styled.View`
   position: relative;
   flex: 1;
+  padding-bottom: 60px;
   background-color: ${({ theme }) => theme.color.grey.white};
 `;

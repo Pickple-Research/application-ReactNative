@@ -4,18 +4,18 @@ import styled from "styled-components/native";
 import { H4 } from "src/StyledComponents/Text";
 
 /**
- * 라디오 버튼 한 줄 컴포넌트입니다. 단독으로 쓰이진 않고, RadioButtonGroup이 한꺼번에 사용합니다.
+ * 라디오 버튼 한 줄 컴포넌트입니다.
  * @author 현웅
  */
 export function RadioButton({
   selected,
-  option,
+  text,
   onPress,
   isLast,
   style,
 }: {
   selected: boolean;
-  option: string;
+  text: string;
   onPress: () => void;
   isLast: boolean;
   style?: StyleProp<ViewStyle>[];
@@ -28,7 +28,7 @@ export function RadioButton({
       isLast={isLast}>
       <Icon__Container>{selected && <Filler />}</Icon__Container>
       <Content__Container>
-        <Content__Text>{option}</Content__Text>
+        <Content__Text>{text}</Content__Text>
       </Content__Container>
     </Container>
   );

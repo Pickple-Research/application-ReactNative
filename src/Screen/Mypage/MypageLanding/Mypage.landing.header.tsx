@@ -6,6 +6,9 @@ import SettingIcon from "src/Resource/svg/setting-icon.svg";
 import SendIcon from "src/Resource/svg/send-icon.svg";
 import AlarmIcon from "src/Resource/svg/alarm-icon.svg";
 
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
+
 /**
  * 마이페이지 랜딩 페이지 최상단 헤더 섹션
  * @author 현웅
@@ -20,9 +23,17 @@ export function MypageLandingHeader() {
 }
 
 function Icons() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
   return (
     <Icons__Container>
-      <SettingIcon style={styles.icon__margin} />
+      <SettingIcon
+        style={styles.icon__margin}
+        onPress={() => {
+          navigation.navigate("SignupScreen", {});
+        }}
+      />
       <SendIcon style={styles.icon__margin} />
       <AlarmIcon />
     </Icons__Container>
