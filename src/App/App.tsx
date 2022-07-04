@@ -10,6 +10,7 @@ import { toastConfig } from "src/Config";
 import { useResearchStore, useVoteStore } from "src/Zustand";
 import { axiosBootstrap } from "src/Axios";
 import { themeColors, themeSizes } from "src/Theme";
+import { AuthFunnelScreen } from "@Screen/Auth";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -59,6 +60,7 @@ export default function App() {
       <MenuProvider>
         <Container>
           <NavigationContainer>
+            {/* <AuthFunnelScreen /> */}
             <AppStackNavigator />
 
             <CompleteFillProfileModal />

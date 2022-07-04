@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { RadioButton } from "./Radio.button.component";
 
@@ -9,8 +9,10 @@ import { RadioButton } from "./Radio.button.component";
  * @param selectedOptionIndexes 선택된 선택지 인덱스들
  * @param onPress 선택지 선택시 함수 (number 형태의 인자를 받아야 합니다)
  * @param style 추가 스타일
+ * @param selectedStyle 선택됐을 때 추가 스타일
  * @param buttonStyle 선택지 추가 스타일
  * @param frontButtonStyle 마지막 선택지를 제외한 선택지 추가 스타일
+ * @param withIcon 체크 표시 아이콘을 포함할 것인지 선택
  * @author 현웅
  */
 export function RadioButtonGroup({
@@ -18,15 +20,21 @@ export function RadioButtonGroup({
   selectedOptionIndexes,
   onPress,
   style,
+  selectedStyle,
   buttonStyle,
   frontButtonStyle,
+  textStyle,
+  withIcon,
 }: {
   options: string[];
   selectedOptionIndexes: number[];
   onPress: (optionIndex: number) => void;
   style?: StyleProp<ViewStyle>;
+  selectedStyle?: StyleProp<ViewStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
   frontButtonStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  withIcon?: boolean;
 }) {
   return (
     <Container<React.ElementType> style={style}>
@@ -43,6 +51,9 @@ export function RadioButtonGroup({
             }}
             isLast={isLast}
             style={[buttonStyle, isLast ? null : frontButtonStyle]}
+            selectedStyle={selectedStyle}
+            textStyle={[textStyle]}
+            withIcon={withIcon}
           />
         );
       })}
