@@ -19,13 +19,17 @@ export function MypageLandingFollow() {
   return (
     <Container>
       <SectionHeader />
-      {loggedIn ? (
+      <RequireLoginContainer>
+        <RequireLoginText>준비 중인 서비스입니다.</RequireLoginText>
+      </RequireLoginContainer>
+      {/* 나중에 해당 서비스 추가 예정 */}
+      {/* {loggedIn ? (
         <FollowingPartnerCarousel followingPartners={examplePartners} />
       ) : (
         <RequireLoginContainer>
           <RequireLoginText>로그인이 필요한 서비스입니다.</RequireLoginText>
         </RequireLoginContainer>
-      )}
+      )} */}
     </Container>
   );
 }

@@ -46,6 +46,27 @@ import {
 } from "src/Screen/Community";
 // 마이페이지 관련 Screen
 import {
+  MypageAlarmScreen,
+  MypageAlarmScreenHeader,
+  MypageAlarmScreenProps,
+  MypageNoticeScreen,
+  MypageNoticeScreenHeader,
+  MypageNoticeScreenProps,
+  MypageSettingScreen,
+  MypageSettingScreenHeader,
+  MypageSettingScreenProps,
+  MypageSettingAlarmScreen,
+  MypageSettingAlarmScreenHeader,
+  MypageSettingAlarmScreenProps,
+  MypageSettingNicknameScreen,
+  MypageSettingNicknameScreenHeader,
+  MypageSettingNicknameScreenProps,
+  MypageSettingPasswordScreen,
+  MypageSettingPasswordScreenHeader,
+  MypageSettingPasswordScreenProps,
+  MypageSettingUserInfoScreen,
+  MypageSettingUserInfoScreenHeader,
+  MypageSettingUserInfoScreenProps,
   MypageCreditHistoryScreen,
   MypageCreditHistoryScreenHeader,
   MypageCreditHistoryScreenProps,
@@ -84,6 +105,13 @@ export type AppStackProps = {
   CommunityVoteDetailScreen: CommunityVoteDetailScreenProps;
   CommunityVoteUploadScreen: CommunityVoteUploadScreenProps;
   // 마이페이지 관련 Screen
+  MypageAlarmScreen: MypageAlarmScreenProps;
+  MypageNoticeScreen: MypageNoticeScreenProps;
+  MypageSettingScreen: MypageSettingScreenProps;
+  MypageSettingAlarmScreen: MypageSettingAlarmScreenProps;
+  MypageSettingNicknameScreen: MypageSettingNicknameScreenProps;
+  MypageSettingPasswordScreen: MypageSettingPasswordScreenProps;
+  MypageSettingUserInfoScreen: MypageSettingUserInfoScreenProps;
   MypageCreditHistoryScreen: MypageCreditHistoryScreenProps;
   MypageParticipatedResearchScreen: MypageParticipatedResearchScreenProps;
   MypageParticipatedVoteScreen: MypageParticipatedVoteScreenProps;
@@ -199,6 +227,69 @@ export function AppStackNavigator() {
 
       {/* 마이페이지 관련 Screen 그룹 */}
       <AppStack.Group>
+        <AppStack.Screen
+          //* 알림 페이지
+          name={"MypageAlarmScreen"}
+          component={MypageAlarmScreen}
+          options={{
+            headerShown: true,
+            header: MypageAlarmScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          //* 공지사항 페이지
+          name={"MypageNoticeScreen"}
+          component={MypageNoticeScreen}
+          options={{
+            headerShown: true,
+            header: MypageNoticeScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          //* 설정 페이지
+          name={"MypageSettingScreen"}
+          component={MypageSettingScreen}
+          options={{
+            headerShown: true,
+            header: MypageSettingScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          //* 알림 설정 페이지
+          name={"MypageSettingAlarmScreen"}
+          component={MypageSettingAlarmScreen}
+          options={{
+            headerShown: true,
+            header: MypageSettingAlarmScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          //* 닉네임 설정 페이지
+          name={"MypageSettingNicknameScreen"}
+          component={MypageSettingNicknameScreen}
+          options={{
+            headerShown: true,
+            header: MypageSettingNicknameScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          //* 비밀번호 재설정 페이지
+          name={"MypageSettingPasswordScreen"}
+          component={MypageSettingPasswordScreen}
+          options={{
+            headerShown: true,
+            header: MypageSettingPasswordScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          //* 로그아웃 / 회원탈퇴 페이지
+          name={"MypageSettingUserInfoScreen"}
+          component={MypageSettingUserInfoScreen}
+          options={{
+            headerShown: true,
+            header: MypageSettingUserInfoScreenHeader,
+          }}
+        />
         <AppStack.Screen
           //* 크레딧 사용내역 페이지
           name={"MypageCreditHistoryScreen"}

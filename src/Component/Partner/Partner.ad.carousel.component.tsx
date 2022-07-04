@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
@@ -29,11 +29,6 @@ export function PartnerAdCarousel({ partners }: { partners: PartnerProps[] }) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  carousel__container: {},
-  carousel__contentContainer: { paddingHorizontal: 15 },
-});
 
 /**
  * 파트너 광고 캐러샐에 사용되는 컴포넌트입니다.

@@ -45,6 +45,7 @@ export function SignupAuthCode() {
               textContentType: "oneTimeCode",
               value: authCodeInput,
               onChangeText: setAuthCodeInput,
+              maxLength: 6,
             }}
           />
         </Input__Container>
