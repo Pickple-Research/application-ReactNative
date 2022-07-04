@@ -31,11 +31,20 @@ function Icons() {
       <SettingIcon
         style={styles.icon__margin}
         onPress={() => {
+          navigation.navigate("MypageSettingScreen", {});
+        }}
+      />
+      <SendIcon
+        style={styles.icon__margin}
+        onPress={() => {
           navigation.navigate("SignupScreen", {});
         }}
       />
-      <SendIcon style={styles.icon__margin} />
-      <AlarmIcon />
+      <AlarmIcon
+        onPress={() => {
+          navigation.navigate("MypageAlarmScreen", {});
+        }}
+      />
     </Icons__Container>
   );
 }
