@@ -8,3 +8,12 @@ export enum UserType {
   PARTNER = "PARTNER",
   ADMIN = "ADMIN",
 }
+
+/**
+ * 성별: 남자, 여자
+ * @author 현웅
+ */
+export enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+}

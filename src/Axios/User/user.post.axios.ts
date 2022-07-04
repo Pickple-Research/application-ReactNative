@@ -11,33 +11,25 @@ import { handleAxiosError } from "src/Util";
 import { UserInfoResponse } from "../Auth/auth.axios";
 
 /**
- * 이름 / 이메일 / 비밀번호를 이용해 미인증 사용자를 생성합니다.
- * @return 성공시 true, 실패시 false + Error
+ * 주어진 이메일로 인증번호를 (재)전송합니다.
  * @author 현웅
  */
-export const axiosSignupAsUnauthorizedUser = async (
-  lastName: string,
-  name: string,
-  email: string,
-  password: string,
-) => {
+export const axiosTransmitAuthCode = async (email: string) => {
   return await customAxios
-    .request<boolean>({
+    .request<void>({
       method: "POST",
       url: "/users/email/unauthorized",
-      data: {
-        lastName,
-        name,
-        email,
-        password,
-      },
+      data: { email },
     })
     .then(response => {
-      return true;
+      return response.data;
     })
     .catch(error => {
-      handleAxiosError({ error, errorMessage: "회원가입에 실패했습니다" });
-      return false;
+      handleAxiosError({
+        error,
+        errorMessage: "인증번호 전송에 실패하였습니다",
+      });
+      return null;
     });
 };
 
@@ -45,11 +37,18 @@ export const axiosSignupAsUnauthorizedUser = async (
  * 이메일 인증이 완료된 이메일 사용자를 생성합니다.
  * @author 현웅
  */
-export const axiosSignupAsEmailUser = async () => {
+export const axiosSignupAsEmailUser = async (param: {
+  email: string;
+  password: string;
+  lastName: string;
+  name: string;
+  nickname: string;
+}) => {
   return await customAxios
     .request<UserInfoResponse>({
       method: "POST",
       url: "/users/email",
+      data: param,
     })
     .then(response => {
       return response.data;

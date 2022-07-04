@@ -1,7 +1,43 @@
 import create from "zustand";
-import { axiosSignupAsUnauthorizedUser } from "src/Axios";
+import {
+  axiosTransmitAuthCode,
+  axiosVerifyEmail,
+  axiosSignupAsEmailUser,
+} from "src/Axios";
+import { Gender } from "src/Object/Enum";
 
 type SignupScreenStoreProps = {
+  /** 회원가입 단계: 0/1/2 단계 */
+  step: number;
+  goNextStep: () => void;
+
+  //* 0단계
+  emailInput: string;
+  setEmailInput: (emailInput: string) => void;
+
+  /** 인증번호 입력 */
+  authCodeInput: string;
+  setAuthCodeInput: (authCodeInput: string) => void;
+
+  /** 인증번호 전송 중 여부 */
+  authCodeTransmitting: boolean;
+  /** 이메일 중복 여부 */
+  emailDuplicated: boolean;
+  /** 인증번호 전송 여부 */
+  authCodeTransmitted: boolean;
+  /** 이메일 인증 중 여부 */
+  emailVerifing: boolean;
+  /** 이메일 인증 시도를 1회 이상 했는지 여부 */
+  emailVerifyTried: boolean;
+  /** 이메일 인증 여부 */
+  emailVerified: boolean;
+
+  /** 인증번호를 (재)전송합니다 */
+  transmitAuthCode: () => Promise<void>;
+  /** 이메일과 인증번호를 입력받아 이메일을 인증합니다 */
+  verifyEmail: () => Promise<void>;
+
+  //* 1단계
   /** 성 */
   lastNameInput: string;
   setLastNameInput: (lastNameInput: string) => void;
@@ -9,9 +45,6 @@ type SignupScreenStoreProps = {
   /** 이름 */
   nameInput: string;
   setNameInput: (nameInput: string) => void;
-
-  emailInput: string;
-  setEmailInput: (emailInput: string) => void;
 
   passwordInput: string;
   setPasswordInput: (passwordInput: string) => void;
@@ -27,6 +60,19 @@ type SignupScreenStoreProps = {
   agreeMarketing: boolean;
   toggleAgreeMarketing: () => void;
 
+  //* 2단계
+  nicknameInput: string;
+  setNicknameInput: (nicknameInput: string) => void;
+
+  /** 생년월일 */
+  birthInput: string;
+
+  /** 성별 */
+  genderInput: Gender | undefined;
+  setGenderInput: (input: Gender) => void;
+
+  clearState: () => void;
+
   signup: () => void;
 };
 
@@ -36,6 +82,50 @@ type SignupScreenStoreProps = {
  */
 export const useSignupScreenStore = create<SignupScreenStoreProps>(
   (set, get) => ({
+    step: 0,
+    goNextStep: () => {
+      set(state => ({ step: state.step + 1 }));
+    },
+
+    //* 0단계
+    emailInput: "",
+    setEmailInput: (emailInput: string) => {
+      set({ emailInput });
+    },
+
+    authCodeInput: "",
+    setAuthCodeInput: (authCodeInput: string) => {
+      set({ authCodeInput });
+    },
+
+    authCodeTransmitting: false,
+    emailDuplicated: false,
+    authCodeTransmitted: false,
+    emailVerifing: false,
+    emailVerifyTried: false,
+    emailVerified: false,
+
+    transmitAuthCode: async () => {
+      set({ authCodeTransmitting: true });
+      const result = await axiosTransmitAuthCode(get().emailInput);
+      if (result) {
+        set({ authCodeTransmitted: true });
+      }
+      set({ authCodeTransmitting: false });
+    },
+    verifyEmail: async () => {
+      set({ emailVerifing: true });
+      const result = await axiosVerifyEmail({
+        email: get().emailInput,
+        code: get().authCodeInput,
+      });
+      if (result) {
+        set({ emailVerified: true });
+      }
+      set({ emailVerifyTried: true, emailVerifing: false });
+    },
+
+    //* 1단계
     lastNameInput: "",
     setLastNameInput: (lastNameInput: string) => {
       if (lastNameInput.length < 3) {
@@ -48,11 +138,6 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
       if (nameInput.length < 7) {
         set({ nameInput });
       }
-    },
-
-    emailInput: "",
-    setEmailInput: (emailInput: string) => {
-      set({ emailInput });
     },
 
     passwordInput: "",
@@ -74,13 +159,51 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
       set({ agreeMarketing: !get().agreeMarketing });
     },
 
+    //* 2단계
+    nicknameInput: "",
+    setNicknameInput: (nicknameInput: string) => {
+      set({ nicknameInput });
+    },
+
+    /** 생년월일 */
+    birthInput: "",
+
+    /** 성별 */
+    genderInput: undefined,
+    setGenderInput: (genderInput: Gender) => {
+      set({ genderInput });
+    },
+
+    clearState: () => {
+      set({
+        step: 0,
+        emailInput: "",
+        authCodeInput: "",
+        authCodeTransmitting: false,
+        emailDuplicated: false,
+        authCodeTransmitted: false,
+        emailVerifing: false,
+        emailVerifyTried: false,
+        emailVerified: false,
+        lastNameInput: "",
+        nameInput: "",
+        passwordInput: "",
+        passwordConfirmInput: "",
+        agreeTerms: false,
+        agreeMarketing: false,
+        birthInput: "",
+        genderInput: undefined,
+      });
+    },
+
     signup: async () => {
-      await axiosSignupAsUnauthorizedUser(
-        get().lastNameInput,
-        get().nameInput,
-        get().emailInput,
-        get().passwordInput,
-      );
+      await axiosSignupAsEmailUser({
+        email: get().emailInput,
+        password: get().passwordInput,
+        lastName: get().lastNameInput,
+        name: get().nameInput,
+        nickname: get().passwordInput,
+      });
     },
   }),
 );

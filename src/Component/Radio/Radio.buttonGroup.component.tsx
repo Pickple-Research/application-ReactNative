@@ -45,7 +45,7 @@ export function RadioButtonGroup({
           <RadioButton
             key={option}
             selected={selectedOptionIndexes.includes(index)}
-            option={option}
+            text={option}
             onPress={() => {
               onPress(index);
             }}
