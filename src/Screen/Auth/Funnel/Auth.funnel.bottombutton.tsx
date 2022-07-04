@@ -1,12 +1,12 @@
 import {
   BottomButton__ButtonContainer,
   BottomButton__Container,
-} from "../../../StyledComponents/View";
+} from "src/StyledComponents/View";
 import { useAuthFunnelScreenStore } from "@Zustand/Auth/auth.funnel.zustand";
 import React from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components/native";
-import { H2 } from "../../../StyledComponents/Text";
+import { H2 } from "src/StyledComponents/Text";
 
 export function AuthFunnelBottomButton() {
   const step = useAuthFunnelScreenStore(state => state.step);
