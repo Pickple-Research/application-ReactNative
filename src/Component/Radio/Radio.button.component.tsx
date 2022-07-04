@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { H4 } from "src/StyledComponents/Text";
 
@@ -13,22 +13,32 @@ export function RadioButton({
   onPress,
   isLast,
   style,
+  selectedStyle,
+  textStyle,
+  withIcon = true,
 }: {
   selected: boolean;
   text: string;
   onPress: () => void;
   isLast: boolean;
   style?: StyleProp<ViewStyle>[];
+  selectedStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>[];
+  withIcon?: boolean;
 }) {
   return (
     <Container<React.ElementType>
-      style={style}
+      style={[style, selected && selectedStyle]}
       activeOpacity={0.8}
       onPress={onPress}
       isLast={isLast}>
-      <Icon__Container>{selected && <Filler />}</Icon__Container>
+      {withIcon ? (
+        <Icon__Container>{selected && <Filler />}</Icon__Container>
+      ) : (
+        <></>
+      )}
       <Content__Container>
-        <Content__Text>{text}</Content__Text>
+        <Content__Text style={textStyle}>{option}</Content__Text>
       </Content__Container>
     </Container>
   );
