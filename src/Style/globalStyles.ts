@@ -21,4 +21,12 @@ export const globalStyles = StyleSheet.create({
   authScreen__horizontalPadding: {
     paddingHorizontal: 25,
   },
+
+  /**
+   * 유입경로 조사 페이지 좌우 여백. 좌우에 12px 여백을 줍니다.
+   * @author 현웅
+   */
+  funnelScreen__horizontalPadding: {
+    paddingHorizontal: 12,
+  },
 });

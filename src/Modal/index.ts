@@ -1,6 +1,5 @@
-export * from "./App/App.completeFillProfile.modal";
-
-export * from "./Auth/Profile/Auth.profile.fillProfile.modal";
+export * from "./Auth/Funnel/Auth.funnel.blockExit.modal";
+export * from "./Auth/Funnel/Auth.funnel.complete.modal";
 
 export * from "./Mypage/CreditHistory/Mypage.creditHistory.serviceGettingReady.modal";
 

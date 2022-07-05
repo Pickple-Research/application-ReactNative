@@ -11,8 +11,10 @@ import CaretLeftIcon from "@Resource/svg/caret-left-icon.svg";
  */
 export function BackButtonAndFunctionScreenHeader({
   rightComponents,
+  onPressBackIcon,
 }: {
   rightComponents: any;
+  onPressBackIcon?: () => void;
 }) {
   const navigation = useNavigation<NavigationProp<AppStackProps>>();
 
@@ -23,7 +25,7 @@ export function BackButtonAndFunctionScreenHeader({
   return (
     <Container>
       <BackButton__Container>
-        <CaretLeftIcon onPress={goBack} />
+        <CaretLeftIcon onPress={onPressBackIcon ? onPressBackIcon : goBack} />
       </BackButton__Container>
       <HeaderFunction__Container>{rightComponents}</HeaderFunction__Container>
     </Container>

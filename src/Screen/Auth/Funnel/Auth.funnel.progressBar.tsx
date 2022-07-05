@@ -2,8 +2,8 @@ import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { Bar } from "react-native-progress";
-import { theme } from "src/Theme/theme";
-import { useAuthFunnelScreenStore } from "@Zustand/Auth/auth.funnel.zustand";
+import { themeColors } from "src/Theme";
+import { useAuthFunnelScreenStore } from "src/Zustand";
 
 export function AuthFunnelProgressBar() {
   const step = useAuthFunnelScreenStore(state => state.step);
@@ -12,8 +12,8 @@ export function AuthFunnelProgressBar() {
     <Container>
       <Bar
         progress={(step + 1) / 6}
-        borderRadius={100}
-        color={theme.color.purple.main}
+        // borderRadius={100}
+        color={themeColors().purple.main}
         width={Dimensions.get("window").width}
         borderWidth={0}
       />

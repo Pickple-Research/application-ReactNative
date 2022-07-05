@@ -1,154 +1,171 @@
-import { SimpleDropDown, SimpleDropDownDataType } from "@Component/DropDown";
-import { theme } from "@Theme/theme";
-import { useAuthFunnelScreenStore } from "@Zustand/Auth/auth.funnel.zustand";
 import React from "react";
-import { TextInput } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
 import styled from "styled-components/native";
+import { AuthTextInputName, AuthTextInput } from "src/Component/Auth";
+import { H2 } from "src/StyledComponents/Text";
+import shallow from "zustand/shallow";
+import { useUserStore, useAuthFunnelScreenStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
 
 export function AuthFunnelEducation() {
+  const user = useUserStore(state => state.user);
+
   return (
-    <Container>
-      <TitleText>밍망님의 학력을 입력해주세요.</TitleText>
-      <SchoolInput />
-      <DegreeInput />
-      <MajorInput />
-      <AdmissionGraduationYearInput />
+    <Container style={globalStyles.funnelScreen__horizontalPadding}>
+      <TitleText>{`${user.nickname}님의 학력을 입력해주세요.`}</TitleText>
+      <InputsContainer>
+        <SchoolInput />
+        <DegreeInput />
+        <MajorInput />
+        <AdmissionGraduationYearInput />
+      </InputsContainer>
     </Container>
   );
 }
 
 function SchoolInput() {
-  const { school, setSchool } = useAuthFunnelScreenStore(state => ({
-    school: state.schoolInput,
-    setSchool: state.setSchoolInput,
-  }));
+  const { schoolInput, setSchoolInput } = useAuthFunnelScreenStore(
+    state => ({
+      schoolInput: state.schoolInput,
+      setSchoolInput: state.setSchoolInput,
+    }),
+    shallow,
+  );
   return (
-    <SchoolInput__Container>
-      <HeadText>학교</HeadText>
-      <Input
-        placeholder="예) 서울대학교"
-        placeholderTextColor={theme.color.purple.inactive}
-        onChangeText={text => setSchool(text)}
+    <Input__Container>
+      <AuthTextInputName name="학교" />
+      <AuthTextInput
+        props={{
+          value: schoolInput,
+          placeholder: "예) 서울대학교",
+          onChangeText: setSchoolInput,
+          maxLength: 32,
+        }}
       />
-    </SchoolInput__Container>
+    </Input__Container>
   );
 }
 
 function DegreeInput() {
-  const { degree, setDegree } = useAuthFunnelScreenStore(state => ({
-    degree: state.degreeInput,
-    setDegree: state.setDegreeInput,
-  }));
+  const { degreeInput, setDegreeInput } = useAuthFunnelScreenStore(
+    state => ({
+      degreeInput: state.degreeInput,
+      setDegreeInput: state.setDegreeInput,
+    }),
+    shallow,
+  );
   return (
-    <DegreeInput__Container>
-      <HeadText>학위</HeadText>
-      <Input
-        placeholder="예) 학사"
-        placeholderTextColor={theme.color.purple.inactive}
-        onChangeText={text => {
-          setDegree(text);
+    <Input__Container>
+      <AuthTextInputName name="학위" />
+      <AuthTextInput
+        props={{
+          value: degreeInput,
+          placeholder: "예) 학사",
+          onChangeText: setDegreeInput,
+          maxLength: 32,
         }}
       />
-    </DegreeInput__Container>
+    </Input__Container>
   );
 }
 
 function MajorInput() {
-  const { major, setMajor } = useAuthFunnelScreenStore(state => ({
-    major: state.majorInput,
-    setMajor: state.setMajorInput,
-  }));
+  const { majorInput, setMajorInput } = useAuthFunnelScreenStore(
+    state => ({
+      majorInput: state.majorInput,
+      setMajorInput: state.setMajorInput,
+    }),
+    shallow,
+  );
   return (
-    <MajorInput__Container>
-      <HeadText>전공</HeadText>
-      <Input
-        placeholder="예) 경영학"
-        placeholderTextColor={theme.color.purple.inactive}
-        onChangeText={text => {
-          setMajor(text);
+    <Input__Container>
+      <AuthTextInputName name="전공" />
+      <AuthTextInput
+        props={{
+          value: majorInput,
+          placeholder: "예) 경영학",
+          onChangeText: setMajorInput,
+          maxLength: 32,
         }}
       />
-    </MajorInput__Container>
+    </Input__Container>
   );
 }
 
 function AdmissionGraduationYearInput() {
-  const { admissionYear, graduationYear, setAdmissionYear, setGraduationYear } =
-    useAuthFunnelScreenStore(state => ({
-      admissionYear: state.admissionYearInput,
-      graduationYear: state.graduationYearInput,
-      setAdmissionYear: state.setAdmissionYearInput,
-      setGraduationYear: state.setGraduationYearInput,
-    }));
+  const {
+    admissionYearInput,
+    graduationYearInput,
+    handleAdmissionYearInput,
+    handleGraduationYearInput,
+  } = useAuthFunnelScreenStore(
+    state => ({
+      admissionYearInput: state.admissionYearInput,
+      graduationYearInput: state.graduationYearInput,
+      handleAdmissionYearInput: state.handleAdmissionYearInput,
+      handleGraduationYearInput: state.handleGraduationYearInput,
+    }),
+    shallow,
+  );
   return (
     <AdmissionGraduationYear__Container>
       <AdmissionYear__Container>
-        <HeadText>입학</HeadText>
-        <Input
-          placeholder="입학년도"
-          placeholderTextColor={theme.color.purple.inactive}
-          onChangeText={text => {
-            const num = Number.parseInt(text);
-            setAdmissionYear(num);
+        <AuthTextInputName name="입학" />
+        <AuthTextInput
+          props={{
+            value: admissionYearInput,
+            placeholder: "입학년도",
+            keyboardType: "numeric",
+            onChangeText: handleAdmissionYearInput,
+            maxLength: 4,
           }}
         />
       </AdmissionYear__Container>
+      <Input__Splitter />
       <GraduationYear__Container>
-        <HeadText>졸업</HeadText>
-        <Input
-          placeholder="졸업년도"
-          placeholderTextColor={theme.color.purple.inactive}
-          onChangeText={text => {
-            const num = Number.parseInt(text);
-            setGraduationYear(num);
+        <AuthTextInputName name="졸업" />
+        <AuthTextInput
+          props={{
+            value: graduationYearInput,
+            placeholder: "졸업년도",
+            keyboardType: "numeric",
+            onChangeText: handleGraduationYearInput,
+            maxLength: 4,
           }}
         />
       </GraduationYear__Container>
     </AdmissionGraduationYear__Container>
   );
 }
-const Container = styled.View``;
-const TitleText = styled.Text`
+
+const Container = styled.View`
+  padding-top: 25px;
+`;
+
+const TitleText = styled(H2)`
   color: ${({ theme }) => theme.color.purple.deep};
-  margin-top: 25px;
-  margin-bottom: 13px;
-  font-size: 14px;
-  font-weight: 500;
+  margin-bottom: 21px;
 `;
 
-const HeadText = styled.Text`
-  color: black;
-  font-size: 14px;
-  font-weight: 500;
+const InputsContainer = styled.View`
+  padding: 0px 12px;
 `;
 
-const SchoolInput__Container = styled.View`
-  margin: 10px 0px;
+const Input__Container = styled.View`
+  margin-bottom: 21px;
 `;
-const DegreeInput__Container = styled.View`
-  margin: 10px 0px;
-`;
-const MajorInput__Container = styled.View`
-  margin: 10px 0px;
-`;
-const AdmissionGraduationYear__Container = styled.View`
+
+const AdmissionGraduationYear__Container = styled(Input__Container)`
   flex-direction: row;
-  margin: 10px 0px;
 `;
 
 const AdmissionYear__Container = styled.View`
   flex: 1;
 `;
+
 const GraduationYear__Container = styled.View`
   flex: 1;
 `;
 
-const Input = styled.TextInput`
-  height: 40px;
-  padding: 0px 10px;
-  margin: 7px 10px 0px 5px;
-  color: black;
-  border: 1px #8f84d0 solid;
-  border-radius: 10px;
+const Input__Splitter = styled.View`
+  width: 12px;
 `;

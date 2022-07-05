@@ -1,135 +1,129 @@
-import { RadioButtonGroup } from "@Component/Radio";
-import { theme } from "@Theme/theme";
-import { useAuthFunnelScreenStore } from "@Zustand/Auth/auth.funnel.zustand";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
+import { H1, H2, BodyText } from "src/StyledComponents/Text";
+import shallow from "zustand/shallow";
+import { useUserStore, useAuthFunnelScreenStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
+import {
+  EntertainmentArtInterests,
+  FitnessActivityInterests,
+  CareerInterests,
+} from "src/Constant";
 
 export function AuthFunnelInterests() {
-  const residences = [
-    "서울특별시",
-    "부산광역시",
-    "대구광역시",
-    "인천광역시",
-    "광주광역시",
-    "대전광역시",
-    "울산광역시",
-    "세종특별자치시",
-    "경기도",
-    "충청북도",
-    "충청남도",
-    "전라북도",
-    "전라남도",
-    "경상북도",
-    "경상남도",
-  ];
+  const user = useUserStore(state => state.user);
 
   return (
-    <Container>
-      <TitleText>밍망님은 어느 분야에 관심이 있으신가요?</TitleText>
+    <Container style={globalStyles.funnelScreen__horizontalPadding}>
+      <TitleText>{`${user.nickname}님은 어느 분야에 관심이 있으신가요?`}</TitleText>
       <InterestsOptionGroup
-        title={"엔터테인먼트 / 예술"}
-        interestsList={[
-          "문학/예술",
-          "영화",
-          "드라마",
-          "미술/디자인",
-          "공연/전시",
-          "음악",
-        ]}
+        title="엔터테인먼트 · 예술"
+        interests={EntertainmentArtInterests}
       />
       <InterestsOptionGroup
-        title={"운동 / 엑티비티"}
-        interestsList={[
-          "러닝/산책",
-          "수영",
-          "쇼트트랙",
-          "필라테스",
-          "스카이 다이빙",
-          "축구",
-          "농구",
-          "야구",
-        ]}
+        title="운동 · 액티비티"
+        interests={FitnessActivityInterests}
       />
-      <InterestsOptionGroup
-        title={"커리어"}
-        interestsList={[
-          "개발",
-          "디자인",
-          "기획",
-          "마케팅",
-          "스타트업",
-          "데이터분석",
-          "서비스",
-        ]}
-      />
+      <InterestsOptionGroup title="커리어" interests={CareerInterests} />
     </Container>
   );
 }
 
 function InterestsOptionGroup({
   title,
-  interestsList,
+  interests,
 }: {
   title: string;
-  interestsList: string[];
+  interests: string[];
 }) {
-  const { interests, addInterests } = useAuthFunnelScreenStore(state => ({
-    interests: state.interestsInput,
-    addInterests: state.addInterestsInput,
-  }));
-
-  const [interestsSelected, setResidenceSelected] = useState<number[]>([]);
+  const { interestsInput, toggleInterestsInput } = useAuthFunnelScreenStore(
+    state => ({
+      interestsInput: state.interestsInput,
+      toggleInterestsInput: state.toggleInterestsInput,
+    }),
+    shallow,
+  );
 
   return (
-    <SubContainer__Interests>
-      <TitleText__Interests>{title}</TitleText__Interests>
-      <RadioButtonGroup
-        options={interestsList}
-        selectedOptionIndexes={interestsSelected}
-        onPress={optionIndex => {
-          setResidenceSelected([...interestsSelected, optionIndex]);
-          if (!interests.includes(interestsList[optionIndex])) {
-            addInterests(interestsList[optionIndex]);
-          }
-          console.log(interests);
-        }}
-        buttonStyle={{
-          width: 80,
-          height: 40,
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: theme.color.purple.main,
-          padding: 9,
-          marginHorizontal: 3,
-          marginVertical: 0,
-        }}
-        style={{ marginHorizontal: 5, flexDirection: "row", flexWrap: "wrap" }}
-        selectedStyle={{
-          backgroundColor: theme.color.purple.pastel,
-          elevation: 4,
-        }}
-        textStyle={{ color: "#594E96", textAlign: "center" }}
-        withIcon={false}
-      />
-    </SubContainer__Interests>
+    <InterestsOptionGroup__Container>
+      <InterestOptionGroup__TitleText>{title}</InterestOptionGroup__TitleText>
+      <InterestButtonsContainer>
+        {interests.map((interest, index) => {
+          return (
+            <InterestButton
+              key={`${index}:${interest}`}
+              interest={interest}
+              selected={interestsInput.includes(interest)}
+              toggleInterestsInput={toggleInterestsInput}
+            />
+          );
+        })}
+      </InterestButtonsContainer>
+    </InterestsOptionGroup__Container>
   );
 }
 
-const Container = styled.View``;
-const TitleText = styled.Text`
-  color: ${({ theme }) => theme.color.purple.deep};
-  margin-top: 25px;
-  margin-bottom: 13px;
-  font-size: 14px;
-  font-weight: 500;
+function InterestButton({
+  interest,
+  selected,
+  toggleInterestsInput,
+}: {
+  interest: string;
+  selected: boolean;
+  toggleInterestsInput: (input: string) => void;
+}) {
+  return (
+    <InterestButton__Container
+      selected={selected}
+      onPress={() => {
+        toggleInterestsInput(interest);
+      }}>
+      <InterestButton__Text>{interest}</InterestButton__Text>
+    </InterestButton__Container>
+  );
+}
+
+const Container = styled.View`
+  padding-top: 25px;
 `;
 
-const SubContainer__Interests = styled.View`
-  margin-top: 13px;
+const TitleText = styled(H2)`
+  color: ${({ theme }) => theme.color.purple.deep};
+  margin-bottom: 30px;
 `;
-const TitleText__Interests = styled.Text`
+
+const InterestsOptionGroup__Container = styled.View`
+  padding: 0px 12px;
+  margin-bottom: 18px;
+`;
+
+const InterestOptionGroup__TitleText = styled(H1)`
+  //TODO: #DESIGN-STYLE
   color: #594e96;
-  font-size: 15px;
-  font-weight: 500;
+  font-weight: bold;
   margin-bottom: 9px;
+`;
+
+const InterestButtonsContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const InterestButton__Container = styled.TouchableOpacity<{
+  selected: boolean;
+}>`
+  justify-content: center;
+  align-items: center;
+  min-width: 50px;
+  background-color: ${({ selected, theme }) =>
+    selected ? theme.color.purple.pastel : theme.color.grey.white};
+  padding: 8px 10px;
+  margin: 3px;
+  border: 1px solid ${({ theme }) => theme.color.purple.inactive};
+  border-radius: 10px;
+`;
+
+const InterestButton__Text = styled(BodyText)`
+  //TODO: #DESIGN-STYLE
+  color: #594e96;
 `;

@@ -13,6 +13,9 @@ import {
   SignupScreen,
   SignupScreenHeader,
   SignupScreenProps,
+  AuthFunnelScreen,
+  AuthFunnelScreenHeader,
+  AuthFunnelScreenProps,
 } from "src/Screen/Auth";
 // 파트너 관련 Screen
 import {
@@ -94,6 +97,7 @@ export type AppStackProps = {
   // Auth 관련 Screen
   LoginScreen: LoginScreenProps;
   SignupScreen: SignupScreenProps;
+  AuthFunnelScreen: AuthFunnelScreenProps;
   // 파트너 관련 Screen
   PartnerCategoryScreen: PartnerCategoryScreenProps;
   PartnerDetailScreen: PartnerDetailScreenProps;
@@ -152,6 +156,14 @@ export function AppStackNavigator() {
           options={{
             headerShown: true,
             header: SignupScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          name="AuthFunnelScreen"
+          component={AuthFunnelScreen}
+          options={{
+            headerShown: true,
+            header: AuthFunnelScreenHeader,
           }}
         />
       </AppStack.Group>

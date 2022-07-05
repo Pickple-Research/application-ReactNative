@@ -1,63 +1,52 @@
-import { FollowingPartnerCarousel } from "@Component/Partner";
-import { RadioButton, RadioButtonGroup } from "@Component/Radio";
-import { theme } from "@Theme/theme";
-import { useAuthFunnelScreenStore } from "@Zustand/Auth/auth.funnel.zustand";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
+import { AuthFunnelOption } from "src/Component/Auth";
+import { H2 } from "src/StyledComponents/Text";
+import shallow from "zustand/shallow";
+import { useUserStore, useAuthFunnelScreenStore } from "src/Zustand";
+import { Jobs } from "src/Constant";
+import { globalStyles } from "src/Style";
 
 export function AuthFunnelJob() {
-  const { jobInput, setJobInput } = useAuthFunnelScreenStore(state => ({
-    jobInput: state.jobInput,
-    setJobInput: state.setJobInput,
-  }));
-
-  const jobs = [
-    "중 고등학생",
-    "대학(원)생",
-    "풀타임 직장인",
-    "파트타임 직장인",
-    "프리랜서",
-    "자영업자",
-    "전업주부",
-    "무직 및 기타",
-  ];
-
-  const [jobSelected, setJobSelected] = useState<number>(-1);
+  const user = useUserStore(state => state.user);
+  const { jobInput, setJobInput } = useAuthFunnelScreenStore(
+    state => ({
+      jobInput: state.jobInput,
+      setJobInput: state.setJobInput,
+    }),
+    shallow,
+  );
 
   return (
-    <Container>
-      <TitleText>현재 밍망님의 직업은 무엇인가요?</TitleText>
-      <RadioButtonGroup
-        options={jobs}
-        selectedOptionIndexes={[jobSelected]}
-        onPress={optionIndex => {
-          setJobSelected(optionIndex);
-          setJobInput(jobs[optionIndex]);
-        }}
-        buttonStyle={{
-          borderWidth: 1,
-          borderRadius: 2,
-          borderColor: theme.color.purple.main,
-          padding: 9,
-          marginVertical: 0,
-        }}
-        style={{ marginHorizontal: 5 }}
-        selectedStyle={{
-          backgroundColor: theme.color.purple.pastel,
-          elevation: 4,
-        }}
-        textStyle={{ color: "#594E96" }}
-        withIcon={false}
-      />
+    <Container style={globalStyles.funnelScreen__horizontalPadding}>
+      <TitleText>{`현재 ${user.nickname}님의 직업은 무엇인가요?`}</TitleText>
+      <OptionListContainer>
+        {Jobs.map((job, index) => {
+          return (
+            <AuthFunnelOption
+              key={`${index}: ${job}`}
+              text={job}
+              selected={jobInput === job}
+              onPress={() => {
+                setJobInput(job);
+              }}
+            />
+          );
+        })}
+      </OptionListContainer>
     </Container>
   );
 }
 
-const Container = styled.View``;
-const TitleText = styled.Text`
+const Container = styled.View`
+  padding-top: 40px;
+`;
+
+const TitleText = styled(H2)`
   color: ${({ theme }) => theme.color.purple.deep};
-  margin-top: 40px;
   margin-bottom: 13px;
-  font-size: 14px;
-  font-weight: 500;
+`;
+
+const OptionListContainer = styled.View`
+  padding: 0px 12px;
 `;

@@ -1,6 +1,6 @@
 export * from "./App/app.zustand";
 
-export * from "./Auth/auth.fillProfile.zustand";
+export * from "./Auth/auth.funnel.zustand";
 export * from "./Auth/auth.login.zustand";
 export * from "./Auth/auth.signup.zustand";
 
