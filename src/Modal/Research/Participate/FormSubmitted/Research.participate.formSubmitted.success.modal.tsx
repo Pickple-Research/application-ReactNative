@@ -5,7 +5,6 @@ import { AppStackProps } from "src/Navigator";
 import { ModalContentContainer } from "src/Component/Modal";
 import { RadiusButton } from "src/Component/Button";
 import { H2 } from "src/StyledComponents/Text";
-import shallow from "zustand/shallow";
 import { useUserStore, useResearchDetailScreenStore } from "src/Zustand";
 
 /**
@@ -25,7 +24,7 @@ export function ResearchParticipateFormSubmittedSuccessModal() {
     <ModalContentContainer>
       <TitleContent />
       <Credit credit={researchDetail.credit} />
-      <Messages userNickname={`userNickname`} />
+      <Messages userNickname={user.nickname} />
       <Button
         onPress={() => {
           navigation.goBack();

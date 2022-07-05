@@ -4,13 +4,11 @@ import { MenuProvider } from "react-native-popup-menu";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
-import { CompleteFillProfileModal } from "src/Modal";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "src/Config";
 import { useResearchStore, useVoteStore } from "src/Zustand";
 import { axiosBootstrap } from "src/Axios";
 import { themeColors, themeSizes } from "src/Theme";
-import { AuthFunnelScreen } from "@Screen/Auth";
 
 /**
  * 앱이 시작되는 곳입니다.
@@ -60,10 +58,8 @@ export default function App() {
       <MenuProvider>
         <Container>
           <NavigationContainer>
-            {/* <AuthFunnelScreen /> */}
             <AppStackNavigator />
 
-            <CompleteFillProfileModal />
             <Toast config={toastConfig} />
           </NavigationContainer>
         </Container>

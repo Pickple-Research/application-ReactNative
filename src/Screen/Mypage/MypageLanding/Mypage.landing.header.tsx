@@ -37,7 +37,7 @@ function Icons() {
       <SendIcon
         style={styles.icon__margin}
         onPress={() => {
-          navigation.navigate("SignupScreen", {});
+          navigation.navigate("AuthFunnelScreen", {});
         }}
       />
       <AlarmIcon

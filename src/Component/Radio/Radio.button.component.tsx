@@ -38,7 +38,7 @@ export function RadioButton({
         <></>
       )}
       <Content__Container>
-        <Content__Text style={textStyle}>{option}</Content__Text>
+        <Content__Text style={textStyle}>{text}</Content__Text>
       </Content__Container>
     </Container>
   );

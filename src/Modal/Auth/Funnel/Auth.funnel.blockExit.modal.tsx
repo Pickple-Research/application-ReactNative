@@ -9,36 +9,38 @@ import {
 import { RadiusButton } from "src/Component/Button";
 import { H2, H4 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useFillProfileScreenStore } from "src/Zustand";
+import { useUserStore, useAuthFunnelScreenStore } from "src/Zustand";
 
 /**
  * (회원가입 이후 설문에서 상단바 SKIP을 누른 경우 나타나는) 프로필 작성 요청 모달입니다.
  * @author 현웅
  */
-export function AuthFillProfileModal() {
-  // const navigation = useNavigation<NavigationProp<AppStackProps, "AuthFillProfileScreen">>()
-
+export function AuthFunnelBlockExitModal() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "AuthFunnelScreen">>();
   const user = useUserStore(state => state.user);
-  const { fillProfileModalVisible, setFillProfileModalVisible } =
-    useFillProfileScreenStore(
+  const { showBlockExitModal, setShowBlockExitModal } =
+    useAuthFunnelScreenStore(
       state => ({
-        fillProfileModalVisible: state.fillProfileModalVisible,
-        setFillProfileModalVisible: state.setFillProfileModalVisible,
+        showBlockExitModal: state.showBlockExitModal,
+        setShowBlockExitModal: state.setShowBlockExitModal,
       }),
       shallow,
     );
 
   return (
     <BlackBackgroundModal
-      modalVisible={fillProfileModalVisible}
-      setModalVisible={setFillProfileModalVisible}>
+      modalVisible={showBlockExitModal}
+      setModalVisible={setShowBlockExitModal}>
       <ModalContentContainer>
-        <TitleContent userNickname={`userNickname`} />
+        <TitleContent userNickname={user.nickname} />
         <Credit />
         <Buttons
-          onLeftButtonPress={() => {}}
+          onLeftButtonPress={() => {
+            navigation.goBack();
+          }}
           onRightButtonPress={() => {
-            setFillProfileModalVisible(false);
+            setShowBlockExitModal(false);
           }}
         />
       </ModalContentContainer>
@@ -54,7 +56,8 @@ function TitleContent({ userNickname }: { userNickname: string }) {
         <Content__Text>{`프로필을 작성하시면 `}</Content__Text>
         <Content__Text>{`${userNickname}님께 `}</Content__Text>
         <Content__Text>{`더 알맞는 `}</Content__Text>
-        <Content__Text>{`리서치와 투표를 `}</Content__Text>
+        <Content__Text>{`리서치와 `}</Content__Text>
+        <Content__Text>{`투표를 `}</Content__Text>
         <Content__Text>{`추천해드릴 `}</Content__Text>
         <Content__Text>{`수 있어요. `}</Content__Text>
       </Content__Container>

@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import {
   BlackBackgroundModal,
   ModalContentContainer,
@@ -7,35 +9,36 @@ import {
 import { RadiusButton } from "src/Component/Button";
 import { H2, H4 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useAppStore } from "src/Zustand";
+import { useAuthFunnelScreenStore } from "src/Zustand";
 
 /**
  * 회원가입 후, 혹은 마이페이지에서 프로필 입력을 완료한 경우 나타나는 모달입니다.
  * @author 현웅
  */
-export function CompleteFillProfileModal() {
-  const {
-    completeFillProfileModalVisible,
-    setCompleteFillProfileModalVisible,
-  } = useAppStore(
-    state => ({
-      completeFillProfileModalVisible: state.completeFillProfileModalVisible,
-      setCompleteFillProfileModalVisible:
-        state.setCompleteFillProfileModalVisible,
-    }),
-    shallow,
-  );
+export function AuthFunnelCompleteModal() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "AuthFunnelScreen">>();
+
+  const { showFunnelCompleteModal, setShowFunnelCompleteModal } =
+    useAuthFunnelScreenStore(
+      state => ({
+        showFunnelCompleteModal: state.showFunnelCompleteModal,
+        setShowFunnelCompleteModal: state.setShowFunnelCompleteModal,
+      }),
+      shallow,
+    );
 
   return (
     <BlackBackgroundModal
-      modalVisible={completeFillProfileModalVisible}
-      setModalVisible={setCompleteFillProfileModalVisible}>
+      modalVisible={showFunnelCompleteModal}
+      setModalVisible={setShowFunnelCompleteModal}
+      allowIgnore={false}>
       <ModalContentContainer>
         <TitleContent />
         <Credit />
         <Button
           onPress={() => {
-            setCompleteFillProfileModalVisible(false);
+            navigation.goBack();
           }}
         />
       </ModalContentContainer>
