@@ -10,6 +10,7 @@ export * from "./Mypage/mypage.participated.zustand";
 export * from "./Mypage/mypage.scrapped.zustand";
 export * from "./Mypage/mypage.uploaded.zustand";
 
+export * from "./Partner/partner.landing.zustand";
 export * from "./Partner/partner.zustand";
 
 export * from "./Research/research.zustand";

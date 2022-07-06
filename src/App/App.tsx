@@ -36,7 +36,7 @@ export default function App() {
   //? 해당 작업이 수행되는 동안 SplashScreen이 보여집니다.
   useEffect(() => {
     loadInitialData();
-    return;
+    return () => {};
   }, []);
 
   if (!initialLoaded) {

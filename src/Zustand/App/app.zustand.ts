@@ -1,9 +1,8 @@
 import create from "zustand";
 
 type AppStoreProps = {
-  /** 프로필 작성 완료 모달 표시 여부 */
-  completeFillProfileModalVisible: boolean;
-  setCompleteFillProfileModalVisible: (status: boolean) => void;
+  backButtonPressedTime: Date;
+  setBackButtonPressedTime: (time: Date) => void;
 };
 
 /**
@@ -11,8 +10,8 @@ type AppStoreProps = {
  * @author 현웅
  */
 export const useAppStore = create<AppStoreProps>((set, get) => ({
-  completeFillProfileModalVisible: false,
-  setCompleteFillProfileModalVisible: (status: boolean) => {
-    set({ completeFillProfileModalVisible: status });
+  backButtonPressedTime: new Date(),
+  setBackButtonPressedTime: (time: Date) => {
+    set({ backButtonPressedTime: time });
   },
 }));
