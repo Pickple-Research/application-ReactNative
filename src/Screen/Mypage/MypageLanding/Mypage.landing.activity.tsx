@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { H3 } from "src/StyledComponents/Text";
+import shallow from "zustand/shallow";
+import { useAppStore, useUserStore } from "src/Zustand";
 import MarkedBagIcon from "src/Resource/svg/marked-bag-icon.svg";
 import { MarkedBookIcon } from "src/Component/Svg";
 import ScrapIcon from "src/Resource/svg/scrap-short-icon.svg";
@@ -18,28 +20,63 @@ export function MypageLandingActivity() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
 
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
+
+  const user = useUserStore(state => state.user);
+
+  function onPressIcon(navigate: () => void) {
+    if (user._id === "") {
+      setRequireLoginModleText("MYPAGE");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigate();
+  }
+
   return (
     <Container>
-      <ResearchButton navigation={navigation} />
-      <VoteButton navigation={navigation} />
-      <ScrapButton navigation={navigation} />
-      <MyUploadButton navigation={navigation} />
+      <ResearchButton
+        onPressIcon={() => {
+          onPressIcon(() => {
+            navigation.navigate("MypageParticipatedResearchScreen", {});
+          });
+        }}
+      />
+      <VoteButton
+        onPressIcon={() => {
+          onPressIcon(() => {
+            navigation.navigate("MypageParticipatedVoteScreen", {});
+          });
+        }}
+      />
+      <ScrapButton
+        onPressIcon={() => {
+          onPressIcon(() => {
+            navigation.navigate("MypageScrappedScreen", {});
+          });
+        }}
+      />
+      <MyUploadButton
+        onPressIcon={() => {
+          onPressIcon(() => {
+            navigation.navigate("MypageUploadedScreen", {});
+          });
+        }}
+      />
     </Container>
   );
 }
 
-function ResearchButton({
-  navigation,
-}: {
-  navigation: NavigationProp<AppStackProps>;
-}) {
+function ResearchButton({ onPressIcon }: { onPressIcon: () => void }) {
   return (
     <Button__Container>
-      <Icon__Container
-        activeOpacity={1}
-        onPress={() => {
-          navigation.navigate("MypageParticipatedResearchScreen", {});
-        }}>
+      <Icon__Container activeOpacity={1} onPress={onPressIcon}>
         <MarkedBagIcon style={styles.icon} />
         <Icon__Text>참여 리서치</Icon__Text>
       </Icon__Container>
@@ -47,18 +84,10 @@ function ResearchButton({
   );
 }
 
-function VoteButton({
-  navigation,
-}: {
-  navigation: NavigationProp<AppStackProps>;
-}) {
+function VoteButton({ onPressIcon }: { onPressIcon: () => void }) {
   return (
     <Button__Container>
-      <Icon__Container
-        activeOpacity={1}
-        onPress={() => {
-          navigation.navigate("MypageParticipatedVoteScreen", {});
-        }}>
+      <Icon__Container activeOpacity={1} onPress={onPressIcon}>
         <MarkedBookIcon style={styles.icon} />
         <Icon__Text>투표한 글</Icon__Text>
       </Icon__Container>
@@ -66,18 +95,10 @@ function VoteButton({
   );
 }
 
-function ScrapButton({
-  navigation,
-}: {
-  navigation: NavigationProp<AppStackProps>;
-}) {
+function ScrapButton({ onPressIcon }: { onPressIcon: () => void }) {
   return (
     <Button__Container>
-      <Icon__Container
-        activeOpacity={1}
-        onPress={() => {
-          navigation.navigate("MypageScrappedScreen", {});
-        }}>
+      <Icon__Container activeOpacity={1} onPress={onPressIcon}>
         <ScrapIcon style={styles.icon} />
         <Icon__Text>스크랩</Icon__Text>
       </Icon__Container>
@@ -85,18 +106,10 @@ function ScrapButton({
   );
 }
 
-function MyUploadButton({
-  navigation,
-}: {
-  navigation: NavigationProp<AppStackProps>;
-}) {
+function MyUploadButton({ onPressIcon }: { onPressIcon: () => void }) {
   return (
     <Button__Container>
-      <Icon__Container
-        activeOpacity={1}
-        onPress={() => {
-          navigation.navigate("MypageUploadedScreen", {});
-        }}>
+      <Icon__Container activeOpacity={1} onPress={onPressIcon}>
         <PenIcon style={styles.icon} />
         <Icon__Text>작성한 글</Icon__Text>
       </Icon__Container>

@@ -8,7 +8,11 @@ import {
 } from "src/StyledComponents/View";
 import { H3, DetailText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useResearchDetailScreenStore } from "src/Zustand";
+import {
+  useAppStore,
+  useUserStore,
+  useResearchDetailScreenStore,
+} from "src/Zustand";
 import { ScrapIcon } from "src/Component/Svg";
 
 /**
@@ -18,6 +22,14 @@ import { ScrapIcon } from "src/Component/Svg";
 export function ResearchDetailBottomButton() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "ResearchDetailScreen">>();
+
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
 
   const { user, userResearch } = useUserStore(state => ({
     user: state.user,
@@ -39,6 +51,18 @@ export function ResearchDetailBottomButton() {
     }),
     shallow,
   );
+
+  /** 리서치 참여하기 버튼을 눌렀을 때 행동 지정 */
+  function onPressParticipate() {
+    if (user._id === "") {
+      setRequireLoginModleText("RESEARCH_PARTICIPATE");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigation.navigate("ResearchParticipateScreen", {
+      link: researchDetail.link,
+    });
+  }
 
   const isAuthor = user._id === researchDetail.authorId;
 
@@ -70,7 +94,7 @@ export function ResearchDetailBottomButton() {
   }
 
   //* 참여 대상이 아닌 경우
-  //TODO
+  //TODO: 리서치 참여 대상이 아닌 경우
 
   //* 참여 가능한 대상인 경우
   return (
@@ -104,12 +128,7 @@ export function ResearchDetailBottomButton() {
         </UnavailableButton>
       ) : (
         //* 참여하지 않은 경우
-        <ParticipateButton
-          onPress={() => {
-            navigation.navigate("ResearchParticipateScreen", {
-              link: researchDetail.link,
-            });
-          }}>
+        <ParticipateButton onPress={onPressParticipate}>
           <ButtonText>참여하기</ButtonText>
         </ParticipateButton>
       )}

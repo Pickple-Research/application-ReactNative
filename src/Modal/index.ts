@@ -1,3 +1,5 @@
+export * from "./App/App.requireLogin.modal";
+
 export * from "./Auth/Funnel/Auth.funnel.blockExit.modal";
 export * from "./Auth/Funnel/Auth.funnel.complete.modal";
 
@@ -5,6 +7,9 @@ export * from "./Mypage/CreditHistory/Mypage.creditHistory.serviceGettingReady.m
 
 export * from "./Mypage/Scrapped/Mypage.scrapped.unscrapResearch.modal";
 export * from "./Mypage/Scrapped/Mypage.scrapped.unscrapVote.modal";
+
+export * from "./Mypage/Setting/Mypage.setting.logout.modal";
+export * from "./Mypage/Setting/Mypage.setting.resign.modal";
 
 export * from "./Partner/Partner.serviceGettingReady.modal";
 

@@ -1,15 +1,23 @@
 import React from "react";
 import styled from "styled-components/native";
+import { MypageSettingLogoutModal, MypageSettingResignModal } from "src/Modal";
 import { MypageFunctionText } from "src/Component/Mypage";
-import shallow from "zustand/shallow";
-import { useUserStore } from "src/Zustand";
-import { globalStyles } from "src/Style/globalStyles";
 import { H2 } from "src/StyledComponents/Text";
+import shallow from "zustand/shallow";
+import { useMypageSettingScreenStore } from "src/Zustand";
+import { globalStyles } from "src/Style/globalStyles";
 
 export type MypageSettingUserInfoScreenProps = {};
 
 export function MypageSettingUserInfoScreen() {
-  const {} = useUserStore(state => ({}), shallow);
+  const { setLogoutModalVisible, setResignModalVisible } =
+    useMypageSettingScreenStore(
+      state => ({
+        setLogoutModalVisible: state.setLogoutModalVisible,
+        setResignModalVisible: state.setResignModalVisible,
+      }),
+      shallow,
+    );
 
   return (
     <Container style={globalStyles.screen__horizontalPadding}>
@@ -17,12 +25,22 @@ export function MypageSettingUserInfoScreen() {
         text={`개인 정보 관리`}
         style={{ marginBottom: 20 }}
       />
-      <RowContainer activeOpacity={0.8} onPress={() => {}}>
+      <RowContainer
+        activeOpacity={0.8}
+        onPress={() => {
+          setLogoutModalVisible(true);
+        }}>
         <RowText>로그아웃</RowText>
       </RowContainer>
-      <RowContainer activeOpacity={0.8} onPress={() => {}}>
+      <RowContainer
+        activeOpacity={0.8}
+        onPress={() => {
+          setResignModalVisible(true);
+        }}>
         <RowText>회원탈퇴</RowText>
       </RowContainer>
+      <MypageSettingLogoutModal />
+      <MypageSettingResignModal />
     </Container>
   );
 }

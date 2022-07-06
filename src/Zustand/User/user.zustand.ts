@@ -19,6 +19,7 @@ import {
   ParticipatedResearchInfo,
   ParticipatedVoteInfo,
 } from "src/Schema/User/Embedded";
+import { setStorage } from "src/Util";
 
 type ChangeTarget = "VIEW" | "SCRAP" | "UPLOAD";
 
@@ -30,7 +31,8 @@ type UserStoreProps = {
   userResearch: UserResearchSchema;
   userVote: UserVoteSchema;
 
-  logout: () => void;
+  logout: () => Promise<void>;
+  resign: () => Promise<void>;
 
   /**
    * 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다
@@ -85,7 +87,7 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
   userResearch: BlankUserResearch,
   userVote: BlankUserVote,
 
-  logout: () => {
+  logout: async () => {
     set({
       user: BlankUser,
       userCredit: BlankUserCredit,
@@ -94,8 +96,11 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
       userResearch: BlankUserResearch,
       userVote: BlankUserVote,
     });
+    await setStorage("JWT", null);
     useMypageStore.getState().clearState();
   },
+
+  resign: async () => {},
 
   setUserInfo: (userInfo: {
     user: UserSchema;
