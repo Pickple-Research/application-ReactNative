@@ -1,11 +1,12 @@
-import React, { useState, useRef } from "react";
-import { Animated, LayoutChangeEvent } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { Animated, LayoutChangeEvent, BackHandler } from "react-native";
 import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
 import { CommunityLandingRecommend } from "./Community.landing.recommend";
 import { CommunityLandingVoteList } from "./Community.landing.voteList";
 import { CreateIcon } from "src/Component/Icon";
+import { showBlackToast } from "src/Util";
 
 export type CommunityLandingScreenProps = {};
 
@@ -37,6 +38,47 @@ export function CommunityLandingScreen({
     outputRange: [0, -recommendSectionHeight],
     extrapolate: "clamp",
   });
+
+  const readyToExit = useRef(false);
+
+  /**
+   * 뒤로 가기 버튼을 눌렀을 때,
+   * 1.5초 이내에 다시 뒤로 가기 버튼을 누르면 앱을 종료합니다.
+   * @author 현웅
+   */
+  function handleBackButton() {
+    if (readyToExit.current) {
+      BackHandler.exitApp();
+      return true;
+    }
+    showBlackToast({
+      text1: "뒤로 가기 버튼을 한번 더 누르면 앱을 종료합니다.",
+      visibilityTime: 1500,
+    });
+    readyToExit.current = true;
+    setTimeout(() => {
+      readyToExit.current = false;
+    }, 1500);
+    return true;
+  }
+
+  function attachBackButtonHandler() {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+  }
+
+  function detachBackButtonHandler() {
+    BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+  }
+
+  useEffect(() => {
+    const attach = navigation.addListener("focus", attachBackButtonHandler);
+    const detach = navigation.addListener("blur", detachBackButtonHandler);
+
+    return () => {
+      attach();
+      detach();
+    };
+  }, []);
 
   return (
     <Container>
