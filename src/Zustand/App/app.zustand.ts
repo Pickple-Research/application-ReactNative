@@ -1,8 +1,20 @@
 import create from "zustand";
 
+type RequireLoginModalText =
+  | "ALARM"
+  | "RESEARCH_UPLOAD"
+  | "RESEARCH_PARTICIPATE"
+  | "VOTE_UPLOAD"
+  | "VOTE_PARTICIPATE"
+  | "MYPAGE";
+
 type AppStoreProps = {
-  backButtonPressedTime: Date;
-  setBackButtonPressedTime: (time: Date) => void;
+  /** 로그인 요구 모달 표시 여부 */
+  requireLoginModalVisible: boolean;
+  setRequireLoginModalVisible: (status: boolean) => void;
+  /** 로그인 요구 모달 내용 */
+  requireLoginModleText: RequireLoginModalText;
+  setRequireLoginModleText: (text: RequireLoginModalText) => void;
 };
 
 /**
@@ -10,8 +22,12 @@ type AppStoreProps = {
  * @author 현웅
  */
 export const useAppStore = create<AppStoreProps>((set, get) => ({
-  backButtonPressedTime: new Date(),
-  setBackButtonPressedTime: (time: Date) => {
-    set({ backButtonPressedTime: time });
+  requireLoginModalVisible: false,
+  setRequireLoginModalVisible: (status: boolean) => {
+    set({ requireLoginModalVisible: status });
+  },
+  requireLoginModleText: "ALARM",
+  setRequireLoginModleText: (text: RequireLoginModalText) => {
+    set({ requireLoginModleText: text });
   },
 }));

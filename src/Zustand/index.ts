@@ -8,6 +8,7 @@ export * from "./Mypage/mypage.zustand";
 export * from "./Mypage/mypage.creditHistory.zustand";
 export * from "./Mypage/mypage.participated.zustand";
 export * from "./Mypage/mypage.scrapped.zustand";
+export * from "./Mypage/mypage.setting.zustand";
 export * from "./Mypage/mypage.uploaded.zustand";
 
 export * from "./Partner/partner.landing.zustand";

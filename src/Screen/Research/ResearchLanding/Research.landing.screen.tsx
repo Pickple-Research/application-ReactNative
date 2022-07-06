@@ -5,6 +5,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
 import { ResearchLandingRecommend } from "./Research.landing.recommend";
 import { ResearchLandingResearchList } from "./Research.landing.researchList";
+import shallow from "zustand/shallow";
+import { useAppStore, useUserStore } from "src/Zustand";
 import { CreateIcon } from "src/Component/Icon";
 import { showBlackToast } from "src/Util";
 
@@ -146,6 +148,26 @@ export function ResearchLandingScreen({
     };
   }, []);
 
+  /** 리서치 작성 버튼을 눌렀을 때 행동 지정 */
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
+
+  const user = useUserStore(state => state.user);
+
+  function onPressCreateIcon() {
+    if (user._id === "") {
+      setRequireLoginModleText("RESEARCH_UPLOAD");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigation.navigate("ResearchUploadScreen", {});
+  }
+
   return (
     <Container>
       <ResearchLandingResearchList
@@ -161,11 +183,7 @@ export function ResearchLandingScreen({
         onLayout={onRecommendSectionLayout}
         translateY={recommendSectionTranslateY}
       />
-      <CreateIcon
-        onPress={() => {
-          navigation.navigate("ResearchUploadScreen", {});
-        }}
-      />
+      <CreateIcon onPress={onPressCreateIcon} />
     </Container>
   );
 }

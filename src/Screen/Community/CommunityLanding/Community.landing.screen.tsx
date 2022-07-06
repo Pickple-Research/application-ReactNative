@@ -5,6 +5,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
 import { CommunityLandingRecommend } from "./Community.landing.recommend";
 import { CommunityLandingVoteList } from "./Community.landing.voteList";
+import shallow from "zustand/shallow";
+import { useAppStore, useUserStore } from "src/Zustand";
 import { CreateIcon } from "src/Component/Icon";
 import { showBlackToast } from "src/Util";
 
@@ -80,6 +82,26 @@ export function CommunityLandingScreen({
     };
   }, []);
 
+  /** 투표 작성 버튼을 눌렀을 때 행동 지정 */
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
+
+  const user = useUserStore(state => state.user);
+
+  function onPressCreateIcon() {
+    if (user._id === "") {
+      setRequireLoginModleText("VOTE_UPLOAD");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigation.navigate("CommunityVoteUploadScreen", {});
+  }
+
   return (
     <Container>
       <CommunityLandingVoteList
@@ -90,11 +112,7 @@ export function CommunityLandingScreen({
         onLayout={onRecommendSectionLayout}
         translateY={recommendSectionTranslateY}
       />
-      <CreateIcon
-        onPress={() => {
-          navigation.navigate("CommunityVoteUploadScreen", {});
-        }}
-      />
+      <CreateIcon onPress={onPressCreateIcon} />
     </Container>
   );
 }

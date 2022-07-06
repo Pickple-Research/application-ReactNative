@@ -1,7 +1,11 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import styled from "styled-components/native";
 import { ScreenHeader__Container } from "src/StyledComponents/View";
+import shallow from "zustand/shallow";
+import { useAppStore, useUserStore } from "src/Zustand";
 import SearchBigIcon from "src/Resource/svg/search-big-icon.svg";
 import AlarmIcon from "src/Resource/svg/alarm-icon.svg";
 
@@ -10,18 +14,36 @@ import AlarmIcon from "src/Resource/svg/alarm-icon.svg";
  * @author 현웅
  */
 export function HomeLandingScreenHeader() {
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
+
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
+
+  const user = useUserStore(state => state.user);
+
+  function onPressAlarm() {
+    if (user._id === "") {
+      setRequireLoginModleText("ALARM");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigation.navigate("MypageAlarmScreen", {});
+  }
+
   return (
     <Container>
       <Text__Container>
         <PickpleResearchText>픽플리</PickpleResearchText>
       </Text__Container>
       <Icons__Container>
-        <SearchBigIcon
-          style={{ ...styles.icon__margin }}
-          width={28}
-          height={28}
-        />
-        <AlarmIcon width={28} height={28} />
+        <SearchBigIcon style={{ ...styles.icon__margin }} />
+        <AlarmIcon onPress={onPressAlarm} />
       </Icons__Container>
     </Container>
   );

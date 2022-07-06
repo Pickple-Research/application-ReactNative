@@ -5,7 +5,11 @@ import { VoteOptionsBox, VoteOptionResultsBox } from "src/Component/Vote";
 import { RadiusButton } from "src/Component/Button";
 import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useUserStore, useVoteDetailScreenStore } from "src/Zustand";
+import {
+  useAppStore,
+  useUserStore,
+  useVoteDetailScreenStore,
+} from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -125,6 +129,24 @@ function VoteButton() {
     shallow,
   );
 
+  /** 투표 참여 버튼을 눌렀을 때 행동 지정 */
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
+
+  async function onPressParticipate() {
+    if (user._id === "") {
+      setRequireLoginModleText("VOTE_PARTICIPATE");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    await participateVote();
+  }
+
   const isAuthor = user._id === voteDetail.authorId;
 
   //* 마감/종료된 투표인 경우
@@ -203,7 +225,7 @@ function VoteButton() {
     <RadiusButton
       text="투표하기"
       type="PURPLE_CONFIRM"
-      onPress={participateVote}
+      onPress={onPressParticipate}
       style={voteButtonStyles.container}
     />
   );

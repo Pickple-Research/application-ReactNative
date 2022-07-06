@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
 import styled from "styled-components/native";
-import { globalStyles } from "src/Style/globalStyles";
+import shallow from "zustand/shallow";
+import { useAppStore, useUserStore } from "src/Zustand";
+import { globalStyles } from "src/Style";
 import SettingIcon from "src/Resource/svg/setting-icon.svg";
 import SendIcon from "src/Resource/svg/send-icon.svg";
 import AlarmIcon from "src/Resource/svg/alarm-icon.svg";
-
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppStackProps } from "src/Navigator";
 
 /**
  * 마이페이지 랜딩 페이지 최상단 헤더 섹션
@@ -26,25 +27,44 @@ function Icons() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
 
+  const { setRequireLoginModalVisible, setRequireLoginModleText } = useAppStore(
+    state => ({
+      setRequireLoginModalVisible: state.setRequireLoginModalVisible,
+      setRequireLoginModleText: state.setRequireLoginModleText,
+    }),
+    shallow,
+  );
+
+  const user = useUserStore(state => state.user);
+
+  function onPressSetting() {
+    if (user._id === "") {
+      setRequireLoginModleText("MYPAGE");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigation.navigate("MypageSettingScreen", {});
+  }
+
+  function onPressAlarm() {
+    if (user._id === "") {
+      setRequireLoginModleText("ALARM");
+      setRequireLoginModalVisible(true);
+      return;
+    }
+    navigation.navigate("MypageAlarmScreen", {});
+  }
+
   return (
     <Icons__Container>
-      <SettingIcon
-        style={styles.icon__margin}
-        onPress={() => {
-          navigation.navigate("MypageSettingScreen", {});
-        }}
-      />
+      <SettingIcon style={styles.icon__margin} onPress={onPressSetting} />
       <SendIcon
         style={styles.icon__margin}
         onPress={() => {
           navigation.navigate("AuthFunnelScreen", {});
         }}
       />
-      <AlarmIcon
-        onPress={() => {
-          navigation.navigate("MypageAlarmScreen", {});
-        }}
-      />
+      <AlarmIcon onPress={onPressAlarm} />
     </Icons__Container>
   );
 }

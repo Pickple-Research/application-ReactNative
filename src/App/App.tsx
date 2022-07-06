@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components/native";
-import { MenuProvider } from "react-native-popup-menu";
 import { NavigationContainer } from "@react-navigation/native";
+import { MenuProvider } from "react-native-popup-menu";
+import Toast from "react-native-toast-message";
 import { AppStackNavigator } from "src/Navigator";
 import { SplashScreen } from "src/Screen";
-import Toast from "react-native-toast-message";
+import { RequireLoginModal } from "src/Modal";
 import { toastConfig } from "src/Config";
 import { useResearchStore, useVoteStore } from "src/Zustand";
 import { axiosBootstrap } from "src/Axios";
@@ -16,7 +17,6 @@ import { themeColors, themeSizes } from "src/Theme";
  */
 export default function App() {
   const [initialLoaded, setInitialLoaded] = useState<boolean>(false);
-  const [useLightMode, setUseLightMode] = useState<boolean>(true);
 
   const setResearches = useResearchStore(state => state.setResearches);
   const setVotes = useVoteStore(state => state.setVotes);
@@ -60,6 +60,7 @@ export default function App() {
           <NavigationContainer>
             <AppStackNavigator />
 
+            <RequireLoginModal />
             <Toast config={toastConfig} />
           </NavigationContainer>
         </Container>
