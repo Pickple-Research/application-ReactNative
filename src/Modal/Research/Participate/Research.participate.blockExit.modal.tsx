@@ -1,9 +1,8 @@
 import React from "react";
-import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useResearchParticipateScreenStore } from "src/Zustand";
 
@@ -28,20 +27,27 @@ export function ResearchParticipateBlockExitModal() {
     <BlackBackgroundModal
       modalVisible={blockExitModalVisible}
       setModalVisible={setBlockExitModalVisible}>
-      <Container>
-        <RadiusButton
-          text="확인"
-          type="BLACK"
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-      </Container>
+      <TitleModal
+        title={"리서치 응답을\n그만두시겠습니까?"}
+        LeftButton={
+          <RadiusButton
+            text="이어하기"
+            type="BLUE_CONFIRM"
+            onPress={() => {
+              setBlockExitModalVisible(false);
+            }}
+          />
+        }
+        RightButton={
+          <RadiusButton
+            text="그만두기"
+            type="BLUE_CANCEL"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+        }
+      />
     </BlackBackgroundModal>
   );
 }
-
-const Container = styled.View`
-  padding: 16px;
-  background-color: ${({ theme }) => theme.color.grey.white};
-`;

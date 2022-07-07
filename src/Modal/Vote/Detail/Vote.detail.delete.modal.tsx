@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import { RadiusButton } from "src/Component/Button";
 import shallow from "zustand/shallow";
 import { useVoteDetailScreenStore } from "src/Zustand";
@@ -42,17 +42,14 @@ export function VoteDetailDeleteModal() {
       modalVisible={voteDeleteModalVisible}
       setModalVisible={setVoteDeleteModalVisible}
       allowIgnore={deleting ? false : true}>
-      <ModalContent
-        content={
-          deleting
-            ? "투표를 삭제하고 있습니다\n잠시만 기다려 주세요"
-            : "이 투표를\n삭제하시겠습니까?"
-        }
+      <TitleModal
+        title={"이 투표를\n삭제하시겠습니까?"}
         buttonSymmetric={true}
         LeftButton={
           <RadiusButton
             text="취소"
             type="PURPLE_CANCEL"
+            styleType="NARROW"
             onPress={
               deleting
                 ? undefined
@@ -66,6 +63,7 @@ export function VoteDetailDeleteModal() {
           <RadiusButton
             text="삭제하기"
             type="PURPLE_CONFIRM"
+            styleType="NARROW"
             onPress={deleting ? undefined : tryDeleteVote}
           />
         }

@@ -1,5 +1,5 @@
 import React from "react";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleContentModal } from "src/Component/Modal";
 import { RadiusButton } from "src/Component/Button";
 import shallow from "zustand/shallow";
 import { useVoteDetailScreenStore } from "src/Zustand";
@@ -23,14 +23,16 @@ export function VoteDetailCloseModal() {
     <BlackBackgroundModal
       modalVisible={voteCloseModalVisible}
       setModalVisible={setVoteCloseModalVisible}>
-      <ModalContent
+      <TitleContentModal
         title="마감하시겠습니까?"
         content={"마감하면 투표가 종료됩니다.\n최종 결과를 공유할 수 있습니다."}
+        headHeight={16}
         buttonSymmetric={false}
         LeftButton={
           <RadiusButton
             text="취소"
             type="PURPLE_CANCEL"
+            styleType="NARROW"
             onPress={() => {
               setVoteCloseModalVisible(false);
             }}
@@ -40,6 +42,7 @@ export function VoteDetailCloseModal() {
           <RadiusButton
             text="마감하기"
             type="PURPLE_CONFIRM"
+            styleType="NARROW"
             onPress={closeVote}
           />
         }

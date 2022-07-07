@@ -8,7 +8,10 @@ import { ResearchUploadScreeningScreen } from "./Screening/Research.upload.scree
 import { ResearchUploadProgressBar } from "./Research.upload.progressBar";
 import { ResearchUploadButtomButton } from "./Research.upload.bottomButton";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
-import { ResearchUploadBlockExitModal } from "src/Modal";
+import {
+  ResearchUploadBlockExitModal,
+  ResearchUploadConfirmModal,
+} from "src/Modal";
 import shallow from "zustand/shallow";
 import { useResearchUploadScreenStore } from "src/Zustand";
 
@@ -64,6 +67,7 @@ export function ResearchUploadScreen({ navigation }: any) {
       <WhiteBackgroundScrollView>{pages[step]}</WhiteBackgroundScrollView>
       <ResearchUploadButtomButton />
       <ResearchUploadBlockExitModal />
+      <ResearchUploadConfirmModal />
     </Container>
   );
 }

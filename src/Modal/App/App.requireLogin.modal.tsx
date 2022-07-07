@@ -1,13 +1,8 @@
 import React from "react";
-import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import {
-  BlackBackgroundModal,
-  ModalContentContainer,
-} from "src/Component/Modal";
-import { H2 } from "src/StyledComponents/Text";
+import { BlackBackgroundModal, TitleContentModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useAppStore } from "src/Zustand";
 
@@ -66,96 +61,34 @@ export function RequireLoginModal() {
     <BlackBackgroundModal
       modalVisible={requireLoginModalVisible}
       setModalVisible={setRequireLoginModalVisible}>
-      <ModalContentContainer>
-        <TitleContent content={modalContent()} />
-        <Buttons
-          buttonColor={buttonColor()}
-          onLeftButtonPress={() => {
-            setRequireLoginModalVisible(false);
-          }}
-          onRightButtonPress={() => {
-            setRequireLoginModalVisible(false);
-            navigation.navigate("LoginScreen", {});
-          }}
-        />
-      </ModalContentContainer>
+      <TitleContentModal
+        title={`로그인이 필요합니다`}
+        content={`로그인이 필요한 서비스입니다.\n지금 로그인하고 ${modalContent()}`}
+        head={false}
+        alignCenter={false}
+        buttonSymmetric={false}
+        LeftButton={
+          <RadiusButton
+            text="취소"
+            type={buttonColor() === "BLUE" ? "BLUE_CANCEL" : "PURPLE_CANCEL"}
+            styleType="NARROW"
+            onPress={() => {
+              setRequireLoginModalVisible(false);
+            }}
+          />
+        }
+        RightButton={
+          <RadiusButton
+            text="로그인하러 가기"
+            type={buttonColor() === "BLUE" ? "BLUE_CONFIRM" : "PURPLE_CONFIRM"}
+            styleType="NARROW"
+            onPress={() => {
+              setRequireLoginModalVisible(false);
+              navigation.navigate("LoginScreen", {});
+            }}
+          />
+        }
+      />
     </BlackBackgroundModal>
   );
 }
-
-function TitleContent({ content }: { content: string }) {
-  return (
-    <TitleContent__Container>
-      <TitleText>로그인이 필요합니다</TitleText>
-      <ContentText>로그인이 필요한 서비스입니다.</ContentText>
-      <ContentText>{`지금 로그인하고 ${content}`}</ContentText>
-    </TitleContent__Container>
-  );
-}
-
-function Buttons({
-  buttonColor,
-  onLeftButtonPress,
-  onRightButtonPress,
-}: {
-  buttonColor: "BLUE" | "PURPLE";
-  onLeftButtonPress: () => void;
-  onRightButtonPress: () => void;
-}) {
-  return (
-    <Buttons__Container>
-      <LeftButton__Container>
-        <RadiusButton
-          text="취소"
-          type={buttonColor === "BLUE" ? "BLUE_CANCEL" : "PURPLE_CANCEL"}
-          styleType="NARROW"
-          onPress={onLeftButtonPress}
-        />
-      </LeftButton__Container>
-      <ButtonSplitter />
-      <RightButton__Container>
-        <RadiusButton
-          text="로그인하러 가기"
-          type={buttonColor === "BLUE" ? "BLUE_CONFIRM" : "PURPLE_CONFIRM"}
-          styleType="NARROW"
-          onPress={onRightButtonPress}
-        />
-      </RightButton__Container>
-    </Buttons__Container>
-  );
-}
-
-// TitleContent()
-const TitleContent__Container = styled.View`
-  padding: 0px 10px;
-  margin-top: 12px;
-  margin-bottom: 24px;
-`;
-
-const TitleText = styled.Text`
-  color: ${({ theme }) => theme.color.grey.deep};
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 18px;
-`;
-
-const ContentText = styled(H2)`
-  color: ${({ theme }) => theme.color.grey.main};
-  line-height: 20px;
-`;
-
-// Buttons()
-const Buttons__Container = styled.View`
-  flex-direction: row;
-`;
-
-const LeftButton__Container = styled.View`
-  flex: 3;
-`;
-const RightButton__Container = styled.View`
-  flex: 8;
-`;
-
-const ButtonSplitter = styled.View`
-  width: 8px;
-`;

@@ -4,40 +4,46 @@ import { ModalContentContainer } from "./ModalContentContainer.component";
 import { H1, H2 } from "src/StyledComponents/Text";
 
 /**
- * @deprecated
- * TitleContentModal, TitleModal 로 분리되었습니다.
- *
- * 반복적으로 사용되는 모달 콘텐츠입니다.
- * 제목 여부, 버튼 비율 동등 여부, 확인 버튼 위치에 따라 디자인이 분기됩니다.
+ * 제목과 내용이 모두 존재하는 모달 콘텐츠 모듈입니다.
  *
  * 여기서 정의할 수 없는 복잡한 디자인의 모달은
  * ModalContentContainer만 import하여 각 모달마다 따로 디자인합니다.
  * (ex. 리서치 끌올 모달, 프로필 작성 유도 모달, 리서치 참여 완료 모달 등)
  *
- * @param title 모달 제목 (Optional)
+ * @param title 모달 제목
  * @param content 모달 내용
+ * @param head 모달 제목 위에 공간이 존재하는지 여부 (기본값: true)
+ * @param headHeight 모달 제목 위에 공간 높이 (기본값: 28)
+ * @param alignCenter 제목, 내용 가운데 정렬 여부 (기본값: true)
  * @param buttonSymmetric 확인/취소 버튼 비율 1:1 여부 (기본값: true)
  * @param LeftButton 좌측 버튼 (RadiusButton 사용 권장)
  * @param RightButton 우측 버튼 (Optional) (RadiusButton 사용 권장)
  * @author 현웅
  */
-export function ModalContent({
+export function TitleContentModal({
   title,
   content,
+  head = true,
+  headHeight = 28,
+  alignCenter = true,
   buttonSymmetric = true,
   LeftButton,
   RightButton,
 }: {
-  title?: string;
+  title: string;
   content: string;
+  head?: boolean;
+  headHeight?: number;
+  alignCenter?: boolean;
   buttonSymmetric?: boolean;
   LeftButton: JSX.Element;
   RightButton?: JSX.Element;
 }) {
   return (
     <ModalContentContainer>
-      <Title title={title} />
-      <Content title={title} content={content} />
+      {head && <Head headHeight={headHeight} />}
+      <Title title={title} alignCenter={alignCenter} />
+      <Content content={content} alignCenter={alignCenter} />
       <Buttons
         buttonSymmetric={buttonSymmetric}
         LeftButton={LeftButton}
@@ -47,41 +53,31 @@ export function ModalContent({
   );
 }
 
-/**
- * 모달 제목. 없을 수도 있습니다.
- * @author 현웅
- */
-function Title({ title }: { title?: string }) {
-  //* 제목이 없는 모달인 경우
-  if (!title) return null;
-
-  //* 제목과 내용만 있는 모달인 경우
+function Title({
+  title,
+  alignCenter,
+}: {
+  title: string;
+  alignCenter?: boolean;
+}) {
   return (
-    <Title__Container>
+    <Title__Container alignCenter={alignCenter}>
       <Title__Text>{title}</Title__Text>
     </Title__Container>
   );
 }
 
-/**
- * 모달 내용. 제목 존재 여부에 따라 내용의 글자 스타일이 달라집니다.
- * @author 현웅
- */
-function Content({ title, content }: { title?: string; content: string }) {
-  //* 제목, 내용이 있는 모달인 경우
-  if (title) {
-    return (
-      <Content__Container>
-        <Content__Text>{content}</Content__Text>
-      </Content__Container>
-    );
-  }
-
-  //* 내용만 있는 모달인 경우
+function Content({
+  content,
+  alignCenter,
+}: {
+  content: string;
+  alignCenter?: boolean;
+}) {
   return (
-    <Content__BigContainer>
-      <Content__BigText>{content}</Content__BigText>
-    </Content__BigContainer>
+    <Content__Container alignCenter={alignCenter}>
+      <Content__Text alignCenter={alignCenter}>{content}</Content__Text>
+    </Content__Container>
   );
 }
 
@@ -117,12 +113,19 @@ function Buttons({
   );
 }
 
+// 제목과 상단 padding 조정용 View
+const Head = styled.View<{ headHeight?: number }>`
+  height: ${({ headHeight }) => (headHeight ? `${headHeight}px` : "28px")};
+`;
+
 // Title()
-const Title__Container = styled.View`
+const Title__Container = styled.View<{ alignCenter?: boolean }>`
   flex-direction: row;
-  justify-content: center;
-  margin-top: 24px;
-  margin-bottom: 15px;
+  justify-content: ${({ alignCenter }) =>
+    alignCenter ? "center" : "flex-start"};
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 16px;
 `;
 
 const Title__Text = styled(H1)`
@@ -130,28 +133,19 @@ const Title__Text = styled(H1)`
 `;
 
 // Content()
-const Content__Container = styled.View`
+const Content__Container = styled.View<{ alignCenter?: boolean }>`
   flex-direction: row;
-  justify-content: center;
-  margin-bottom: 32px;
+  justify-content: ${({ alignCenter }) =>
+    alignCenter ? "center" : "flex-start"};
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 28px;
 `;
 
-const Content__Text = styled(H2)`
+const Content__Text = styled(H2)<{ alignCenter?: boolean }>`
   color: ${({ theme }) => theme.color.grey.mild};
   line-height: 20px;
-  text-align: center;
-`;
-
-const Content__BigContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  padding: 24px 0px;
-`;
-
-const Content__BigText = styled(H1)`
-  font-weight: bold;
-  line-height: 24px;
-  text-align: center;
+  text-align: ${({ alignCenter }) => (alignCenter ? "center" : "left")};
 `;
 
 // Buttons()
@@ -167,5 +161,5 @@ const RightButton__Container = styled.View<{ buttonSymmetric: boolean }>`
 `;
 
 const ButtonSplitter = styled.View`
-  width: 12px;
+  width: 10px;
 `;

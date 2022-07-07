@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleContentModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useVoteUploadScreenStore } from "src/Zustand";
 
@@ -27,7 +27,7 @@ export function VoteUploadBlockExitModal() {
     <BlackBackgroundModal
       modalVisible={blockExitModalVisible}
       setModalVisible={setBlockExitModalVisible}>
-      <ModalContent
+      <TitleContentModal
         title="작성을 취소하시겠습니까?"
         content="입력한 내용이 저장되지 않습니다."
         LeftButton={

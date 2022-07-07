@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useResearchDetailScreenStore } from "src/Zustand";
 
@@ -42,17 +42,14 @@ export function ResearchDetailDeleteModal() {
       modalVisible={researchDeleteModalVisible}
       setModalVisible={setResearchDeleteModalVisible}
       allowIgnore={deleting ? false : true}>
-      <ModalContent
-        content={
-          deleting
-            ? "리서치를 삭제하고 있습니다\n잠시만 기다려 주세요"
-            : "이 리서치를\n삭제하시겠습니까?"
-        }
+      <TitleModal
+        title={"이 리서치를\n삭제하시겠습니까?"}
         buttonSymmetric={true}
         LeftButton={
           <RadiusButton
             text="취소"
             type="BLUE_CANCEL"
+            styleType="NARROW"
             onPress={
               deleting
                 ? undefined
@@ -66,6 +63,7 @@ export function ResearchDetailDeleteModal() {
           <RadiusButton
             text="삭제하기"
             type="BLUE_CONFIRM"
+            styleType="NARROW"
             onPress={deleting ? undefined : tryDeleteResearch}
           />
         }
