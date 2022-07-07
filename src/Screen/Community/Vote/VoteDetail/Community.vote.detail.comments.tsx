@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components/native";
 import { VoteCommentsBox } from "src/Component/Vote";
 import { SectionHeaderText } from "src/Component/Text";
-import { useVoteDetailScreenStore } from "src/Zustand";
 import { SectionHeader__Container } from "src/StyledComponents/View";
+import { useVoteDetailScreenStore } from "src/Zustand";
 
 /**
  * 투표 상세 화면 댓글 항목입니다.

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "src/Navigator";
@@ -7,6 +8,7 @@ import { ResearchDetailCondition } from "./Research.detail.condition";
 import { ResearchDetailParticipant } from "./Research.detail.participant";
 import { ResearchDetailContent } from "./Research.detail.content";
 import { ResearchDetailGift } from "./Research.detail.gift";
+import { ResearchDetailComments } from "./Research.detail.comments";
 import { ResearchDetailBottomButton } from "./Research.detail.bottomButton";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import {
@@ -27,16 +29,23 @@ export type ResearchDetailScreenProps = { research: ResearchSchema };
 export function ResearchDetailScreen({
   route,
 }: NativeStackScreenProps<AppStackProps, "ResearchDetailScreen">) {
-  const { setResearchDetail, clearState } = useResearchDetailScreenStore(
-    state => ({
-      setResearchDetail: state.setResearchDetail,
-      clearState: state.clearState,
-    }),
-    shallow,
-  );
+  const { setResearchDetail, getResearchDetailComments, clearState } =
+    useResearchDetailScreenStore(
+      state => ({
+        setResearchDetail: state.setResearchDetail,
+        getResearchDetailComments: state.getResearchDetailComments,
+        clearState: state.clearState,
+      }),
+      shallow,
+    );
+
+  async function loadResearchDetailComments() {
+    await getResearchDetailComments(route.params.research._id);
+  }
 
   useEffect(() => {
     setResearchDetail(route.params.research);
+    loadResearchDetailComments();
     return () => {
       clearState();
     };
@@ -46,15 +55,11 @@ export function ResearchDetailScreen({
     <Container>
       <WhiteBackgroundScrollView>
         <ResearchDetailInfo />
-        <Image
-          source={{
-            uri: "https://pickple-research.s3.ap-northeast-2.amazonaws.com/image1",
-          }}
-        />
         <ResearchDetailCondition />
         <ResearchDetailParticipant />
         <ResearchDetailContent />
         <ResearchDetailGift />
+        <ResearchDetailComments />
       </WhiteBackgroundScrollView>
       <ResearchDetailBottomButton />
       <ResearchDetailDeleteModal />
@@ -64,14 +69,22 @@ export function ResearchDetailScreen({
   );
 }
 
-const Image = styled.Image`
-  width: 100px;
-  height: 100px;
-`;
-
 const Container = styled.SafeAreaView`
   position: relative;
   flex: 1;
   //* ResearchDetailBottomTab의 height과 같은 값으로 유지해야 합니다.
   padding-bottom: 60px;
 `;
+
+/**
+ * 리서치 상세페이지에서만 쓰이는 스타일입니다.
+ * @author 현웅
+ */
+export const researchDetailScreenStyles = StyleSheet.create({
+  /** 섹션 구분선 */
+  boundary: {
+    borderBottomWidth: 5,
+    //TODO: #DESIGN-SYSTEM
+    borderBottomColor: "#f5f5f5",
+  },
+});
