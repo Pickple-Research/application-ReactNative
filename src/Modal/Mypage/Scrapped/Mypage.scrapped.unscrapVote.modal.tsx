@@ -1,6 +1,6 @@
 import React from "react";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useMypageScrappedScreenStore } from "src/Zustand";
 
@@ -23,20 +23,26 @@ export function MypageScrappedUnscrapVoteModal() {
     <BlackBackgroundModal
       modalVisible={voteUnscrapModalVisible}
       setModalVisible={setVoteUnscrapModalVisible}>
-      <ModalContent
-        content={"스크랩을\n취소하시겠습니까?"}
+      <TitleModal
+        title={"스크랩을\n취소하시겠습니까?"}
         buttonSymmetric={true}
         LeftButton={
           <RadiusButton
             text="아니오"
             type="PURPLE_CONFIRM"
+            styleType="NARROW"
             onPress={() => {
               setVoteUnscrapModalVisible(false);
             }}
           />
         }
         RightButton={
-          <RadiusButton text="예" type="PURPLE_CANCEL" onPress={unscrapVote} />
+          <RadiusButton
+            text="예"
+            type="PURPLE_CANCEL"
+            styleType="NARROW"
+            onPress={unscrapVote}
+          />
         }
       />
     </BlackBackgroundModal>

@@ -1,12 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
 import {
-  StackActions,
-  NavigationProp,
-  useNavigation,
-} from "@react-navigation/native";
-import { AppStackProps } from "src/Navigator";
-import {
   BottomButton__Container,
   BottomButton__ButtonContainer,
 } from "src/StyledComponents/View";
@@ -135,40 +129,22 @@ function GiftCreditStepButton() {
 
 /** 스크리닝, 목표 인원 보장 입력 단계 */
 function ScreeningStepButton() {
-  const navigation =
-    useNavigation<NavigationProp<AppStackProps, "ResearchUploadScreen">>();
-
-  const { uploading, uploadResearch } = useResearchUploadScreenStore(
+  const { setConfirmModalVisible } = useResearchUploadScreenStore(
     state => ({
-      uploading: state.uploading,
-      uploadResearch: state.uploadResearch,
+      setConfirmModalVisible: state.setConfirmModalVisible,
     }),
     shallow,
   );
 
-  /**
-   * 리서치 업로드를 시도합니다.
-   * 성공적으로 업로드된 경우, 생성된 리서치 상세 페이지로 이동합니다.
-   * @author 현웅
-   */
-  async function tryUploadResearch() {
-    const newResearch = await uploadResearch();
-    if (newResearch !== null) {
-      navigation.dispatch(
-        StackActions.replace("ResearchDetailScreen", { research: newResearch }),
-      );
-    }
-  }
-
   return (
     <Container>
       <Button__Container
-        activeOpacity={!uploading ? 0.8 : 1}
-        onPress={!uploading ? tryUploadResearch : undefined}
-        available={!uploading}>
-        <Button__Text available={!uploading}>
-          {!uploading ? "작성 완료!" : "업로드 중..."}
-        </Button__Text>
+        activeOpacity={0.8}
+        onPress={() => {
+          setConfirmModalVisible(true);
+        }}
+        available={true}>
+        <Button__Text available={true}>작성 완료!</Button__Text>
       </Button__Container>
     </Container>
   );

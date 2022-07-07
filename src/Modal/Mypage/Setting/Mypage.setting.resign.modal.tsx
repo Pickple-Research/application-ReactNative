@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useMypageSettingScreenStore } from "src/Zustand";
 
@@ -38,8 +38,8 @@ export function MypageSettingResignModal() {
     <BlackBackgroundModal
       modalVisible={resignModalVisible}
       setModalVisible={setResignModalVisible}>
-      <ModalContent
-        content={"탈퇴 하시겠습니까?"}
+      <TitleModal
+        title={"탈퇴 하시겠습니까?"}
         buttonSymmetric={true}
         LeftButton={
           <RadiusButton

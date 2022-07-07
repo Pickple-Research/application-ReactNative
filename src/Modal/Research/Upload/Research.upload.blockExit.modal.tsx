@@ -1,9 +1,8 @@
 import React from "react";
-import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleContentModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useResearchUploadScreenStore } from "src/Zustand";
 
@@ -28,20 +27,33 @@ export function ResearchUploadBlockExitModal() {
     <BlackBackgroundModal
       modalVisible={blockExitModalVisible}
       setModalVisible={setBlockExitModalVisible}>
-      <Container>
-        <RadiusButton
-          text="확인"
-          type="BLACK"
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-      </Container>
+      <TitleContentModal
+        title="작성 취소"
+        content={`리서치 작성을 취소하겠습니까?\n취소하실 경우 작성하신 내용이 저장되지 않습니다.`}
+        alignCenter={false}
+        head={false}
+        buttonSymmetric={false}
+        LeftButton={
+          <RadiusButton
+            text="취소"
+            type="BLUE_CANCEL"
+            styleType="NARROW"
+            onPress={() => {
+              setBlockExitModalVisible(false);
+            }}
+          />
+        }
+        RightButton={
+          <RadiusButton
+            text="뒤로가기"
+            type="BLUE_CONFIRM"
+            styleType="NARROW"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+        }
+      />
     </BlackBackgroundModal>
   );
 }
-
-const Container = styled.View`
-  padding: 16px;
-  background-color: ${({ theme }) => theme.color.grey.white};
-`;

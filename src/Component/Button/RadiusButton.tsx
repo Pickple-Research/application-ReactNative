@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ActivityIndicator,
   StyleSheet,
   StyleProp,
   TextStyle,
@@ -38,6 +39,7 @@ export function RadiusButton({
   type,
   styleType = "WIDE",
   onPress,
+  loading,
   style,
   textStyle,
   activeOpacity = 0.8,
@@ -47,6 +49,7 @@ export function RadiusButton({
   type: RadiusButtonType;
   styleType?: RadiusButtonStyleType;
   onPress?: () => any;
+  loading?: boolean;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   activeOpacity?: number;
@@ -62,6 +65,13 @@ export function RadiusButton({
       onPress={onPress}
       {...viewProps}>
       <ButtonText style={textStyle}>{text}</ButtonText>
+      {loading && (
+        <ActivityIndicator
+          size="small"
+          color="#fff"
+          style={{ marginLeft: 8 }}
+        />
+      )}
     </ButtonContainer>
   );
 }
@@ -153,6 +163,7 @@ const styles = StyleSheet.create({
 
 /** 공통 적용되는 버튼 콘테이너 스타일 */
 const Button__Container = styled.TouchableOpacity`
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   border-radius: 6px;

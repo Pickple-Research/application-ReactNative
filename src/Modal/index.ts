@@ -22,6 +22,7 @@ export * from "./Research/Participate/Research.participate.blockExit.modal";
 export * from "./Research/Participate/Research.participate.formSubmitted.modal";
 
 export * from "./Research/Upload/Research.upload.blockExit.modal";
+export * from "./Research/Upload/Research.upload.confirm.modal";
 
 export * from "./Vote/Detail/Vote.detail.close.modal";
 export * from "./Vote/Detail/Vote.detail.delete.modal";

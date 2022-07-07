@@ -12,6 +12,6 @@ export function ModalContentContainer({ children }: { children: any }) {
 const Container = styled.TouchableOpacity`
   width: 80%;
   background-color: ${({ theme }) => theme.color.grey.white};
-  padding: 10px 20px;
+  padding: 20px 20px 10px 20px;
   border-radius: 12px;
 `;

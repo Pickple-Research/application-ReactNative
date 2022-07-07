@@ -83,6 +83,10 @@ type ResearchUploadScreenStoreProps = {
   blockExitModalVisible: boolean;
   setBlockExitModalVisible: (status: boolean) => void;
 
+  /** 작성 완료 후 재확인 모달 */
+  confirmModalVisible: boolean;
+  setConfirmModalVisible: (status: boolean) => void;
+
   /** 리서치 업로드 중인지 여부 */
   uploading: boolean;
 
@@ -252,6 +256,11 @@ export const useResearchUploadScreenStore =
     blockExitModalVisible: false,
     setBlockExitModalVisible: (status: boolean) => {
       set({ blockExitModalVisible: status });
+    },
+
+    confirmModalVisible: false,
+    setConfirmModalVisible: (status: boolean) => {
+      set({ confirmModalVisible: status });
     },
 
     uploading: false,

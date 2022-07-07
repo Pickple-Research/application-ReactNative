@@ -1,6 +1,6 @@
 import React from "react";
 import { RadiusButton } from "src/Component/Button";
-import { BlackBackgroundModal, ModalContent } from "src/Component/Modal";
+import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
 import { useMypageCreditHistoryScreenStore } from "src/Zustand";
 
@@ -25,8 +25,8 @@ export function MypageCreditHistoryServiceGettingReadyModal() {
     <BlackBackgroundModal
       modalVisible={serviceGettingReadyModalVisible}
       setModalVisible={setServiceGettingReadyModalVisible}>
-      <ModalContent
-        content="준비 중인 페이지입니다"
+      <TitleModal
+        title="준비 중인 페이지입니다"
         LeftButton={
           <RadiusButton
             text="뒤로가기"
