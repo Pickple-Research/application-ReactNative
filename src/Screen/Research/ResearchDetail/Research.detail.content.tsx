@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { researchDetailScreenStyles } from "./Research.detail.screen";
 import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchDetailScreenStore } from "src/Zustand";
@@ -16,7 +17,7 @@ export function ResearchDetailContent() {
   );
 
   return (
-    <Container>
+    <Container style={researchDetailScreenStyles.boundary}>
       <SectionHeader />
       <Content content={researchDetail.content} />
     </Container>
@@ -40,7 +41,8 @@ function Content({ content }: { content: string }) {
 }
 
 const Container = styled.View`
-  margin-bottom: 80px;
+  padding-bottom: 80px;
+  margin-bottom: 16px;
 `;
 
 const Content__Container = styled.View``;

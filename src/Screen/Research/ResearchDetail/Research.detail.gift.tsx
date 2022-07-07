@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
+import { researchDetailScreenStyles } from "./Research.detail.screen";
 import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { useResearchDetailScreenStore } from "src/Zustand";
@@ -14,7 +15,7 @@ import { H4, BodyText } from "src/StyledComponents/Text";
  */
 export function ResearchDetailGift() {
   return (
-    <Container>
+    <Container style={researchDetailScreenStyles.boundary}>
       <SectionHeader />
       <GiftCarousel />
     </Container>
@@ -64,7 +65,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Container = styled.View``;
+const Container = styled.View`
+  padding-bottom: 24px;
+  margin-bottom: 16px;
+`;
 
 const GiftCarouselItem__Container = styled.View`
   width: 140px;

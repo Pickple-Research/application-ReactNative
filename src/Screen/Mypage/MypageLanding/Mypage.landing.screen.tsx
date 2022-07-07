@@ -12,7 +12,7 @@ import { MypageLandingEvent } from "./Mypage.landing.event";
 import { MypageLandingAbout } from "./Mypage.landing.about";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
 import { useMypageStore } from "src/Zustand";
-import { theme } from "src/Theme";
+import { themeColors } from "src/Theme";
 import { showBlackToast } from "src/Util";
 
 /**
@@ -101,6 +101,6 @@ export const mypageLandingScreenStyles = StyleSheet.create({
   /** 섹션 구분선 */
   boundary: {
     borderBottomWidth: 8,
-    borderBottomColor: theme.color.purple.mild,
+    borderBottomColor: themeColors().purple.mild,
   },
 });
