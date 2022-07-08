@@ -1,8 +1,4 @@
-import { Dimensions } from "react-native";
-import { ThemeSizes } from "@Object/Type";
-
-export const vw = Dimensions.get("screen").width * 0.01;
-export const vh = Dimensions.get("screen").height * 0.01;
+import { ThemeSizes, ThemeSizesNum } from "src/Object/Type";
 
 export const themeSizes: ThemeSizes = {
   header1: "15px",
@@ -12,4 +8,14 @@ export const themeSizes: ThemeSizes = {
   body: "11px",
   detail: "10px",
   small: "9px",
+};
+
+export const themeSizesNum: ThemeSizesNum = {
+  header1: 15,
+  header2: 14,
+  header3: 13,
+  header4: 12,
+  body: 11,
+  detail: 10,
+  small: 9,
 };

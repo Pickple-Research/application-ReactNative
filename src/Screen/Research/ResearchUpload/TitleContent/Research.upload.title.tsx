@@ -44,6 +44,7 @@ function TitleInput() {
           placeholder: "제목을 입력해주세요",
           value: titleInput,
           onChangeText: setTitleInput,
+          maxLength: 120,
         }}
       />
     </TitleInput__Container>

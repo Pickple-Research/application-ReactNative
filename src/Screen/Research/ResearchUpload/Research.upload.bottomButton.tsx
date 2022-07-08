@@ -19,8 +19,8 @@ export function ResearchUploadButtomButton() {
   switch (step) {
     case 0: //* 제목, 내용 입력 단계
       return <TitleContentStepButton />;
-    case 1: //* 목적, 참여대상 입력 단계
-      return <PurposeTargetStepButton />;
+    case 1: //* 목적, 유형 입력 단계
+      return <PurposeTypeStepButton />;
     case 2: //* 경품, 기프티콘 입력 단계
       return <GiftCreditStepButton />;
     case 3: //* 스크리닝, 목표 인원 보장 입력 단계
@@ -59,10 +59,11 @@ function TitleContentStepButton() {
 }
 
 /** 목적, 참여대상 입력 단계 */
-function PurposeTargetStepButton() {
+function PurposeTypeStepButton() {
   const {
     goNextStep,
     purposeInput,
+    typeInput,
     organizationInput,
     targetInput,
     estimatedTimeInput,
@@ -70,6 +71,7 @@ function PurposeTargetStepButton() {
     state => ({
       goNextStep: state.goNextStep,
       purposeInput: state.purposeInput,
+      typeInput: state.typeInput,
       organizationInput: state.organizationInput,
       targetInput: state.targetInput,
       estimatedTimeInput: state.estimatedTimeInput,
@@ -79,6 +81,7 @@ function PurposeTargetStepButton() {
 
   const available =
     Boolean(purposeInput) &&
+    Boolean(typeInput) &&
     Boolean(organizationInput) &&
     Boolean(targetInput) &&
     Boolean(estimatedTimeInput);

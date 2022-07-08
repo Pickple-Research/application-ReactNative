@@ -94,7 +94,6 @@ function CreditInput() {
           onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
             setCreditReceiverNum(selectedItem.value);
           }}
-          type="CREDIT"
           props={{ defaultButtonText: "0" }}
         />
         <CreditInput__SettingText
@@ -106,7 +105,6 @@ function CreditInput() {
           onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
             setExtraCredit(selectedItem.value);
           }}
-          type="CREDIT"
           props={{ defaultButtonText: "0" }}
         />
         <CreditInput__SettingText bold={true}>{` C `}</CreditInput__SettingText>

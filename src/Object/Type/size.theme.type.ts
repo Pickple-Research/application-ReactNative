@@ -11,3 +11,13 @@ export type ThemeSizes = {
   detail: string;
   small: string;
 };
+
+export type ThemeSizesNum = {
+  header1: number;
+  header2: number;
+  header3: number;
+  header4: number;
+  body: number;
+  detail: number;
+  small: number;
+};

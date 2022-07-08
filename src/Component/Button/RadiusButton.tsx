@@ -39,7 +39,7 @@ export function RadiusButton({
   type,
   styleType = "WIDE",
   onPress,
-  loading,
+  loading = false,
   style,
   textStyle,
   activeOpacity = 0.8,
