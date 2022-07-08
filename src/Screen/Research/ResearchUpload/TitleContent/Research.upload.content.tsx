@@ -46,6 +46,7 @@ function ContentInput() {
           value: contentInput,
           onChangeText: setContentInput,
           multiline: true,
+          maxLength: 800,
         }}
       />
     </ContentInput__Container>

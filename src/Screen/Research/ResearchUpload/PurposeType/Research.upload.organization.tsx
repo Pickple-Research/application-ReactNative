@@ -48,6 +48,7 @@ function OrganizationInput() {
           placeholder: "기업/단체/수업명 ex. 알투씨 컴퍼니",
           value: organizationInput,
           onChangeText: setOrganizationInput,
+          maxLength: 60,
         }}
       />
     </OrganizationInput__Container>

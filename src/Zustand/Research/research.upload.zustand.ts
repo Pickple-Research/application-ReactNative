@@ -5,7 +5,7 @@ import { useResearchStore } from "./research.zustand";
 import { ResearchSchema } from "src/Schema";
 import { CREDIT_PER_MINUTE } from "src/Constant";
 import { ResearchUploadGiftProps } from "src/Object/Type";
-import { ResearchPurpose } from "src/Object/Enum";
+import { ResearchPurpose, ResearchType } from "src/Object/Enum";
 import { getGalleryPhotoFromAndroid, showBlackToast } from "src/Util";
 
 type ResearchUploadScreenStoreProps = {
@@ -32,6 +32,10 @@ type ResearchUploadScreenStoreProps = {
   purposeInput: ResearchPurpose | undefined;
   setPurposeInput: (input: ResearchPurpose) => void;
 
+  /** 리서치 유형 */
+  typeInput: ResearchType | undefined;
+  setTypeInput: (input: ResearchType) => void;
+
   /** 리서치 기업/단체/수업 */
   organizationInput: string;
   setOrganizationInput: (input: string) => void;
@@ -44,6 +48,7 @@ type ResearchUploadScreenStoreProps = {
   estimatedTimeInput: number;
   setEstimatedTimeInput: (input: number) => void;
 
+  /** 리서치 마감일 */
   deadlineInput: string;
   setDeadlineInput: (input: string) => void;
 
@@ -69,6 +74,10 @@ type ResearchUploadScreenStoreProps = {
   /** 추가 크레딧 */
   extraCredit: number;
   setExtraCredit: (credit: number) => void;
+
+  /** 추가 크레딧 기능 사용 여부 */
+  giveExtraCredit: boolean;
+  toggleGiveExtraCredit: () => void;
 
   //* 3 단계
   /** 스크리닝: 성별 선택 */
@@ -138,6 +147,11 @@ export const useResearchUploadScreenStore =
     purposeInput: undefined,
     setPurposeInput: (input: ResearchPurpose) => {
       set({ purposeInput: input });
+    },
+
+    typeInput: undefined,
+    setTypeInput: (input: ResearchType) => {
+      set({ typeInput: input });
     },
 
     organizationInput: "",
@@ -217,14 +231,19 @@ export const useResearchUploadScreenStore =
       }
     },
 
-    creditReceiverNum: 0,
+    creditReceiverNum: 5,
     setCreditReceiverNum: (receiverNum: number) => {
       set({ creditReceiverNum: receiverNum });
     },
 
-    extraCredit: 0,
+    extraCredit: 1,
     setExtraCredit: (credit: number) => {
       set({ extraCredit: credit });
+    },
+
+    giveExtraCredit: true,
+    toggleGiveExtraCredit: () => {
+      set({ giveExtraCredit: !get().giveExtraCredit });
     },
 
     //* 3 단계
@@ -284,8 +303,9 @@ export const useResearchUploadScreenStore =
             giftImageRatio: 0,
           },
         ],
-        creditReceiverNum: 0,
-        extraCredit: 0,
+        creditReceiverNum: 5,
+        extraCredit: 1,
+        giveExtraCredit: true,
         screeningSexInput: undefined,
         screeningAgeInputs: [],
         blockExitModalVisible: false,

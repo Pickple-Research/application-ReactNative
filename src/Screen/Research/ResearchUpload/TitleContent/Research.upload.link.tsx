@@ -44,6 +44,7 @@ function LinkInput() {
           placeholder: "구글폼/네이버폼 링크를 입력해주세요",
           value: linkInput,
           onChangeText: setLinkInput,
+          maxLength: 150,
         }}
       />
     </LinkInput__Container>

@@ -44,6 +44,7 @@ function TargetInput() {
           placeholder: "쇼핑몰 이용 경험이 있는 MZ세대 여성",
           value: targetInput,
           onChangeText: setTargetInput,
+          maxLength: 120,
         }}
       />
     </TargetInput__Container>
@@ -51,7 +52,7 @@ function TargetInput() {
 }
 
 const Container = styled.View`
-  margin-bottom: 30px;
+  margin-bottom: 36px;
 `;
 
 const TargetInput__Container = styled.View``;

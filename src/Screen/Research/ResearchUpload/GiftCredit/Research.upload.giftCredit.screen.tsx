@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { ResearchUploadStepHeader } from "../Research.upload.stepHeader";
 import { ResearchUploadGift } from "./Research.upload.gift";
 import { ResearchUploadCredit } from "./Research.upload.credit";
+import { ResearchUploadCreditOnly } from "./Research.upload.creditOnly";
 
 /**
  * 리서치 업로드 세번째 페이지입니다.
@@ -14,8 +15,9 @@ export function ResearchUploadGiftCreditScreen({ navigation }: any) {
   return (
     <Container>
       <ResearchUploadStepHeader stepName="참여자 경품" essential={false} />
-      <ResearchUploadGift />
-      <ResearchUploadCredit />
+      {/* <ResearchUploadGift /> */}
+      {/* <ResearchUploadCredit /> */}
+      <ResearchUploadCreditOnly />
     </Container>
   );
 }

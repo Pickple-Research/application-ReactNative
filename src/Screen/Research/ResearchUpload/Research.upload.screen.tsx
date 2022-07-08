@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BackHandler } from "react-native";
 import styled from "styled-components/native";
 import { ResearchUploadTitleContentScreen } from "./TitleContent/Research.upload.titleContent.screen";
-import { ResearchUploadPurposeTargetScreen } from "./PurposeTarget/Research.upload.purposeTarget.screen";
+import { ResearchUploadPurposeTypeScreen } from "./PurposeType/Research.upload.purposeType.screen";
 import { ResearchUploadGiftCreditScreen } from "./GiftCredit/Research.upload.giftCredit.screen";
 import { ResearchUploadScreeningScreen } from "./Screening/Research.upload.screening.screen";
 import { ResearchUploadProgressBar } from "./Research.upload.progressBar";
@@ -56,7 +56,7 @@ export function ResearchUploadScreen({ navigation }: any) {
 
   const pages = [
     <ResearchUploadTitleContentScreen />,
-    <ResearchUploadPurposeTargetScreen />,
+    <ResearchUploadPurposeTypeScreen />,
     <ResearchUploadGiftCreditScreen />,
     <ResearchUploadScreeningScreen />,
   ];

@@ -174,7 +174,8 @@ function Button({ loginable }: { loginable: boolean }) {
     return (
       <Button__Container style={globalStyles.authScreen__horizontalPadding}>
         <RadiusButton
-          text="로그인 중..."
+          loading={true}
+          text="로그인 중"
           type="PURPLE_INACTIVE"
           styleType="NARROW"
           textStyle={buttonStyles.text}
