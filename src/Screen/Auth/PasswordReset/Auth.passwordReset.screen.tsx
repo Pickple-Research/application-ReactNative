@@ -12,9 +12,9 @@ import { useUserStore } from "src/Zustand";
 import { H3 } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style/globalStyles";
 
-export type MypageSettingPasswordScreenProps = {};
+export type AuthPasswordResetScreenProps = {};
 
-export function MypageSettingPasswordScreen() {
+export function AuthPasswordResetScreen() {
   return (
     <Container>
       <TitlesContainer style={globalStyles.screen__horizontalPadding}>

@@ -54,7 +54,6 @@ function PurposeInput() {
           defaultButtonText: purposeInput
             ? purposeInput
             : "목적을 선택해주세요",
-          defaultValue: purposeInput,
           buttonStyle: styles.dropdownButtonStyle,
           buttonTextStyle: styles.dropdownButtonTextStyle,
           dropdownStyle: styles.dropdownStyle,

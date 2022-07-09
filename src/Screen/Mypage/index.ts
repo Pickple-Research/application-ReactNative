@@ -17,8 +17,8 @@ export * from "./MypageSetting/Alarm/Mypage.setting.alarm.screen";
 export * from "./MypageSetting/Alarm/Mypage.setting.alarm.screenHeader";
 export * from "./MypageSetting/Nickname/Mypage.setting.nickname.screen";
 export * from "./MypageSetting/Nickname/Mypage.setting.nickname.screenHeader";
-export * from "./MypageSetting/Password/Mypage.setting.password.screen";
-export * from "./MypageSetting/Password/Mypage.setting.password.screenHeader";
+export * from "./MypageSetting/PasswordReset/Mypage.setting.passwordReset.screen";
+export * from "./MypageSetting/PasswordReset/Mypage.setting.passwordReset.screenHeader";
 export * from "./MypageSetting/UserInfo/Mypage.setting.userInfo.screen";
 export * from "./MypageSetting/UserInfo/Mypage.setting.userInfo.screenHeader";
 

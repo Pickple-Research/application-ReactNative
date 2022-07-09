@@ -8,6 +8,7 @@ export const themeSizes: ThemeSizes = {
   body: "11px",
   detail: "10px",
   small: "9px",
+  bottomButtonHeight: "60px",
 };
 
 export const themeSizesNum: ThemeSizesNum = {
@@ -18,4 +19,5 @@ export const themeSizesNum: ThemeSizesNum = {
   body: 11,
   detail: 10,
   small: 9,
+  bottomButtonHeight: 60,
 };

@@ -22,7 +22,7 @@ export function MypageSettingAccount() {
       </FunctionRow__Container>
       <FunctionRow__Container
         onPress={() => {
-          navigation.navigate("MypageSettingPasswordScreen", {});
+          navigation.navigate("MypageSettingPasswordResetScreen", {});
         }}>
         <FunctionRow__Text>비밀번호 재설정</FunctionRow__Text>
         <CaretRightIcon />

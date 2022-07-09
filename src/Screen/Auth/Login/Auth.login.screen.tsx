@@ -214,7 +214,7 @@ function Util() {
       </Util__Text>
       <Util__Text
         onPress={() => {
-          // navigation.navigate("", {})
+          navigation.navigate("AuthPasswordResetScreen", {});
         }}>
         비밀번호를 잊으셨나요?
       </Util__Text>

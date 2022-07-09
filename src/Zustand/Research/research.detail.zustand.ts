@@ -153,6 +153,7 @@ export const useResearchDetailScreenStore =
     setTargetCommentAuthorNickname: (nickname: string) => {
       set({ targetCommentAuthorNickname: nickname });
     },
+
     commentInput: "",
     setCommentInput: (input: string) => {
       set({ commentInput: input });

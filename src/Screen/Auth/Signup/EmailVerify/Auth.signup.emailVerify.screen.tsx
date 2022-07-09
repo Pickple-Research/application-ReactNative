@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { SignupGuideToLogin } from "./Auth.signup.guideToLogin";
 import { SignupEmail } from "./Auth.signup.email";
 import { SignupAuthCode } from "./Auth.signup.authCode";
 
@@ -11,6 +12,7 @@ import { SignupAuthCode } from "./Auth.signup.authCode";
 export function SignupEmailVerifyScreen() {
   return (
     <Container>
+      <SignupGuideToLogin />
       <SignupEmail />
       <SignupAuthCode />
     </Container>
