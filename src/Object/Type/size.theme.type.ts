@@ -10,6 +10,7 @@ export type ThemeSizes = {
   body: string;
   detail: string;
   small: string;
+  bottomButtonHeight: string;
 };
 
 export type ThemeSizesNum = {
@@ -20,4 +21,5 @@ export type ThemeSizesNum = {
   body: number;
   detail: number;
   small: number;
+  bottomButtonHeight: number;
 };

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Keyboard } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
@@ -52,6 +53,30 @@ export function ResearchDetailBottomButton() {
     shallow,
   );
 
+  /** (대)댓글 입력을 위해 키보드가 나타났을 때 버튼 표시 여부 */
+  const [showBottomButton, setShowBottomButton] = useState(true);
+
+  /** 키보드가 나타나는 이벤트에 이벤트 리스너를 설정합니다. */
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setShowBottomButton(false);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setShowBottomButton(true);
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   /** 리서치 참여하기 버튼을 눌렀을 때 행동 지정 */
   function onPressParticipate() {
     if (user._id === "") {
@@ -75,6 +100,9 @@ export function ResearchDetailBottomButton() {
   const scrapped = userResearch.scrappedResearchIds.some(researchId => {
     return researchId === researchDetail._id;
   });
+
+  //* (대)댓글 작성을 위해 키보드가 나타나있는 경우
+  if (!showBottomButton) return null;
 
   //* 리서치 작성자 본인인 경우
   if (isAuthor) {

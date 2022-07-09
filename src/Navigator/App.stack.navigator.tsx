@@ -13,6 +13,9 @@ import {
   SignupScreen,
   SignupScreenHeader,
   SignupScreenProps,
+  AuthPasswordResetScreen,
+  AuthPasswordResetScreenHeader,
+  AuthPasswordResetScreenProps,
   AuthFunnelScreen,
   AuthFunnelScreenHeader,
   AuthFunnelScreenProps,
@@ -64,9 +67,9 @@ import {
   MypageSettingNicknameScreen,
   MypageSettingNicknameScreenHeader,
   MypageSettingNicknameScreenProps,
-  MypageSettingPasswordScreen,
-  MypageSettingPasswordScreenHeader,
-  MypageSettingPasswordScreenProps,
+  MypageSettingPasswordResetScreen,
+  MypageSettingPasswordResetScreenHeader,
+  MypageSettingPasswordResetScreenProps,
   MypageSettingUserInfoScreen,
   MypageSettingUserInfoScreenHeader,
   MypageSettingUserInfoScreenProps,
@@ -97,6 +100,7 @@ export type AppStackProps = {
   // Auth 관련 Screen
   LoginScreen: LoginScreenProps;
   SignupScreen: SignupScreenProps;
+  AuthPasswordResetScreen: AuthPasswordResetScreenProps;
   AuthFunnelScreen: AuthFunnelScreenProps;
   // 파트너 관련 Screen
   PartnerCategoryScreen: PartnerCategoryScreenProps;
@@ -114,7 +118,7 @@ export type AppStackProps = {
   MypageSettingScreen: MypageSettingScreenProps;
   MypageSettingAlarmScreen: MypageSettingAlarmScreenProps;
   MypageSettingNicknameScreen: MypageSettingNicknameScreenProps;
-  MypageSettingPasswordScreen: MypageSettingPasswordScreenProps;
+  MypageSettingPasswordResetScreen: MypageSettingPasswordResetScreenProps;
   MypageSettingUserInfoScreen: MypageSettingUserInfoScreenProps;
   MypageCreditHistoryScreen: MypageCreditHistoryScreenProps;
   MypageParticipatedResearchScreen: MypageParticipatedResearchScreenProps;
@@ -156,6 +160,14 @@ export function AppStackNavigator() {
           options={{
             headerShown: true,
             header: SignupScreenHeader,
+          }}
+        />
+        <AppStack.Screen
+          name="AuthPasswordResetScreen"
+          component={AuthPasswordResetScreen}
+          options={{
+            headerShown: true,
+            header: AuthPasswordResetScreenHeader,
           }}
         />
         <AppStack.Screen
@@ -285,12 +297,12 @@ export function AppStackNavigator() {
           }}
         />
         <AppStack.Screen
-          //* 비밀번호 재설정 페이지
-          name={"MypageSettingPasswordScreen"}
-          component={MypageSettingPasswordScreen}
+          //* 비밀번호 재설정 페이지 (현재 비밀번호로 변경)
+          name={"MypageSettingPasswordResetScreen"}
+          component={MypageSettingPasswordResetScreen}
           options={{
             headerShown: true,
-            header: MypageSettingPasswordScreenHeader,
+            header: MypageSettingPasswordResetScreenHeader,
           }}
         />
         <AppStack.Screen

@@ -8,5 +8,5 @@ import styled from "styled-components/native";
 export const BottomButton__ButtonContainer = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  height: 60px;
+  height: ${({ theme }) => theme.size.bottomButtonHeight};
 `;

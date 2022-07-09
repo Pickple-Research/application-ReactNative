@@ -72,8 +72,7 @@ export function ResearchDetailScreen({
 const Container = styled.SafeAreaView`
   position: relative;
   flex: 1;
-  //* ResearchDetailBottomTab의 height과 같은 값으로 유지해야 합니다.
-  padding-bottom: 60px;
+  background-color: ${({ theme }) => theme.color.grey.white};
 `;
 
 /**

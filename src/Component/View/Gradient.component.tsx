@@ -4,7 +4,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { theme } from "src/Theme";
 
 type LinearGradientContainerProps = {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
   colors?: string[];
   start?: { x: number; y: number };
   end?: { x: number; y: number };

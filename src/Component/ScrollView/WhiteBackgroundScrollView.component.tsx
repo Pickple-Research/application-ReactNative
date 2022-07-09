@@ -28,7 +28,7 @@ export function WhiteBackgroundScrollView({
       <Container<React.ElementType>
         style={style}
         backgroundColor={backgroundColor}
-        contentContainerStyle={[{ paddingBottom: 70 }, contentContainerStyle]}
+        contentContainerStyle={[{ paddingBottom: 80 }, contentContainerStyle]}
         nestedScrollEnabled
         {...props}>
         {children}

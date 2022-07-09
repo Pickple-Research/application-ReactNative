@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import { ResearchCommentsBox } from "src/Component/Research";
 import { SectionHeaderText } from "src/Component/Text";
@@ -6,6 +7,8 @@ import { SectionHeader__Container } from "src/StyledComponents/View";
 import shallow from "zustand/shallow";
 import { useResearchDetailScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
+import { themeColors } from "src/Theme";
+import SendParallelIcon from "src/Resource/svg/send-parallel-icon.svg";
 
 /**
  * 리서치 상세 화면 댓글 항목입니다.
@@ -46,6 +49,8 @@ function SectionHeader({ commentsNum }: { commentsNum: number }) {
  * @author 현웅
  */
 function CommentInputBox() {
+  const [inputBoxHeight, setInputBoxHeight] = useState(0);
+
   const {
     targetCommentId,
     targetCommentAuthorNickname,
@@ -69,16 +74,16 @@ function CommentInputBox() {
 
   /**
    * (대)댓글을 업로드합니다.
-   * targetCommentId가 설정되어 있는 경우 대댓글을,
-   * 그렇지 않은 경우 댓글을 업로드합니다.
+   * targetCommentId가 설정되어 있지 않은 경우 댓글을,
+   * 그렇지 않은 경우 대댓글을 업로드합니다.
    * @author 현웅
    */
-  async function onEndEditingComment() {
-    if (targetCommentId !== "") {
-      await uploadReply();
+  async function tryUploadComment() {
+    if (targetCommentId === "") {
+      await uploadComment();
       return;
     }
-    await uploadComment();
+    await uploadReply();
     return;
   }
 
@@ -86,14 +91,27 @@ function CommentInputBox() {
     <CommentInputBox__Container style={globalStyles.screen__horizontalPadding}>
       <CommentInput__Container>
         <CommentInput
-          //   multiline
+          multiline
           maxLength={360}
           editable={!commentUploading}
+          style={{ height: inputBoxHeight }}
           value={commentInput}
+          onContentSizeChange={event => {
+            setInputBoxHeight(event.nativeEvent.contentSize.height);
+          }}
           onChangeText={setCommentInput}
-          onEndEditing={onEndEditingComment}
-          placeholder="댓글 달기"
+          placeholder={
+            Boolean(targetCommentAuthorNickname)
+              ? `${targetCommentAuthorNickname}님에게 댓글 달기`
+              : "댓글 달기"
+          }
         />
+        {Boolean(commentInput) && !commentUploading && (
+          <SendParallelIcon onPress={tryUploadComment} />
+        )}
+        {commentUploading && (
+          <ActivityIndicator color={themeColors().blue.text} size="small" />
+        )}
       </CommentInput__Container>
     </CommentInputBox__Container>
   );
@@ -106,7 +124,9 @@ const CommentInputBox__Container = styled.View`
 `;
 
 const CommentInput__Container = styled.View`
-  padding: 0px 16px;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 16px;
   //TODO: #DESIGN-SYSTEM
   background-color: #f0f0f3;
   border-radius: 8px;
@@ -115,4 +135,5 @@ const CommentInput__Container = styled.View`
 const CommentInput = styled.TextInput`
   flex: 1;
   font-size: ${({ theme }) => `${theme.size.header3}`};
+  margin-right: 8px;
 `;

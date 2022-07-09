@@ -4,6 +4,7 @@
  */
 
 export * from "./app.constant";
+export * from "./auth.constant";
 export * from "./research.constant";
 export * from "./user.constant";
 export * from "./vote.constant";

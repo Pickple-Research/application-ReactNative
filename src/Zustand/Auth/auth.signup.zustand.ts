@@ -5,6 +5,7 @@ import {
   axiosSignupAsEmailUser,
 } from "src/Axios";
 import { Gender } from "src/Object/Enum";
+import { showBlackToast } from "@Util/toast.util";
 
 type SignupScreenStoreProps = {
   /** 회원가입 단계: 0/1/2 단계 */
@@ -12,10 +13,22 @@ type SignupScreenStoreProps = {
   goNextStep: () => void;
 
   //* 0단계
+  /** 이메일 앞자리 입력값 */
   emailInput: string;
   setEmailInput: (emailInput: string) => void;
 
-  /** 인증번호 입력 */
+  /** 이메일 뒷자리 (직접입력) 입력값 */
+  emailDomainInput: string;
+  setEmailDomainInput: (input: string) => void;
+
+  /** 이메일 뒷자리 드롭다운으로 선택한 입력값 */
+  emailDomainDropdownInput: string;
+  setEmailDomainDropdownInput: (input: string) => void;
+
+  /** 입력된 이메일 전체 주소를 연산하고 반환 */
+  getFullEmail: () => string;
+
+  /** 인증번호 입력값 */
   authCodeInput: string;
   setAuthCodeInput: (authCodeInput: string) => void;
 
@@ -93,6 +106,23 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
       set({ emailInput });
     },
 
+    emailDomainInput: "",
+    setEmailDomainInput: (input: string) => {
+      set({ emailDomainInput: input });
+    },
+
+    emailDomainDropdownInput: "",
+    setEmailDomainDropdownInput: (input: string) => {
+      set({ emailDomainDropdownInput: input });
+    },
+
+    getFullEmail: () => {
+      if (get().emailDomainDropdownInput === "") {
+        return `${get().emailInput}@${get().emailDomainInput}`;
+      }
+      return `${get().emailInput}@${get().emailDomainDropdownInput}`;
+    },
+
     authCodeInput: "",
     setAuthCodeInput: (authCodeInput: string) => {
       set({ authCodeInput });
@@ -106,23 +136,29 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
     emailVerified: false,
 
     transmitAuthCode: async () => {
-      set({ authCodeTransmitting: true });
-      const result = await axiosTransmitAuthCode(get().emailInput);
-      if (result) {
+      set({
+        authCodeTransmitting: true,
+        emailVerifyTried: false,
+        emailVerified: false,
+      });
+      const result = await axiosTransmitAuthCode(get().getFullEmail());
+      if (result !== null) {
+        showBlackToast({ text1: "인증번호가 전송되었습니다." });
         set({ authCodeTransmitted: true });
       }
       set({ authCodeTransmitting: false });
     },
+
     verifyEmail: async () => {
       set({ emailVerifing: true });
       const result = await axiosVerifyEmail({
-        email: get().emailInput,
+        email: get().getFullEmail(),
         code: get().authCodeInput,
       });
       if (result) {
-        set({ emailVerified: true });
+        set({ emailVerifyTried: true, emailVerified: true });
       }
-      set({ emailVerifyTried: true, emailVerifing: false });
+      set({ emailVerifing: false });
     },
 
     //* 1단계
@@ -178,6 +214,8 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
       set({
         step: 0,
         emailInput: "",
+        emailDomainInput: "",
+        emailDomainDropdownInput: "",
         authCodeInput: "",
         authCodeTransmitting: false,
         emailDuplicated: false,
@@ -198,7 +236,7 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
 
     signup: async () => {
       await axiosSignupAsEmailUser({
-        email: get().emailInput,
+        email: get().getFullEmail(),
         password: get().passwordInput,
         lastName: get().lastNameInput,
         name: get().nameInput,
