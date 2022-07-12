@@ -4,5 +4,6 @@
  * @author 현웅
  */
 
+export * from "./BottomButton";
 export * from "./PillButton";
 export * from "./RadiusButton";

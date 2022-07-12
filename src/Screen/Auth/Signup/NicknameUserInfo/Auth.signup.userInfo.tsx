@@ -9,9 +9,9 @@ import { Gender } from "src/Object/Enum";
 import { globalStyles } from "src/Style/globalStyles";
 
 export function SignupUserInfo() {
-  const { birthInput, genderInput, setGenderInput } = useSignupScreenStore(
+  const { birthdayInput, genderInput, setGenderInput } = useSignupScreenStore(
     state => ({
-      birthInput: state.birthInput,
+      birthdayInput: state.birthdayInput,
       genderInput: state.genderInput,
       setGenderInput: state.setGenderInput,
     }),

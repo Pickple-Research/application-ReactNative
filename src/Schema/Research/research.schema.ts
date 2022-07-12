@@ -26,42 +26,47 @@ export type ResearchSchema = {
   /** 리서치 목적 */
   purpose: string;
 
+  /** 리서치 유형 */
+  type: string;
+
+  /** 리서치 카테고리 */
+  // categories?: Category[];
+
   /** 리서치 진행 단체 */
   organization: string;
 
   /** 참여 대상 (줄글 작성) */
   target: string;
 
+  /** 참여 성별 조건 */
+  targetGenders: string[];
+
+  /** 참여 나이 조건 */
+  targetAges: number[];
+
+  /** 참여 나이대 조건 */
+  targetAgeGroups: string[];
+
   /** 예상 소요시간 (분) */
   estimatedTime: number;
 
+  /** 참여시 제공 크레딧 */
+  credit: number;
+
+  /** 참여시 추가 제공 크레딧 (추첨자에게만 제공) */
+  extraCredit?: number;
+
+  /** 추가 제공 크레딧 추첨 수령자 수 */
+  extraCreditRecieverNum?: number;
+
   /** 마감일 */
   deadline: string | Date;
-
-  /** 최소 참여조건 */
-  eligibility: string;
-
-  /** 참여 성별 조건 */
-  genderCondition?: string;
-
-  /** 참여 나이 조건 */
-  ageCondition?: string;
 
   /** 끌올한 날짜 (노출 기준일) */
   pulledupAt: string | Date;
 
   /** 생성일 */
   createdAt: string;
-
-  /** 리서치 카테고리 */
-  // categories: Category[];
-
-  /** 참여시 제공 크레딧 */
-  credit: number;
-  /** 참여시 추가 제공 크레딧 (추첨자에게만 제공) */
-  extraCredit?: number;
-  /** 추가 제공 크레딧 추첨 수령자 수 */
-  extraCreditRecieverNum?: number;
 
   /** 조회 수 */
   viewsNum: number;
@@ -95,19 +100,20 @@ export const BlankResearch: ResearchSchema = {
   link: "",
   content: "",
   purpose: "",
+  type: "",
+  // categories: [],
   organization: "",
   target: "",
+  targetGenders: [],
+  targetAges: [],
+  targetAgeGroups: [],
   estimatedTime: 0,
-  eligibility: "",
-  genderCondition: "",
-  ageCondition: "",
-  deadline: "",
-  pulledupAt: "",
-  createdAt: "",
-  // categories: [],
   credit: 0,
   extraCredit: 0,
   extraCreditRecieverNum: 0,
+  deadline: "",
+  pulledupAt: "",
+  createdAt: "",
   viewsNum: 0,
   scrapsNum: 0,
   participantsNum: 0,

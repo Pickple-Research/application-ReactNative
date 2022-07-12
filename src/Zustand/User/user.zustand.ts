@@ -34,6 +34,8 @@ type UserStoreProps = {
   logout: () => Promise<void>;
   resign: () => Promise<void>;
 
+  setUser: (user: UserSchema) => void;
+
   /**
    * 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다
    * @caution UserPrivacy는 얻어오지 않습니다!
@@ -101,6 +103,10 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
   },
 
   resign: async () => {},
+
+  setUser: (user: UserSchema) => {
+    set({ user });
+  },
 
   setUserInfo: (userInfo: {
     user: UserSchema;

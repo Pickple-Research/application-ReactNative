@@ -21,12 +21,14 @@ export async function handleAxiosError(param: {
         //! 서버측에서 잡아내지 못한 에러인 경우 (최악의 상황)
         showBlackToast({
           ...param.toastShowParams,
-          text1: `서버 에러입니다. 문제가 지속되는 경우, 고객센터에 문의해주세요`,
+          text1: `서버 에러입니다.\n문제가 지속되는 경우, 고객센터에 문의해주세요`,
         });
+        //TODO: 에러상황별 코드 부여
         return;
       }
+
       const response = param.error.response as {
-        data: { customMessage?: string };
+        data: { customMessage?: string; errorCode?: string };
       };
       if (response.data.customMessage) {
         //* customMessage가 있는 경우, 해당 메세지를 toast로 띄웁니다.
@@ -34,10 +36,16 @@ export async function handleAxiosError(param: {
           ...param.toastShowParams,
           text1: response.data.customMessage,
         });
-        return;
+
+        //* 이 때 해당 상황에 대한 에러코드가 존재하는 경우, 에러코드를 반환합니다.
+        //* 그렇지 않으면 null 을 반환합니다.
+        if (response.data.errorCode) return response.data.errorCode;
+        return null;
       }
     }
   }
   //* customMessage가 없거나 axiosError가 아닌 경우, 미리 지정한 메세지를 toast로 띄웁니다.
   showBlackToast({ ...param.toastShowParams, text1: param.errorMessage });
+  //TODO: 에러상황별 코드 부여
+  return;
 }

@@ -208,7 +208,7 @@ function Util() {
     <Util__Container style={globalStyles.authScreen__horizontalPadding}>
       <Util__Text
         onPress={() => {
-          // navigation.navigate("", {})
+          navigation.navigate("SignupScreen", {});
         }}>
         고객센터
       </Util__Text>

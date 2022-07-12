@@ -42,6 +42,8 @@ export function SignupAuthCode() {
         <Input__Container>
           <AuthTextInput
             props={{
+              editable: !emailVerifing && !emailVerified,
+              keyboardType: "number-pad",
               textContentType: "oneTimeCode",
               value: authCodeInput,
               onChangeText: setAuthCodeInput,
@@ -49,21 +51,39 @@ export function SignupAuthCode() {
             }}
           />
         </Input__Container>
-        <RadiusButton
-          text={`인증`}
-          type="PURPLE"
-          style={{ width: 72, paddingVertical: 12 }}
-          onPress={emailVerifing || emailVerified ? undefined : verifyEmail}
-        />
+
+        {/* 인증버튼 */}
+        {authCodeInput.length === 6 && !emailVerified ? (
+          <RadiusButton
+            text={`인증`}
+            type={emailVerifing ? "PURPLE" : "PURPLE_CONFIRM"}
+            style={{ width: 72, paddingVertical: 12 }}
+            onPress={emailVerifing ? undefined : verifyEmail}
+          />
+        ) : (
+          <RadiusButton
+            text={`인증`}
+            type="PURPLE"
+            style={{ width: 72, paddingVertical: 12 }}
+          />
+        )}
       </AuthCode__Container>
+
       {emailVerified ? (
-        <AuthCautionText text={`인증에 성공했습니다!`} color="BLUE" visible />
+        <AuthCautionText
+          text={`인증에 성공했습니다!`}
+          color="BLUE"
+          visible
+          style={{ marginBottom: 15 }}
+        />
       ) : (
         <AuthCautionText
           text={`인증번호가 올바르지 않습니다. 다시 입력해주세요.`}
-          visible={emailVerifyTried && !emailVerified}
+          visible={emailVerifyTried}
+          style={{ marginBottom: 15 }}
         />
       )}
+
       <GuideText />
     </Container>
   );

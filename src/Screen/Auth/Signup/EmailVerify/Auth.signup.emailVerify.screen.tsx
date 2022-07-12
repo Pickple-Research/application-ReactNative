@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { SignupGuideToLogin } from "./Auth.signup.guideToLogin";
 import { SignupEmail } from "./Auth.signup.email";
 import { SignupAuthCode } from "./Auth.signup.authCode";
+import { useSignupScreenStore } from "src/Zustand";
 
 /**
  * 회원가입 첫번째 페이지입니다.
@@ -10,11 +11,15 @@ import { SignupAuthCode } from "./Auth.signup.authCode";
  * @author 현웅
  */
 export function SignupEmailVerifyScreen() {
+  const authCodeTransmitted = useSignupScreenStore(
+    state => state.authCodeTransmitted,
+  );
+
   return (
     <Container>
       <SignupGuideToLogin />
       <SignupEmail />
-      <SignupAuthCode />
+      {authCodeTransmitted && <SignupAuthCode />}
     </Container>
   );
 }
