@@ -1,13 +1,13 @@
 import create from "zustand";
 import {
   UserSchema,
-  UserCreditSchema,
+  UserNoticeSchema,
   UserPrivacySchema,
   UserPropertySchema,
   UserResearchSchema,
   UserVoteSchema,
   BlankUser,
-  BlankUserCredit,
+  BlankUserNotice,
   BlankUserPrivacy,
   BlankUserProperty,
   BlankUserResearch,
@@ -21,15 +21,16 @@ import {
 } from "src/Schema/User/Embedded";
 import { setStorage } from "src/Util";
 
-type ChangeTarget = "VIEW" | "SCRAP" | "UPLOAD";
+type ChangeTarget = "VIEW" | "SCRAP";
 
 type UserStoreProps = {
   user: UserSchema;
-  userCredit: UserCreditSchema;
+  userNotice: UserNoticeSchema;
   userPrivacy: UserPrivacySchema;
   userProperty: UserPropertySchema;
   userResearch: UserResearchSchema;
   userVote: UserVoteSchema;
+  creditHistories: CreditHistorySchema[];
 
   logout: () => Promise<void>;
   resign: () => Promise<void>;
@@ -38,21 +39,21 @@ type UserStoreProps = {
 
   /**
    * 로그인하여 얻어온 유저 정보들을 userStore에 저장합니다
-   * @caution UserPrivacy는 얻어오지 않습니다!
+   * @caution UserPrivacy 와 userSecurity 는 얻어오지 않습니다!
    */
   setUserInfo: (userInfo: {
     user: UserSchema;
-    userCredit: UserCreditSchema;
+    userNotice: UserNoticeSchema;
     userProperty: UserPropertySchema;
     userResearch: UserResearchSchema;
     userVote: UserVoteSchema;
   }) => void;
 
   /**
-   * 새로운 크레딧 사용내역 _id 를 userCredit 에 추가하고,
+   * 새로운 크레딧 사용내역 _id 를 creditHistories 에 추가하고,
    * credit 총액을 업데이트합니다.
    */
-  updateUserCredit: (creditHistory: CreditHistorySchema) => void;
+  updateCreditHistory: (creditHistory: CreditHistorySchema) => void;
 
   addResearchIdToUserResearch: (param: {
     changeTarget: ChangeTarget;
@@ -83,16 +84,17 @@ type UserStoreProps = {
  */
 export const useUserStore = create<UserStoreProps>((set, get) => ({
   user: BlankUser,
-  userCredit: BlankUserCredit,
+  userNotice: BlankUserNotice,
   userPrivacy: BlankUserPrivacy,
   userProperty: BlankUserProperty,
   userResearch: BlankUserResearch,
   userVote: BlankUserVote,
+  creditHistories: [],
 
   logout: async () => {
     set({
       user: BlankUser,
-      userCredit: BlankUserCredit,
+      userNotice: BlankUserNotice,
       userPrivacy: BlankUserPrivacy,
       userProperty: BlankUserProperty,
       userResearch: BlankUserResearch,
@@ -110,14 +112,14 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
 
   setUserInfo: (userInfo: {
     user: UserSchema;
-    userCredit: UserCreditSchema;
+    userNotice: UserNoticeSchema;
     userProperty: UserPropertySchema;
     userResearch: UserResearchSchema;
     userVote: UserVoteSchema;
   }) => {
     set({
       user: userInfo.user,
-      userCredit: userInfo.userCredit,
+      userNotice: userInfo.userNotice,
       userProperty: userInfo.userProperty,
       userResearch: userInfo.userResearch,
       userVote: userInfo.userVote,
@@ -126,15 +128,18 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
   },
 
   //* Credit
-  updateUserCredit: (creditHistory: CreditHistorySchema) => {
-    const userCredit = get().userCredit;
+  updateCreditHistory: (creditHistory: CreditHistorySchema) => {
+    const user = get().user;
     set({
-      userCredit: {
-        credit: userCredit.credit + creditHistory.scale,
-        creditHistoryIds: [creditHistory._id, ...userCredit.creditHistoryIds],
+      user: {
+        ...user,
+        credit: user.credit + creditHistory.scale,
       },
+      creditHistories: [creditHistory, ...get().creditHistories],
     });
   },
+
+  //* Notice
 
   //* Research
   addResearchIdToUserResearch: (param: {
@@ -153,12 +158,6 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
         userResearch.scrappedResearchIds = [
           param.researchId,
           ...userResearch.scrappedResearchIds,
-        ];
-        break;
-      case "UPLOAD":
-        userResearch.uploadedResearchIds = [
-          param.researchId,
-          ...userResearch.uploadedResearchIds,
         ];
         break;
     }
@@ -191,8 +190,6 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
         userResearch.participatedResearchInfos.filter(
           info => info.researchId !== param.researchId,
         );
-      userResearch.uploadedResearchIds =
-        userResearch.uploadedResearchIds.filter(id => id !== param.researchId);
     }
     set({ userResearch });
   },
@@ -210,9 +207,6 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
         break;
       case "SCRAP":
         userVote.scrappedVoteIds = [param.voteId, ...userVote.scrappedVoteIds];
-        break;
-      case "UPLOAD":
-        userVote.uploadedVoteIds = [param.voteId, ...userVote.uploadedVoteIds];
         break;
     }
     set({ userVote });
@@ -243,9 +237,6 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
       );
       userVote.participatedVoteInfos = userVote.participatedVoteInfos.filter(
         info => info.voteId !== param.voteId,
-      );
-      userVote.uploadedVoteIds = userVote.uploadedVoteIds.filter(
-        id => id !== param.voteId,
       );
     }
     set({ userVote });

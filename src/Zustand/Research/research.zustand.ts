@@ -214,7 +214,7 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
       .getState()
       .updateResearchDetail(param.research);
     get().updateResearchListItem(param.research);
-    useUserStore.getState().updateUserCredit(param.creditHistory);
+    useUserStore.getState().updateCreditHistory(param.creditHistory);
     useUserStore
       .getState()
       .addParticipatedResearchInfo(param.participationResearchInfo);
@@ -229,11 +229,7 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
     creditHistory: CreditHistorySchema;
   }) => {
     await get().getNewerResearches();
-    useUserStore.getState().updateUserCredit(param.creditHistory);
-    useUserStore.getState().addResearchIdToUserResearch({
-      changeTarget: "UPLOAD",
-      researchId: param.research._id,
-    });
+    useUserStore.getState().updateCreditHistory(param.creditHistory);
     useMypageStore
       .getState()
       .addResearch({ changeTarget: "UPLOAD", research: param.research });

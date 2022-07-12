@@ -13,7 +13,7 @@ export * from "./Research/researchReply.schema";
 
 export * from "./User/creditHistory.schema";
 export * from "./User/user.schema";
-export * from "./User/userCredit.schema";
+export * from "./User/userNotice.schema";
 export * from "./User/userPrivacy.schema";
 export * from "./User/userProperty.schema";
 export * from "./User/userResearch.schema";

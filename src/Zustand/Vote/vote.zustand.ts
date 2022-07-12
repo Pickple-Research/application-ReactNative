@@ -194,10 +194,6 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
 
   spreadVoteUploaded: async (param: { vote: VoteSchema }) => {
     await get().getNewerVotes();
-    useUserStore.getState().addVoteIdToUserVote({
-      changeTarget: "UPLOAD",
-      voteId: param.vote._id,
-    });
     useMypageStore
       .getState()
       .addVote({ changeTarget: "UPLOAD", vote: param.vote });

@@ -18,10 +18,9 @@ export function MypageLandingCredit() {
   const navigation =
     useNavigation<NavigationProp<AppStackProps, "LandingBottomTabNavigator">>();
 
-  const { user, userCredit } = useUserStore(
+  const { user } = useUserStore(
     state => ({
       user: state.user,
-      userCredit: state.userCredit,
     }),
     shallow,
   );
@@ -47,7 +46,7 @@ export function MypageLandingCredit() {
           <WalletIcon />
         </Credit__WalletIconContainer>
         {loggedIn ? (
-          <Credit__Text>{userCredit.credit}</Credit__Text>
+          <Credit__Text>{user.credit}</Credit__Text>
         ) : (
           <Credit__LoginText>로그인이 필요한 서비스입니다</Credit__LoginText>
         )}

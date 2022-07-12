@@ -318,7 +318,7 @@ export const useResearchUploadScreenStore =
 
       //* 리서치 업로드를 위한 크레딧이 부족한 경우
       if (
-        useUserStore.getState().userCredit.credit <
+        useUserStore.getState().user.credit <
         get().estimatedTimeInput * CREDIT_PER_MINUTE
       ) {
         showBlackToast({ text1: "크레딧이 부족합니다" });

@@ -8,14 +8,14 @@ import { useUserStore, useMypageCreditHistoryScreenStore } from "src/Zustand";
  * @author 현웅
  */
 export function MypageCreditHistoryHeader() {
-  const userCredit = useUserStore(state => state.userCredit);
+  const user = useUserStore(state => state.user);
   const setServiceGettingReadyModalVisible = useMypageCreditHistoryScreenStore(
     state => state.setServiceGettingReadyModalVisible,
   );
 
   return (
     <Container>
-      <CreditText>{`${userCredit.credit} C`}</CreditText>
+      <CreditText>{`${user.credit} C`}</CreditText>
       <ButtonsRow__Container>
         <CreditUseButton
           onPress={() => {

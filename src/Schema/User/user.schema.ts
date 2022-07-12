@@ -7,6 +7,9 @@ export type UserSchema = {
   /** 닉네임 */
   nickname: string;
 
+  /** 잔여 크레딧 */
+  credit: number;
+
   /** 등급 */
   grade: number;
 
@@ -18,6 +21,7 @@ export const BlankUser: UserSchema = {
   _id: "",
   email: "",
   nickname: "",
-  grade: 0,
+  grade: 1,
+  credit: 0,
   createdAt: "",
 };

@@ -201,7 +201,6 @@ export const useMypageStore = create<MypageStoreProps>((set, get) => ({
     }
 
     const result = await axiosGetUserActivity({
-      userCredit: useUserStore.getState().userCredit,
       userResearch: useUserStore.getState().userResearch,
       userVote: useUserStore.getState().userVote,
     });
