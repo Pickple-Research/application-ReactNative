@@ -24,8 +24,8 @@ export default function App() {
   async function loadInitialData() {
     const result = await axiosBootstrap();
     if (result !== null) {
-      setResearches(result.researches);
-      setVotes(result.votes);
+      // setResearches(result.researches);
+      // setVotes(result.votes);
       setInitialLoaded(true);
     }
     //TODO: 최초 정보 로드 실패 시 한번 더 핸들링

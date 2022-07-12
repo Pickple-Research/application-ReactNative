@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components/native";
 import {
+  StackActions,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { AppStackProps } from "src/Navigator";
+import { BottomButton } from "src/Component/Button";
+import {
   BottomButton__Container,
   BottomButton__ButtonContainer,
 } from "src/StyledComponents/View";
@@ -91,8 +98,12 @@ function NamePasswordStepButton() {
 
 /** 닉네임 생일 입력 단계 */
 function NicknameBirthdayStepButton() {
-  const { signup } = useSignupScreenStore(
+  const navigation =
+    useNavigation<NavigationProp<AppStackProps, "SignupScreen">>();
+
+  const { signingup, signup } = useSignupScreenStore(
     state => ({
+      signingup: state.signingup,
       signup: state.signup,
     }),
     shallow,
@@ -100,14 +111,26 @@ function NicknameBirthdayStepButton() {
 
   const available = true;
 
+  /**
+   * 회원가입을 시도합니다.
+   * 응답이 성공적인 경우 유입경로 조사 페이지로 이동합니다.
+   * @author 현웅
+   */
+  async function trySignup() {
+    const result = await signup();
+    if (!result) return;
+    navigation.dispatch(StackActions.replace("AuthFunnelScreen", {}));
+  }
+
   return (
     <Container>
-      <Button__Container
-        activeOpacity={available ? 0.8 : 1}
-        // onPress={available ? signup : undefined}
-        available={available}>
-        <Button__Text available={available}>완료</Button__Text>
-      </Button__Container>
+      <BottomButton
+        text={signingup ? `회원가입 중...` : `완료`}
+        color="PURPLE"
+        available={available}
+        loading={signingup}
+        onPress={trySignup}
+      />
     </Container>
   );
 }

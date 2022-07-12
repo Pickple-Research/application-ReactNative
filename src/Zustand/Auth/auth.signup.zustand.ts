@@ -5,7 +5,8 @@ import {
   axiosSignupAsEmailUser,
 } from "src/Axios";
 import { Gender } from "src/Object/Enum";
-import { showBlackToast } from "@Util/toast.util";
+import { showBlackToast, setStorage } from "src/Util";
+import { useUserStore } from "../User/user.zustand";
 
 type SignupScreenStoreProps = {
   /** 회원가입 단계: 0/1/2 단계 */
@@ -78,15 +79,18 @@ type SignupScreenStoreProps = {
   setNicknameInput: (nicknameInput: string) => void;
 
   /** 생년월일 */
-  birthInput: string;
+  birthdayInput: string | undefined;
 
   /** 성별 */
   genderInput: Gender | undefined;
   setGenderInput: (input: Gender) => void;
 
+  /** 회원가입 시도 중 여부 */
+  signingup: boolean;
+
   clearState: () => void;
 
-  signup: () => void;
+  signup: () => Promise<boolean>;
 };
 
 /**
@@ -118,7 +122,7 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
 
     getFullEmail: () => {
       if (get().emailDomainDropdownInput === "") {
-        return `${get().emailInput}@${get().emailDomainInput}`;
+        return `${get().emailInput.trim()}@${get().emailDomainInput.trim()}`;
       }
       return `${get().emailInput}@${get().emailDomainDropdownInput}`;
     },
@@ -144,7 +148,7 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
       const result = await axiosTransmitAuthCode(get().getFullEmail());
       if (result !== null) {
         showBlackToast({ text1: "인증번호가 전송되었습니다." });
-        set({ authCodeTransmitted: true });
+        set({ authCodeInput: "", authCodeTransmitted: true });
       }
       set({ authCodeTransmitting: false });
     },
@@ -156,9 +160,9 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
         code: get().authCodeInput,
       });
       if (result) {
-        set({ emailVerifyTried: true, emailVerified: true });
+        set({ emailVerified: true });
       }
-      set({ emailVerifing: false });
+      set({ emailVerifyTried: true, emailVerifing: false });
     },
 
     //* 1단계
@@ -202,13 +206,15 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
     },
 
     /** 생년월일 */
-    birthInput: "",
+    birthdayInput: undefined,
 
     /** 성별 */
     genderInput: undefined,
     setGenderInput: (genderInput: Gender) => {
       set({ genderInput });
     },
+
+    signingup: false,
 
     clearState: () => {
       set({
@@ -229,19 +235,38 @@ export const useSignupScreenStore = create<SignupScreenStoreProps>(
         passwordConfirmInput: "",
         agreeTerms: false,
         agreeMarketing: false,
-        birthInput: "",
+        nicknameInput: "",
+        birthdayInput: undefined,
         genderInput: undefined,
+        signingup: false,
       });
     },
 
     signup: async () => {
-      await axiosSignupAsEmailUser({
+      set({ signingup: true });
+      const result = await axiosSignupAsEmailUser({
         email: get().getFullEmail(),
         password: get().passwordInput,
         lastName: get().lastNameInput,
         name: get().nameInput,
-        nickname: get().passwordInput,
+        nickname: get().nicknameInput,
+        birthday: get().birthdayInput,
+        gender: get().genderInput,
       });
+
+      //* 회원가입에 실패한 경우
+      if (result === null) {
+        set({ signingup: false });
+        return false;
+      }
+
+      //* 회원가입에 성공한 경우
+      //* userState를 설정하고 JWT를 저장한 후 true 를 반환
+      useUserStore.getState().setUser(result.user);
+      await setStorage("JWT", result.jwt);
+      showBlackToast({ text1: "회원가입이 완료되었습니다!" });
+      set({ signingup: false });
+      return true;
     },
   }),
 );

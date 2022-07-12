@@ -20,29 +20,9 @@ import { SignupEmailDropDownData } from "src/Constant";
  * @author 현웅
  */
 export function SignupEmail() {
-  const {
-    emailInput,
-    setEmailInput,
-    emailDomainInput,
-    setEmailDomainInput,
-    emailDomainDropdownInput,
-    setEmailDomainDropdownInput,
-    emailDuplicated,
-    authCodeTransmitting,
-    authCodeTransmitted,
-    transmitAuthCode,
-  } = useSignupScreenStore(
+  const { authCodeTransmitted } = useSignupScreenStore(
     state => ({
-      emailInput: state.emailInput,
-      setEmailInput: state.setEmailInput,
-      emailDomainInput: state.emailDomainInput,
-      setEmailDomainInput: state.setEmailDomainInput,
-      emailDomainDropdownInput: state.emailDomainDropdownInput,
-      setEmailDomainDropdownInput: state.setEmailDomainDropdownInput,
-      emailDuplicated: state.emailDuplicated,
-      authCodeTransmitting: state.authCodeTransmitting,
       authCodeTransmitted: state.authCodeTransmitted,
-      transmitAuthCode: state.transmitAuthCode,
     }),
     shallow,
   );
@@ -100,7 +80,6 @@ function EmailInput() {
           style={{ flex: 4 }}
           props={{
             editable: !emailUneditable,
-            textContentType: "emailAddress",
             value: emailInput,
             onChangeText: setEmailInput,
             maxLength: 50,
@@ -115,7 +94,7 @@ function EmailInput() {
               setEmailDomainDropdownInput(selectedItem.value);
             }}
             props={{
-              disabled: !emailUneditable,
+              disabled: emailUneditable,
               defaultButtonText: " ",
               buttonStyle: styles.dropdownButtonStyle,
               buttonTextStyle: styles.dropdownButtonTextStyle,
@@ -143,7 +122,6 @@ function EmailInput() {
               props={{
                 editable: !emailUneditable,
                 placeholder: "직접입력",
-                keyboardType: "email-address",
                 value: emailDomainInput,
                 onChangeText: setEmailDomainInput,
                 maxLength: 50,
@@ -168,7 +146,9 @@ function Button() {
     emailDomainDropdownInput,
     authCodeTransmitting,
     authCodeTransmitted,
+    emailVerifing,
     emailVerifyTried,
+    emailVerified,
     transmitAuthCode,
   } = useSignupScreenStore(
     state => ({
@@ -177,7 +157,9 @@ function Button() {
       emailDomainDropdownInput: state.emailDomainDropdownInput,
       authCodeTransmitting: state.authCodeTransmitting,
       authCodeTransmitted: state.authCodeTransmitted,
+      emailVerifing: state.emailVerifing,
       emailVerifyTried: state.emailVerifyTried,
+      emailVerified: state.emailVerified,
       transmitAuthCode: state.transmitAuthCode,
     }),
     shallow,
@@ -205,6 +187,11 @@ function Button() {
     );
   }
 
+  //* 이메일이 인증된 경우
+  if (emailVerified) {
+    return <RadiusButton text={`이메일이 인증되었습니다`} type="PURPLE" />;
+  }
+
   //* 인증번호 전송 후 인증이 실패한 경우
   if (authCodeTransmitted && !emailVerifyTried) {
     //* 인증번호를 다시 보낼 수 있는 상황인 경우 (이메일 입력값 존재)
@@ -213,7 +200,7 @@ function Button() {
         <RadiusButton
           text={`인증번호 재전송하기`}
           type="PURPLE_CONFIRM"
-          onPress={() => {}}
+          onPress={transmitAuthCode}
         />
       );
     }
@@ -224,9 +211,9 @@ function Button() {
   if (hasValidEmailInput) {
     return (
       <RadiusButton
-        text={`인증번호 재전송하기`}
+        text={`이메일로 인증번호 보내기`}
         type="PURPLE_CONFIRM"
-        onPress={() => {}}
+        onPress={transmitAuthCode}
       />
     );
   }

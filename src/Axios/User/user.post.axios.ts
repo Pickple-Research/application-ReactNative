@@ -1,6 +1,7 @@
 import customAxios from "../axios.core";
 import {
   CreditHistorySchema,
+  UserSchema,
   ResearchSchema,
   VoteSchema,
   UserCreditSchema,
@@ -8,7 +9,6 @@ import {
   UserVoteSchema,
 } from "src/Schema";
 import { handleAxiosError } from "src/Util";
-import { UserInfoResponse } from "../Auth/auth.axios";
 
 /**
  * 주어진 이메일로 인증번호를 (재)전송합니다.
@@ -35,6 +35,7 @@ export const axiosTransmitAuthCode = async (email: string) => {
 
 /**
  * 이메일 인증이 완료된 이메일 사용자를 생성합니다.
+ * @return 생성된 사용자 정보가 담긴 JWT
  * @author 현웅
  */
 export const axiosSignupAsEmailUser = async (param: {
@@ -43,9 +44,11 @@ export const axiosSignupAsEmailUser = async (param: {
   lastName: string;
   name: string;
   nickname: string;
+  birthday?: string;
+  gender?: string;
 }) => {
   return await customAxios
-    .request<UserInfoResponse>({
+    .request<{ user: UserSchema; jwt: string }>({
       method: "POST",
       url: "/users/email",
       data: param,
@@ -90,15 +93,10 @@ export const axiosGetUserActivity = async (param: {
         participatedResearchIds: param.userResearch.participatedResearchInfos
           .slice(0, 15)
           .map(info => info.researchId),
-        uploadedResearchIds: param.userResearch.uploadedResearchIds.slice(
-          0,
-          15,
-        ),
         scrappedVoteIds: param.userVote.scrappedVoteIds.slice(0, 15),
         participatedVoteIds: param.userVote.participatedVoteInfos
           .slice(0, 15)
           .map(info => info.voteId),
-        uploadedVoteIds: param.userVote.uploadedVoteIds.slice(0, 15),
       },
     })
     .then(response => {
