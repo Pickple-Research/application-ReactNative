@@ -5,7 +5,12 @@ import {
   ResearchCommentSchema,
   ResearchReplySchema,
 } from "src/Schema";
-import { ResearchPurpose } from "src/Object/Enum";
+import {
+  ResearchPurpose,
+  ResearchType,
+  Gender,
+  AgeGroup,
+} from "src/Object/Enum";
 import { handleAxiosError } from "src/Util";
 
 /**
@@ -18,14 +23,15 @@ export const axiosUploadResearch = async (research: {
   link: string;
   content: string;
   purpose: ResearchPurpose | undefined;
+  type: ResearchType | undefined;
   organization: string;
   target: string;
+  targetGenders: Gender[];
+  targetAgeGroups: AgeGroup[];
   estimatedTime: string;
+  extraCredit: string;
+  extraCreditRecieverNum: string;
   deadline: string;
-  // creditReceiverNum: number;
-  // extraCredit: number;
-  // genderCondition: string | undefined;
-  // ageCondition: string[];
 }) => {
   return await customAxios
     .request<{

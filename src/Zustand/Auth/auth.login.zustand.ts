@@ -58,7 +58,7 @@ export const useLoginScreenStore = create<LoginScreenStoreProps>(
       await setStorage("PASSWORD", get().passwordInput);
       await setStorage("EMAIL", userInfo.user.email);
 
-      await useMypageStore.getState().getUserActivities();
+      // await useMypageStore.getState().getUserActivities();
 
       set({ isLoading: false });
       return true;

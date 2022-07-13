@@ -41,16 +41,16 @@ function StepHeader({
 
 function CreditInput() {
   const {
-    creditReceiverNum,
-    extraCredit,
-    setCreditReceiverNum,
-    setExtraCredit,
+    extraCreditInput,
+    setExtraCreditInput,
+    extraCreditReceiverNumInput,
+    setExtraCreditReceiverNumInput,
   } = useResearchUploadScreenStore(
     state => ({
-      extraCredit: state.extraCredit,
-      creditReceiverNum: state.creditReceiverNum,
-      setExtraCredit: state.setExtraCredit,
-      setCreditReceiverNum: state.setCreditReceiverNum,
+      extraCreditInput: state.extraCreditInput,
+      setExtraCreditInput: state.setExtraCreditInput,
+      extraCreditReceiverNumInput: state.extraCreditReceiverNumInput,
+      setExtraCreditReceiverNumInput: state.setExtraCreditReceiverNumInput,
     }),
     shallow,
   );
@@ -92,7 +92,7 @@ function CreditInput() {
         <SimpleDropDown
           data={extraCreditDropDownData}
           onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
-            setCreditReceiverNum(selectedItem.value);
+            setExtraCreditReceiverNumInput(selectedItem.value);
           }}
           props={{ defaultButtonText: "0" }}
         />
@@ -103,7 +103,7 @@ function CreditInput() {
         <SimpleDropDown
           data={creditRecieverDropDownData}
           onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
-            setExtraCredit(selectedItem.value);
+            setExtraCreditInput(selectedItem.value);
           }}
           props={{ defaultButtonText: "0" }}
         />
@@ -115,7 +115,7 @@ function CreditInput() {
 
       {/* = 총 ?C */}
       <CreditInput__TotalCredit>{` = 총 ${
-        creditReceiverNum * extraCredit
+        extraCreditReceiverNumInput * extraCreditInput
       } C`}</CreditInput__TotalCredit>
     </CreditInput__Container>
   );

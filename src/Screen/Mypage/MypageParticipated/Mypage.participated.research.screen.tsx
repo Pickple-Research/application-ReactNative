@@ -6,7 +6,10 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { ResearchSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageStore, useMypageParticipatedScreenStore } from "src/Zustand";
+import {
+  useResearchStore,
+  useMypageParticipatedScreenStore,
+} from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -17,7 +20,7 @@ export type MypageParticipatedResearchScreenProps = {};
  * @author 현웅
  */
 export function MypageParticipatedResearchScreen() {
-  const participatedResearches = useMypageStore(
+  const participatedResearches = useResearchStore(
     state => state.participatedResearches,
   );
 

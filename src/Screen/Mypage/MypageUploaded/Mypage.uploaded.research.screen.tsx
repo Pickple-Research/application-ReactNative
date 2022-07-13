@@ -6,7 +6,7 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { ResearchSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageStore, useMypageUploadedScreenStore } from "src/Zustand";
+import { useResearchStore, useMypageUploadedScreenStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -17,7 +17,9 @@ export type MypageUploadedResearchScreenProps = {};
  * @author 현웅
  */
 export function MypageUploadedResearchScreen() {
-  const uploadedResearches = useMypageStore(state => state.uploadedResearches);
+  const uploadedResearches = useResearchStore(
+    state => state.uploadedResearches,
+  );
 
   if (uploadedResearches.length === 0) {
     return (

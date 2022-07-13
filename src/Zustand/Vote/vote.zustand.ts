@@ -2,7 +2,6 @@ import create from "zustand";
 import { VoteSchema, ParticipatedVoteInfo, BlankVote } from "src/Schema";
 import { axiosGetNewerVotes, axiosGetOlderVotes } from "src/Axios";
 import { useUserStore } from "../User/user.zustand";
-import { useMypageStore } from "../Mypage/mypage.zustand";
 import { useVoteDetailScreenStore } from "./vote.detail.zustand";
 import {
   addVoteListItem,
@@ -14,6 +13,9 @@ import {
 
 type VoteStoreProps = {
   votes: VoteSchema[];
+  scrappedVotes: VoteSchema[];
+  participatedVotes: VoteSchema[];
+  uploadedVotes: VoteSchema[];
   setVotes: (votes: VoteSchema[]) => void;
 
   /** 기존에 가지고 있던 투표보다 최신의 투표를 모두 가져옵니다 */
@@ -98,6 +100,9 @@ type VoteStoreProps = {
 
 export const useVoteStore = create<VoteStoreProps>((set, get) => ({
   votes: [BlankVote],
+  scrappedVotes: [BlankVote],
+  participatedVotes: [BlankVote],
+  uploadedVotes: [BlankVote],
   setVotes: (votes: VoteSchema[]) => set({ votes }),
 
   getNewerVotes: async () => {
@@ -155,7 +160,6 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
   spreadVoteUpdated: (vote: VoteSchema) => {
     useVoteDetailScreenStore.getState().updateVoteDetail(vote);
     get().updateVoteListItem(vote);
-    useMypageStore.getState().updateVote(vote);
   },
 
   spreadVoteScrapped: (vote: VoteSchema) => {
@@ -165,7 +169,6 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
       changeTarget: "SCRAP",
       voteId: vote._id,
     });
-    useMypageStore.getState().addVote({ changeTarget: "SCRAP", vote });
   },
 
   spreadVoteUnscrapped: (vote: VoteSchema) => {
@@ -175,7 +178,6 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
       voteId: vote._id,
       unscrap: true,
     });
-    useMypageStore.getState().deleteVote({ voteId: vote._id, unscrap: true });
   },
 
   spreadVoteParticipated: (param: {
@@ -187,27 +189,16 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
     useUserStore
       .getState()
       .addParticipatedVoteInfo(param.participationVoteInfo);
-    useMypageStore
-      .getState()
-      .addVote({ changeTarget: "PARTICIPATE", vote: param.vote });
   },
 
   spreadVoteUploaded: async (param: { vote: VoteSchema }) => {
     await get().getNewerVotes();
-    useUserStore.getState().addVoteIdToUserVote({
-      changeTarget: "UPLOAD",
-      voteId: param.vote._id,
-    });
-    useMypageStore
-      .getState()
-      .addVote({ changeTarget: "UPLOAD", vote: param.vote });
   },
 
   spreadVoteDeleted: (voteId: string) => {
     useUserStore
       .getState()
       .removeVoteIdFromUserVote({ voteId, unscrap: false });
-    useMypageStore.getState().deleteVote({ voteId, unscrap: false });
   },
 
   clearState: () => {

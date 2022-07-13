@@ -4,7 +4,6 @@ import {
   UserSchema,
   ResearchSchema,
   VoteSchema,
-  UserCreditSchema,
   UserResearchSchema,
   UserVoteSchema,
 } from "src/Schema";
@@ -68,7 +67,6 @@ export const axiosSignupAsEmailUser = async (param: {
  * @author 현웅
  */
 export const axiosGetUserActivity = async (param: {
-  userCredit: UserCreditSchema;
   userResearch: UserResearchSchema;
   userVote: UserVoteSchema;
 }) => {
@@ -85,7 +83,6 @@ export const axiosGetUserActivity = async (param: {
       method: "POST",
       url: "/users/activity",
       data: {
-        creditHistoryIds: param.userCredit.creditHistoryIds.slice(0, 15),
         scrappedResearchIds: param.userResearch.scrappedResearchIds.slice(
           0,
           15,

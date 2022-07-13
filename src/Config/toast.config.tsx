@@ -25,4 +25,5 @@ const BlackToast__Container = styled.View`
 const BlackToast__Text = styled(H4)`
   color: ${({ theme }) => theme.color.grey.white};
   font-weight: bold;
+  text-align: center;
 `;

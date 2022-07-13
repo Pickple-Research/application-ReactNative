@@ -6,7 +6,7 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { VoteSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageStore, useMypageScrappedScreenStore } from "src/Zustand";
+import { useVoteStore, useMypageScrappedScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 export type MypageScrappedVoteScreenProps = {};
@@ -16,7 +16,7 @@ export type MypageScrappedVoteScreenProps = {};
  * @author 원제
  */
 export function MypageScrappedVoteScreen() {
-  const scrappedVotes = useMypageStore(state => state.scrappedVotes);
+  const scrappedVotes = useVoteStore(state => state.scrappedVotes);
 
   if (scrappedVotes.length === 0) {
     return (

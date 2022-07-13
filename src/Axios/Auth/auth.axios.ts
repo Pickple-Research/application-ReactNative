@@ -1,7 +1,7 @@
 import customAxios from "../axios.core";
 import {
   UserSchema,
-  UserCreditSchema,
+  UserNoticeSchema,
   UserPropertySchema,
   UserResearchSchema,
   UserVoteSchema,
@@ -15,7 +15,7 @@ import { handleAxiosError } from "src/Util";
 export type UserInfoResponse = {
   jwt: string;
   user: UserSchema;
-  userCredit: UserCreditSchema;
+  userNotice: UserNoticeSchema;
   userProperty: UserPropertySchema;
   userResearch: UserResearchSchema;
   userVote: UserVoteSchema;

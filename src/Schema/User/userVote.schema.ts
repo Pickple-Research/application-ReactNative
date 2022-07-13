@@ -13,14 +13,10 @@ export type UserVoteSchema = {
 
   /** 참여한 투표들 정보 */
   participatedVoteInfos: ParticipatedVoteInfo[];
-
-  /** 작성한 투표들 _id */
-  uploadedVoteIds: string[];
 };
 
 export const BlankUserVote: UserVoteSchema = {
   viewedVoteIds: [],
   scrappedVoteIds: [],
   participatedVoteInfos: [],
-  uploadedVoteIds: [],
 };

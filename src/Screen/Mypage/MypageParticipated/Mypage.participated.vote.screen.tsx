@@ -6,7 +6,7 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { VoteSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageStore, useMypageParticipatedScreenStore } from "src/Zustand";
+import { useVoteStore, useMypageParticipatedScreenStore } from "src/Zustand";
 import { globalStyles } from "src/Style/globalStyles";
 
 export type MypageParticipatedVoteScreenProps = {};
@@ -16,7 +16,7 @@ export type MypageParticipatedVoteScreenProps = {};
  * @author 현웅
  */
 export function MypageParticipatedVoteScreen() {
-  const participatedVotes = useMypageStore(state => state.participatedVotes);
+  const participatedVotes = useVoteStore(state => state.participatedVotes);
 
   if (participatedVotes.length === 0) {
     return (

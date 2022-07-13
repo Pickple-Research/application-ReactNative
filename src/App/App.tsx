@@ -24,7 +24,7 @@ export default function App() {
   async function loadInitialData() {
     const result = await axiosBootstrap();
     if (result !== null) {
-      // setResearches(result.researches);
+      setResearches(result.researches);
       // setVotes(result.votes);
       setInitialLoaded(true);
     }

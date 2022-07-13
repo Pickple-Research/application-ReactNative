@@ -5,7 +5,12 @@ import { useResearchStore } from "./research.zustand";
 import { ResearchSchema } from "src/Schema";
 import { CREDIT_PER_MINUTE } from "src/Constant";
 import { ResearchUploadGiftProps } from "src/Object/Type";
-import { ResearchPurpose, ResearchType } from "src/Object/Enum";
+import {
+  ResearchPurpose,
+  ResearchType,
+  Gender,
+  AgeGroup,
+} from "src/Object/Enum";
 import { getGalleryPhotoFromAndroid, showBlackToast } from "src/Util";
 
 type ResearchUploadScreenStoreProps = {
@@ -68,12 +73,12 @@ type ResearchUploadScreenStoreProps = {
   uploadGiftPhoto: (index: number) => void;
 
   /** 추가 크레딧 수령 인원 수 */
-  creditReceiverNum: number;
-  setCreditReceiverNum: (receiverNum: number) => void;
+  extraCreditReceiverNumInput: number;
+  setExtraCreditReceiverNumInput: (receiverNum: number) => void;
 
   /** 추가 크레딧 */
-  extraCredit: number;
-  setExtraCredit: (credit: number) => void;
+  extraCreditInput: number;
+  setExtraCreditInput: (credit: number) => void;
 
   /** 추가 크레딧 기능 사용 여부 */
   giveExtraCredit: boolean;
@@ -81,18 +86,18 @@ type ResearchUploadScreenStoreProps = {
 
   //* 3 단계
   /** 스크리닝: 성별 선택 */
-  screeningSexInput: string | undefined;
-  setScreeningSexInput: (input: string | undefined) => void;
+  targetGendersInput: Gender[];
+  setTargetGendersInput: (input: Gender | undefined) => void;
 
-  /** 스크리닝: 연령 선택 */
-  screeningAgeInputs: string[];
-  toggleScreeningAgeInputs: (input: string | undefined) => void;
+  /** 스크리닝: 연령대 선택 */
+  targetAgeGroupsInput: AgeGroup[];
+  toggleTargetAgeGroupsInput: (input: AgeGroup | undefined) => void;
 
   /** 작성 도중 나가려고 할 때 모달 */
   blockExitModalVisible: boolean;
   setBlockExitModalVisible: (status: boolean) => void;
 
-  /** 작성 완료 후 재확인 모달 */
+  /** 업로드 전 재확인 모달 */
   confirmModalVisible: boolean;
   setConfirmModalVisible: (status: boolean) => void;
 
@@ -231,14 +236,14 @@ export const useResearchUploadScreenStore =
       }
     },
 
-    creditReceiverNum: 5,
-    setCreditReceiverNum: (receiverNum: number) => {
-      set({ creditReceiverNum: receiverNum });
+    extraCreditReceiverNumInput: 5,
+    setExtraCreditReceiverNumInput: (receiverNum: number) => {
+      set({ extraCreditReceiverNumInput: receiverNum });
     },
 
-    extraCredit: 1,
-    setExtraCredit: (credit: number) => {
-      set({ extraCredit: credit });
+    extraCreditInput: 1,
+    setExtraCreditInput: (credit: number) => {
+      set({ extraCreditInput: credit });
     },
 
     giveExtraCredit: true,
@@ -247,26 +252,31 @@ export const useResearchUploadScreenStore =
     },
 
     //* 3 단계
-    screeningSexInput: undefined,
-    setScreeningSexInput: (input: string | undefined) => {
-      set({ screeningSexInput: input });
-    },
-
-    screeningAgeInputs: [],
-    toggleScreeningAgeInputs: (input: string | undefined) => {
+    targetGendersInput: [],
+    setTargetGendersInput: (input: Gender | undefined) => {
       //* '상관없음' 선택한 경우
       if (!input) {
-        set({ screeningAgeInputs: [] });
+        set({ targetGendersInput: [] });
+        return;
+      }
+      set({ targetGendersInput: [input] });
+    },
+
+    targetAgeGroupsInput: [],
+    toggleTargetAgeGroupsInput: (input: AgeGroup | undefined) => {
+      //* '상관없음' 선택한 경우
+      if (!input) {
+        set({ targetAgeGroupsInput: [] });
         return;
       }
 
-      const index = get().screeningAgeInputs!.indexOf(input);
+      const index = get().targetAgeGroupsInput!.indexOf(input);
       if (index === -1) {
-        set({ screeningAgeInputs: [...get().screeningAgeInputs!, input] });
+        set({ targetAgeGroupsInput: [...get().targetAgeGroupsInput!, input] });
       } else {
         set({
-          screeningAgeInputs: get().screeningAgeInputs!.filter(
-            age => age !== input,
+          targetAgeGroupsInput: get().targetAgeGroupsInput!.filter(
+            ageGroup => ageGroup !== input,
           ),
         });
       }
@@ -291,9 +301,12 @@ export const useResearchUploadScreenStore =
         linkInput: "",
         contentInput: "",
         purposeInput: undefined,
+        typeInput: undefined,
         organizationInput: "",
         targetInput: "",
         estimatedTimeInput: 0,
+        deadlineInput: "",
+        giftIndex: 1,
         gifts: [
           {
             index: 0,
@@ -303,12 +316,13 @@ export const useResearchUploadScreenStore =
             giftImageRatio: 0,
           },
         ],
-        creditReceiverNum: 5,
-        extraCredit: 1,
+        extraCreditReceiverNumInput: 5,
+        extraCreditInput: 1,
         giveExtraCredit: true,
-        screeningSexInput: undefined,
-        screeningAgeInputs: [],
+        targetGendersInput: [],
+        targetAgeGroupsInput: [],
         blockExitModalVisible: false,
+        confirmModalVisible: false,
         uploading: false,
       });
     },
@@ -316,11 +330,16 @@ export const useResearchUploadScreenStore =
     uploadResearch: async () => {
       set({ uploading: true });
 
-      //* 리서치 업로드를 위한 크레딧이 부족한 경우
-      if (
-        useUserStore.getState().userCredit.credit <
-        get().estimatedTimeInput * CREDIT_PER_MINUTE
-      ) {
+      //* 리서치 업로드에 필요한 크레딧 계산
+      const requiredCredit =
+        get().estimatedTimeInput * CREDIT_PER_MINUTE +
+        (get().giveExtraCredit
+          ? get().extraCreditReceiverNumInput * get().extraCreditInput
+          : 0) +
+        (get().targetGendersInput.length !== 0 ? 5 : 0);
+
+      //* 크레딧이 부족한 경우
+      if (useUserStore.getState().user.credit < requiredCredit) {
         showBlackToast({ text1: "크레딧이 부족합니다" });
         set({ uploading: false });
         return null;
@@ -346,14 +365,22 @@ export const useResearchUploadScreenStore =
         formData.append("link", get().linkInput.trim());
         formData.append("content", get().contentInput.trim());
         formData.append("purpose", get().purposeInput);
+        formData.append("type", get().typeInput);
         formData.append("organization", get().organizationInput.trim());
         formData.append("target", get().targetInput.trim());
+        formData.append("targetGenders", get().targetGendersInput);
+        // formData.append("targetAges", get().targetAgesInput);
+        formData.append("targetAgeGroups", get().targetAgeGroupsInput);
         formData.append("estimatedTime", get().estimatedTimeInput);
+        formData.append(
+          "extraCredit",
+          get().giveExtraCredit ? get().extraCreditInput : 0,
+        );
+        formData.append(
+          "extraCreditRecieverNum",
+          get().giveExtraCredit ? get().extraCreditReceiverNumInput : 0,
+        );
         formData.append("deadline", get().deadlineInput);
-        // formData.append("", get().creditReceiverNum)
-        // formData.append("", get().extraCredit)
-        // formData.append("", get().screeningSexInput)
-        // formData.append("", get().screeningAgeInputs)
 
         validGifts.forEach(gift => {
           formData.append("images", {
@@ -388,20 +415,28 @@ export const useResearchUploadScreenStore =
         link: get().linkInput,
         content: get().contentInput,
         purpose: get().purposeInput,
+        type: get().typeInput,
         organization: get().organizationInput,
         target: get().targetInput,
-        //! 서버단에서 estimatedTime 을 @IsNumberString() 으로 받기 때문에
-        //! estimatedTimeInput 를 string으로 변환하여 전송합니다.
+        targetGenders: get().targetGendersInput,
+        // targetAges: get().targetAgesInput,
+        targetAgeGroups: get().targetAgeGroupsInput,
+        //! formData 를 통해 숫자를 보낼 때는 숫자가 string 타입으로 바뀌게 되어,
+        //! 서버단에서 estimatedTime, extraCredit, extraCreditRecieverNum 은 @IsNumberString() 으로 받도록 설정되어 있습니다.
+        //! 때문에 숫자 입력값을 string으로 변환하여 전송합니다.
         estimatedTime: get().estimatedTimeInput.toString(),
+        extraCredit: get().giveExtraCredit
+          ? get().extraCreditInput.toString()
+          : "0",
+        extraCreditRecieverNum: get().giveExtraCredit
+          ? get().extraCreditReceiverNumInput.toString()
+          : "0",
         deadline: get().deadlineInput,
-        // creditReceiverNum: get().creditReceiverNum,
-        // extraCredit: get().extraCredit,
-        // screeningSexInput: get().screeningSexInput,
-        // screeningAgeInputs: get().screeningAgeInputs,
       });
 
       //* 응답이 성공적인 경우,
       //* 업로드된 리서치 내용을 전파하고 새로운 리서치를 반환합니다.
+      //* (반환된 리서치를 통해 업로드된 리서치의 상세 페이지로 이동합니다.)
       if (result !== null) {
         useResearchStore.getState().spreadResearchUploaded({
           research: result.newResearch,

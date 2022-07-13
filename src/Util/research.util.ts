@@ -30,13 +30,9 @@ export function updateResearchListItem(
   updatedResearch: ResearchSchema,
   researchList: ResearchSchema[],
 ) {
-  const updatedResearchIndex = researchList.findIndex(research => {
-    research._id === updatedResearch._id;
-  });
-  if (updatedResearchIndex !== -1) {
-    return researchList.splice(updatedResearchIndex, 1, updatedResearch);
-  }
-  return researchList;
+  return researchList.map(research =>
+    research._id === updatedResearch._id ? updatedResearch : research,
+  );
 }
 
 /**

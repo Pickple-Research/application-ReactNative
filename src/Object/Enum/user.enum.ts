@@ -17,3 +17,17 @@ export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",
 }
+
+/**
+ * 나이대: 10대, 20대, 30대 ... 70대 이상
+ * @author 현웅
+ */
+export enum AgeGroup {
+  TEEN = "TEEN",
+  TWENTY = "TWENTY",
+  THIRTY = "THIRTY",
+  FOURTY = "FOURTY",
+  FIFTY = "FIFTY",
+  SIXTY = "SIXTY",
+  SEVENTY = "SEVENTY",
+}

@@ -13,14 +13,10 @@ export type UserResearchSchema = {
 
   /** 참여한 리서치 정보 */
   participatedResearchInfos: ParticipatedResearchInfo[];
-
-  /** 작성한 리서치들 _id */
-  uploadedResearchIds: string[];
 };
 
 export const BlankUserResearch: UserResearchSchema = {
   viewedResearchIds: [],
   scrappedResearchIds: [],
   participatedResearchInfos: [],
-  uploadedResearchIds: [],
 };

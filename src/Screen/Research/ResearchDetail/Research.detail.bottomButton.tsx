@@ -39,16 +39,16 @@ export function ResearchDetailBottomButton() {
   const {
     researchDetail,
     setResearchPullupModalVisible,
+    setResearchUnscrapModalVisible,
     scrapping,
     scrapResearch,
-    unscrapResearch,
   } = useResearchDetailScreenStore(
     state => ({
       researchDetail: state.researchDetail,
       setResearchPullupModalVisible: state.setResearchPullupModalVisible,
+      setResearchUnscrapModalVisible: state.setResearchUnscrapModalVisible,
       scrapping: state.scrapping,
       scrapResearch: state.scrapResearch,
-      unscrapResearch: state.unscrapResearch,
     }),
     shallow,
   );
@@ -131,11 +131,11 @@ export function ResearchDetailBottomButton() {
         //* 이미 스크랩 한 경우
         <ScrapButton
           activeOpacity={0.8}
-          onPress={scrapping ? undefined : unscrapResearch}>
+          onPress={() => {
+            setResearchUnscrapModalVisible(true);
+          }}>
           <ScrapIcon scrapped={scrapped} />
-          <ScrapText>
-            {scrapping ? `취소 중..` : researchDetail.scrapsNum}
-          </ScrapText>
+          <ScrapText>{researchDetail.scrapsNum}</ScrapText>
         </ScrapButton>
       ) : (
         //* 스크랩하지 않은 경우
