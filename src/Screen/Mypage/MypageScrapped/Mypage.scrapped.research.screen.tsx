@@ -6,7 +6,7 @@ import { RadiusButton } from "src/Component/Button";
 import { H1 } from "src/StyledComponents/Text";
 import { ResearchSchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageStore, useMypageScrappedScreenStore } from "src/Zustand";
+import { useResearchStore, useMypageScrappedScreenStore } from "src/Zustand";
 import { didDatePassed } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -17,7 +17,9 @@ export type MypageScrappedResearchScreenProps = {};
  * @author 원제
  */
 export function MypageScrappedResearchScreen() {
-  const scrappedResearches = useMypageStore(state => state.scrappedResearches);
+  const scrappedResearches = useResearchStore(
+    state => state.scrappedResearches,
+  );
 
   if (scrappedResearches.length === 0) {
     return (

@@ -67,6 +67,10 @@ type ResearchDetailScreenStoreProps = {
   researchPullupModalVisible: boolean;
   setResearchPullupModalVisible: (status: boolean) => void;
 
+  /** 리서치 스크랩 취소 모달 표시 여부 */
+  researchUnscrapModalVisible: boolean;
+  setResearchUnscrapModalVisible: (status: boolean) => void;
+
   /** (대)댓글 로드 중 여부 */
   commentLoading: boolean;
   /** 리서치 신고 중 여부 */
@@ -191,6 +195,11 @@ export const useResearchDetailScreenStore =
       set({ researchPullupModalVisible: status });
     },
 
+    researchUnscrapModalVisible: false,
+    setResearchUnscrapModalVisible: (status: boolean) => {
+      set({ researchUnscrapModalVisible: status });
+    },
+
     commentLoading: false,
     reporting: false,
     commentUploading: false,
@@ -209,6 +218,7 @@ export const useResearchDetailScreenStore =
         researchReportModalVisible: false,
         researchDeleteModalVisible: false,
         researchPullupModalVisible: false,
+        researchUnscrapModalVisible: false,
         commentLoading: false,
         reporting: false,
         commentUploading: false,
@@ -345,7 +355,7 @@ export const useResearchDetailScreenStore =
     },
 
     //* 리서치 스크랩을 취소합니다.
-    //* 응답이 성공적인 경우, 해당 내용을 전파합니다.
+    //* 응답이 성공적인 경우, 해당 내용을 전파하고 스크랩 취소 모달 창을 닫습니다.
     unscrapResearch: async () => {
       set({ scrapping: true });
       const updatedResearch = await axiosUnscrapResearch(
@@ -353,6 +363,7 @@ export const useResearchDetailScreenStore =
       );
       if (updatedResearch !== null) {
         useResearchStore.getState().spreadResearchUnscrapped(updatedResearch);
+        get().setResearchUnscrapModalVisible(false);
       }
       set({ scrapping: false });
       return;

@@ -4,6 +4,7 @@ import { ResearchUploadSubStepHeader } from "../Research.upload.subStepHeader";
 import { H2, H3, H4 } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
 import { useResearchUploadScreenStore } from "src/Zustand";
+import { Gender, AgeGroup } from "src/Object/Enum";
 import { globalStyles } from "src/Style/globalStyles";
 
 /**
@@ -14,8 +15,8 @@ export function ResearchUploadScreening() {
   return (
     <Container>
       <Description />
-      <ChooseSex />
-      <ChooseAge />
+      <ChooseGender />
+      <ChooseAgeGroup />
     </Container>
   );
 }
@@ -43,17 +44,21 @@ function Description() {
  * 스크리닝 성별 선택
  * @author 현웅
  */
-function ChooseSex() {
-  const { screeningSexInput, setScreeningSexInput } =
+function ChooseGender() {
+  const { targetGendersInput, setTargetGenderInput } =
     useResearchUploadScreenStore(
       state => ({
-        screeningSexInput: state.screeningSexInput,
-        setScreeningSexInput: state.setScreeningSexInput,
+        targetGendersInput: state.targetGendersInput,
+        setTargetGenderInput: state.setTargetGendersInput,
       }),
       shallow,
     );
 
-  const sexes = [undefined, "남성", "여성"];
+  const genders = [
+    { value: undefined, displayName: "상관없음" },
+    { value: Gender.MALE, displayName: "남성" },
+    { value: Gender.FEMALE, displayName: "여성" },
+  ];
 
   return (
     <ChooseSex__Container>
@@ -63,14 +68,18 @@ function ChooseSex() {
       </ResearchUploadSubStepHeader>
       <SelectButtonList__Container
         style={globalStyles.screen__horizontalPadding}>
-        {sexes.map((sex, index) => {
+        {genders.map((gender, index) => {
           return (
             <SelectButton
-              key={`${index}:${sex}`}
-              value={sex}
-              selected={sex === screeningSexInput}
+              key={`${index}:${gender.displayName}`}
+              displayName={gender.displayName}
+              selected={
+                gender.value === undefined
+                  ? targetGendersInput.length === 0
+                  : targetGendersInput.includes(gender.value)
+              }
               onPress={() => {
-                setScreeningSexInput(sex);
+                setTargetGenderInput(gender.value);
               }}
             />
           );
@@ -84,31 +93,26 @@ function ChooseSex() {
  * 스크리닝 연령 선택
  * @author 현웅
  */
-function ChooseAge() {
-  const { screeningAgeInputs, toggleScreeningAgeInputs } =
+function ChooseAgeGroup() {
+  const { targetAgeGroupsInput, toggleTargetAgeGroupInput } =
     useResearchUploadScreenStore(
       state => ({
-        screeningAgeInputs: state.screeningAgeInputs,
-        toggleScreeningAgeInputs: state.toggleScreeningAgeInputs,
+        targetAgeGroupsInput: state.targetAgeGroupsInput,
+        toggleTargetAgeGroupInput: state.toggleTargetAgeGroupsInput,
       }),
       shallow,
     );
 
-  const ages = [
-    undefined,
-    "10대",
-    "20대",
-    "30대",
-    "40대",
-    "50대",
-    "60대",
-    "70대 이상",
+  const ageGroups = [
+    { value: undefined, displayName: "상관없음" },
+    { value: AgeGroup.TEEN, displayName: "10대" },
+    { value: AgeGroup.TWENTY, displayName: "20대" },
+    { value: AgeGroup.THIRTY, displayName: "30대" },
+    { value: AgeGroup.FOURTY, displayName: "40대" },
+    { value: AgeGroup.FIFTY, displayName: "50대" },
+    { value: AgeGroup.SIXTY, displayName: "60대" },
+    { value: AgeGroup.SEVENTY, displayName: "70대 이상" },
   ];
-
-  const selected = (input: string | undefined) => {
-    if (!input) return !Boolean(screeningAgeInputs.length);
-    return screeningAgeInputs.includes(input);
-  };
 
   return (
     <ChooseAge__Container>
@@ -118,14 +122,18 @@ function ChooseAge() {
       </ResearchUploadSubStepHeader>
       <SelectButtonList__Container
         style={globalStyles.screen__horizontalPadding}>
-        {ages.map((age, index) => {
+        {ageGroups.map((ageGroup, index) => {
           return (
             <SelectButton
-              key={`${index}:${age}`}
-              value={age}
-              selected={selected(age)}
+              key={`${index}:${ageGroup.displayName}`}
+              displayName={ageGroup.displayName}
+              selected={
+                ageGroup.value === undefined
+                  ? targetAgeGroupsInput.length === 0
+                  : targetAgeGroupsInput.includes(ageGroup.value)
+              }
               onPress={() => {
-                toggleScreeningAgeInputs(age);
+                toggleTargetAgeGroupInput(ageGroup.value);
               }}
             />
           );
@@ -140,18 +148,18 @@ function ChooseAge() {
  * @author 현웅
  */
 function SelectButton({
-  value,
+  displayName,
   selected,
   onPress,
 }: {
-  value: string | undefined;
+  displayName: string;
   selected: boolean;
   onPress: () => void;
 }) {
   return (
     <SelectButton__Container selected={selected} onPress={onPress}>
       <SelectButton__Content selected={selected}>
-        {value ? value : `상관없음`}
+        {displayName}
       </SelectButton__Content>
     </SelectButton__Container>
   );

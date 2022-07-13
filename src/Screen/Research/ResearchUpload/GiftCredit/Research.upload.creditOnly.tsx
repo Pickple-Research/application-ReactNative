@@ -67,15 +67,18 @@ function CreditDescription() {
 }
 
 function CreditInput() {
-  const { setCreditReceiverNum, setExtraCredit, giveExtraCredit } =
-    useResearchUploadScreenStore(
-      state => ({
-        setExtraCredit: state.setExtraCredit,
-        setCreditReceiverNum: state.setCreditReceiverNum,
-        giveExtraCredit: state.giveExtraCredit,
-      }),
-      shallow,
-    );
+  const {
+    setExtraCreditReceiverNumInput,
+    setExtraCreditInput,
+    giveExtraCredit,
+  } = useResearchUploadScreenStore(
+    state => ({
+      setExtraCreditReceiverNumInput: state.setExtraCreditReceiverNumInput,
+      setExtraCreditInput: state.setExtraCreditInput,
+      giveExtraCredit: state.giveExtraCredit,
+    }),
+    shallow,
+  );
 
   return (
     <CreditInput__Container style={globalStyles.screen__horizontalPadding}>
@@ -83,7 +86,7 @@ function CreditInput() {
       <SimpleDropDown
         data={ResearchExtraCreditReceiverDropDownData}
         onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
-          setCreditReceiverNum(selectedItem.value);
+          setExtraCreditReceiverNumInput(selectedItem.value);
         }}
         props={{
           disabled: !giveExtraCredit,
@@ -104,7 +107,7 @@ function CreditInput() {
       <SimpleDropDown
         data={ResearchExtraCreditDropDownData}
         onSelect={(selectedItem: SimpleDropDownDataType<number>) => {
-          setExtraCredit(selectedItem.value);
+          setExtraCreditInput(selectedItem.value);
         }}
         props={{
           disabled: !giveExtraCredit,
@@ -130,8 +133,8 @@ function TotalCredit() {
   const { creditReceiverNum, extraCredit, giveExtraCredit } =
     useResearchUploadScreenStore(
       state => ({
-        extraCredit: state.extraCredit,
-        creditReceiverNum: state.creditReceiverNum,
+        extraCredit: state.extraCreditInput,
+        creditReceiverNum: state.extraCreditReceiverNumInput,
         giveExtraCredit: state.giveExtraCredit,
       }),
       shallow,

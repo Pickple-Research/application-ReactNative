@@ -3,14 +3,14 @@ import styled from "styled-components/native";
 import { CreditHistoryListItemComponent } from "src/Component/Mypage";
 import { CreditHistorySchema } from "src/Schema";
 import shallow from "zustand/shallow";
-import { useMypageStore, useMypageCreditHistoryScreenStore } from "src/Zustand";
+import { useUserStore, useMypageCreditHistoryScreenStore } from "src/Zustand";
 
 /**
  * 마이페이지 - 크레딧 사용내역 - 사용내역 리스트입니다.
  * @author 현웅
  */
 export function MypageCreditHistoryList() {
-  const { creditHistories } = useMypageStore(
+  const { creditHistories } = useUserStore(
     state => ({
       creditHistories: state.creditHistories,
     }),

@@ -14,10 +14,6 @@ type MypageScrappedScreenStoreProps = {
   voteFilter: Filter;
   setVoteFilter: (filter: Filter) => void;
 
-  /** 리서치 스크랩 취소 모달 표시 여부 */
-  researchUnscrapModalVisible: boolean;
-  setResearchUnscrapModalVisible: (status: boolean) => void;
-
   /** 투표 스크랩 취소 모달 표시 여부 */
   voteUnscrapModalVisible: boolean;
   setVoteUnscrapModalVisible: (status: boolean) => void;
@@ -48,11 +44,6 @@ export const useMypageScrappedScreenStore =
       set({ voteFilter: filter });
     },
 
-    researchUnscrapModalVisible: false,
-    setResearchUnscrapModalVisible: (status: boolean) => {
-      set({ researchUnscrapModalVisible: status });
-    },
-
     voteUnscrapModalVisible: false,
     setVoteUnscrapModalVisible: (status: boolean) => {
       set({ voteUnscrapModalVisible: status });
@@ -72,7 +63,6 @@ export const useMypageScrappedScreenStore =
       set({
         researchFilter: "ALL",
         voteFilter: "ALL",
-        researchUnscrapModalVisible: false,
         voteUnscrapModalVisible: false,
         scrapping: false,
       });

@@ -15,6 +15,7 @@ import {
   ResearchDetailDeleteModal,
   ResearchDetailPullupModal,
   ResearchDetailReportModal,
+  ResearchDetailUnscrapModal,
 } from "src/Modal";
 import shallow from "zustand/shallow";
 import { useResearchDetailScreenStore } from "src/Zustand";
@@ -65,6 +66,7 @@ export function ResearchDetailScreen({
       <ResearchDetailDeleteModal />
       <ResearchDetailPullupModal />
       <ResearchDetailReportModal />
+      <ResearchDetailUnscrapModal />
     </Container>
   );
 }
