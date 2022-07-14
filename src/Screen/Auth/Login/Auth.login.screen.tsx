@@ -7,7 +7,7 @@ import { AuthTextInput, AuthTextInputName } from "src/Component/Auth";
 import { RadiusButton } from "src/Component/Button";
 import { BodyText } from "src/StyledComponents/Text";
 import shallow from "zustand/shallow";
-import { useLoginScreenStore, useMypageStore } from "src/Zustand";
+import { useLoginScreenStore } from "src/Zustand";
 import { getStorage } from "src/Util";
 import { globalStyles } from "src/Style/globalStyles";
 
@@ -143,7 +143,6 @@ function Button({ loginable }: { loginable: boolean }) {
     }),
     shallow,
   );
-  const getUserActivities = useMypageStore(state => state.getUserActivities);
 
   /**
    * 로그인을 시도합니다. 로그인 결과가 성공적인 경우,
@@ -154,7 +153,6 @@ function Button({ loginable }: { loginable: boolean }) {
   async function tryLogin() {
     const result = await login();
     if (!result) return;
-    getUserActivities();
     navigation.goBack();
   }
 

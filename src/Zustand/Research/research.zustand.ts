@@ -24,6 +24,12 @@ type ResearchStoreProps = {
 
   setResearches: (researches: ResearchSchema[]) => void;
 
+  setResearchActivities: (researchActivities: {
+    scrappedResearches: ResearchSchema[];
+    participatedResearches: ResearchSchema[];
+    uploadedResearches: ResearchSchema[];
+  }) => void;
+
   /** 기존에 가지고 있던 리서치보다 최신의 리서치를 모두 가져옵니다 */
   getNewerResearches: () => Promise<void>;
 
@@ -115,6 +121,18 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
 
   setResearches: (researches: ResearchSchema[]) => {
     set({ researches });
+  },
+
+  setResearchActivities: (researchActivities: {
+    scrappedResearches: ResearchSchema[];
+    participatedResearches: ResearchSchema[];
+    uploadedResearches: ResearchSchema[];
+  }) => {
+    set({
+      scrappedResearches: researchActivities.scrappedResearches,
+      participatedResearches: researchActivities.participatedResearches,
+      uploadedResearches: researchActivities.uploadedResearches,
+    });
   },
 
   getNewerResearches: async () => {

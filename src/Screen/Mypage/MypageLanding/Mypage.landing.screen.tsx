@@ -11,7 +11,6 @@ import { MypageLandingFunction } from "./Mypage.landing.function";
 import { MypageLandingEvent } from "./Mypage.landing.event";
 import { MypageLandingAbout } from "./Mypage.landing.about";
 import { WhiteBackgroundScrollView } from "src/Component/ScrollView";
-import { useMypageStore } from "src/Zustand";
 import { themeColors } from "src/Theme";
 import { showBlackToast } from "src/Util";
 
@@ -29,15 +28,6 @@ export function MypageLandingScreen({
   route,
   navigation,
 }: NativeStackScreenProps<AppStackProps, "LandingBottomTabNavigator">) {
-  const getUserActivities = useMypageStore(state => state.getUserActivities);
-
-  useEffect(() => {
-    //* 마이페이지에 랜딩 페이지에 들어올 때마다
-    //* 유저의 활동 목록이 정상적으로 로드된 적 있는지 확인하고, 그렇지 않다면 활동내역을 가져옵니다.
-    getUserActivities();
-    return;
-  }, []);
-
   const readyToExit = useRef(false);
 
   /**

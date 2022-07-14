@@ -13,7 +13,11 @@ import {
   BlankUserResearch,
   BlankUserVote,
   CreditHistorySchema,
+  ResearchSchema,
+  VoteSchema,
 } from "src/Schema";
+import { useResearchStore } from "../Research/research.zustand";
+import { useVoteStore } from "../Vote/vote.zustand";
 import { useMypageStore } from "../Mypage/mypage.zustand";
 import {
   ParticipatedResearchInfo,
@@ -47,6 +51,19 @@ type UserStoreProps = {
     userProperty: UserPropertySchema;
     userResearch: UserResearchSchema;
     userVote: UserVoteSchema;
+  }) => void;
+
+  /**
+   * 로그인하여 얻어온 유저 활동 정보들(스크랩/참여/업로드한 리서치와 투표)을 저장합니다
+   */
+  setUserActivities: (userActivities: {
+    creditHistories: CreditHistorySchema[];
+    scrappedResearches: ResearchSchema[];
+    participatedResearches: ResearchSchema[];
+    uploadedResearches: ResearchSchema[];
+    scrappedVotes: VoteSchema[];
+    participatedVotes: VoteSchema[];
+    uploadedVotes: VoteSchema[];
   }) => void;
 
   /**
@@ -125,6 +142,28 @@ export const useUserStore = create<UserStoreProps>((set, get) => ({
       userVote: userInfo.userVote,
     });
     return;
+  },
+
+  setUserActivities: (userActivities: {
+    creditHistories: CreditHistorySchema[];
+    scrappedResearches: ResearchSchema[];
+    participatedResearches: ResearchSchema[];
+    uploadedResearches: ResearchSchema[];
+    scrappedVotes: VoteSchema[];
+    participatedVotes: VoteSchema[];
+    uploadedVotes: VoteSchema[];
+  }) => {
+    set({ creditHistories: userActivities.creditHistories });
+    useResearchStore.getState().setResearchActivities({
+      scrappedResearches: userActivities.scrappedResearches,
+      participatedResearches: userActivities.participatedResearches,
+      uploadedResearches: userActivities.uploadedResearches,
+    });
+    useVoteStore.getState().setVoteActivities({
+      scrappedVotes: userActivities.scrappedVotes,
+      participatedVotes: userActivities.participatedVotes,
+      uploadedVotes: userActivities.uploadedVotes,
+    });
   },
 
   //* Credit
