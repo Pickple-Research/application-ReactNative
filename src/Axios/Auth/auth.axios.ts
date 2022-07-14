@@ -4,7 +4,10 @@ import {
   UserNoticeSchema,
   UserPropertySchema,
   UserResearchSchema,
+  CreditHistorySchema,
   UserVoteSchema,
+  ResearchSchema,
+  VoteSchema,
 } from "src/Schema";
 import { handleAxiosError } from "src/Util";
 
@@ -14,11 +17,22 @@ import { handleAxiosError } from "src/Util";
  */
 export type UserInfoResponse = {
   jwt: string;
-  user: UserSchema;
-  userNotice: UserNoticeSchema;
-  userProperty: UserPropertySchema;
-  userResearch: UserResearchSchema;
-  userVote: UserVoteSchema;
+  userInfo: {
+    user: UserSchema;
+    userNotice: UserNoticeSchema;
+    userProperty: UserPropertySchema;
+    userResearch: UserResearchSchema;
+    userVote: UserVoteSchema;
+  };
+  userActivities: {
+    creditHistories: CreditHistorySchema[];
+    scrappedResearches: ResearchSchema[];
+    participatedResearches: ResearchSchema[];
+    uploadedResearches: ResearchSchema[];
+    scrappedVotes: VoteSchema[];
+    participatedVotes: VoteSchema[];
+    uploadedVotes: VoteSchema[];
+  };
 };
 
 /**

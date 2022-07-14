@@ -18,6 +18,12 @@ type VoteStoreProps = {
   uploadedVotes: VoteSchema[];
   setVotes: (votes: VoteSchema[]) => void;
 
+  setVoteActivities: (voteActivities: {
+    scrappedVotes: VoteSchema[];
+    participatedVotes: VoteSchema[];
+    uploadedVotes: VoteSchema[];
+  }) => void;
+
   /** 기존에 가지고 있던 투표보다 최신의 투표를 모두 가져옵니다 */
   getNewerVotes: () => Promise<void>;
 
@@ -90,6 +96,18 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
   participatedVotes: [BlankVote],
   uploadedVotes: [BlankVote],
   setVotes: (votes: VoteSchema[]) => set({ votes }),
+
+  setVoteActivities: (voteActivities: {
+    scrappedVotes: VoteSchema[];
+    participatedVotes: VoteSchema[];
+    uploadedVotes: VoteSchema[];
+  }) => {
+    set({
+      scrappedVotes: voteActivities.scrappedVotes,
+      participatedVotes: voteActivities.participatedVotes,
+      uploadedVotes: voteActivities.uploadedVotes,
+    });
+  },
 
   getNewerVotes: async () => {
     const newerVotes = await axiosGetNewerVotes(get().votes[0]._id);

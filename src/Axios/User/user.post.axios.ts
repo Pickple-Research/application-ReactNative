@@ -1,12 +1,5 @@
 import customAxios from "../axios.core";
-import {
-  CreditHistorySchema,
-  UserSchema,
-  ResearchSchema,
-  VoteSchema,
-  UserResearchSchema,
-  UserVoteSchema,
-} from "src/Schema";
+import { UserSchema } from "src/Schema";
 import { handleAxiosError } from "src/Util";
 
 /**
@@ -57,53 +50,6 @@ export const axiosSignupAsEmailUser = async (param: {
     })
     .catch(error => {
       handleAxiosError({ error, errorMessage: "회원가입에 실패했습니다" });
-      return null;
-    });
-};
-
-/**
- * 로그인 완료 후, 유저 활동 정보를 1차적으로 가져옵니다.
- * (참여한/스크랩한/업로드한 리서치 와 투표 정보 + 크레딧 사용내역)
- * @author 현웅
- */
-export const axiosGetUserActivity = async (param: {
-  userResearch: UserResearchSchema;
-  userVote: UserVoteSchema;
-}) => {
-  return await customAxios
-    .request<{
-      creditHistories: CreditHistorySchema[];
-      scrappedResearches: ResearchSchema[];
-      participatedResearches: ResearchSchema[];
-      uploadedResearches: ResearchSchema[];
-      scrappedVotes: VoteSchema[];
-      participatedVotes: VoteSchema[];
-      uploadedVotes: VoteSchema[];
-    }>({
-      method: "POST",
-      url: "/users/activity",
-      data: {
-        scrappedResearchIds: param.userResearch.scrappedResearchIds.slice(
-          0,
-          15,
-        ),
-        participatedResearchIds: param.userResearch.participatedResearchInfos
-          .slice(0, 15)
-          .map(info => info.researchId),
-        scrappedVoteIds: param.userVote.scrappedVoteIds.slice(0, 15),
-        participatedVoteIds: param.userVote.participatedVoteInfos
-          .slice(0, 15)
-          .map(info => info.voteId),
-      },
-    })
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      // handleAxiosError({
-      //   error,
-      //   errorMessage: "유저 활동 정보를 가져오는데 실패했습니다",
-      // });
       return null;
     });
 };
