@@ -2,10 +2,9 @@ import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { ResearchDday } from "./Research.dday.component";
-import { ResearchTarget } from "./Research.target.component";
 import { Chip, HashTags } from "src/Component/Text";
 import { ResearchSchema } from "src/Schema";
-import { H3 } from "src/StyledComponents/Text";
+import { H3, BodyText } from "src/StyledComponents/Text";
 
 /**
  * 리서치 목록을 보여줄 때 사용하는 리스트 한 줄 디자인입니다.
@@ -28,7 +27,7 @@ export function ResearchListItem({
         title={research.title}
         deadline={research.deadline}
         tags={[`research.tags`]}
-        targets={[`research.targets`]}
+        target={research.target}
       />
       <Credit />
     </Container>
@@ -43,12 +42,12 @@ function ResearchInfo({
   title,
   deadline,
   tags,
-  targets,
+  target,
 }: {
   title: string;
   deadline: string | Date;
   tags: string[];
-  targets: string[];
+  target: string;
 }) {
   return (
     <ResearchInfo__Container>
@@ -56,10 +55,11 @@ function ResearchInfo({
         <ResearchDday deadline={deadline} style={{ marginRight: 6 }} />
         <HashTags tags={tags} />
       </ResearchInfo__TagsContainer>
+
       <ResearchInfo__TitleText numberOfLines={2}>
         {title}
       </ResearchInfo__TitleText>
-      <ResearchTarget targets={targets} />
+      <ResearchInfo__TargetText>{target}</ResearchInfo__TargetText>
     </ResearchInfo__Container>
   );
 }
@@ -85,8 +85,6 @@ const Thumbnail__Container = styled.View`
   border-radius: 100px;
 `;
 
-const Thumbnail__Img = styled.Image``;
-
 // ResearchInfo()
 const ResearchInfo__Container = styled.View`
   flex: 1;
@@ -103,4 +101,9 @@ const ResearchInfo__TitleText = styled(H3)`
   font-weight: bold;
   line-height: 14px;
   margin-bottom: 6px;
+`;
+
+const ResearchInfo__TargetText = styled(BodyText)`
+  //TODO: #DESIGN-SYSTEM
+  color: #8f8f8f;
 `;

@@ -30,13 +30,9 @@ export function updateVoteListItem(
   updatedVote: VoteSchema,
   voteList: VoteSchema[],
 ) {
-  const updatedVoteIndex = voteList.findIndex(
-    vote => vote._id === updatedVote._id,
+  return voteList.map(vote =>
+    vote._id === updatedVote._id ? updatedVote : vote,
   );
-  if (updatedVoteIndex !== -1) {
-    return voteList.splice(updatedVoteIndex, 1, updatedVote);
-  }
-  return voteList;
 }
 
 /**

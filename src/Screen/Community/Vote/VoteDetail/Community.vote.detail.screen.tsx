@@ -11,6 +11,7 @@ import {
   VoteDetailCloseModal,
   VoteDetailDeleteModal,
   VoteDetailReportModal,
+  VoteDetailUnscrapVoteModal,
 } from "src/Modal";
 import { VoteSchema } from "src/Schema";
 import shallow from "zustand/shallow";
@@ -61,6 +62,7 @@ export function CommunityVoteDetailScreen({
       <VoteDetailCloseModal />
       <VoteDetailDeleteModal />
       <VoteDetailReportModal />
+      <VoteDetailUnscrapVoteModal />
     </Container>
   );
 }

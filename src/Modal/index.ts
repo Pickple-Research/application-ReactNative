@@ -5,8 +5,6 @@ export * from "./Auth/Funnel/Auth.funnel.complete.modal";
 
 export * from "./Mypage/CreditHistory/Mypage.creditHistory.serviceGettingReady.modal";
 
-export * from "./Mypage/Scrapped/Mypage.scrapped.unscrapVote.modal";
-
 export * from "./Mypage/Setting/Mypage.setting.logout.modal";
 export * from "./Mypage/Setting/Mypage.setting.resign.modal";
 
@@ -27,5 +25,6 @@ export * from "./Research/Upload/Research.upload.confirm.modal";
 export * from "./Vote/Detail/Vote.detail.close.modal";
 export * from "./Vote/Detail/Vote.detail.delete.modal";
 export * from "./Vote/Detail/Vote.detail.report.modal";
+export * from "./Vote/Detail/Vote.detail.unscrap.modal";
 
 export * from "./Vote/Upload/Vote.upload.blockExit.modal";

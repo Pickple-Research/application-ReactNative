@@ -27,10 +27,6 @@ export function CommunityVoteDetailOptions() {
         <VoteButton />
         <VotedUserNum participantsNum={voteDetail.participantsNum} />
       </InnerContainer>
-      <CommentsScrapNum
-        commentsNum={voteDetail.commentsNum}
-        scrapsNum={voteDetail.scrapsNum}
-      />
     </Container>
   );
 }
@@ -237,24 +233,6 @@ function VoteButton() {
  */
 function VotedUserNum({ participantsNum }: { participantsNum: number }) {
   return <VotedUserNum__Text>{`${participantsNum}명 투표`}</VotedUserNum__Text>;
-}
-
-/**
- * 댓글, 스크랩 수 표시 구간
- * @author 현웅
- */
-function CommentsScrapNum({
-  commentsNum,
-  scrapsNum,
-}: {
-  commentsNum: number;
-  scrapsNum: number;
-}) {
-  return (
-    <CommentsScrapNum__Container>
-      <CommentsScrapNum__Text>{`댓글 ${commentsNum} · 스크랩 ${scrapsNum}`}</CommentsScrapNum__Text>
-    </CommentsScrapNum__Container>
-  );
 }
 
 const Container = styled.View`

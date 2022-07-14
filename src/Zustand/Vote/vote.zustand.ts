@@ -26,53 +26,38 @@ type VoteStoreProps = {
   /** 기존에 가지고 있던 투표보다 더 예전의 투표를 가져옵니다 */
   getOlderVotes: () => Promise<void>;
 
-  /** 새로운 투표를 투표 리스트 맨 앞에 추가합니다. */
-  addVoteListItem: (newVote: VoteSchema | VoteSchema[]) => void;
-
-  /** 인자로 받은 투표(들)를 투표 리스트 맨 뒤에 추가합니다. */
-  appendVoteListItem: (newVote: VoteSchema | VoteSchema[]) => void;
-
-  /** 투표 리스트에 있는 투표 중 하나를 업데이트합니다. */
-  updateVoteListItem: (vote: VoteSchema) => void;
-
-  /** 투표 리스트에 있는 투표 중 하나를 삭제합니다. */
-  removeVoteListItem: (voteId: string) => void;
-
   /**
    * 투표 상세 페이지를 들어가거나 (대)댓글을 달아서
    * 투표 정보가 업데이트 된 경우, 해당 정보를 전파합니다.
    * - (vote.detail.zustand) voteDetail 정보를 최신 투표 정보로 업데이트 합니다.
-   * - (vote.zustand) votes 의 해당 투표를 최신 투표 정보로 업데이트 합니다.
-   * - (mypage.zustand) scrappedVotes 에 투표 정보를 추가합니다.
+   * - (vote.zustand) votes, scrappedVotes, participatedVotes, uploadedVotes 의 해당 투표를 최신 투표 정보로 업데이트 합니다.
    */
   spreadVoteUpdated: (vote: VoteSchema) => void;
 
   /**
    * 투표 스크랩 후 해당 정보를 전파합니다.
    * - (vote.detail.zustand) voteDetail 정보를 최신 투표 정보로 업데이트 합니다.
-   * - (vote.zustand) votes 의 해당 투표를 최신 투표 정보로 업데이트 합니다.
+   * - (vote.zustand) votes, participatedVotes 정보를 업데이트 하고
+   *     scrappedVotes 에 투표 정보를 추가합니다.
    * - (user.zustand) userVote 의 scrappedVoteIds 에 투표 _id 를 추가합니다.
-   * - (mypage.zustand) scrappedVotes 에 투표 정보를 추가합니다.
    */
   spreadVoteScrapped: (vote: VoteSchema) => void;
 
   /**
    * 투표 스크랩 취소 후 해당 정보를 전파합니다.
    * - (vote.detail.zustand) voteDetail 정보를 최신 투표 정보로 업데이트 합니다.
-   * - (vote.zustand) votes 에 해당 투표가 있는 경우, 최신 투표 정보로 업데이트 합니다.
+   * - (vote.zustand) votes, participatedVotes 정보를 업데이트 하고
+   *     scrappedVotes 에서 투표 정보를 제거합니다.
    * - (user.zustand) userVote 의 scrappedVoteIds 에서 투표 _id 를 제거합니다.
-   * - (mypage.zustand) scrappedVotes 에서 투표 정보를 제거합니다.
    */
   spreadVoteUnscrapped: (vote: VoteSchema) => void;
 
   /**
    * 투표 참여 후 해당 정보를 전파합니다.
    * - (vote.detail.zustand) voteDetail 정보를 최신 투표 정보로 업데이트 합니다.
-   * - (vote.zustand) votes 에 해당 투표가 있는 경우, 최신 투표 정보로 업데이트 합니다.
-   * - (user.zustand) userVote 의 participatedVoteInfos 에 투표 정보를 추가하고,
-   *   userCredit 에 크레딧 변동 사항과 크레딧 사용내역 _id 를 추가합니다.
-   * - (mypage.zustand) participatedVotes 에 투표 정보를 추가하고,
-   *   creditHistories 에 크레딧 사용내역을 추가합니다.
+   * - (vote.zustand) votes, scrappedVotes 정보를 업데이트 하고
+   *     participatedVotes 에 투표 정보를 추가합니다.
+   * - (user.zustand) userVote 의 participatedVoteInfos 에 투표 참여 정보를 추가합니다.
    */
   spreadVoteParticipated: (param: {
     participationVoteInfo: ParticipatedVoteInfo;
@@ -82,20 +67,21 @@ type VoteStoreProps = {
   /**
    * 투표를 업로드 후 해당 정보를 전파합니다.
    * - (vote.zustand) 업로드 이전의 최신 투표보다 더 최신의 투표를 가져와서 추가합니다.
+   * - (vote.zustand) uploadedVotes 에 투표 정보를 추가합니다.
    * - (user.zustand) userVote 의 uploadedVoteIds 에 투표 _id 를 추가합니다.
-   * - (mypage.zustand) uploadedVotes 에 투표 정보를 추가합니다.
    */
   spreadVoteUploaded: (param: { vote: VoteSchema }) => Promise<void>;
 
   /**
-   * 투표 삭제 후, 혹은 상세 페이지 진입 후 투표가 삭제된 경우 해당 정보를 전파합니다.
+   * 투표 삭제 후 해당 정보를 전파합니다.
    * - (user.zustand) userVote 의 모든 property 에서 투표 정보를 제거합니다.
-   * - (mypage.zustand) 모든 투표 관련 property 에서 투표 정보를 제거합니다.
-   * - (vote.zustand) votes 에서 투표 정보를 제거합니다.
+   * - (vote.zustand) uploadedVotes 에서 투표 정보를 제거합니다.
    */
   spreadVoteDeleted: (voteId: string) => void;
 
   clearState: () => void;
+
+  logout: () => void;
 };
 
 export const useVoteStore = create<VoteStoreProps>((set, get) => ({
@@ -108,7 +94,9 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
   getNewerVotes: async () => {
     const newerVotes = await axiosGetNewerVotes(get().votes[0]._id);
     if (newerVotes !== null) {
-      get().addVoteListItem(newerVotes);
+      set({
+        votes: addVoteListItem(newerVotes, get().votes),
+      });
     }
     return;
   },
@@ -136,66 +124,86 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
     }
 
     //* 가져온 투표가 있는 경우, 리스트 뒤에 추가합니다.
-    get().appendVoteListItem(olderVotes);
+    set({
+      votes: appendVoteListItem(olderVotes, get().votes),
+    });
     return;
   },
 
-  addVoteListItem: (newVote: VoteSchema | VoteSchema[]) => {
-    set({ votes: addVoteListItem(newVote, get().votes) });
-  },
-
-  appendVoteListItem: (newVote: VoteSchema | VoteSchema[]) => {
-    set({ votes: appendVoteListItem(newVote, get().votes) });
-  },
-
-  updateVoteListItem: (updatedVote: VoteSchema) => {
-    set({ votes: updateVoteListItem(updatedVote, get().votes) });
-  },
-
-  removeVoteListItem: (voteId: string) => {
-    set({ votes: removeVoteListItem(voteId, get().votes) });
-  },
-
   //* Spread
+  //* 업데이트된 투표 정보 전파
   spreadVoteUpdated: (vote: VoteSchema) => {
     useVoteDetailScreenStore.getState().updateVoteDetail(vote);
-    get().updateVoteListItem(vote);
+    set({
+      votes: updateVoteListItem(vote, get().votes),
+      scrappedVotes: updateVoteListItem(vote, get().scrappedVotes),
+      participatedVotes: updateVoteListItem(vote, get().participatedVotes),
+      uploadedVotes: updateVoteListItem(vote, get().uploadedVotes),
+    });
   },
 
+  //* 투표 스크랩 정보 전파
   spreadVoteScrapped: (vote: VoteSchema) => {
     useVoteDetailScreenStore.getState().updateVoteDetail(vote);
-    get().updateVoteListItem(vote);
+    set({
+      votes: updateVoteListItem(vote, get().votes),
+      participatedVotes: updateVoteListItem(vote, get().participatedVotes),
+      //* 자신이 올린 투표도 스크랩할 수 있는 경우
+      // uploadedVotes: updateVoteListItem(vote, get().uploadedVotes),
+      scrappedVotes: addVoteListItem(vote, get().scrappedVotes),
+    });
     useUserStore.getState().addVoteIdToUserVote({
       changeTarget: "SCRAP",
       voteId: vote._id,
     });
   },
 
+  //* 투표 스크랩 취소 정보 전파
   spreadVoteUnscrapped: (vote: VoteSchema) => {
     useVoteDetailScreenStore.getState().updateVoteDetail(vote);
-    get().updateVoteListItem(vote);
+    set({
+      votes: updateVoteListItem(vote, get().votes),
+      participatedVotes: updateVoteListItem(vote, get().participatedVotes),
+      //* 자신이 올린 투표도 스크랩할 수 있는 경우
+      // uploadedVotes: updateVoteListItem(vote, get().uploadedVotes),
+      scrappedVotes: removeVoteListItem(vote._id, get().votes),
+    });
     useUserStore.getState().removeVoteIdFromUserVote({
       voteId: vote._id,
       unscrap: true,
     });
   },
 
+  //* 투표 참여 정보 전파
   spreadVoteParticipated: (param: {
     participationVoteInfo: ParticipatedVoteInfo;
     vote: VoteSchema;
   }) => {
     useVoteDetailScreenStore.getState().updateVoteDetail(param.vote);
-    get().updateVoteListItem(param.vote);
+    set({
+      votes: updateVoteListItem(param.vote, get().votes),
+      scrappedVotes: updateVoteListItem(param.vote, get().scrappedVotes),
+      participatedVotes: addVoteListItem(param.vote, get().participatedVotes),
+    });
     useUserStore
       .getState()
       .addParticipatedVoteInfo(param.participationVoteInfo);
   },
 
+  //* 투표 업로드 정보 전파
   spreadVoteUploaded: async (param: { vote: VoteSchema }) => {
     await get().getNewerVotes();
+    set({
+      uploadedVotes: addVoteListItem(param.vote, get().uploadedVotes),
+    });
   },
 
+  //* 투표 삭제 정보 전파
   spreadVoteDeleted: (voteId: string) => {
+    set({
+      votes: removeVoteListItem(voteId, get().votes),
+      uploadedVotes: removeVoteListItem(voteId, get().uploadedVotes),
+    });
     useUserStore
       .getState()
       .removeVoteIdFromUserVote({ voteId, unscrap: false });
@@ -205,6 +213,14 @@ export const useVoteStore = create<VoteStoreProps>((set, get) => ({
     set({
       votes: [BlankVote],
       noMoreOlderVotes: false,
+    });
+  },
+
+  logout: () => {
+    set({
+      scrappedVotes: [BlankVote],
+      participatedVotes: [BlankVote],
+      uploadedVotes: [BlankVote],
     });
   },
 }));

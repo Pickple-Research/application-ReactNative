@@ -29,7 +29,7 @@ export function SignupAgreement() {
         </Checkbox>
         <AgreementOption__Text>{`[필수]`}</AgreementOption__Text>
 
-        <Agreement__Text>{`픽플리의 이용약관과 개인정보 처리방침에 동의합니다. `}</Agreement__Text>
+        <Agreement__Text>{`픽플리 이용약관과 개인정보 처리방침에 동의`}</Agreement__Text>
         <ShowAgreement__Text>내용 보기</ShowAgreement__Text>
       </Row>
 
@@ -40,7 +40,7 @@ export function SignupAgreement() {
           />
         </Checkbox>
         <AgreementOption__Text>{`[선택]`}</AgreementOption__Text>
-        <Agreement__Text>{`서비스 정보 수신에 동의합니다. `}</Agreement__Text>
+        <Agreement__Text>{`서비스 정보 수신에 동의합니다.`}</Agreement__Text>
         <ShowAgreement__Text>내용 보기</ShowAgreement__Text>
       </Row>
     </Container>
