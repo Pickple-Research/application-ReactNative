@@ -2,37 +2,37 @@ import React from "react";
 import { RadiusButton } from "src/Component/Button";
 import { BlackBackgroundModal, TitleModal } from "src/Component/Modal";
 import shallow from "zustand/shallow";
-import { useResearchDetailScreenStore } from "src/Zustand";
+import { useVoteDetailScreenStore } from "src/Zustand";
 
 /**
- * 마이페이지 나의 스크랩 페이지 리서치 스크랩 취소 모달입니다.
+ * 투표 상세 페이지 투표 스크랩 취소 모달입니다.
  * @author 현웅
  */
-export function ResearchDetailUnscrapModal() {
+export function VoteDetailUnscrapVoteModal() {
   const {
-    researchUnscrapModalVisible,
-    setResearchUnscrapModalVisible,
+    voteUnscrapModalVisible,
+    setVoteUnscrapModalVisible,
     scrapping,
-    unscrapResearch,
-  } = useResearchDetailScreenStore(
+    unscrapVote,
+  } = useVoteDetailScreenStore(
     state => ({
-      researchUnscrapModalVisible: state.researchUnscrapModalVisible,
-      setResearchUnscrapModalVisible: state.setResearchUnscrapModalVisible,
+      voteUnscrapModalVisible: state.voteUnscrapModalVisible,
+      setVoteUnscrapModalVisible: state.setVoteUnscrapModalVisible,
       scrapping: state.scrapping,
-      unscrapResearch: state.unscrapResearch,
+      unscrapVote: state.unscrapVote,
     }),
     shallow,
   );
 
-  async function tryUnscrapResearch() {
-    const result = await unscrapResearch();
-    if (result) setResearchUnscrapModalVisible(false);
+  async function tryUnscrapVote() {
+    const result = await unscrapVote();
+    if (result) setVoteUnscrapModalVisible(false);
   }
 
   return (
     <BlackBackgroundModal
-      modalVisible={researchUnscrapModalVisible}
-      setModalVisible={setResearchUnscrapModalVisible}>
+      modalVisible={voteUnscrapModalVisible}
+      setModalVisible={setVoteUnscrapModalVisible}>
       <TitleModal
         title={"스크랩을\n취소하시겠습니까?"}
         buttonSymmetric={true}
@@ -41,16 +41,16 @@ export function ResearchDetailUnscrapModal() {
             <RadiusButton
               loading
               text="스크랩 취소 중"
-              type="BLUE"
+              type="PURPLE"
               styleType="NARROW"
             />
           ) : (
             <RadiusButton
               text="아니오"
-              type="BLUE_CONFIRM"
+              type="PURPLE_CONFIRM"
               styleType="NARROW"
               onPress={() => {
-                setResearchUnscrapModalVisible(false);
+                setVoteUnscrapModalVisible(false);
               }}
             />
           )
@@ -59,9 +59,9 @@ export function ResearchDetailUnscrapModal() {
           scrapping ? undefined : (
             <RadiusButton
               text="예"
-              type="BLUE_CANCEL"
+              type="PURPLE_CANCEL"
               styleType="NARROW"
-              onPress={tryUnscrapResearch}
+              onPress={tryUnscrapVote}
             />
           )
         }

@@ -33,3 +33,4 @@ export * from "./PartnerIcon";
 export * from "./PickpleResearchIcon";
 export * from "./ResearchIcon";
 export * from "./ScrapIcon";
+export * from "./ScrapSmallIcon";

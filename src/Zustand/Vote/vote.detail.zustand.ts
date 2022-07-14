@@ -74,6 +74,10 @@ type VoteDetailScreenStoreProps = {
   voteCloseModalVisible: boolean;
   setVoteCloseModalVisible: (status: boolean) => void;
 
+  /** 투표 스크랩 취소 모달 표시 여부 */
+  voteUnscrapModalVisible: boolean;
+  setVoteUnscrapModalVisible: (status: boolean) => void;
+
   /** 댓글 로드 중 여부 */
   commentLoading: boolean;
   /** 투표 신고 중 여부 */
@@ -98,7 +102,7 @@ type VoteDetailScreenStoreProps = {
   scrapVote: () => Promise<void>;
 
   /** 투표 스크랩을 취소합니다 */
-  unscrapVote: () => Promise<void>;
+  unscrapVote: () => Promise<boolean>;
 
   /**
    * 투표 참여요청을 보냅니다.
@@ -227,6 +231,11 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
       set({ voteReportModalVisible: status });
     },
 
+    voteUnscrapModalVisible: false,
+    setVoteUnscrapModalVisible: (status: boolean) => {
+      set({ voteUnscrapModalVisible: status });
+    },
+
     commentLoading: false,
     reporting: false,
     scrapping: false,
@@ -248,6 +257,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         voteReportModalVisible: false,
         voteDeleteModalVisible: false,
         voteCloseModalVisible: false,
+        voteUnscrapModalVisible: false,
         commentLoading: false,
         reporting: false,
         scrapping: false,
@@ -293,6 +303,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     },
 
     scrapVote: async () => {
+      if (get().scrapping) return;
       set({ scrapping: true });
       const updatedVote = await axiosScrapVote(get().voteDetail._id);
       if (updatedVote !== null) {
@@ -302,12 +313,15 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
     },
 
     unscrapVote: async () => {
+      if (get().scrapping) return false;
       set({ scrapping: true });
       const updatedVote = await axiosUnscrapVote(get().voteDetail._id);
-      if (updatedVote !== null) {
-        useVoteStore.getState().spreadVoteUnscrapped(updatedVote);
-      }
       set({ scrapping: false });
+      if (updatedVote === null) {
+        return false;
+      }
+      useVoteStore.getState().spreadVoteUnscrapped(updatedVote);
+      return true;
     },
 
     participateVote: async () => {
@@ -342,7 +356,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         content: get().commentInput,
       });
       if (result !== null) {
-        get().setVoteDetail(result.updatedVote);
+        useVoteStore.getState().spreadVoteUpdated(result.updatedVote);
         get().addComment(result.newComment);
         set({ commentInput: "" });
       }
@@ -367,7 +381,7 @@ export const useVoteDetailScreenStore = create<VoteDetailScreenStoreProps>(
         content: get().commentInput,
       });
       if (result !== null) {
-        get().setVoteDetail(result.updatedVote);
+        useVoteStore.getState().spreadVoteUpdated(result.updatedVote);
         get().addReply(result.newReply);
         set({
           commentInput: "",

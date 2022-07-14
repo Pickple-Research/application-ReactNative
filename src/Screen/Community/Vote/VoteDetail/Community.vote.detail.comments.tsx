@@ -19,16 +19,16 @@ export function CommunityVoteDetailComments() {
 
   return (
     <Container>
-      <SectionHeader />
+      <SectionHeader commentsNum={voteDetailComments.length} />
       <VoteCommentsBox comments={voteDetailComments} />
     </Container>
   );
 }
 
-function SectionHeader() {
+function SectionHeader({ commentsNum }: { commentsNum: number }) {
   return (
     <SectionHeader__Container>
-      <SectionHeaderText title="댓글" />
+      <SectionHeaderText title={`댓글  ${commentsNum}`} />
     </SectionHeader__Container>
   );
 }

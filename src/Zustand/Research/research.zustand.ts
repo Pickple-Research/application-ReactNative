@@ -43,7 +43,8 @@ type ResearchStoreProps = {
   /**
    * 리서치 스크랩 후 해당 정보를 전파합니다.
    * - (research.detail.zustand) researchDetail 정보를 최신 리서치 정보로 업데이트 합니다.
-   * - (research.zustand) researches 의 해당 리서치를 최신 리서치 정보로 업데이트 하고 scrappedResearches 에 리서치 정보를 추가합니다.
+   * - (research.zustand) researches, participatedResearches 정보를 업데이트 하고
+   *     scrappedResearches 에 리서치 정보를 추가합니다.
    * - (user.zustand) userResearch 의 scrappedResearchIds 에 리서치 _id 를 추가합니다.
    */
   spreadResearchScrapped: (research: ResearchSchema) => void;
@@ -51,7 +52,8 @@ type ResearchStoreProps = {
   /**
    * 리서치 스크랩 취소 후 해당 정보를 전파합니다.
    * - (research.detail.zustand) researchDetail 정보를 최신 리서치 정보로 업데이트 합니다.
-   * - (research.zustand) researches, participatedResearches 에 해당 리서치가 있는 경우, 최신 리서치 정보로 업데이트 하고 scrappedResearches 에서 리서치 정보를 제거합니다.
+   * - (research.zustand) researches, participatedResearches 정보를 업데이트 하고
+   *     scrappedResearches 에서 리서치 정보를 제거합니다.
    * - (user.zustand) userResearch 의 scrappedResearchIds 에서 리서치 _id 를 제거합니다.
    */
   spreadResearchUnscrapped: (research: ResearchSchema) => void;
@@ -61,7 +63,7 @@ type ResearchStoreProps = {
    * - (research.detail.zustand) researchDetail 정보를 최신 리서치 정보로 업데이트 합니다.
    * - (research.zustand) researches, scrappedResearches 에 해당 리서치가 있는 경우, 최신 리서치 정보로 업데이트 하고 participatedResearches 에 리서치 정보를 추가합니다.
    * - (user.zustand) creditHistories 에 크레딧 사용내역을 추가하고 credit 총량을 업데이트 합니다.
-   * - (user.zustand) userResearch 의 participatedResearchInfos 에 리서치 정보를 추가합니다.
+   * - (user.zustand) userResearch 의 participatedResearchInfos 에 리서치 참여 정보를 추가합니다.
    */
   spreadResearchParticipated: (param: {
     participationResearchInfo: ParticipatedResearchInfo;
@@ -82,8 +84,7 @@ type ResearchStoreProps = {
   /**
    * 리서치 삭제 후 해당 정보를 전파합니다.
    * - (user.zustand) userResearch 의 모든 property 에서 리서치 정보를 제거합니다.
-   * - (mypage.zustand) 모든 리서치 관련 property 에서 리서치 정보를 제거합니다.
-   * - (research.zustand) researches 에서 리서치 정보를 제거합니다.
+   * - (research.zustand) uploadedResearches 에서 리서치 정보를 제거합니다.
    */
   spreadResearchDeleted: (researchId: string) => void;
 
@@ -261,15 +262,16 @@ export const useResearchStore = create<ResearchStoreProps>((set, get) => ({
   },
 
   spreadResearchDeleted: (researchId: string) => {
-    useUserStore
-      .getState()
-      .removeResearchIdFromUserResearch({ researchId, unscrap: false });
     set({
+      researches: removeResearchListItem(researchId, get().researches),
       uploadedResearches: removeResearchListItem(
         researchId,
         get().uploadedResearches,
       ),
     });
+    useUserStore
+      .getState()
+      .removeResearchIdFromUserResearch({ researchId, unscrap: false });
   },
 
   spreadDeletedResearch: (researchId: string) => {},

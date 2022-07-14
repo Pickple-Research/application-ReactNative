@@ -97,7 +97,7 @@ type ResearchDetailScreenStoreProps = {
   scrapResearch: () => Promise<void>;
 
   /** 리서치를 스크랩을 취소합니다. */
-  unscrapResearch: () => Promise<void>;
+  unscrapResearch: () => Promise<boolean>;
 
   /**
    * 리서치를 삭제합니다.
@@ -287,10 +287,10 @@ export const useResearchDetailScreenStore =
     },
 
     /**
-     * TODO: (대)댓글도 Spread?
      * 댓글을 업로드합니다.
-     * 응답이 성공적인 경우 투표 상태와 새로 생성된 댓글을 업데이트하고
-     * 댓글 입력란을 초기화합니다.
+     * 응답이 성공적인 경우 업데이트 된 투표 정보를 전파하고 (댓글 +1)
+     * 새로 생성된 댓글을 추가합니다.
+     * 또한, 댓글 입력란을 초기화합니다.
      */
     uploadComment: async () => {
       if (get().commentInput.length === 0) return;
@@ -302,7 +302,9 @@ export const useResearchDetailScreenStore =
         content: get().commentInput,
       });
       if (result !== null) {
-        get().setResearchDetail(result.updatedResearch);
+        useResearchStore
+          .getState()
+          .spreadResearchUpdated(result.updatedResearch);
         get().addComment(result.newComment);
         set({ commentInput: "" });
       }
@@ -327,7 +329,9 @@ export const useResearchDetailScreenStore =
         content: get().commentInput,
       });
       if (result !== null) {
-        get().setResearchDetail(result.updatedResearch);
+        useResearchStore
+          .getState()
+          .spreadResearchUpdated(result.updatedResearch);
         get().addReply(result.newReply);
         set({
           commentInput: "",
@@ -355,17 +359,18 @@ export const useResearchDetailScreenStore =
     },
 
     //* 리서치 스크랩을 취소합니다.
-    //* 응답이 성공적인 경우, 해당 내용을 전파하고 스크랩 취소 모달 창을 닫습니다.
+    //* 응답이 성공적인 경우, 해당 내용을 전파하고 true 를 반환합니다.
     unscrapResearch: async () => {
       set({ scrapping: true });
       const updatedResearch = await axiosUnscrapResearch(
         get().researchDetail._id,
       );
-      if (updatedResearch !== null) {
-        useResearchStore.getState().spreadResearchUnscrapped(updatedResearch);
-        get().setResearchUnscrapModalVisible(false);
+      if (updatedResearch === null) {
+        set({ scrapping: false });
+        return false;
       }
+      useResearchStore.getState().spreadResearchUnscrapped(updatedResearch);
       set({ scrapping: false });
-      return;
+      return true;
     },
   }));
