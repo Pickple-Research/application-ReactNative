@@ -3,10 +3,10 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { Carousel } from "@Component/FlatList";
-import { PillButton } from "@Component/Button";
-import { HashTags } from "@Component/Text";
-import { PartnerProps } from "@Object/Type";
+import { Carousel } from "src/Component/FlatList";
+import { PillButton } from "src/Component/Button";
+import { HashTags } from "src/Component/Text";
+import { PartnerProps } from "src/Object/Type";
 import { H3 } from "src/StyledComponents/Text";
 
 /**

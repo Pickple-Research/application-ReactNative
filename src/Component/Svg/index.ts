@@ -2,7 +2,7 @@
  * Svg 아이콘들을 수동으로 정의한 리액트 컴포넌트들입니다.
  * 다음과 같이 svg 파일을 직접 import하여 사용할 수도 있지만,
  * ```
- * import Logo from "@Resource/svg/<파일이름>.svg"
+ * import Logo from "src/Resource/svg/<파일이름>.svg"
  *
  * function Foo(){
  *     return <Logo width={} height={} />

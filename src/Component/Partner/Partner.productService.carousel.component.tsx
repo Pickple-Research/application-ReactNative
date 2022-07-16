@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/FlatList";
-import { Chip } from "@Component/Text";
-import { PartnerProductServiceProps } from "@Object/Type";
+import { Carousel } from "src/Component/FlatList";
+import { Chip } from "src/Component/Text";
+import { PartnerProductServiceProps } from "src/Object/Type";
 import { H4 } from "src/StyledComponents/Text";
 
 /**

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 import { mypageLandingScreenStyles } from "./Mypage.landing.screen";
-import { InterestCategoryCarousel } from "@Component/Category";
-import { SectionHeaderText } from "@Component/Text";
+import { InterestCategoryCarousel } from "src/Component/Category";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { exampleInterestingCategories } from "src/Object/Type";
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { HashTags } from "@Component/Text";
+import { HashTags } from "src/Component/Text";
 import { usePartnerStore } from "src/Zustand";
 import { globalStyles } from "src/Style";
 import { BodyText } from "src/StyledComponents/Text";
-import StarIcon from "@Resource/svg/star-icon.svg";
+import StarIcon from "src/Resource/svg/star-icon.svg";
 
 /**
  * 파트너 상세정보 페이지 파트너 프로필 섹션

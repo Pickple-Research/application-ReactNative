@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { RadiusButton } from "@Component/Button";
-import { SectionHeaderText } from "@Component/Text";
+import { RadiusButton } from "src/Component/Button";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { H3, H4, BodyText, DetailText } from "src/StyledComponents/Text";
 import { globalStyles } from "src/Style";

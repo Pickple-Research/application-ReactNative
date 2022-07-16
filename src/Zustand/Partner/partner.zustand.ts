@@ -1,5 +1,5 @@
 import create from "zustand";
-import { PartnerProps, PartnerProductServiceProps } from "@Object/Type";
+import { PartnerProps, PartnerProductServiceProps } from "src/Object/Type";
 
 type PartnerStoreProps = {
   examplePartner: PartnerProps;
