@@ -3,8 +3,8 @@ import { StyleSheet, FlatList } from "react-native";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { Carousel } from "@Component/FlatList";
-import { PartnerProps } from "@Object/Type";
+import { Carousel } from "src/Component/FlatList";
+import { PartnerProps } from "src/Object/Type";
 import { DetailText } from "src/StyledComponents/Text";
 
 /**

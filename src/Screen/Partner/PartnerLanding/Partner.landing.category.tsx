@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { SectionHeaderText } from "@Component/Text";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { DetailText } from "src/StyledComponents/Text";
-import CategoryIcon01 from "@Resource/svg/category-icon01.svg";
-import CategoryIcon02 from "@Resource/svg/category-icon02.svg";
-import CategoryIcon03 from "@Resource/svg/category-icon03.svg";
+import CategoryIcon01 from "src/Resource/svg/category-icon01.svg";
+import CategoryIcon02 from "src/Resource/svg/category-icon02.svg";
+import CategoryIcon03 from "src/Resource/svg/category-icon03.svg";
 
 /**
  * 파트너 랜딩 페이지 카테고리별 파트너 섹션

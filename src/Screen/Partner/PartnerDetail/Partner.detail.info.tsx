@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { SectionHeaderText } from "@Component/Text";
+import { SectionHeaderText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { globalStyles } from "src/Style";
 import { BodyText, DetailText } from "src/StyledComponents/Text";

@@ -3,7 +3,7 @@ import { StyleSheet, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import { theme } from "src/Theme";
 import { globalStyles } from "src/Style";
-import SearchIcon from "@Resource/svg/search-icon.svg";
+import SearchIcon from "src/Resource/svg/search-icon.svg";
 
 /**
  * @deprecated

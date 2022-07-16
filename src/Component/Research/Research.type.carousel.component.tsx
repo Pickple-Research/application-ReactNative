@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Carousel } from "@Component/FlatList";
-import { Chip } from "@Component/Text";
-import { ResearchType } from "@Object/Enum";
+import { Carousel } from "src/Component/FlatList";
+import { Chip } from "src/Component/Text";
+import { ResearchType } from "src/Object/Enum";
 import { allResearchTypes } from "src/Object/Enum";
 import { H4 } from "src/StyledComponents/Text";
 
@@ -14,8 +14,8 @@ import { H4 } from "src/StyledComponents/Text";
  *
  * @example
  * import React, { useState } from "react"
- * import { ResearchTypeCarousel } from "@Component/Research"
- * import { ResearchType } from "@Object/Enum"
+ * import { ResearchTypeCarousel } from "src/Component/Research"
+ * import { ResearchType } from "src/Object/Enum"
  *
  * function ResearchTypes(){
  *  const [selectedResearchType, setSelectedResearchType] = useState<ResearchType>(ResearchType.ALL)

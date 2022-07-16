@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { HashTags } from "@Component/Text";
-import { PartnerProps } from "@Object/Type";
+import { HashTags } from "src/Component/Text";
+import { PartnerProps } from "src/Object/Type";
 import { H4, BodyText } from "src/StyledComponents/Text";
 
 /**

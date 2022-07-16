@@ -1,7 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 import { BottomTabSvgIconProps } from ".";
-import { theme } from "@Theme/theme";
+import { theme } from "src/Theme/theme";
 
 /**
  * LandingBottomTab의 커뮤니티 아이콘. focused 된 경우 색이 어두워집니다.

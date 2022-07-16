@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components/native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppStackProps } from "src/Navigator";
-import { PartnerAdCarousel } from "@Component/Partner";
-import { SectionHeaderText, MoreText } from "@Component/Text";
+import { PartnerAdCarousel } from "src/Component/Partner";
+import { SectionHeaderText, MoreText } from "src/Component/Text";
 import { SectionHeader__Container } from "src/StyledComponents/View";
 import { usePartnerStore } from "src/Zustand";
 
